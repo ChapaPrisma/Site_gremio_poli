@@ -3,7 +3,7 @@
 // Os caminhos (href) são relativos à raiz do site, sem barra no início,
 // para funcionar igual em subpasta (github.io/Site_gremio_poli/) ou num domínio próprio.
 
-import { encontrar, destino } from "./ramificacoes.js?v=202610121420";
+import { encontrar, destino } from "./ramificacoes.js?v=202610121559";
 
 const doRegistro = (id, rotulo) => {
   const { no } = encontrar(id);
@@ -19,6 +19,8 @@ export const site = {
   aviso: {
     texto: "Novo site em construção. O site atual continua no ar.",
     link: { rotulo: "gremiopolitecnico.com.br", href: "https://www.gremiopolitecnico.com.br/" },
+    // Quem está fazendo este novo site (aparece na mesma faixa, com a logo).
+    autoria: { texto: "Este novo site é feito pela chapa Prisma.", rotulo: "Conheça a chapa aqui", href: "https://chapaprisma.github.io/site_chapa/", logo: "assets/img/marca/prisma-claro.svg?v=b6820360" },
   },
 
   // O índice completo das ramificações abre pelo botão "Índice" do cabeçalho.

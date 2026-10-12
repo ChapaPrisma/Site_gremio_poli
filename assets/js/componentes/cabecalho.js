@@ -3,7 +3,7 @@
 // "Índice" e a gaveta também traz os links do menu.
 // Qualquer elemento com data-abrir-gaveta, em qualquer lugar da página, abre a mesma gaveta.
 
-import { arvore } from "./indice.js?v=202610121420";
+import { arvore } from "./indice.js?v=202610121559";
 
 export default function cabecalho(alvo, contexto) {
   const { site, url } = contexto;
@@ -11,7 +11,8 @@ export default function cabecalho(alvo, contexto) {
 
   const aviso = site.aviso
     ? `<div class="aviso"><div class="container">${site.aviso.texto}${
-        site.aviso.link ? ` <a href="${url(site.aviso.link.href)}">${site.aviso.link.rotulo}</a>` : ""
+        site.aviso.link ? ` <a href="${url(site.aviso.link.href)}">${site.aviso.link.rotulo}</a>` : ""}${
+        site.aviso.autoria ? ` <span class="aviso__autoria"><img src="${url(site.aviso.autoria.logo)}" alt="" width="16" height="18">${site.aviso.autoria.texto} <a href="${site.aviso.autoria.href}" target="_blank" rel="noopener">${site.aviso.autoria.rotulo}</a></span>` : ""
       }</div></div>`
     : "";
 

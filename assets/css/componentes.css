@@ -49,6 +49,9 @@
 /* ---------- aviso ---------- */
 .aviso { background: var(--tinta); color: rgba(255, 255, 255, .85); font-size: var(--t-pequeno); padding: 7px 0; }
 .aviso a { color: var(--sol); font-weight: 700; }
+.aviso__autoria { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0 6px; margin-left: 10px; padding-left: 12px; border-left: 1px solid rgba(255, 255, 255, .25); }
+.aviso__autoria img { flex: none; height: 18px; width: auto; }
+@media (max-width: 640px) { .aviso__autoria { display: flex; margin: 4px 0 0; padding-left: 0; border-left: 0; } }
 
 /* ---------- cabeçalho ---------- */
 .cabecalho { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--fundo) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--linha); }
