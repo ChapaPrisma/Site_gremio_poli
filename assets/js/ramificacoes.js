@@ -58,7 +58,7 @@ export const ramificacoes = [
           { id: "reforco", titulo: "Aulas de reforço (Fuja do Nabo)", texto: "Aulas na reta final antes das provas, gravadas e publicadas no YouTube do Grêmio.", veja: "fuja-do-nabo" },
           { id: "apoio-academico", titulo: "Apoio acadêmico", texto: "Dúvidas sobre matrícula, requerimentos e calendário, divulgação de bolsas e pedidos de reoferecimento de disciplinas." },
           { id: "emprestimo", titulo: "Empréstimo de material", texto: "Calculadoras científicas, jalecos e equipamentos de som e foto para eventos e apresentações." },
-          { id: "bolsas", titulo: "Auxílio financeiro para idiomas", texto: "Auxílio financeiro no Poliglota Idiomas, independentemente da condição socioeconômica." },
+          { id: "bolsas", titulo: "Auxílio financeiro para idiomas", texto: "Auxílio financeiro para estudar idiomas no Poliglota Idiomas." },
         ],
       },
       {
