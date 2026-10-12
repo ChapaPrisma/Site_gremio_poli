@@ -52,13 +52,13 @@ export const ramificacoes = [
         resumo: "Do reforço antes da prova ao empréstimo de calculadora: ajuda prática para atravessar a graduação.",
         numeros: [
           { valor: "700+", rotulo: "alunos por ano nas aulas de reforço" },
-          { valor: "900+", rotulo: "bolsas integrais de idiomas concedidas" },
+          { valor: "900+", rotulo: "auxílios financeiros para idiomas concedidos" },
         ],
         filhos: [
           { id: "reforco", titulo: "Aulas de reforço (Fuja do Nabo)", texto: "Aulas na reta final antes das provas, gravadas e publicadas no YouTube do Grêmio.", veja: "fuja-do-nabo" },
           { id: "apoio-academico", titulo: "Apoio acadêmico", texto: "Dúvidas sobre matrícula, requerimentos e calendário, divulgação de bolsas e pedidos de reoferecimento de disciplinas." },
           { id: "emprestimo", titulo: "Empréstimo de material", texto: "Calculadoras científicas, jalecos e equipamentos de som e foto para eventos e apresentações." },
-          { id: "bolsas", titulo: "Bolsas de idiomas", texto: "Bolsas integrais no Poliglota Idiomas, independentemente da condição socioeconômica." },
+          { id: "bolsas", titulo: "Auxílio financeiro para idiomas", texto: "Auxílio financeiro no Poliglota Idiomas, independentemente da condição socioeconômica." },
         ],
       },
       {

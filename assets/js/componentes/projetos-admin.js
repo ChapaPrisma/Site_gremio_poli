@@ -3,9 +3,9 @@
 // Tudo aparece na hora na página Parcerias. Usa o login das contas (mesmo banco Supabase).
 // Chamado pelo painel de contas depois que o administrador entra.
 
-import { carregarProjetos, SITUACOES } from "../dados/projetos.js?v=202610121559";
-import { dataBR } from "../dados/contas.js?v=202610121559";
-import { hojeSP } from "../dados/tempo.js?v=202610121559";
+import { carregarProjetos, SITUACOES } from "../dados/projetos.js?v=202610121606";
+import { dataBR } from "../dados/contas.js?v=202610121606";
+import { hojeSP } from "../dados/tempo.js?v=202610121606";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
