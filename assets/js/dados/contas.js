@@ -3,7 +3,7 @@
 // administradores, atualização ao vivo). Sem isso, lê assets/dados/contas.json, só leitura.
 // Tabelas e regras: ferramentas/supabase/contas.sql. Passo a passo: ferramentas/supabase/LEIA-ME.md.
 
-import { hojeSP } from "./tempo.js?v=202610081415";
+import { hojeSP } from "./tempo.js?v=202610120941";
 
 export const INICIO_CONTAS = "2027-01-01";
 export const CATEGORIAS = ["Eventos", "Serviços", "Loja", "Projetos", "Patrocínio", "Doações", "Estrutura e manutenção", "Pessoal", "Taxas e impostos", "Dívida", "Outros"];

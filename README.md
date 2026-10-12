@@ -2,6 +2,8 @@
 
 Site estático, modular e independente de hospedagem. Não tem etapa de build: o que está no repositório é exatamente o que vai ao ar.
 
+Hoje ele está no GitHub Pages, em https://chapaprisma.github.io/Site_gremio_poli/ (repositório `ChapaPrisma/Site_gremio_poli`). Como todos os caminhos são relativos, trocar de endereço não exige mudar o código; só a configuração de login do Supabase (Authentication > URL Configuration) precisa do endereço novo.
+
 ## Rodar localmente
 
 Como o site usa módulos JavaScript, abra-o por um servidor local, não clicando duas vezes no arquivo:
