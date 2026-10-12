@@ -116,7 +116,7 @@ export const ramificacoes = [
     resumo: "Alunos com voz e voto nas decisões da graduação e da pós-graduação. Nessas instâncias, o voto discente tem o mesmo peso do voto docente.",
     acoes: [
       { rotulo: "Enviar uma demanda", href: "aluno/demandas/" },
-      { rotulo: "Falar pelo Instagram", href: "https://instagram.com/gremiopolitecnico", externo: true },
+      { rotulo: "Escrever por e-mail (provisório)", href: "mailto:chapa.poli.prisma@gmail.com", externo: true },
     ],
     filhos: [],
   },

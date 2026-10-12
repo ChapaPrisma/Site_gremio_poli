@@ -3,7 +3,7 @@
 
 export default function rodape(alvo, { site, url, registro, destino }) {
   const { contato } = site;
-  const tel = contato.telefone.replace(/\D/g, "");
+  const tel = contato.telefone ? contato.telefone.replace(/\D/g, "") : "";
   // Mapa do site: todas as ramificações do registro, na ordem em que foram cadastradas.
   const menu = registro.map((r) => `<li><a href="${url(destino(r, []))}">${r.titulo}</a></li>`).join("");
 
@@ -11,11 +11,11 @@ export default function rodape(alvo, { site, url, registro, destino }) {
     <footer class="rodape" id="contato">
       <div class="container">
         <div class="rodape__topo">
-          <h2>Fale com o Grêmio</h2>
-          <p>Dúvidas, demandas, parcerias ou sugestões: escreva para a gente pelo canal que preferir.</p>
+          <h2>Fale com a gente</h2>
+          <p>Dúvidas, demandas, parcerias ou sugestões: escreva para a gente.${contato.provisorio ? ` <span class="rodape__provisorio">${contato.provisorio}</span>` : ""}</p>
           <ul class="rodape__canais">
-            <li><a href="mailto:${contato.email}"><span>E-mail</span>${contato.email}</a></li>
-            <li><a href="tel:+55${tel}"><span>Telefone</span>${contato.telefone}</a></li>
+            <li><a href="mailto:${contato.email}"><span>E-mail${contato.provisorio ? " (provisório)" : ""}</span>${contato.email}</a></li>
+            ${tel ? `<li><a href="tel:+55${tel}"><span>Telefone</span>${contato.telefone}</a></li>` : ""}
             ${site.redes.map((r) => `<li><a href="${r.href}" target="_blank" rel="noopener"><span>${r.nome}</span>${r.usuario}</a></li>`).join("")}
           </ul>
         </div>

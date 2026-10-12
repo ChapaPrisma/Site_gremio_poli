@@ -2,7 +2,7 @@
 // com o saldo acumulado. Os lançamentos vêm de dados/contas.js (banco Supabase ou arquivo).
 // Uso: marcação em transparencia/index.html e <div data-componente="guia-transparencia"></div>.
 
-import { carregar, ouvir, extrato, reais, dataBR, INICIO_CONTAS } from "../dados/contas.js?v=202610120941";
+import { carregar, ouvir, extrato, reais, dataBR, INICIO_CONTAS } from "../dados/contas.js?v=202610121352";
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -17,7 +17,7 @@ export default async function guiaTransparencia(_alvo, { site, raiz }) {
   async function atualizar() {
     try {
       const r = await carregar(site, raiz);
-      dados = { ...r, ...extrato(r.lancamentos, r.parametros, r.selic, hojeISO()) };
+      dados = { ...r, ...extrato(r.lancamentos, r.parametros) };
       desenhar();
       const hora = new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
       const vivo = $("#aoVivo");
@@ -42,7 +42,6 @@ export default async function guiaTransparencia(_alvo, { site, raiz }) {
 
     // dívida
     const barra = $("#dividaBarra"), pago = $("#dividaPago");
-    $("#dividaNota").hidden = d.divida.total == null;
     if (d.divida.total == null) {
       barra.classList.add("a-confirmar");
       pago.style.width = "0";
@@ -53,17 +52,11 @@ export default async function guiaTransparencia(_alvo, { site, raiz }) {
       barra.setAttribute("aria-label", "Valor da dívida ainda a confirmar");
     } else {
       barra.classList.remove("a-confirmar");
-      // a barra compara o que já foi pago com o que ainda falta hoje (com a Selic)
-      const resta = Math.max(0, d.divida.atual ?? d.divida.total - d.divida.paga);
-      const pct = d.divida.paga + resta > 0 ? Math.min(100, (d.divida.paga / (d.divida.paga + resta)) * 100) : 100;
+      const pct = d.divida.total > 0 ? Math.min(100, (d.divida.paga / d.divida.total) * 100) : 100;
       pago.style.width = `${pct}%`;
+      const resta = Math.max(0, d.divida.total - d.divida.paga);
       $("#dividaValor").textContent = resta ? `Faltam ${reais(resta)}` : "Dívida quitada";
-      const origem = d.divida.dataBase ? `Eram ${reais(d.divida.total)} em ${dataBR(d.divida.dataBase)}` : `Eram ${reais(d.divida.total)}`;
-      const taxa = d.divida.corrigida ? `${d.divida.taxaAnual.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}% ao ano` : "";
-      const selic = !d.divida.corrigida ? "."
-        : d.divida.juros >= 0.01 ? ` e o valor cresce com a Selic (hoje, ${taxa}): ${reais(d.divida.juros)} de juros até agora.`
-        : `; dali em diante, o valor cresce com a Selic (hoje, ${taxa}).`;
-      $("#dividaLegenda").textContent = `${d.divida.paga ? `${reais(d.divida.paga)} pagos (${pct.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}%). ` : ""}${origem}${selic} A barra enche a cada pagamento lançado.`;
+      $("#dividaLegenda").textContent = `${reais(d.divida.paga)} pagos de ${reais(d.divida.total)} (${pct.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}%). A barra enche a cada pagamento lançado.`;
       barra.setAttribute("aria-label", `${pct.toFixed(0)}% da dívida paga`);
     }
 
@@ -178,7 +171,6 @@ export default async function guiaTransparencia(_alvo, { site, raiz }) {
   }
 
   // Data de referência (permite conferir o gráfico em outra data com ?hoje=AAAA-MM-DD).
-  const hojeISO = () => { const r = hojeRef(); return `${r.getFullYear()}-${String(r.getMonth() + 1).padStart(2, "0")}-${String(r.getDate()).padStart(2, "0")}`; };
   const hojeRef = () => { const q = new URLSearchParams(location.search).get("hoje"); return q && /^\d{4}-\d{2}-\d{2}$/.test(q) ? new Date(q + "T12:00:00") : new Date(); };
 
   function graficoAcumulado() {
@@ -195,14 +187,9 @@ export default async function guiaTransparencia(_alvo, { site, raiz }) {
       pontos.push([m, saldo]);
     }
     const ajuste = pontos.length >= 3 ? melhorAjuste(pontos.map((p) => p[0]), pontos.map((p) => p[1])) : null;
-    // dívida no fim de cada mês (t = 0 é o fim de dez/2026), com a Selic; adiante, estimada com a taxa atual
-    const temDivida = dados.divida.total != null;
-    const fimDoMes = (k) => new Date(Date.UTC(+ano, k, 1, 12)).toISOString().slice(0, 10);
-    const dMes = temDivida ? Array.from({ length: 49 }, (_, k) => dados.divida.em(fimDoMes(k)).valor) : [];
-    const Dt = (t) => { const k = Math.max(0, Math.min(47, Math.floor(t))), f = Math.max(0, Math.min(1, t - k)); return dMes[k] + (dMes[k + 1] - dMes[k]) * f; };
-    const D = temDivida ? Dt(Math.max(0, M)) : null;
+    const D = dados.divida.total;
     const curva = ajuste ? Array.from({ length: 111 }, (_, i) => { const t = 1 + i * 0.1; return [t, ajuste.f(t)]; }) : [];
-    const vals = [0, ...pontos.map((p) => p[1]), ...(temDivida ? dMes.slice(0, 13) : []), ...curva.map((p) => p[1])];
+    const vals = [0, ...pontos.map((p) => p[1]), ...(D != null ? [D] : []), ...curva.map((p) => p[1])];
     const max = Math.max(1, ...vals), min = Math.min(0, ...vals);
     const col = (w - esq - dir) / 12, bw = Math.max(8, col * 0.5);
     const x = (t) => esq + col * (t - 1) + col / 2;
@@ -210,11 +197,7 @@ export default async function guiaTransparencia(_alvo, { site, raiz }) {
     let s = `<line class="zero" x1="${esq}" x2="${w - dir}" y1="${y(0)}" y2="${y(0)}"/>`;
     MESES.forEach((m, i) => { s += `<text class="rot" x="${x(i + 1)}" y="${h - 8}" text-anchor="middle">${m}</text>`; });
     for (const [t, v] of pontos) s += `<rect class="barra-s${v < 0 ? " neg" : ""}" x="${x(t) - bw / 2}" y="${Math.min(y(v), y(0))}" width="${bw}" height="${Math.abs(y(0) - y(v))}" rx="3"><title>${MESES[t - 1]}: saldo ${reais(v)}</title></rect>`;
-    if (temDivida) {
-      const passos = Array.from({ length: 49 }, (_, i) => 0.5 + i * 0.25);
-      s += `<polyline class="linha-divida" points="${passos.map((t) => `${x(t).toFixed(1)},${y(Dt(t)).toFixed(1)}`).join(" ")}"/>`;
-      s += `<text class="rot-divida" x="${w - dir - 4}" y="${y(Dt(12.5)) - 6}" text-anchor="end">dívida com a Selic: ${reais(Dt(12))} em dez/${ano}</text>`;
-    }
+    if (D != null) s += `<line class="linha-divida" x1="${esq}" x2="${w - dir}" y1="${y(D)}" y2="${y(D)}"/><text class="rot-divida" x="${w - dir - 4}" y="${y(D) - 6}" text-anchor="end">dívida: ${reais(D)}</text>`;
     else s += `<text class="rot-divida" x="${w - dir - 4}" y="${topo + 12}" text-anchor="end">dívida: valor a confirmar</text>`;
     if (curva.length) s += `<polyline class="curva-ajuste" points="${curva.map(([t, v]) => `${x(t).toFixed(1)},${y(Math.max(min, Math.min(max, v))).toFixed(1)}`).join(" ")}"/>`;
     if (!pontos.length) s += `<text class="rot" x="${w / 2}" y="${h / 2}" text-anchor="middle">A primeira barra entra quando janeiro de 2027 terminar.</text>`;
@@ -230,9 +213,9 @@ export default async function guiaTransparencia(_alvo, { site, raiz }) {
       return;
     }
     let previsao = "";
-    if (temDivida && pontos[pontos.length - 1][1] < D) {
+    if (D != null && pontos[pontos.length - 1][1] < D) {
       let tCruz = null;
-      for (let t = M; t <= Math.min(48, M + 36); t += 0.05) if (ajuste.f(t) >= Dt(t)) { tCruz = t; break; }
+      for (let t = M; t <= M + 36; t += 0.05) if (ajuste.f(t) >= D) { tCruz = t; break; }
       if (tCruz) { const mes = Math.ceil(tCruz), mm = ((mes - 1) % 12), aa = +ano + Math.floor((mes - 1) / 12); previsao = `Extrapolando (com toda a cautela de engenheiro), o saldo alcançaria a dívida por volta de ${MESES[mm]}/${aa}.`; }
       else previsao = "No ritmo do ajuste, o saldo não alcança a dívida nos próximos três anos.";
     }

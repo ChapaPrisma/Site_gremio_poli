@@ -98,8 +98,6 @@ A página `transparencia/` (botão vermelho no fim do índice) mostra o saldo do
 
 As contas ficam num banco Supabase (leitura pública, escrita só para a lista de administradores). Passo a passo em `ferramentas/supabase/LEIA-ME.md`, tabelas e regras em `ferramentas/supabase/contas.sql`, e a ligação em `site.contas` no `config.js`. Enquanto o banco não estiver ligado, a Transparência lê `assets/dados/contas.json`.
 
-A dívida cresce com a Selic: o parâmetro `divida` do banco guarda o valor numa data-base (`total`, `data_base`), e a Transparência rende esse valor pela Selic de cada dia útil, menos os pagamentos lançados. A taxa vem do Banco Central (SGS 11) por `ferramentas/selic.mjs`, que grava `assets/dados/selic.json`; o agendador `.github/workflows/selic.yml` roda nos dias úteis. Nos dias ainda sem taxa publicada, repete a última conhecida.
-
 As vendas da loja entram sozinhas na Transparência: o painel **Vendas da loja** (em `admin/`) grava cada venda na tabela `vendas`, e um gatilho do banco (`ferramentas/supabase/loja.sql`) publica o total de cada dia como uma receita, sem nenhum dado de quem comprou. O futuro checkout online só precisa gravar os pedidos pagos na mesma tabela.
 
 ## Salas da Poli

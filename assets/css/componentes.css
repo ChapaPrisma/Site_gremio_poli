@@ -476,3 +476,31 @@
   .destaques--celular .destaque { aspect-ratio: 4 / 5; }
 }
 @media (prefers-reduced-motion: reduce) { .destaque { transition: none; } }
+
+/* contato provisório no rodapé */
+.rodape__provisorio { display: block; margin-top: 4px; font-size: .85rem; opacity: .75; }
+
+/* aviso "só funciona se a chapa for eleita" (componentes/so-se-eleita.js) */
+.so-se-eleita {
+  position: fixed; inset: 0; margin: auto; width: min(460px, calc(100vw - 32px)); height: fit-content; max-height: calc(100vh - 32px);
+  padding: 30px 26px 24px; border: var(--borda); border-radius: var(--raio); background: var(--papel); color: var(--tinta);
+  box-shadow: 0 8px 0 var(--tinta); overflow: visible; text-align: left;
+}
+.so-se-eleita::backdrop { background: rgba(18, 23, 53, .55); backdrop-filter: blur(2px); }
+.so-se-eleita[open] { animation: eleita-entra .42s cubic-bezier(.2, 1.4, .4, 1) both; }
+.so-se-eleita[open]::backdrop { animation: eleita-fundo .3s ease both; }
+.so-se-eleita.saindo { animation: eleita-sai .18s ease-in both; }
+.so-se-eleita h2 { font-size: clamp(1.35rem, 3.6vw, 1.7rem); line-height: 1.15; }
+.so-se-eleita p { margin-top: 10px; color: var(--tinta-suave); }
+.so-se-eleita small { display: block; margin-top: 14px; font-size: .85rem; color: var(--tinta-suave); }
+.so-se-eleita__acoes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.so-se-eleita__selo {
+  position: absolute; top: -16px; right: 22px; padding: 4px 14px; border: var(--borda); border-radius: 999px;
+  background: var(--sol); font: 800 .85rem var(--fonte); transform: rotate(4deg);
+  animation: eleita-selo .5s .18s cubic-bezier(.2, 1.6, .4, 1) both;
+}
+@keyframes eleita-entra { from { opacity: 0; transform: translateY(24px) scale(.92); } to { opacity: 1; transform: none; } }
+@keyframes eleita-sai { to { opacity: 0; transform: translateY(12px) scale(.96); } }
+@keyframes eleita-fundo { from { opacity: 0; } }
+@keyframes eleita-selo { from { opacity: 0; transform: rotate(-14deg) scale(.4); } to { opacity: 1; transform: rotate(4deg) scale(1); } }
+@media (prefers-reduced-motion: reduce) { .so-se-eleita[open], .so-se-eleita.saindo, .so-se-eleita__selo, .so-se-eleita[open]::backdrop { animation: none; } }

@@ -32,7 +32,7 @@ export const servicos = [
     frase: "O idioma do seu intercâmbio começa aqui.",
     texto: "Há mais de 30 anos ensinando alemão, espanhol, francês, inglês, italiano e português, com bolsas integrais para alunos.",
     numeros: [{ valor: "6", rotulo: "idiomas" }, { valor: "30+", rotulo: "anos" }, { valor: "900+", rotulo: "bolsas integrais" }],
-    onde: "Ao lado do Biênio",
+    onde: "No prédio do Biênio, ao lado do Triedro",
     noPonto: true,
   },
 ];

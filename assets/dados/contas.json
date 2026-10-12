@@ -1,5 +1,12 @@
 {
  "observacao": "Usado só enquanto o banco Supabase não estiver configurado em assets/js/config.js (site.contas).",
- "parametros": { "divida": { "total": 2100000, "data_base": "2026-10-08", "indexador": "selic" }, "saldo_inicial": { "valor": null } },
+ "parametros": {
+  "divida": {
+   "total": 2100000
+  },
+  "saldo_inicial": {
+   "valor": null
+  }
+ },
  "lancamentos": []
 }

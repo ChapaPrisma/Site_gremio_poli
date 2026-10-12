@@ -3,7 +3,7 @@
 // Os caminhos (href) são relativos à raiz do site, sem barra no início,
 // para funcionar igual em subpasta (github.io/Site_gremio_poli/) ou num domínio próprio.
 
-import { encontrar, destino } from "./ramificacoes.js?v=202610120941";
+import { encontrar, destino } from "./ramificacoes.js?v=202610121352";
 
 const doRegistro = (id, rotulo) => {
   const { no } = encontrar(id);
@@ -51,15 +51,16 @@ export const site = {
 
   contato: {
     endereco: "Av. Prof. Almeida Prado, 128, Travessa 2, Cidade Universitária, São Paulo, SP",
-    telefone: "(11) 91514-8780",
-    email: "administrativo@gremiopolitecnico.com.br",
+    // Contato provisório: enquanto este site é a proposta da chapa Prisma, as mensagens vão para a chapa.
+    // Depois da eleição, volte para o e-mail, o telefone e as redes do Grêmio.
+    telefone: null,
+    email: "chapa.poli.prisma@gmail.com",
+    provisorio: "Contato provisório da chapa Prisma, enquanto este site é uma proposta.",
     cnpj: "62.841.382/0001-33",
   },
 
-  redes: [
-    { nome: "Instagram", usuario: "@gremiopolitecnico", href: "https://instagram.com/gremiopolitecnico" },
-    { nome: "YouTube", usuario: "@gremiopolitecnico", href: "https://www.youtube.com/@gremiopolitecnico" },
-  ],
+  // Redes do Grêmio fora do contato enquanto o contato é o provisório da chapa.
+  redes: [],
 
-  autoria: "Site desenvolvido pela chapa Alvorada.",
+  autoria: "Site desenvolvido pela chapa Prisma.",
 };

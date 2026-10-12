@@ -7,10 +7,10 @@
 // interface: quem protege os dados de verdade são as regras do banco.
 // Uso: #painelEntrada, #areaAdmin com #painelContas, e <div data-componente="contas-admin"></div>.
 
-import { supabase, configurado, carregar, extrato, reais, dataBR, CATEGORIAS, INICIO_CONTAS } from "../dados/contas.js?v=202610120941";
-import { hojeSP } from "../dados/tempo.js?v=202610120941";
-import { projetosAdmin } from "./projetos-admin.js?v=202610120941";
-import { vendasAdmin } from "./vendas-admin.js?v=202610120941";
+import { supabase, configurado, carregar, extrato, reais, dataBR, CATEGORIAS, INICIO_CONTAS } from "../dados/contas.js?v=202610121352";
+import { hojeSP } from "../dados/tempo.js?v=202610121352";
+import { projetosAdmin } from "./projetos-admin.js?v=202610121352";
+import { vendasAdmin } from "./vendas-admin.js?v=202610121352";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
@@ -159,8 +159,7 @@ export default async function contasAdmin(_alvo, contexto) {
       <h3 style="margin-top:22px">Dívida e saldo inicial</h3>
       <form class="formulario" id="fParam" novalidate>
         <div class="dupla">
-          <div class="campo"><label for="cpDiv">Valor da dívida na data-base (R$)</label><input type="number" id="cpDiv" min="0" step="0.01" value="${r.parametros?.divida?.total ?? ""}" placeholder="Deixe vazio enquanto estiver a confirmar"></div>
-          <div class="campo"><label for="cpBase">Data-base (dali em diante, a dívida cresce com a Selic)</label><input type="date" id="cpBase" value="${r.parametros?.divida?.data_base ?? ""}"></div>
+          <div class="campo"><label for="cpDiv">Valor total da dívida (R$)</label><input type="number" id="cpDiv" min="0" step="0.01" value="${r.parametros?.divida?.total ?? ""}" placeholder="Deixe vazio enquanto estiver a confirmar"></div>
           <div class="campo"><label for="cpIni">Saldo em 1º de janeiro de 2027 (R$)</label><input type="number" id="cpIni" step="0.01" value="${r.parametros?.saldo_inicial?.valor ?? ""}" placeholder="Deixe vazio enquanto estiver a confirmar"></div>
         </div>
         <div class="formulario__fim"><button class="botao botao--linha" type="submit">Salvar valores</button></div>
@@ -198,9 +197,9 @@ export default async function contasAdmin(_alvo, contexto) {
 
     painel.querySelector("#fParam").addEventListener("submit", async (e) => {
       e.preventDefault();
-      const div = painel.querySelector("#cpDiv").value, ini = painel.querySelector("#cpIni").value, base = painel.querySelector("#cpBase").value;
+      const div = painel.querySelector("#cpDiv").value, ini = painel.querySelector("#cpIni").value;
       const { error } = await db.from("parametros").upsert([
-        { chave: "divida", valor: { total: div === "" ? null : Number(div), data_base: base || null, indexador: "selic" }, atualizado_em: new Date().toISOString() },
+        { chave: "divida", valor: { total: div === "" ? null : Number(div) }, atualizado_em: new Date().toISOString() },
         { chave: "saldo_inicial", valor: { valor: ini === "" ? null : Number(ini) }, atualizado_em: new Date().toISOString() },
       ]);
       telaLancar(email, error ? "" : "Valores salvos e publicados.");

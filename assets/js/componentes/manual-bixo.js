@@ -73,11 +73,10 @@ export default function manualBixo(alvo, { url, site }) {
   const contato = () => {
     const c = site.contato;
     const insta = site.redes.find((r) => r.nome === "Instagram");
-    const fone = c.telefone.replace(/\D/g, "");
-    return `<ul class="manual__canais">
-      <li><b>Pessoalmente</b><span>Passe na sede do Grêmio: ${c.endereco.split(", São Paulo")[0]}.</span></li>
-      <li><b>WhatsApp ou telefone</b><a href="https://wa.me/55${fone}" target="_blank" rel="noopener">${c.telefone}</a></li>
-      <li><b>E-mail</b><a href="mailto:${c.email}">${c.email}</a></li>
+    const fone = c.telefone ? c.telefone.replace(/\D/g, "") : "";
+    return `<ul class="manual__canais" data-contato>
+      ${fone ? `<li><b>WhatsApp ou telefone</b><a href="https://wa.me/55${fone}" target="_blank" rel="noopener">${c.telefone}</a></li>` : ""}
+      <li><b>E-mail${c.provisorio ? " (provisório)" : ""}</b><a href="mailto:${c.email}">${c.email}</a></li>
       ${insta ? `<li><b>Instagram</b><a href="${insta.href}" target="_blank" rel="noopener">${insta.usuario}</a></li>` : ""}
       <li><b>Proposta ou demanda</b><a href="${url("aluno/demandas/")}">Envie direto para a diretoria</a></li>
     </ul>`;
