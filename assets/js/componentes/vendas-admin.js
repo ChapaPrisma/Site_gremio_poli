@@ -3,8 +3,8 @@
 // as vendas do dia e publica sozinho a receita "Vendas da loja" na Transparência.
 // Anônimo: não se registra nada de quem comprou. Chamado pelo painel de contas depois do login.
 
-import { reais, dataBR } from "../dados/contas.js?v=202610131710";
-import { hojeSP } from "../dados/tempo.js?v=202610131710";
+import { reais, dataBR } from "../dados/contas.js?v=202610131717";
+import { hojeSP } from "../dados/tempo.js?v=202610131717";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const FORMAS = { pix: "Pix", cartao: "Cartão", dinheiro: "Dinheiro", outro: "Outro" };

@@ -61,7 +61,7 @@ const PARTES = [
       <li>A inscrição é pelo ${link(JUPITER, "JupiterWeb")}, em <b>Programa de Bolsas &gt; PAPFE &gt; Inscrição em bolsas e apoios</b>: preencha o formulário socioeconômico e anexe os documentos pedidos (a lista completa fica em ${link("https://prip.usp.br/papfe/", "prip.usp.br/papfe")}).</li>
       <li>O <b>PUB</b> (bolsas de projetos de pesquisa, cultura e extensão) exige a inscrição no PAPFE antes. Fique de olho nos editais, que abrem no começo do ano.</li>
     </ol>
-    <p class="kit__recado">Ficou em dúvida ou não sabe se tem direito? <a href="mailto:{email}?subject=D%C3%BAvida%20sobre%20bolsas" data-contato>Manda um e-mail pra gente</a> contando a sua situação: a gente te ajuda a achar o caminho.</p>`,
+    <p class="kit__recado">Ficou em dúvida ou não sabe se tem direito? <a href="mailto:{email}?subject=D%C3%BAvida%20sobre%20bolsas">Manda um e-mail pra gente</a> contando a sua situação: a gente te ajuda a achar o caminho.</p>`,
   },
   {
     titulo: "E mais umas coisas que valem saber",

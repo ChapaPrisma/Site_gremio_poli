@@ -513,3 +513,5 @@
 @keyframes eleita-fundo { from { opacity: 0; } }
 @keyframes eleita-selo { from { opacity: 0; transform: rotate(-14deg) scale(.4); } to { opacity: 1; transform: rotate(4deg) scale(1); } }
 @media (prefers-reduced-motion: reduce) { .so-se-eleita[open], .so-se-eleita.saindo, .so-se-eleita__selo, .so-se-eleita[open]::backdrop { animation: none; } }
+
+.so-se-eleita__email { user-select: all; color: var(--tinta); }

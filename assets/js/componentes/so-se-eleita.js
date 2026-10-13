@@ -1,10 +1,10 @@
 // Aviso de proposta: este site é a proposta da chapa Prisma para o Grêmio, então nada é enviado de
 // verdade. Todo botão que manda algo (formulários e links de e-mail das chamadas) abre um aviso
-// animado em vez de enviar. Ficam de fora o contato provisório (rodapé e listas com data-contato)
-// e o portal interno (admin/), que a chapa já usa.
+// animado em vez de enviar, inclusive todos os links de e-mail do site. Só o portal interno (admin/),
+// que a chapa já usa, fica de fora. O próprio aviso mostra o e-mail da chapa, para copiar.
 // Para desligar quando a chapa for eleita: tire a chamada a soSeEleita() em site.js.
 
-const fora = "[data-contato], .rodape, #entrada, #areaAdmin";
+const fora = "#entrada, #areaAdmin";
 let dialogo = null;
 
 function abrir(site) {
@@ -20,7 +20,7 @@ function abrir(site) {
         <button type="button" class="botao" data-fechar>Entendi</button>
         <a class="botao botao--linha" href="https://chapaprisma.github.io/site_chapa/" target="_blank" rel="noopener">Conhecer as propostas</a>
       </div>
-      ${site.contato?.email ? `<small>Quer falar com a chapa agora? Escreva para <a href="mailto:${site.contato.email}">${site.contato.email}</a>.</small>` : ""}`;
+      ${site.contato?.email ? `<small>Quer falar com a chapa agora? Escreva para <b class="so-se-eleita__email">${site.contato.email}</b>.</small>` : ""}`;
     dialogo.addEventListener("click", (e) => { if (e.target === dialogo || e.target.closest("[data-fechar]")) fechar(); });
     dialogo.addEventListener("cancel", (e) => { e.preventDefault(); fechar(); });
     document.body.appendChild(dialogo);
