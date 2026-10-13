@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-12T17:36:14.189Z",
+ "atualizadoEm": "2026-10-13T12:55:57.495Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-12T17:36:14.189Z",
+   "atualizadoEm": "2026-10-13T12:55:57.495Z",
    "dias": {
     "2026-10-12": {
      "almoco": [
@@ -16,7 +16,7 @@
     "2026-10-13": {
      "almoco": [
       "Arroz / feijão / arroz integral",
-      "Hambúrguer com molho barbecue",
+      "Hambúrguer com molho americano",
       "Opção: Lentilha ao vinagrete",
       "Cenoura com vagem",
       "Salada de escarola",
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-12T17:36:14.189Z",
+   "atualizadoEm": "2026-10-13T12:55:57.495Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-12T17:36:14.189Z",
+   "atualizadoEm": "2026-10-13T12:55:57.495Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-12T17:36:14.189Z",
+   "atualizadoEm": "2026-10-13T12:55:57.495Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
