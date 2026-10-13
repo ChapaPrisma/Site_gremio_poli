@@ -78,9 +78,12 @@
 
 /* ---------- gaveta lateral (índice do site) ---------- */
 .gaveta {
-  margin: 0; padding: 0; border: 0; border-right: var(--borda);
-  width: min(390px, 92vw); height: 100dvh; max-height: none; max-width: none;
-  background: var(--fundo); color: var(--tinta); overflow-y: auto;
+  /* presa ao topo e ao pé da tela: a altura acompanha a tela em qualquer navegador (sem depender
+     de dvh, que celulares mais antigos não entendem) e o conteúdo rola por dentro */
+  position: fixed; inset: 0 auto 0 0; margin: 0; padding: 0; border: 0; border-right: var(--borda);
+  width: min(390px, 92vw); height: auto; max-height: 100vh; max-height: 100dvh; max-width: none;
+  background: var(--fundo); color: var(--tinta);
+  overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y;
 }
 .gaveta[open] { animation: gaveta-entra .18s ease-out; }
 @keyframes gaveta-entra { from { transform: translateX(-24px); opacity: 0; } }

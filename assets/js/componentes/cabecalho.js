@@ -3,7 +3,7 @@
 // "Índice" e a gaveta também traz os links do menu.
 // Qualquer elemento com data-abrir-gaveta, em qualquer lugar da página, abre a mesma gaveta.
 
-import { arvore } from "./indice.js?v=202610130030";
+import { arvore } from "./indice.js?v=202610130054";
 
 export default function cabecalho(alvo, contexto) {
   const { site, url } = contexto;
