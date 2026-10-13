@@ -11,12 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito:wght@400;600;700;800&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Oranienbaum&family=Pinyon+Script&display=swap">
-  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610122331">
-  <link rel="stylesheet" href="../../assets/css/base.css?v=202610122331">
-  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610122331">
-  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610122331">
-  <link rel="stylesheet" href="../../assets/css/jornal.css?v=202610122331">
-  <script type="module" src="../../assets/js/site.js?v=202610122331"></script>
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610122351">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=202610122351">
+  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610122351">
+  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610122351">
+  <link rel="stylesheet" href="../../assets/css/jornal.css?v=202610122351">
+  <script type="module" src="../../assets/js/site.js?v=202610122351"></script>
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -41,14 +41,20 @@
 
         <!-- Página 1 -->
         <section class="folha jornal" data-pagina="1" aria-labelledby="jornal-titulo">
-          <header class="jornal__cabeca">
-            <img class="jornal__selo" src="../../assets/img/jornal/selo.svg?v=5f93c51d" alt="" width="124" height="124">
-            <img class="jornal__brasao" src="../../assets/img/marca/gremio-azul.png?v=bef84bef" alt="" width="92" height="92">
+          <header class="jornal__cabeca jornal__cabeca--diploma">
+            <div class="jornal__emblema" aria-hidden="true">
+              <img class="jornal__louros" src="../../assets/img/jornal/louros.svg?v=ec85a45e" alt="" width="220" height="230">
+              <img class="jornal__brasao" src="../../assets/img/marca/gremio-azul.png?v=bef84bef" alt="" width="92" height="92">
+              <img class="jornal__selo" src="../../assets/img/jornal/selo.svg?v=5f93c51d" alt="" width="124" height="124">
+            </div>
+            <div class="jornal__titulos">
             <p class="jornal__entidade">GRÊMIO POLITÉCNICO DA USP</p>
             <h1 class="jornal__titulo" id="jornal-titulo" aria-label="O Politécnico">O·POLITÉCNICO</h1>
             <p class="jornal__subtitulo" aria-label="Jornal dos alunos da Escola Politécnica">JORNAL·<wbr>DOS·<wbr>ALUNOS·<wbr>DA·<wbr>ESCOLA·<wbr>POLITÉCNICA</p>
-            <p class="jornal__linha"><span>Cidade Universitária, São Paulo</span><span>Edição de relançamento</span><span>Fundado em 1944</span></p>
+            </div>
           </header>
+          <p class="proclamacao">O Grêmio Politécnico da Universidade de São Paulo, no exercício de suas atribuições, faz saber a todos os politécnicos que o jornal O Politécnico, fundado em <span class="preencher"><span class="assinatura">1944</span></span>, volta a circular, e que cada texto publicado nestas páginas levará, com a devida honra, o nome de quem o escreveu: <span class="preencher"><span class="assinatura">o seu nome aqui</span></span>.</p>
+          <p class="jornal__linha"><span>Cidade Universitária, São Paulo</span><span>Edição de relançamento</span><span>Fundado em 1944</span></p>
           <p class="jornal__estado">Em preparação: volta no portal na Semana de Recepção de 2027.</p>
 
           <div class="primeira">
@@ -99,7 +105,8 @@
         <!-- Página 2 -->
         <section class="folha jornal" data-pagina="2" aria-labelledby="pag2-titulo" hidden>
           <header class="jornal__cabeca jornal__cabeca--interna">
-            <p class="jornal__linha"><span>O Politécnico</span><span>Edição de relançamento</span><span>Página 2</span></p>
+            <p class="jornal__titulo-interno" aria-hidden="true">O·POLITÉCNICO</p>
+            <p class="jornal__linha"><span>Edição de relançamento</span><span>Página 2</span></p>
           </header>
           <div class="interna">
             <article class="interna__principal" aria-labelledby="pag2-titulo">
@@ -129,7 +136,8 @@
         <!-- Página 3 -->
         <section class="folha jornal" data-pagina="3" aria-labelledby="pag3-titulo" hidden>
           <header class="jornal__cabeca jornal__cabeca--interna">
-            <p class="jornal__linha"><span>O Politécnico</span><span>Edição de relançamento</span><span>Página 3</span></p>
+            <p class="jornal__titulo-interno" aria-hidden="true">O·POLITÉCNICO</p>
+            <p class="jornal__linha"><span>Edição de relançamento</span><span>Página 3</span></p>
           </header>
           <h2 class="interna__titulo" id="pag3-titulo">As seções que esperam por você</h2>
           <div class="secoes-jornal">
@@ -156,11 +164,12 @@
           </div>
           <section class="redacao" aria-labelledby="pag3-redacao">
             <h3 id="pag3-redacao">REDAÇÃO</h3>
-            <p>Os nomes de quem faz O Politécnico, assinados em cada edição.</p>
+            <p class="proclamacao">E, para que todos saibam quem faz O Politécnico, publica-se o presente expediente, que assinam a redação e cada autor desta edição.</p>
+            <p class="data-local">Cidade Universitária, <span class="preencher"><span class="assinatura">fevereiro</span></span> de <span class="preencher"><span class="assinatura">2027</span></span></p>
             <div class="assinaturas">
+              <div><span class="assinatura"></span><small>Diretoria de Comunicação do Grêmio</small></div>
               <div><span class="assinatura">o seu nome aqui</span><small>Editor-chefe</small></div>
-              <div><span class="assinatura">o seu nome aqui</span><small>Colunista</small></div>
-              <div><span class="assinatura">o seu nome aqui</span><small>Entrevistador</small></div>
+              <div><span class="assinatura">o seu nome aqui</span><small>Autor</small></div>
             </div>
           </section>
           <footer class="jornal__rodape">Página 3 · fim da edição</footer>
