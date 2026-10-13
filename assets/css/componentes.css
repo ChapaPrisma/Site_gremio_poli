@@ -93,6 +93,9 @@
 .gaveta__fechar { min-height: 38px; padding: 0 14px; background: none; border: 2px solid #fff; border-radius: 999px; font: 700 .9rem var(--fonte); color: #fff; cursor: pointer; }
 .gaveta__fechar:hover { background: #fff; color: var(--tinta); }
 .gaveta .indice { padding: 20px; }
+.gaveta .indice--gaveta-area { padding-bottom: 6px; }
+.gaveta .indice--gaveta-area .indice__voltar { display: none; }
+.gaveta__secao { margin: 0 0 12px; padding-top: 16px; border-top: 2px solid var(--linha); font: 700 var(--t-pequeno) var(--fonte); color: var(--tinta-suave); }
 .gaveta__acessos { display: flex; flex-direction: column; gap: 10px; padding: 20px 20px 4px; }
 .gaveta__acessos .botao { justify-content: flex-start; }
 .gaveta__menu { display: none; flex-direction: column; padding: 0 20px 28px; }

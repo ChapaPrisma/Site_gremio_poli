@@ -45,7 +45,7 @@
 
 /* mapa de salas: um cartão por prédio, um quadrado por sala */
 .cobertura { margin: 0 0 14px; padding: 10px 14px; border-left: 4px solid var(--sol); background: var(--papel); font-size: .9rem; color: var(--tinta-suave); max-width: 90ch; }
-.mapa-salas { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; align-items: start; }
+.mapa-salas { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: 14px; align-items: start; }
 .predio { border: var(--borda); border-radius: var(--raio); background: var(--papel); padding: 14px; }
 .predio__topo { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
 .predio__topo h3 { font-size: 1.15rem; }

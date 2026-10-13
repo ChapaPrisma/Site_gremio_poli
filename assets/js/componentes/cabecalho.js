@@ -3,11 +3,18 @@
 // "Índice" e a gaveta também traz os links do menu.
 // Qualquer elemento com data-abrir-gaveta, em qualquer lugar da página, abre a mesma gaveta.
 
-import { arvore } from "./indice.js?v=202610130054";
+import { arvore, arvoreDaArea } from "./indice.js?v=202610130103";
 
 export default function cabecalho(alvo, contexto) {
   const { site, url } = contexto;
   const link = (i) => (i.local ? i.href : url(i.href));
+
+  // Numa área com índice próprio (ex.: Área do aluno), a gaveta abre com esse índice, já que o
+  // índice lateral some em telas estreitas; o restante do site vem logo abaixo.
+  const area = document.querySelector('[data-componente="indice"][data-raiz]')?.dataset.raiz;
+  const indiceDaArea = area && contexto.encontrar(area)
+    ? `<nav class="indice indice--gaveta indice--gaveta-area" aria-label="Índice: ${contexto.encontrar(area).no.titulo}">${arvoreDaArea(contexto, area)}</nav>`
+    : "";
 
   const aviso = site.aviso
     ? `<div class="aviso"><div class="container">${site.aviso.texto}${
@@ -47,7 +54,7 @@ export default function cabecalho(alvo, contexto) {
         <button class="gaveta__fechar" type="button" data-fechar-gaveta>Fechar</button>
       </div>
       <div class="gaveta__acessos">${acessos}</div>
-      <nav class="indice indice--gaveta" aria-label="Índice do site">${arvore(contexto, "gaveta")}</nav>
+      ${indiceDaArea}<nav class="indice indice--gaveta" aria-label="Índice do site">${indiceDaArea ? `<p class="gaveta__secao">Todo o site</p>` : ""}${arvore(contexto, "gaveta")}</nav>
       <div class="gaveta__menu">${itens}</div>
     </dialog>`;
 

@@ -27,7 +27,8 @@
 .jornal::before { inset: 8px; border: 19px solid transparent; border-image: url("../img/jornal/moldura.svg") 48 round; }
 .jornal::after { inset: 31px; border: 1px solid var(--fio-j); }
 @container (max-width: 560px) {
-  .jornal { padding: 46px 38px 40px; }
+  .jornal { padding: 46px 34px 40px; }
+  .linha-preencher { min-width: 6em !important; }
   .jornal::before { inset: 5px; border-width: 13px; }
   .jornal::after { inset: 21px; }
 }
@@ -130,7 +131,8 @@
 .quadro__acao { display: inline-block; margin-top: 12px; padding: 6px 14px; border: 1px solid var(--tinta-j); color: var(--tinta-j); font-style: italic; font-weight: 700; text-decoration: none; }
 .quadro__acao:hover { background: var(--tinta-j); color: var(--marfim); }
 .quadro--cupom { border-style: dashed; outline-style: dashed; }
-.linha-preencher { display: inline-block; min-width: 9em; border-bottom: 1px dotted var(--fio-j); }
+.linha-preencher { display: inline-block; min-width: 9em; max-width: 100%; border-bottom: 1px dotted var(--fio-j); }
+.fecho > * { min-width: 0; }
 .citacao { margin: 0; padding: 4px 0 0 14px; border-left: 3px double var(--fio-j); font-size: 1.3rem; font-style: italic; line-height: 1.35; }
 .citacao cite { display: block; margin-top: 6px; font-size: .88rem; }
 .secoes-jornal { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 3px double var(--fio-j); border-bottom: 3px double var(--fio-j); }
