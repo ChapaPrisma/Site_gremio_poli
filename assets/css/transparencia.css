@@ -128,3 +128,5 @@
 
 /* dívida: nota bem pequena sobre a estimativa */
 .divida__nota { margin-top: 6px; font-size: .74rem; color: var(--tinta-suave); opacity: .85; }
+
+.saldo__nota { margin-top: 12px; max-width: 52ch; font-size: .85rem; color: rgba(255, 255, 255, .72); }

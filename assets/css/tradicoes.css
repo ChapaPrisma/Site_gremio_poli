@@ -93,16 +93,17 @@
 .video-destaque .video-leve { max-width: 640px; margin-inline: auto; }
 .video-destaque .video-credito { margin-bottom: 14px; }
 
-/* vídeos guardados num retângulo que se expande (IntegraPoli: "Olha como era") */
-.videos-guardados { border: var(--borda); border-radius: var(--raio); background: var(--papel); }
-.videos-guardados summary { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px 18px; cursor: pointer; list-style: none; }
+/* vídeos guardados num retângulo discreto que se expande (IntegraPoli: "Olha como era") */
+.videos-guardados { border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); }
+.videos-guardados summary { display: flex; align-items: center; gap: 10px; padding: 14px 4px; cursor: pointer; list-style: none; font: 700 1.05rem var(--fonte-titulo); color: var(--tinta); }
 .videos-guardados summary::-webkit-details-marker { display: none; }
-.videos-guardados summary span { display: flex; flex-direction: column; gap: 2px; }
-.videos-guardados summary b { font: 700 1.15rem var(--fonte-titulo); }
-.videos-guardados summary small { font-size: .88rem; color: var(--tinta-suave); }
-.videos-guardados summary::after { content: ""; flex: none; width: 34px; height: 34px; border: var(--borda); border-radius: 50%; background: var(--sol) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z' fill='%23121735'/%3E%3C/svg%3E") center / 16px no-repeat; transition: transform .2s ease; }
-.videos-guardados[open] summary::after { transform: rotate(90deg); }
-.videos-guardados[open] summary { border-bottom: 2px solid var(--linha); }
-.videos-guardados__lista { display: grid; gap: 18px; padding: 18px; }
-.videos-guardados__item { width: 100%; max-width: 640px; margin-inline: auto; text-align: center; }
-@media (prefers-reduced-motion: reduce) { .videos-guardados summary::after { transition: none; } }
+.videos-guardados summary::before { content: ""; flex: none; width: 8px; height: 8px; border-right: 2px solid var(--tinta-suave); border-bottom: 2px solid var(--tinta-suave); transform: rotate(-45deg); transition: transform .2s ease; }
+.videos-guardados[open] summary::before { transform: rotate(45deg); }
+.videos-guardados summary:hover { color: var(--azul); }
+.videos-guardados__lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 18px; padding: 4px 0 20px; }
+.videos-guardados__item { margin: 0; }
+.videos-guardados__item:first-child { grid-column: 1 / -1; max-width: 720px; width: 100%; justify-self: center; }
+.videos-guardados__item figcaption { margin-top: 6px; font-size: .88rem; }
+.videos-guardados__item figcaption span { color: var(--tinta-suave); }
+.video-local { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--raio-pequeno); background: var(--tinta); object-fit: cover; }
+@media (prefers-reduced-motion: reduce) { .videos-guardados summary::before { transition: none; } }
