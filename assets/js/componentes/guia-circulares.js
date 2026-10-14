@@ -1,7 +1,7 @@
 // Guia dos circulares (aluno/circulares/): à esquerda, a lista das linhas que entram na Cidade
 // Universitária; à direita, o mapa. A linha escolhida fica em destaque no mapa (as outras, apagadas)
 // e os detalhes dela aparecem embaixo da lista. Começa pelo 8084, o que passa na Poli.
-// - Traçados e paradas: assets/dados/circulares.json (ferramentas/circulares.mjs e ferramentas/rotas/).
+// - Traçados e paradas: assets/dados/circulares.json, do GTFS oficial da SPTrans (ferramentas/circulares_gtfs.py).
 // - Informações das linhas: assets/js/dados/circulares.js.
 // - Ao vivo: a função "onibus" do Supabase (ferramentas/supabase/funcoes/onibus), que consulta o Olho
 //   Vivo da SPTrans. Se ela falhar, demorar ou devolver posições velhas, uma faixa sobre o mapa avisa
@@ -10,7 +10,7 @@
 // carregarem (servidor lento ou bloqueado), o mapa troca sozinho para a próxima fonte da lista FUNDOS.
 // Uso: marcação em aluno/circulares/index.html e <div data-componente="guia-circulares"></div>.
 
-import { LINHAS, GRUPOS } from "../dados/circulares.js?v=202610141915";
+import { LINHAS, GRUPOS } from "../dados/circulares.js?v=202610141927";
 
 const CDN = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/";
 const INICIAL = "8084-10";
@@ -22,6 +22,8 @@ const FUNDOS = [
 ];
 const INTERVALO = 20_000;
 const VELHO = 3 * 60_000;
+// paradas que ficam na porta de um prédio da Poli (aparecem em negrito na lista)
+const POLI = new Set(["Biênio", "Parada Civil", "Metalurgia", "Mecânica I", "Mecânica II", "Hidráulica"]);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 function carregarLeaflet() {
@@ -61,6 +63,15 @@ export default async function guiaCirculares(_alvo, { site, raiz }) {
         </button></li>`).join("")}</ul>
     </div>`).join("");
   const detalhe = document.getElementById("detalheCircular");
+  // a lista de paradas de cada sentido (as linhas longas só no trecho do campus até o Metrô Butantã)
+  const paradasDe = (ref) => {
+    const sentidos = (dados.linhas[ref] || []).filter((s) => s.paradas.length);
+    if (!sentidos.length) return "";
+    const total = new Set(sentidos.flatMap((s) => s.paradas.map((p) => p.nome))).size;
+    return `<details class="circ-paradas"><summary>As ${total} paradas</summary>${sentidos.map((s) => `
+      ${sentidos.length > 1 ? `<p class="circ-paradas__sentido">Sentido ${esc(s.para || "")}</p>` : ""}
+      <ol>${s.paradas.map((p) => `<li${POLI.has(p.nome) ? ` class="poli"` : ""}>${esc(p.nome)}</li>`).join("")}</ol>`).join("")}</details>`;
+  };
   const desenharDetalhe = () => {
     const l = porRef.get(atual);
     const n = vivo.get(atual);
@@ -69,7 +80,8 @@ export default async function guiaCirculares(_alvo, { site, raiz }) {
       <div class="circ-detalhe__topo"><span class="circ-detalhe__codigo">${l.ref}</span>${l.busp ? `<span class="pill pill--aberto">Grátis com o BUSP</span>` : `<span class="pill">Paga</span>`}${l.destaque ? `<span class="pill pill--breve">${l.destaque}</span>` : ""}</div>
       <h3>${esc(l.nome)}</h3>
       <p>${esc(l.resumo)}</p>
-      <dl><div><dt>Quando</dt><dd>${esc(l.dias)}</dd></div><div><dt>Horário</dt><dd>${esc(l.horario)}</dd></div></dl>
+      <dl><div><dt>Quando</dt><dd>${esc(l.dias)}</dd></div><div><dt>Horário</dt><dd>${esc(l.horario)}</dd></div>${l.intervalo ? `<div><dt>Intervalo</dt><dd>${esc(l.intervalo)}</dd></div>` : ""}</dl>
+      ${paradasDe(l.ref)}
       ${n != null ? `<p class="circ-detalhe__vivo">${n ? `${n} ônibus rodando agora` : "Nenhum ônibus desta linha rodando agora"}</p>` : ""}
       ${temTracado(l.ref) ? "" : `<p class="circ-detalhe__nota">O trajeto desta linha ainda não está desenhado no mapa.</p>`}`;
   };
@@ -82,7 +94,7 @@ export default async function guiaCirculares(_alvo, { site, raiz }) {
   const camadas = new Map();
   let mapa = null;
   if (L) {
-    mapa = L.map(caixaMapa, { zoomControl: true, scrollWheelZoom: false }).setView([-23.5615, -46.7262], 15);
+    mapa = L.map(caixaMapa, { zoomControl: true, scrollWheelZoom: false, zoomSnap: .25 }).setView([-23.5615, -46.7262], 15);
     // fundo com reserva: muitas falhas e nenhum quadrado carregado, passa para a próxima fonte
     const fundo = (i) => {
       const camada = L.tileLayer(FUNDOS[i].url, FUNDOS[i].opcoes).addTo(mapa);
@@ -115,15 +127,21 @@ export default async function guiaCirculares(_alvo, { site, raiz }) {
       if (ativa) { c.linhas.bringToFront(); c.paradas.addTo(mapa); } else c.paradas.remove();
       c.onibus.eachLayer((m) => m.setOpacity(ativa ? 1 : .35));
     }
-    const b = camadas.get(ref)?.linhas.getBounds();
-    if (enquadrar && b && b.isValid()) mapa.fitBounds(b, { padding: [28, 28], maxZoom: 16 });
+    if (enquadrar) enquadrarLinha();
   };
+  function enquadrarLinha() {
+    const b = camadas.get(atual)?.linhas.getBounds();
+    if (b && b.isValid()) { mapa.invalidateSize(); mapa.fitBounds(b, { padding: caixaMapa.clientWidth < 500 ? [10, 10] : [28, 28], maxZoom: 16 }); }
+  }
   lista.addEventListener("click", (e) => {
     const b = e.target.closest(".circ-item"); if (!b) return;
     escolher(b.dataset.linha);
     if (matchMedia("(max-width: 900px)").matches) caixaMapa.scrollIntoView({ behavior: "smooth", block: "center" });
   });
   escolher(INICIAL);
+  // o tamanho da caixa do mapa só assenta depois que o CSS do Leaflet e a página terminam de carregar;
+  // quando ele muda, a linha escolhida é enquadrada de novo
+  if (mapa) { let medida = ""; new ResizeObserver(() => { const m = `${caixaMapa.clientWidth}x${caixaMapa.clientHeight}`; if (m !== medida) { medida = m; enquadrarLinha(); } }).observe(caixaMapa); }
 
   /* ---------- ao vivo ---------- */
   const faixa = document.getElementById("avisoAoVivo"), selo = document.getElementById("seloAoVivo");

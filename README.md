@@ -106,7 +106,7 @@ A página `aluno/salas/` lê `assets/dados/salas.json`, gerado por `node ferrame
 
 ## Circulares da USP
 
-A página `aluno/circulares/` mostra as linhas que entram na Cidade Universitária num mapa (Leaflet + OpenStreetMap), com cartões por linha (informações em `assets/js/dados/circulares.js`). O traçado e as paradas vêm de `assets/dados/circulares.json`, gerado por `node ferramentas/circulares.mjs` a partir do OpenStreetMap; linhas que o OpenStreetMap não tem completas podem ser desenhadas à mão em `ferramentas/rotas/<linha>.json` (é o caso do 8084-10, reconstruído cruzando SPTrans, BusInfo e Moovit).
+A página `aluno/circulares/` mostra as linhas que entram na Cidade Universitária num mapa (Leaflet + OpenStreetMap), com cartões por linha (informações em `assets/js/dados/circulares.js`). O traçado, as paradas e os horários vêm de `assets/dados/circulares.json`, gerado por `python ferramentas/circulares_gtfs.py` a partir do GTFS oficial da SPTrans (espelhado sem cadastro pelo Mobility Database). A 280BI1, da EMTU, vem do OpenStreetMap (`node ferramentas/circulares.mjs`, rodado antes). Revise a cada semestre: rode o script e confira os textos dos cartões.
 
 A posição ao vivo dos ônibus vem da função `onibus` do Supabase (`ferramentas/supabase/funcoes/onibus/index.ts`), que consulta a API Olho Vivo da SPTrans com a chave guardada no segredo `SPTRANS_TOKEN`. Sem a função, sem a chave ou com a SPTrans fora do ar, a página avisa que a localização ao vivo não está funcionando e segue mostrando mapa e linhas.
 

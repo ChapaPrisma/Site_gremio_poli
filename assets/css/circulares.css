@@ -8,8 +8,8 @@
 @keyframes circ-pulso { 0% { box-shadow: 0 0 0 0 rgba(34, 181, 115, .55); } 100% { box-shadow: 0 0 0 10px rgba(34, 181, 115, 0); } }
 
 .circ-guia { display: grid; grid-template-columns: minmax(260px, 340px) minmax(0, 1fr); gap: 16px; margin-top: 14px; align-items: start; }
-@container (max-width: 860px) { .circ-guia { grid-template-columns: 1fr; } }
-.circ-painel { display: flex; flex-direction: column; gap: 14px; }
+@container (max-width: 860px) { .circ-guia { grid-template-columns: minmax(0, 1fr); } }
+.circ-painel { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 
 /* lista das linhas */
 .circ-lista { border: var(--borda); border-radius: var(--raio); background: var(--papel); padding: 6px; max-height: 420px; overflow-y: auto; }
@@ -47,3 +47,15 @@
 .circ-onibus span { display: grid; place-items: center; width: 28px; height: 28px; border: 2px solid #fff; border-radius: 50%; background: var(--cor); color: #fff; box-shadow: 0 2px 6px rgba(0, 0, 0, .35); }
 .leaflet-container { font: 400 .9rem var(--fonte); }
 @media (prefers-reduced-motion: reduce) { .circ-mapa__topo .ao-vivo.on i { animation: none; } }
+
+/* lista de paradas da linha escolhida (do GTFS da SPTrans); as da Poli em negrito */
+.circ-paradas { margin-top: 12px; border-top: 1px solid var(--linha); }
+.circ-paradas summary { padding: 10px 0 2px; cursor: pointer; font-weight: 800; font-size: .9rem; color: var(--tinta); }
+.circ-paradas summary:hover { color: var(--azul); }
+.circ-detalhe .circ-paradas__sentido { margin: 10px 0 2px; font-size: .8rem; font-weight: 800; color: var(--tinta); }
+.circ-paradas ol { margin: 4px 0 0; padding: 0 0 0 4px; list-style: none; font-size: .86rem; color: var(--tinta-suave); }
+.circ-paradas li { position: relative; padding: 2px 0 2px 18px; }
+.circ-paradas li::before { content: ""; position: absolute; left: 3px; top: .62em; width: 7px; height: 7px; border: 2px solid var(--cor); border-radius: 50%; background: var(--papel); }
+.circ-paradas li:not(:last-child)::after { content: ""; position: absolute; left: 7px; top: calc(.62em + 9px); bottom: calc(-.62em + 2px); width: 2px; background: var(--cor); opacity: .35; }
+.circ-paradas li.poli { color: var(--tinta); font-weight: 800; }
+.circ-fonte { margin-top: 10px; font-size: .8rem; }

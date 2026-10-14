@@ -1,17 +1,12 @@
-// Gera assets/dados/circulares.json com o traçado e as paradas das linhas de ônibus que entram na
-// Cidade Universitária, a partir do OpenStreetMap (API Overpass, sem cadastro). As informações de
-// cada linha (BUSP, dias e horários, de onde a onde) ficam em assets/js/dados/circulares.js; este
-// arquivo traz só o desenho no mapa. Linhas que ainda não estão no OpenStreetMap aparecem na página
-// sem o traçado. Roda em qualquer servidor com Node 18+: `node ferramentas/circulares.mjs`.
-// Quando houver o GTFS oficial da SPTrans, ele pode substituir esta fonte (traçado de todas as linhas).
+// Traçado e paradas das linhas que NÃO são da SPTrans (hoje, a 280BI1, da EMTU), a partir do
+// OpenStreetMap (API Overpass, sem cadastro). As linhas da SPTrans vêm do GTFS oficial, em
+// ferramentas/circulares_gtfs.py. Ordem: `node ferramentas/circulares.mjs` e depois
+// `python ferramentas/circulares_gtfs.py` (que mantém o que veio daqui e põe o resto por cima).
 
-import { writeFile, readFile, readdir } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 
 // Relações de rota no OpenStreetMap (uma por sentido). Para incluir uma linha, acrescente aqui.
 const RELACOES = {
-  "8012-10": [2277950, 2302353],
-  "8022-10": [2432990, 2432989],
-  "177H-10": [2510894, 3309999],
   "280BI1": [14064374, 14064375],
 };
 const SAIDA = new URL("../assets/dados/circulares.json", import.meta.url);
@@ -75,13 +70,6 @@ if (pontos.length) {
     const nos = new Map((await r2.json()).elements.map((n) => [`${arred(n.lat)},${arred(n.lon)}`, n.tags?.name]));
     for (const sentidos of Object.values(linhas)) for (const s of sentidos) for (const p of s.paradas) p.nome = nos.get(`${p.lat},${p.lon}`) || "";
   }
-}
-
-// Rotas reconstruídas à mão (linhas que o OpenStreetMap ainda não tem completas): ferramentas/rotas/<linha>.json.
-for (const arq of await readdir(new URL("./rotas/", import.meta.url)).catch(() => [])) {
-  if (!arq.endsWith(".json")) continue;
-  const extra = JSON.parse(await readFile(new URL("./rotas/" + arq, import.meta.url), "utf8"));
-  linhas[arq.replace(/\.json$/, "")] = extra.sentidos;
 }
 
 const dados = { fonte: "OpenStreetMap (© colaboradores do OpenStreetMap, ODbL)", atualizadoEm: new Date().toISOString(), linhas };
