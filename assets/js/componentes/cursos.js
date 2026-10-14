@@ -5,7 +5,7 @@
 //   vitrine  (aluno/)                 a faixa pequena com as logos, no fim da Área do aluno
 //   arquivo  (aluno/meu-amor/#turmas) as fotos das turmas, organizadas por ano
 
-import { centros, cursos, centroDo, cursoPor, arquivoDesde } from "../dados/cursos.js?v=202610141511";
+import { centros, cursos, centroDo, cursoPor, arquivoDesde } from "../dados/cursos.js?v=202610141539";
 
 const esc = (t = "") => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 const insta = (c) => `<a class="ca__insta" href="https://instagram.com/${esc(c.instagram)}" target="_blank" rel="noopener">@${esc(c.instagram)}</a>`;

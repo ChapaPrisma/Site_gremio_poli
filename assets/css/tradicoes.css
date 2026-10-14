@@ -103,7 +103,6 @@
 .videos-guardados__lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 18px; padding: 4px 0 20px; }
 .videos-guardados__item { margin: 0; }
 .videos-guardados__item:first-child { grid-column: 1 / -1; max-width: 720px; width: 100%; justify-self: center; }
-.videos-guardados__item figcaption { margin-top: 6px; font-size: .88rem; }
-.videos-guardados__item figcaption span { color: var(--tinta-suave); }
+.videos-guardados__item figcaption { margin-top: 6px; font-size: .88rem; color: var(--tinta-suave); }
 .video-local { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--raio-pequeno); background: var(--tinta); object-fit: cover; }
 @media (prefers-reduced-motion: reduce) { .videos-guardados summary::before { transition: none; } }
