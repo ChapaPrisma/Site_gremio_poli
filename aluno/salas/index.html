@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Salas e grade horária | Grêmio Politécnico da USP</title>
-  <meta name="description" content="Salas livres agora em cada prédio da Poli, onde é a sua aula e a sua grade com as salas, com os dados do USPolis.">
+  <meta name="description" content="Onde é a sua aula e a sua grade com as salas, com os dados do USPolis. Em breve, as salas livres em cada prédio da Poli.">
   <meta name="theme-color" content="#fbfbfe">
   <link rel="icon" href="../../assets/img/marca/favicon.png?v=d2fd1b1f">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito:wght@400;600;700;800&display=swap">
-  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610141927">
-  <link rel="stylesheet" href="../../assets/css/base.css?v=202610141927">
-  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610141927">
-  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610141927">
-  <link rel="stylesheet" href="../../assets/css/salas.css?v=202610141927">
-  <script type="module" src="../../assets/js/site.js?v=202610141927"></script>
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610141929">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=202610141929">
+  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610141929">
+  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610141929">
+  <link rel="stylesheet" href="../../assets/css/salas.css?v=202610141929">
+  <script type="module" src="../../assets/js/site.js?v=202610141929"></script>
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -30,13 +30,14 @@
       <section class="abertura abertura--noite salas-abertura" aria-labelledby="salas-titulo">
         <div class="salas-abertura__texto">
           <h1 id="salas-titulo">Salas e grade horária</h1>
-          <p class="abertura__lead">Quais salas da Poli estão livres agora, onde é a sua aula e a sua grade com as salas certas.</p>
-          <p class="salas-gex"><span class="selo-gex">GEX, deem uma olhada</span> Precisa de um lugar para reunião, estudo ou processo seletivo? Filtre pelo tamanho do grupo e veja o que está livre.</p>
+          <p class="abertura__lead">Onde é a sua aula, a sua grade com as salas certas e, em breve, quais salas da Poli estão livres.</p>
+          <p class="salas-gex"><span class="selo-gex">GEX, deem uma olhada</span> Em breve: um lugar para reunião, estudo ou processo seletivo, filtrando pelo tamanho do grupo.</p>
         </div>
         <div class="pulso" aria-live="polite">
           <b class="pulso__numero tab" id="pulsoNum">–</b>
           <span class="pulso__texto" id="pulsoTxt">salas livres agora, segundo o USPolis</span>
           <small class="pulso__sub" id="pulsoSub">Carregando os dados do USPolis…</small>
+          <span class="pulso__previa">Prévia: ainda não funciona</span>
         </div>
         <figure class="curva" aria-labelledby="curvaLegenda">
           <svg id="curva" role="img" aria-label="Quantidade de salas livres ao longo do dia"></svg>
@@ -52,6 +53,7 @@
       <section class="bloco-portal" id="livres" aria-labelledby="livres-titulo">
         <div class="livres-topo">
           <h2 id="livres-titulo">Salas livres</h2>
+          <p class="salas-previa"><b>Isto ainda é uma prévia e não funciona de verdade.</b> Os dados são um retrato do USPolis, que ainda não registra todas as atividades da Poli: uma sala que aparece livre aqui pode estar em uso. A disponibilidade de verdade depende de uma parceria com o USPolis.</p>
           <p class="bloco-portal__intro">Escolha o dia e arraste o horário. Cada quadrado é uma sala: verde está sem ocupação registrada no USPolis, amarelo fica livre por pouco tempo e cinza está ocupada.</p>
         </div>
 
@@ -146,10 +148,10 @@
       <section class="bloco-portal chamado chamado--gex" id="gex" aria-labelledby="gex-titulo">
         <div>
           <span class="selo-gex">GEX, deem uma olhada</span>
-          <h2 id="gex-titulo" style="margin-top:10px">Uma sala para o seu grupo, em segundos</h2>
-          <p>Escolha o dia e o horário da reunião, filtre pelo número de pessoas e abra a sala para ver até quando ela fica livre. As salas marcadas como reserváveis no USPolis aparecem assim no detalhe.</p>
+          <h2 id="gex-titulo" style="margin-top:10px">Em breve, uma sala para o seu grupo em segundos</h2>
+          <p>A ideia: escolher o dia e o horário da reunião, filtrar pelo número de pessoas e ver até quando a sala fica livre. Por enquanto é só uma prévia, que ainda não funciona de verdade.</p>
         </div>
-        <a class="botao" href="#livres" id="gexIr">Procurar uma sala</a>
+        <a class="botao" href="#livres" id="gexIr">Ver a prévia</a>
       </section>
 
       <p class="fonte-dados" id="fonteDados">Dados do <a href="https://www.uspolis.com.br/public/allocations" target="_blank" rel="noopener">USPolis</a>, o sistema de alocação de salas da Poli. "Livre" quer dizer sem aula, prova, reunião ou evento registrado no USPolis.</p>

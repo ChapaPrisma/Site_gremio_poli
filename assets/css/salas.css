@@ -139,3 +139,7 @@
 /* GEX e fonte */
 .chamado--gex .selo-gex { margin: 0; }
 .fonte-dados { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--linha); font-size: .88rem; color: var(--tinta-suave); }
+
+/* a disponibilidade das salas ainda é uma prévia (depende de uma parceria com o USPolis) */
+.pulso__previa { margin-top: 10px; padding: 3px 10px; border: 1.5px solid var(--sol); border-radius: 999px; color: var(--sol); font-size: .8rem; font-weight: 800; }
+.salas-previa { margin: 8px 0 12px; padding: 10px 14px; border-left: 4px solid var(--sol); border-radius: var(--raio-pequeno); background: var(--sol-claro); color: var(--tinta); font-size: .92rem; max-width: 70ch; }
