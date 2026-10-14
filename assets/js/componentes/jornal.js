@@ -90,6 +90,8 @@ export default function jornal() {
   prox.addEventListener("click", () => ir(atual + 1));
   folhas.forEach((f, i) => {
     f.querySelector(".jornal__rodape")?.addEventListener("click", () => ir(i + 1));
+    // chamadas da capa ("Nesta edição"): levam direto à página da matéria
+    f.querySelectorAll("[data-ir]").forEach((c) => c.addEventListener("click", (e) => { e.preventDefault(); ir(Number(c.dataset.ir) - 1); }));
     f.querySelector(".folha__canto")?.addEventListener("click", (e) => { if (!e.detail || !arrastou) ir(i + 1); });
   });
   edicao.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") ir(atual + 1); if (e.key === "ArrowLeft") ir(atual - 1); });

@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jornal O Politécnico | Grêmio Politécnico da USP</title>
-  <meta name="description" content="O jornal dos politécnicos desde 1944 renasce no portal do Grêmio, com a cara de diploma da Escola e espaço para quem quer escrever.">
+  <meta name="description" content="O jornal dos politécnicos desde 1944 renasce no portal do Grêmio, com a cara das edições que circularam pela Poli e espaço para quem quer escrever.">
   <meta name="theme-color" content="#fbfbfe">
   <link rel="icon" href="../../assets/img/marca/favicon.png?v=d2fd1b1f">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito:wght@400;600;700;800&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Oranienbaum&family=Pinyon+Script&display=swap">
-  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610141929">
-  <link rel="stylesheet" href="../../assets/css/base.css?v=202610141929">
-  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610141929">
-  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610141929">
-  <link rel="stylesheet" href="../../assets/css/jornal.css?v=202610141929">
-  <script type="module" src="../../assets/js/site.js?v=202610141929"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,500..900;1,62..125,600..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600&display=swap">
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610141956">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=202610141956">
+  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610141956">
+  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610141956">
+  <link rel="stylesheet" href="../../assets/css/jornal.css?v=202610141956">
+  <script type="module" src="../../assets/js/site.js?v=202610141956"></script>
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -40,107 +40,113 @@
 
       <div class="edicao" id="edicao" aria-label="O Politécnico, edição de relançamento">
 
-        <!-- Página 1 -->
+        <!-- Página 1: capa -->
         <section class="folha jornal" data-pagina="1" aria-labelledby="jornal-titulo">
-          <header class="jornal__cabeca jornal__cabeca--diploma">
-            <div class="jornal__emblema" aria-hidden="true">
-              <img class="jornal__louros" src="../../assets/img/jornal/louros.svg?v=ec85a45e" alt="" width="220" height="230">
-              <img class="jornal__brasao" src="../../assets/img/marca/gremio-azul.png?v=bef84bef" alt="" width="92" height="92">
-              <img class="jornal__selo" src="../../assets/img/jornal/selo.svg?v=5f93c51d" alt="" width="124" height="124">
+          <header class="mancheteira">
+            <div class="mancheteira__faixa">
+              <span class="minerva" aria-hidden="true"><img src="../../assets/img/marca/gremio-azul.png?v=bef84bef" alt="" width="500" height="500"></span>
+              <h1 class="mancheteira__titulo" id="jornal-titulo">O POLITÉCNICO</h1>
             </div>
-            <div class="jornal__titulos">
-            <p class="jornal__entidade">GRÊMIO POLITÉCNICO DA USP</p>
-            <h1 class="jornal__titulo" id="jornal-titulo" aria-label="O Politécnico">O·POLITÉCNICO</h1>
-            <p class="jornal__subtitulo" aria-label="Jornal dos alunos da Escola Politécnica">JORNAL·<wbr>DOS·<wbr>ALUNOS·<wbr>DA·<wbr>ESCOLA·<wbr>POLITÉCNICA</p>
-            </div>
+            <p class="folio"><span>Grêmio Politécnico</span><span>Ano LXXXII</span><span>São Paulo, fevereiro de 2027</span><span>Edição de relançamento</span></p>
           </header>
-          <p class="proclamacao">O Grêmio Politécnico da Universidade de São Paulo, no exercício de suas atribuições, faz saber a todos os politécnicos que o jornal O Politécnico, fundado em <span class="preencher"><span class="assinatura">1944</span></span>, volta a circular, e que cada texto publicado nestas páginas levará, com a devida honra, o nome de quem o escreveu: <span class="preencher"><span class="assinatura">o seu nome aqui</span></span>.</p>
-          <p class="jornal__linha"><span>Cidade Universitária, São Paulo</span><span>Edição de relançamento</span><span>Fundado em 1944</span></p>
-          <p class="jornal__estado">Em preparação: volta no portal na Semana de Recepção de 2027.</p>
 
-          <div class="primeira">
-            <article class="primeira__manchete" aria-labelledby="jornal-manchete">
-              <h2 id="jornal-manchete">O Politécnico renasce</h2>
-              <p class="jornal__linha-fina">Criado por politécnicos em 1944, o jornal ganha um novo espaço no portal do Grêmio, com a cara de um documento que se guarda.</p>
-              <p class="jornal__autoria">por <span class="assinatura">Redação de O Politécnico</span></p>
-              <div class="jornal__colunas">
-                <p>Por décadas, O Politécnico circulou pelos corredores da Poli em folhas de papel. Os tempos mudaram e a leitura foi para a tela, mas a vontade de contar as histórias da Escola continua a mesma. Por isso o jornal volta agora em formato digital, e também em papel, com o cuidado de um diploma da Escola: papel marfim, moldura gravada e o nome de cada autor escrito à mão, por respeito a uma iniciativa criada pelos politécnicos há 82 anos. E o principal continua igual: um espaço livre, escrito pelos alunos e lido por toda a Poli, aberto a quem quiser escrever.</p>
-              </div>
-            </article>
+          <section class="nesta" aria-labelledby="jornal-nesta">
+            <h2 class="nesta__etiqueta" id="jornal-nesta">Nesta edição:</h2>
+            <div class="nesta__chamadas">
+              <a class="chamada-capa" href="#pag2-titulo" data-ir="2">
+                <img src="../../assets/img/tradicoes/poli-aerea.jpg?v=6694f707" alt="" width="640" height="480" loading="lazy">
+                <span class="chamada-capa__texto">Temos interesse em escritores</span><span class="chamada-capa__pagina">Página 2</span>
+              </a>
+              <a class="chamada-capa" href="#pag3-titulo" data-ir="3">
+                <img src="../../assets/img/tradicoes/bixos.jpg?v=43a45ca5" alt="" width="1400" height="877" loading="lazy">
+                <span class="chamada-capa__texto">As seções que esperam por você</span><span class="chamada-capa__pagina">Página 3</span>
+              </a>
+            </div>
+            <ul class="nesta__lista">
+              <li>O Politécnico renasce <b>pág. 1</b></li>
+              <li>Classificados <b>pág. 1</b></li>
+              <li>Como participar <b>pág. 2</b></li>
+              <li>Recorte e envie <b>pág. 3</b></li>
+              <li>Expediente <b>pág. 3</b></li>
+            </ul>
+          </section>
 
-            <aside class="primeira__lateral">
-              <section class="jornal__materia" aria-labelledby="jornal-temas">
-                <h2 id="jornal-temas">Sobre o que escrever</h2>
-                <p>Artigos de opinião que tentam entender o que passa na cabeça do politécnico, história, notícias da engenharia, resenhas, anúncio de jogos ou textos ainda mais inusitados. O espaço é livre.</p>
-              </section>
-              <section class="jornal__materia" aria-labelledby="jornal-sonho">
-                <h2 id="jornal-sonho">Quem sabe um dia</h2>
-                <p>A cobertura e a transmissão da final da NDU entre Poli e Med, direto do Jornal.</p>
-              </section>
-            </aside>
+          <article class="materia" aria-labelledby="jornal-manchete">
+            <h2 class="manchete" id="jornal-manchete">O Politécnico renasce</h2>
+            <p class="linha-fina">Criado por politécnicos em 1944, o jornal volta a circular, agora também no portal do Grêmio, com a cara das edições que passaram de mão em mão pela Poli.</p>
+            <div class="texto-colunas">
+              <p>Por décadas, O Politécnico circulou pelos corredores da Poli em folhas de papel. Os tempos mudaram e a leitura foi para a tela, mas a vontade de contar as histórias da Escola continua a mesma. Por isso o jornal volta agora em formato digital, e também em papel, com a faixa azul, o amarelo do Grêmio e o nome de cada autor impresso junto do texto, como nas edições que circularam pela Escola, por respeito a uma iniciativa criada pelos politécnicos há 82 anos. E o principal continua igual: um espaço livre, escrito pelos alunos e lido por toda a Poli, aberto a quem quiser escrever.</p>
+            </div>
+            <p class="assina">Redação de O Politécnico</p>
+          </article>
 
-            <section class="primeira__classificados jornal__classificados" aria-labelledby="jornal-class">
-              <h2 id="jornal-class">Classificados</h2>
-              <div class="anuncios">
-                <div class="anuncio">
-                  <h3>Procuram-se colunistas</h3>
-                  <p>Escreva sobre o que move você. Vagas abertas para alunos da Poli.</p>
-                  <a href="mailto:chapa.poli.prisma@gmail.com?subject=Quero%20ser%20colunista%20de%20O%20Polit%C3%A9cnico">Candidatar-se</a>
-                </div>
-                <div class="anuncio">
-                  <h3>Procuram-se entrevistadores</h3>
-                  <p>Converse com quem faz a Poli e conte essas histórias.</p>
-                  <a href="mailto:chapa.poli.prisma@gmail.com?subject=Quero%20ser%20entrevistador%20de%20O%20Polit%C3%A9cnico">Candidatar-se</a>
-                </div>
-                <div class="anuncio">
-                  <h3>Anuncie seu estágio</h3>
-                  <p>Empresas e grupos: a sua vaga chega a toda a Poli. A verba dos anúncios volta para o próprio jornal.</p>
-                  <a href="mailto:chapa.poli.prisma@gmail.com?subject=An%C3%BAncio%20de%20est%C3%A1gio%20em%20O%20Polit%C3%A9cnico">Anunciar uma vaga</a>
-                </div>
-              </div>
+          <div class="dupla-capa">
+            <section class="nota-capa" aria-labelledby="jornal-temas">
+              <h2 class="secao" id="jornal-temas"><span class="minerva minerva--mini" aria-hidden="true"><img src="../../assets/img/marca/gremio-azul.png?v=bef84bef" alt="" width="500" height="500"></span>Sobre o que escrever</h2>
+              <p>Artigos de opinião que tentam entender o que passa na cabeça do politécnico, história, notícias da engenharia, resenhas, anúncio de jogos ou textos ainda mais inusitados. O espaço é livre.</p>
+            </section>
+            <section class="nota-capa" aria-labelledby="jornal-sonho">
+              <h2 class="secao" id="jornal-sonho"><span class="minerva minerva--mini" aria-hidden="true"><img src="../../assets/img/marca/gremio-azul.png?v=bef84bef" alt="" width="500" height="500"></span>Quem sabe um dia</h2>
+              <p>A cobertura e a transmissão da final da NDU entre Poli e Med, direto do Jornal.</p>
             </section>
           </div>
-          <footer class="jornal__rodape">Página 1 · continua na página 2</footer>
+
+          <section class="classificados" aria-labelledby="jornal-class">
+            <h2 class="classificados__titulo" id="jornal-class">Classificados</h2>
+            <div class="anuncios">
+              <div class="anuncio">
+                <h3>Procuram-se colunistas</h3>
+                <p>Escreva sobre o que move você. Vagas abertas para alunos da Poli.</p>
+                <a href="mailto:chapa.poli.prisma@gmail.com?subject=Quero%20ser%20colunista%20de%20O%20Polit%C3%A9cnico">Candidatar-se</a>
+              </div>
+              <div class="anuncio">
+                <h3>Procuram-se entrevistadores</h3>
+                <p>Converse com quem faz a Poli e conte essas histórias.</p>
+                <a href="mailto:chapa.poli.prisma@gmail.com?subject=Quero%20ser%20entrevistador%20de%20O%20Polit%C3%A9cnico">Candidatar-se</a>
+              </div>
+              <div class="anuncio">
+                <h3>Anuncie seu estágio</h3>
+                <p>Empresas e grupos: a sua vaga chega a toda a Poli. A verba dos anúncios volta para o próprio jornal.</p>
+                <a href="mailto:chapa.poli.prisma@gmail.com?subject=An%C3%BAncio%20de%20est%C3%A1gio%20em%20O%20Polit%C3%A9cnico">Anunciar uma vaga</a>
+              </div>
+            </div>
+          </section>
+          <footer class="jornal__rodape jornal__rodape--impar"><span>Página</span><b>1</b></footer>
         </section>
 
         <!-- Página 2 -->
         <section class="folha jornal" data-pagina="2" aria-labelledby="pag2-titulo" hidden>
-          <header class="jornal__cabeca jornal__cabeca--interna">
-            <p class="jornal__titulo-interno" aria-hidden="true">O·POLITÉCNICO</p>
-            <p class="jornal__linha"><span>Edição de relançamento</span><span>Página 2</span></p>
-          </header>
+          <header class="cabeca-interna"><span>O Politécnico</span><span>São Paulo, fevereiro de 2027</span></header>
+          <p class="secao secao--larga"><span class="minerva minerva--mini" aria-hidden="true"><img src="../../assets/img/marca/gremio-azul.png?v=bef84bef" alt="" width="500" height="500"></span>Chamada aos alunos</p>
           <div class="interna">
-            <article class="interna__principal" aria-labelledby="pag2-titulo">
-              <p class="chapeu">Chamada aos alunos</p>
-              <h2 id="pag2-titulo">Temos interesse em escritores</h2>
-              <p class="jornal__linha-fina">O jornal só renasce se tiver quem escreva. E pode ser você, de qualquer curso e qualquer ano.</p>
-              <div class="jornal__colunas">
+            <article class="materia" aria-labelledby="pag2-titulo">
+              <h2 class="manchete" id="pag2-titulo">Temos interesse em escritores</h2>
+              <p class="linha-fina">O jornal só renasce se tiver quem escreva. E pode ser você, de qualquer curso e qualquer ano.</p>
+              <div class="texto-colunas">
                 <p>Não é preciso ter experiência com jornalismo. Procuramos politécnicos com vontade de escrever, de perguntar e de contar o que acontece dentro e fora das salas: um laboratório que ninguém conhece, um professor com uma história incrível, uma resenha do filme que todo mundo comentou na semana, o resultado do campeonato, uma ideia que não sai da cabeça. Quem escrever vai ter seu nome publicado, um espaço fixo se quiser virar colunista e a companhia de outros alunos que também gostam de escrever. Se você sempre quis ver um texto seu impresso no jornal da Poli, agora é a hora.</p>
               </div>
             </article>
             <aside class="interna__lateral">
-              <section class="quadro" aria-labelledby="pag2-como">
-                <h3 id="pag2-como">Como participar</h3>
+              <section class="editorial" aria-labelledby="pag2-como">
+                <h3 class="editorial__etiqueta" id="pag2-como">Como participar</h3>
                 <ol>
                   <li>Mande um e-mail para o Grêmio com o assunto "Quero escrever no Politécnico".</li>
                   <li>Conte seu nome, curso e ano, e sobre o que gostaria de escrever.</li>
                   <li>Se tiver, mande um texto curto seu, de qualquer assunto.</li>
                 </ol>
-                <a class="quadro__acao" href="mailto:chapa.poli.prisma@gmail.com?subject=Quero%20escrever%20no%20Polit%C3%A9cnico">Quero escrever</a>
+                <a class="acao-jornal" href="mailto:chapa.poli.prisma@gmail.com?subject=Quero%20escrever%20no%20Polit%C3%A9cnico">Quero escrever</a>
               </section>
               <blockquote class="citacao">“Um espaço livre, e de grande exposição aos alunos.”<cite>Do projeto do novo Politécnico</cite></blockquote>
             </aside>
           </div>
-          <footer class="jornal__rodape">Página 2 · continua na página 3</footer>
+          <footer class="jornal__rodape jornal__rodape--par"><b>2</b><span>Página</span></footer>
         </section>
 
         <!-- Página 3 -->
         <section class="folha jornal" data-pagina="3" aria-labelledby="pag3-titulo" hidden>
-          <header class="jornal__cabeca jornal__cabeca--interna">
-            <p class="jornal__titulo-interno" aria-hidden="true">O·POLITÉCNICO</p>
-            <p class="jornal__linha"><span>Edição de relançamento</span><span>Página 3</span></p>
-          </header>
-          <h2 class="interna__titulo" id="pag3-titulo">As seções que esperam por você</h2>
+          <header class="cabeca-interna"><span>O Politécnico</span><span>São Paulo, fevereiro de 2027</span></header>
+          <p class="secao secao--larga"><span class="minerva minerva--mini" aria-hidden="true"><img src="../../assets/img/marca/gremio-azul.png?v=bef84bef" alt="" width="500" height="500"></span>Seções</p>
+          <h2 class="manchete manchete--pagina" id="pag3-titulo">As seções que esperam por você</h2>
           <div class="secoes-jornal">
             <section><h3>Opinião</h3><p>Artigos de opinião que buscam compreender o que passa na cabeça do politécnico.</p></section>
             <section><h3>Clube do livro</h3><p>O clube do livro politécnico: avaliação e estudo de livros que marcaram a engenharia, a economia, a literatura e a sociedade.</p></section>
@@ -152,30 +158,41 @@
             <section><h3>Esportes</h3><p>A agenda dos jogos, os resultados do fim de semana e as histórias das equipes da Poli.</p></section>
             <section><h3>Entrevistas</h3><p>Conversas com alunos, professores, funcionários e ex-alunos que fazem a Poli ser o que é.</p></section>
           </div>
-          <div class="fecho">
-            <section class="quadro quadro--cupom" aria-labelledby="pag3-cupom">
-              <h3 id="pag3-cupom">Recorte e envie</h3>
-              <p>Quero escrever na seção <span class="linha-preencher"></span> sobre <span class="linha-preencher" style="min-width:14em"></span>.</p>
-              <a class="quadro__acao" href="mailto:chapa.poli.prisma@gmail.com?subject=Quero%20escrever%20no%20Polit%C3%A9cnico">Mandar meu interesse</a>
-            </section>
-            <section class="expediente" aria-labelledby="pag3-expediente">
-              <h3 id="pag3-expediente">Expediente</h3>
-              <p>O Politécnico, jornal dos alunos da Escola Politécnica da USP, fundado em 1944. Edição de relançamento, publicada no portal do Grêmio Politécnico. A edição impressa continua, com tiragem maior em ocasiões especiais. A redação está sendo formada: o seu nome pode estar aqui na próxima edição.</p>
-            </section>
-          </div>
-          <section class="redacao" aria-labelledby="pag3-redacao">
-            <h3 id="pag3-redacao">REDAÇÃO</h3>
-            <p class="proclamacao">E, para que todos saibam quem faz O Politécnico, publica-se o presente expediente, que assinam a redação e cada autor desta edição.</p>
-            <p class="data-local">Cidade Universitária, <span class="preencher"><span class="assinatura">fevereiro</span></span> de <span class="preencher"><span class="assinatura">2027</span></span></p>
-            <div class="assinaturas">
-              <div><span class="assinatura"></span><small>Diretoria de Comunicação do Grêmio</small></div>
-              <div><span class="assinatura">o seu nome aqui</span><small>Editor-chefe</small></div>
-              <div><span class="assinatura">o seu nome aqui</span><small>Autor</small></div>
-            </div>
+          <section class="cupom" aria-labelledby="pag3-cupom">
+            <h3 id="pag3-cupom">Recorte e envie</h3>
+            <p>Quero escrever na seção <span class="linha-preencher"></span> sobre <span class="linha-preencher linha-preencher--longa"></span>.</p>
+            <a class="acao-jornal" href="mailto:chapa.poli.prisma@gmail.com?subject=Quero%20escrever%20no%20Polit%C3%A9cnico">Mandar meu interesse</a>
           </section>
-          <footer class="jornal__rodape">Página 3 · fim da edição</footer>
+          <section class="expediente" aria-labelledby="pag3-expediente">
+            <div class="expediente__faixa">
+              <h3 id="pag3-expediente">Expediente</h3>
+              <span class="expediente__marca"><span class="minerva minerva--mini" aria-hidden="true"><img src="../../assets/img/marca/gremio-azul.png?v=bef84bef" alt="" width="500" height="500"></span>O POLITÉCNICO</span>
+              <span class="expediente__data">São Paulo, fevereiro de 2027. Ano LXXXII</span>
+            </div>
+            <dl class="expediente__lista">
+              <div><dt>Equipe editorial</dt><dd>Diretoria de Comunicação do Grêmio Politécnico</dd></div>
+              <div><dt>Editor-chefe</dt><dd>o seu nome aqui</dd></div>
+              <div><dt>Autores desta edição</dt><dd>o seu nome aqui</dd></div>
+              <div><dt>Contato</dt><dd>chapa.poli.prisma@gmail.com (provisório)</dd></div>
+              <div><dt>Edição</dt><dd>Relançamento, no portal do Grêmio e impressa, com tiragem maior em ocasiões especiais</dd></div>
+              <div><dt>Fundado em</dt><dd>1944, pelos alunos da Escola Politécnica da USP</dd></div>
+            </dl>
+            <p class="expediente__nota">A redação está sendo formada: o seu nome pode estar aqui na próxima edição. Os textos assinados refletem a opinião de quem os escreveu.</p>
+          </section>
+          <footer class="jornal__rodape jornal__rodape--impar"><span>Página</span><b>3</b></footer>
         </section>
       </div>
+
+      <section class="arquivo-jornal" aria-labelledby="jornal-arquivo">
+        <h2 id="jornal-arquivo">As edições que vieram antes</h2>
+        <p>O jeito desta edição vem das edições de O Politécnico que circularam pela Poli entre 2009 e 2018, guardadas pelo <a href="https://www.politecnicos.com.br/jornais/o-politecnico/" target="_blank" rel="noopener">politecnicos.com.br</a>, onde dá para ler todas.</p>
+        <div class="arquivo-jornal__capas">
+          <a href="https://www.politecnicos.com.br/jornais/pdf/gremio/O_Politecnico_2012_1.pdf" target="_blank" rel="noopener"><img src="../../assets/img/jornal/capa-2012-1.jpg?v=58b1e616" alt="Capa de O Politécnico de janeiro e fevereiro de 2012" width="520" height="709" loading="lazy"><span>Jan./fev. de 2012</span></a>
+          <a href="https://www.politecnicos.com.br/jornais/pdf/gremio/O_Politecnico_2013_5.pdf" target="_blank" rel="noopener"><img src="../../assets/img/jornal/capa-2013-5.jpg?v=61f43fc6" alt="Capa de O Politécnico de outubro de 2013" width="520" height="709" loading="lazy"><span>Out. de 2013</span></a>
+          <a href="https://www.politecnicos.com.br/jornais/o-politecnico/" target="_blank" rel="noopener"><img src="../../assets/img/tradicoes/politecnico-2015-bixos.jpg?v=28074278" alt="Capa de O Politécnico de fevereiro de 2015" width="1400" height="1220" loading="lazy"><span>Fev. de 2015</span></a>
+        </div>
+        <p class="nota">Capas e edições: arquivo do <a href="https://www.politecnicos.com.br/quem-somos" target="_blank" rel="noopener">politecnicos.com.br</a>.</p>
+      </section>
 
       <div data-componente="jornal"></div>
     </main>
