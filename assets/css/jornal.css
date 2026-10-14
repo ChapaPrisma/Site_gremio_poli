@@ -154,6 +154,10 @@
 .redacao h3 { font-family: "Oranienbaum", serif; font-weight: 400; font-size: 1.25rem; letter-spacing: .1em; }
 .redacao > p { margin-top: 4px; font-style: italic; font-size: .95rem; }
 
+/* aviso de que o jornal ainda está sendo imaginado (fora do papel, no estilo do site) */
+.jornal-aviso { margin-bottom: 14px; padding: 12px 16px; border: 2px solid var(--linha); border-radius: var(--raio-pequeno); background: var(--papel); font-size: .95rem; color: var(--tinta-suave); }
+.jornal-aviso .pill { margin-right: 6px; }
+
 /* barra da edição (no estilo do site) */
 .jornal-barra { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-bottom: 14px; }
 .jornal-barra__seta { width: 42px; height: 42px; border: var(--borda); border-radius: 50%; background: var(--papel); font: 700 1.4rem/1 var(--fonte); color: var(--tinta); cursor: pointer; }
@@ -186,7 +190,7 @@
 @media print {
   @page { size: A3; margin: 9mm; }
   body { background: #fff; }
-  .aviso, .cabecalho, .gaveta, .rodape, .indice--lateral, .trilha, .jornal-barra, .pular, .so-se-eleita { display: none !important; }
+  .aviso, .cabecalho, .gaveta, .rodape, .indice--lateral, .trilha, .jornal-barra, .jornal-aviso, .pular, .so-se-eleita { display: none !important; }
   .leiaute { display: block; padding: 0; max-width: none; }
   .edicao, .edicao.pronta { display: block; perspective: none; height: auto !important; }
   .edicao .folha, .edicao.pronta .folha {
