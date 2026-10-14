@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-13T22:25:29.016Z",
+ "atualizadoEm": "2026-10-14T13:09:38.996Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-13T22:25:29.016Z",
+   "atualizadoEm": "2026-10-14T13:09:38.996Z",
    "dias": {
     "2026-10-12": {
      "almoco": [
@@ -40,7 +40,7 @@
       "Opção: Escondidinho de PVT",
       "Quiabo ao alho e óleo",
       "Salada de almeirão",
-      "Abacaxi",
+      "Melão",
       "Minipão / refresco"
      ],
      "jantar": [
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-13T22:25:29.016Z",
+   "atualizadoEm": "2026-10-14T13:09:38.996Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
@@ -126,7 +126,7 @@
      "almoco": [
       "Arroz / feijão carioca / arroz integral",
       "Carne em tiras com molho oriental",
-      "Opção: Yakisoba de PVT",
+      "Opção: PVT à pizzaiolo",
       "Polenta com couve",
       "Salada de mostarda",
       "Banana",
@@ -136,12 +136,12 @@
     },
     "2026-10-15": {
      "almoco": [
-      "Arroz / feijão / arroz integral",
+      "Arroz / feijão preto / arroz integral",
       "Linguiça à escabeche",
       "Opção: PVT com vagem",
-      "Creme de milho",
+      "Viarado de milho",
       "Salada de escarola",
-      "Biscoito de chocolate",
+      "Gelatina de abacaxi",
       "Minipão / refresco"
      ],
      "jantar": []
@@ -150,10 +150,10 @@
      "almoco": [
       "Arroz / feijão / arroz integral",
       "Sobrecoxa de frango assada",
-      "Opção: Feijoada vegetariana (feijão branco e legumes)",
+      "Opção: Ovos mexidos",
       "Macarrão ao sugo",
       "Salada de alface",
-      "Abacaxi",
+      "Melancia",
       "Minipão / refresco"
      ],
      "jantar": []
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-13T22:25:29.016Z",
+   "atualizadoEm": "2026-10-14T13:09:38.996Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-13T22:25:29.016Z",
+   "atualizadoEm": "2026-10-14T13:09:38.996Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
