@@ -8,7 +8,7 @@
 // O mapa é o Leaflet com o OpenStreetMap, carregados só nesta página.
 // Uso: marcação em aluno/circulares/index.html e <div data-componente="guia-circulares"></div>.
 
-import { LINHAS, GRUPOS } from "../dados/circulares.js?v=202610141218";
+import { LINHAS, GRUPOS } from "../dados/circulares.js?v=202610141245";
 
 const LEAFLET = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/";
 const CENTRO = [-23.5615, -46.7262];
@@ -19,11 +19,11 @@ const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "
 function carregarLeaflet() {
   if (window.L) return Promise.resolve(window.L);
   const css = document.createElement("link");
-  css.rel = "stylesheet"; css.href = LEAFLET + "leaflet.min.css?v=202610141218";
+  css.rel = "stylesheet"; css.href = LEAFLET + "leaflet.min.css?v=202610141245";
   document.head.appendChild(css);
   return new Promise((ok, erro) => {
     const s = document.createElement("script");
-    s.src = LEAFLET + "leaflet.min.js?v=202610141218";
+    s.src = LEAFLET + "leaflet.min.js?v=202610141245";
     s.onload = () => ok(window.L); s.onerror = erro;
     document.head.appendChild(s);
   });

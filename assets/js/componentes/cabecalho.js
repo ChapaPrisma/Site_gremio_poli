@@ -3,7 +3,7 @@
 // "Índice" e a gaveta também traz os links do menu.
 // Qualquer elemento com data-abrir-gaveta, em qualquer lugar da página, abre a mesma gaveta.
 
-import { arvore, arvoreDaArea } from "./indice.js?v=202610141218";
+import { arvore, arvoreDaArea } from "./indice.js?v=202610141245";
 
 export default function cabecalho(alvo, contexto) {
   const { site, url } = contexto;
@@ -29,8 +29,10 @@ export default function cabecalho(alvo, contexto) {
   const chamada = site.chamada
     ? `<a class="botao botao--acesso" href="${url(site.chamada.href)}">${iconeAcesso}<span>${site.chamada.rotulo}</span></a>`
     : "";
+  // capelo de formatura: o detalhe do botão da Área do politécnico
+  const iconeCapelo = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/><path d="M22 9v5"/></svg>`;
   const acessos = (site.acessos || [])
-    .map((a, i) => `<a class="botao ${i ? "botao--linha" : "botao--acesso"}" href="${url(a.href)}">${i ? "" : iconeAcesso}<span>${a.rotulo}</span></a>`)
+    .map((a, i) => `<a class="botao ${i ? "botao--linha" : "botao--acesso"}${a.id === "politecnico" ? " botao--politecnico" : ""}" href="${url(a.href)}">${i ? "" : iconeAcesso}${a.id === "politecnico" ? iconeCapelo : ""}<span>${a.rotulo}</span></a>`)
     .join("");
 
   const iconeIndice = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h13"/></svg>`;

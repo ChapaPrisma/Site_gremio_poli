@@ -515,3 +515,7 @@
 @media (prefers-reduced-motion: reduce) { .so-se-eleita[open], .so-se-eleita.saindo, .so-se-eleita__selo, .so-se-eleita[open]::backdrop { animation: none; } }
 
 .so-se-eleita__email { user-select: all; color: var(--tinta); }
+
+/* botão da Área do politécnico: contorno azul com um toque de sol e o capelo de formatura */
+.gaveta .botao--politecnico, .botao--politecnico { border: 2px solid var(--azul); color: var(--azul); background: linear-gradient(90deg, var(--sol-claro), var(--papel) 70%); box-shadow: inset 4px 0 0 var(--sol); }
+.botao--politecnico:hover { background: var(--sol-claro); color: var(--azul); }
