@@ -171,6 +171,20 @@ export const ramificacoes = [
         ],
       },
       {
+        id: "tradicoes",
+        titulo: "Tradições da Poli",
+        caminho: "aluno/tradicoes/",
+        estado: "no-ar",
+        resumo: "BichUSP, InterUSP, IntegraPoli e a carta para os bixos: como as tradições eram e como vão voltar com a turma de 2027. Inspirado no Politécnicos.",
+        chamada: "Conhecer as tradições",
+        filhos: [
+          { id: "tradicao-bichusp", titulo: "BichUSP", caminho: "aluno/tradicoes/bichusp/" },
+          { id: "tradicao-interusp", titulo: "InterUSP", caminho: "aluno/tradicoes/interusp/" },
+          { id: "tradicao-integrapoli", titulo: "IntegraPoli", caminho: "aluno/tradicoes/integrapoli/" },
+          { id: "tradicao-bixos-e-bixetes", titulo: "Bixos e bixetes", caminho: "aluno/tradicoes/bixos-e-bixetes/" },
+        ],
+      },
+      {
         id: "jornal",
         titulo: "Jornal O Politécnico",
         caminho: "aluno/jornal/",

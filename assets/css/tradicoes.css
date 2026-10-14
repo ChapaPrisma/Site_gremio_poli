@@ -1,0 +1,82 @@
+/* Tradições da Poli (aluno/tradicoes/): BichUSP, InterUSP, IntegraPoli e Bixos e bixetes.
+   Assumidamente inspirada no Politécnicos (politecnicos.com.br). Cada página tem duas vozes:
+   "Como era", a memória (fotos e vídeos de arquivo, em tom levemente desbotado), e "Como vai ser",
+   o capítulo de 2027 escrito para quem chega (no amarelo do site). */
+
+/* carta de abertura */
+.carta-veterano { max-width: 68ch; padding: clamp(20px, 3vw, 30px); border: var(--borda); border-radius: var(--raio); background: var(--papel); }
+.carta-veterano p + p { margin-top: 12px; }
+.carta-veterano__assina { margin-top: 16px; font-weight: 800; }
+
+/* as duas vozes */
+.duas-vozes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+@container (max-width: 720px) { .duas-vozes { grid-template-columns: 1fr; } }
+.voz { display: flex; flex-direction: column; gap: 12px; padding: clamp(18px, 3vw, 26px); border-radius: var(--raio); }
+.voz h2 { font-size: clamp(1.35rem, 3cqi, 1.75rem); }
+.voz p { color: var(--tinta-suave); }
+.voz ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; color: var(--tinta-suave); }
+.voz--era { border: 2px solid var(--linha); background: var(--painel); }
+.voz--vai { border: var(--borda); background: var(--sol-claro); box-shadow: 0 5px 0 var(--tinta); }
+.voz--vai p, .voz--vai ul { color: var(--tinta); }
+
+/* fotos e vídeos de arquivo */
+.arquivo { margin: 0; }
+.arquivo img { display: block; width: 100%; height: auto; border-radius: var(--raio-pequeno); filter: sepia(.18) saturate(.85); }
+.arquivo figcaption, .video-credito { margin-top: 6px; font-size: .85rem; color: var(--tinta-suave); }
+.galeria-arquivo { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr)); gap: 12px; }
+
+/* vídeo leve (componentes/video-leve.js) */
+.video-leve { position: relative; aspect-ratio: 16 / 9; border: var(--borda); border-radius: var(--raio); overflow: hidden; background: var(--tinta); }
+.video-leve iframe { display: block; width: 100%; height: 100%; border: 0; }
+.video-leve__capa { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer; color: var(--tinta); }
+.video-leve__capa img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.15) saturate(.9); transition: filter .2s ease; }
+.video-leve__capa:hover img, .video-leve__capa:focus-visible img { filter: none; }
+.video-leve__play { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 68px; height: 68px; margin: -34px 0 0 -34px; border: var(--borda); border-radius: 50%; background: var(--sol); box-shadow: 0 4px 0 var(--tinta); }
+.video-leve__titulo { position: absolute; left: 10px; bottom: 10px; max-width: calc(100% - 20px); padding: 4px 10px; border-radius: 6px; background: rgba(18, 23, 53, .82); color: #fff; font: 700 .85rem var(--fonte); text-align: left; }
+
+/* cartões das tradições (página de entrada) */
+.tradicoes-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr)); gap: 14px; }
+.tradicao-cartao { display: flex; flex-direction: column; border: var(--borda); border-radius: var(--raio); background: var(--papel); color: var(--tinta); text-decoration: none; overflow: hidden; }
+.tradicao-cartao:hover { box-shadow: 0 5px 0 var(--tinta); }
+.tradicao-cartao img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; filter: sepia(.18) saturate(.85); }
+.tradicao-cartao__sem-foto { display: grid; place-items: center; aspect-ratio: 16 / 10; background: var(--painel); font: 800 2.4rem var(--fonte-titulo); color: var(--tinta-suave); }
+.tradicao-cartao div { padding: 14px 16px 16px; }
+.tradicao-cartao h3 { font-size: 1.25rem; }
+.tradicao-cartao p { margin-top: 4px; color: var(--tinta-suave); font-size: .95rem; }
+
+/* fatos rápidos de cada tradição */
+.fatos { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(170px, 100%), 1fr)); gap: 10px; margin: 0; }
+.fatos div { padding: 12px 14px; border: 2px solid var(--linha); border-radius: var(--raio-pequeno); background: var(--papel); }
+.fatos dt { font-size: .85rem; color: var(--tinta-suave); }
+.fatos dd { margin: 2px 0 0; font-weight: 800; }
+
+/* crédito ao Politécnicos */
+.credito-politecnicos { display: grid; gap: 10px; padding: clamp(18px, 3vw, 26px); border: 2px dashed var(--tinta); border-radius: var(--raio); background: var(--papel); }
+.credito-politecnicos h2 { font-size: 1.3rem; }
+.credito-politecnicos p { color: var(--tinta-suave); max-width: 70ch; }
+.credito-politecnicos blockquote { margin: 0; padding-left: 14px; border-left: 4px solid var(--sol); font-weight: 800; }
+.credito-politecnicos small { color: var(--tinta-suave); }
+
+/* entre uma tradição e outra */
+.tradicoes-nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+.tradicoes-nav a { flex: 1 1 220px; padding: 12px 16px; border: 2px solid var(--linha); border-radius: var(--raio-pequeno); color: var(--tinta); text-decoration: none; }
+.tradicoes-nav a:hover { border-color: var(--tinta); }
+.tradicoes-nav small { display: block; color: var(--tinta-suave); }
+.tradicoes-nav b { font-family: var(--fonte-titulo); }
+.tradicoes-nav a:last-child { text-align: right; }
+.nota-credito { font-size: .85rem; color: var(--tinta-suave); }
+
+/* a frase da seção: a nostalgia de um tempo que não foi nosso, e a chance de torná-lo nosso */
+.frase-nostalgia { margin-top: 10px; font: 700 clamp(1.3rem, 3.4cqi, 2rem)/1.25 var(--fonte-titulo); color: var(--tinta-suave); max-width: 26ch; }
+.frase-nostalgia b { display: block; color: var(--tinta); }
+.arquivo a { display: block; }
+
+/* faixa "Do arquivo": a primeira peça grande, as outras em grade */
+.arquivo-faixa h2 { font-size: clamp(1.35rem, 3cqi, 1.75rem); margin-bottom: 12px; }
+.arquivo-faixa__grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.arquivo-faixa__item:first-child { grid-column: 1 / -1; }
+.arquivo-faixa__item .galeria-arquivo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@container (max-width: 620px) { .arquivo-faixa__grade, .arquivo-faixa__item .galeria-arquivo { grid-template-columns: 1fr; } }
+.bloco-portal.arquivo--destaque { margin-top: 28px; }
+.arquivo--destaque img { max-width: 100%; }
+.arquivo-faixa__item:has(.galeria-arquivo) { grid-column: 1 / -1; }

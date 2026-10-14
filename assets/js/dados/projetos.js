@@ -2,7 +2,7 @@
 // Tabelas e regras: ferramentas/supabase/projetos.sql. Leitura pública; escrita pelo portal interno.
 // Se o banco não estiver ligado ou a tabela ainda não existir, devolve listas vazias.
 
-import { supabase } from "./contas.js?v=202610131724";
+import { supabase } from "./contas.js?v=202610141020";
 
 export const SITUACOES = { "planejado": "Planejado", "em-andamento": "Em andamento", "concluido": "Concluído" };
 
