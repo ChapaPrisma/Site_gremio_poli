@@ -80,3 +80,10 @@
 .bloco-portal.arquivo--destaque { margin-top: 28px; }
 .arquivo--destaque img { max-width: 100%; }
 .arquivo-faixa__item:has(.galeria-arquivo) { grid-column: 1 / -1; }
+
+/* vídeo em destaque, grande e centralizado (InterUSP) */
+.video-destaque { max-width: 900px; margin-inline: auto; text-align: center; }
+.video-destaque h2 { font-size: clamp(1.4rem, 3.2cqi, 1.9rem); }
+.video-destaque > p:not(.video-credito) { margin: 6px auto 14px; max-width: 60ch; color: var(--tinta-suave); }
+.video-destaque .video-leve { box-shadow: 0 6px 0 var(--tinta); }
+.duas-vozes--uma { grid-template-columns: 1fr; }

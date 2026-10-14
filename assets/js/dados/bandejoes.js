@@ -41,7 +41,7 @@ export const bandejoes = [
 ];
 
 // Hora e data em São Paulo vêm de tempo.js (também usado pelas salas).
-import { hora, agoraSP, hojeSP } from "./tempo.js?v=202610141024";
+import { hora, agoraSP, hojeSP } from "./tempo.js?v=202610141032";
 export { hora, agoraSP, hojeSP };
 
 export function situacao(b, { dia, minuto } = agoraSP()) {
