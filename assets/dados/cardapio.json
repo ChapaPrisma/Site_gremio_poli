@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-14T13:09:38.996Z",
+ "atualizadoEm": "2026-10-14T22:26:51.518Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-14T13:09:38.996Z",
+   "atualizadoEm": "2026-10-14T22:26:51.518Z",
    "dias": {
     "2026-10-12": {
      "almoco": [
@@ -46,7 +46,7 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Almôndegas com molho ao sugo",
-      "Opção: Quibe de PVT",
+      "Opção: PVT com vagem",
       "Polenta com queijo",
       "Salada de alface",
       "Doce de leite",
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-14T13:09:38.996Z",
+   "atualizadoEm": "2026-10-14T22:26:51.518Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-14T13:09:38.996Z",
+   "atualizadoEm": "2026-10-14T22:26:51.518Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-14T13:09:38.996Z",
+   "atualizadoEm": "2026-10-14T22:26:51.518Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
