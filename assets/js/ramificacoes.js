@@ -152,7 +152,6 @@ export const ramificacoes = [
         titulo: "Salas e grade horária",
         caminho: "aluno/salas/",
         estado: "no-ar",
-        destaque: "GEX, deem uma olhada: salas livres para o seu grupo",
         resumo: "Salas livres agora em cada prédio da Poli, onde é a sua aula e a sua grade com as salas, com os dados do USPolis.",
         chamada: "Encontrar uma sala",
       },
