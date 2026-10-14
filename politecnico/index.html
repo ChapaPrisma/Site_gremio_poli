@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Área do politécnico | Grêmio Politécnico da USP</title>
+  <meta name="description" content="Politécnico uma vez, politécnico para sempre: a rede dos ex-alunos da Poli para reencontrar a turma, guardar as fotos e manter contato.">
+  <meta name="theme-color" content="#fbfbfe">
+  <link rel="icon" href="../assets/img/marca/favicon.png?v=d2fd1b1f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=202610141218">
+  <link rel="stylesheet" href="../assets/css/base.css?v=202610141218">
+  <link rel="stylesheet" href="../assets/css/componentes.css?v=202610141218">
+  <link rel="stylesheet" href="../assets/css/portal.css?v=202610141218">
+  <link rel="stylesheet" href="../assets/css/politecnico.css?v=202610141218">
+  <script type="module" src="../assets/js/site.js?v=202610141218"></script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <div data-componente="cabecalho"></div>
+
+  <div class="container leiaute leiaute--pagina">
+    <div data-componente="indice" data-modo="lateral" data-raiz="politecnico"></div>
+    <main id="conteudo" class="leiaute__principal portal">
+      <div data-componente="trilha" data-id="politecnico"></div>
+
+      <section class="abertura abertura--politecnico" aria-labelledby="pol-titulo">
+        <h1 id="pol-titulo">Área do politécnico</h1>
+        <p class="pol-lema">Politécnico uma vez, politécnico para sempre.</p>
+        <p class="abertura__texto">A formatura acaba com as provas, não com a Poli. Este é o espaço de quem já passou por aqui: para reencontrar a turma, guardar as fotos daquela época e continuar perto da Escola e de quem está chegando agora.</p>
+        <nav class="pagina__atalhos" aria-label="Nesta página"><a class="chip" href="#turma">Encontre a sua turma</a><a class="chip" href="#entrar">Entre para a rede</a><a class="chip" href="#fotos">Fotos da turma</a><a class="chip" href="#vem-ai">O que vem por aí</a></nav>
+      </section>
+
+      <section class="bloco-portal" id="turma" aria-labelledby="pol-turma">
+        <h2 id="pol-turma">Encontre a sua turma</h2>
+        <p class="bloco-portal__intro">Escolha o curso e o ano em que você entrou na Poli para ver quem da sua turma já está na rede.</p>
+        <form class="pol-busca" id="fTurma" data-local>
+          <div class="campo"><label for="ptCurso">Curso</label><select id="ptCurso" name="curso" data-cursos></select></div>
+          <div class="campo"><label for="ptAno">Ano de entrada</label><select id="ptAno" name="ano" data-anos></select></div>
+          <button class="botao" type="submit">Procurar a turma</button>
+        </form>
+        <div class="pol-resultado" id="turmaResultado" aria-live="polite"></div>
+      </section>
+
+      <section class="bloco-portal" id="entrar" aria-labelledby="pol-entrar">
+        <h2 id="pol-entrar">Entre para a rede</h2>
+        <p class="bloco-portal__intro">Leva um minuto. O seu nome, o curso e a turma aparecem para quem procurar; o contato só aparece para outros politécnicos da rede, e só se você deixar.</p>
+        <form class="formulario pol-form" id="fRede">
+          <div class="dupla">
+            <div class="campo"><label for="prNome">Nome</label><input type="text" id="prNome" name="nome" autocomplete="name" required></div>
+            <div class="campo"><label for="prEmail">E-mail</label><input type="email" id="prEmail" name="email" autocomplete="email" required></div>
+          </div>
+          <div class="tres">
+            <div class="campo"><label for="prCurso">Curso</label><select id="prCurso" name="curso" data-cursos required></select></div>
+            <div class="campo"><label for="prIngresso">Ano de entrada</label><select id="prIngresso" name="ingresso" data-anos required></select></div>
+            <div class="campo"><label for="prFormatura">Ano de formatura</label><select id="prFormatura" name="formatura" data-anos></select></div>
+          </div>
+          <div class="dupla">
+            <div class="campo"><label for="prOnde">Onde você trabalha hoje (opcional)</label><input type="text" id="prOnde" name="onde"></div>
+            <div class="campo"><label for="prCidade">Cidade (opcional)</label><input type="text" id="prCidade" name="cidade"></div>
+          </div>
+          <div class="campo"><label for="prLinkedin">LinkedIn (opcional)</label><input type="text" id="prLinkedin" name="linkedin" placeholder="https://linkedin.com/in/..."></div>
+          <label class="pol-check"><input type="checkbox" name="contato"> <span>Pode mostrar o meu contato para outros politécnicos da rede</span></label>
+          <label class="pol-check"><input type="checkbox" name="mentor"> <span>Topo conversar com alunos que estão chegando (mentoria, dúvidas de carreira)</span></label>
+          <div class="formulario__fim"><button class="botao" type="submit">Entrar para a rede</button><p>Você pode editar ou apagar o seu perfil quando quiser.</p></div>
+        </form>
+      </section>
+
+      <section class="bloco-portal" id="fotos" aria-labelledby="pol-fotos">
+        <h2 id="pol-fotos">Fotos da turma</h2>
+        <div class="duas">
+          <div class="cartao">
+            <h3>Mande as fotos da sua época</h3>
+            <p>Formatura, Integra, InterUSP, a turma no Biênio: as fotos entram no arquivo da sua turma depois de uma conferida da gestão.</p>
+            <form class="pol-foto" id="fFotoTurma">
+              <div class="campo"><label for="pfArquivo">Foto</label><input type="file" id="pfArquivo" name="foto" accept="image/*" required></div>
+              <div class="campo"><label for="pfLegenda">Legenda</label><input type="text" id="pfLegenda" name="legenda" maxlength="200" placeholder="Ex.: Turma de Civil de 1998, no último dia de aula"></div>
+              <button class="botao botao--pequeno" type="submit">Mandar a foto</button>
+            </form>
+          </div>
+          <div class="cartao cartao--forte">
+            <h3>O arquivo das turmas</h3>
+            <p>A foto de cada turma de cada curso fica guardada, ano a ano, em Meu Amor. É lá que a sua turma vai estar.</p>
+            <p><a class="botao botao--linha botao--pequeno" href="../aluno/meu-amor/#turmas">Ver as turmas</a></p>
+            <p class="nota">E para matar a saudade: <a href="../aluno/tradicoes/">as Tradições da Poli</a>.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="bloco-portal" id="vem-ai" aria-labelledby="pol-vem">
+        <h2 id="pol-vem">O que vem por aí</h2>
+        <p class="bloco-portal__intro">A rede é só o começo. Algumas ideias que a gente quer construir com vocês:</p>
+        <ul class="pol-ideias">
+          <li><b>Mentoria</b><span>Politécnicos formados conversando com quem acabou de entrar: carreira, estágio, intercâmbio, a vida depois da Poli.</span></li>
+          <li><b>Vagas da rede</b><span>Estágios e empregos divulgados por quem já está no mercado, para quem está saindo da Escola.</span></li>
+          <li><b>Reencontros</b><span>Encontros de turma, de 10, 20, 50 anos de formatura, com a ajuda do Grêmio para reunir todo mundo.</span></li>
+          <li><b>Apoie um projeto</b><span>Ex-alunos apoiando os projetos sociais, os grupos de extensão e as bolsas de quem está estudando agora.</span></li>
+          <li><b>Palestras</b><span>Quem construiu carreira contando como foi, para os alunos e para a própria rede.</span></li>
+          <li><b>Memória da Poli</b><span>Histórias, fotos e documentos de cada época, guardados para as próximas turmas.</span></li>
+        </ul>
+        <p class="nota">Tem uma ideia? <a href="mailto:chapa.poli.prisma@gmail.com?subject=Ideia%20para%20a%20%C3%81rea%20do%20polit%C3%A9cnico">Conta pra gente</a>.</p>
+      </section>
+
+      <div data-componente="area-politecnico"></div>
+    </main>
+  </div>
+
+  <div data-componente="rodape"></div>
+</body>
+</html>

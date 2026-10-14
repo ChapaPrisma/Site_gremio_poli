@@ -4,7 +4,8 @@
 // que a chapa já usa, fica de fora. O próprio aviso mostra o e-mail da chapa, para copiar.
 // Para desligar quando a chapa for eleita: tire a chamada a soSeEleita() em site.js.
 
-const fora = "#entrada, #areaAdmin";
+// [data-local]: formulários que não enviam nada (buscas e filtros na própria página).
+const fora = "#entrada, #areaAdmin, [data-local]";
 let dialogo = null;
 
 function abrir(site) {

@@ -110,6 +110,10 @@ A página `aluno/circulares/` mostra as linhas que entram na Cidade Universitár
 
 A posição ao vivo dos ônibus vem da função `onibus` do Supabase (`ferramentas/supabase/funcoes/onibus/index.ts`), que consulta a API Olho Vivo da SPTrans com a chave guardada no segredo `SPTRANS_TOKEN`. Sem a função, sem a chave ou com a SPTrans fora do ar, a página avisa que a localização ao vivo não está funcionando e segue mostrando mapa e linhas.
 
+## Área do politécnico
+
+A página `politecnico/` é a rede dos ex-alunos (terceira área de acesso, ao lado da do aluno e da dos administradores): encontrar a turma por curso e ano de entrada, entrar para a rede, mandar fotos da turma e as ideias que vêm por aí (mentoria, vagas, reencontros). A busca lê a vitrine pública `politecnicos_publico` do Supabase; as tabelas e as regras de privacidade estão em `ferramentas/supabase/politecnico.sql`, que só deve ser rodado quando a rede for ligada de verdade. Até lá, a busca mostra a turma vazia e os formulários passam pelo aviso de proposta.
+
 ## Ao transferir o site para o Grêmio
 
 Quando o site deixar de ser de uma pessoa e passar a ser do Grêmio, transfira também os serviços ligados a ele:

@@ -1,0 +1,31 @@
+/* Área do politécnico (politecnico/): a rede de ex-alunos. Azul da marca, com o lema em destaque. */
+.abertura--politecnico { background: var(--azul); color: #fff; }
+.abertura--politecnico h1 { color: #fff; }
+.abertura--politecnico .abertura__texto { color: rgba(255, 255, 255, .85); }
+.abertura--politecnico .chip { border-color: #fff; color: #fff; }
+.abertura--politecnico .chip:hover { background: rgba(255, 255, 255, .15); }
+.pol-lema { margin-top: 8px; font: 700 clamp(1.3rem, 3.4cqi, 1.9rem)/1.2 var(--fonte-titulo); color: var(--sol); }
+
+.pol-busca { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto; gap: 12px; align-items: end; margin-top: 14px; }
+@container (max-width: 620px) { .pol-busca { grid-template-columns: 1fr; } }
+.pol-resultado { margin-top: 16px; }
+.pol-resultado h3 { font-size: 1.2rem; }
+.turma-vazia { padding: 18px 20px; border: 2px dashed var(--linha); border-radius: var(--raio); background: var(--papel); }
+.turma-vazia p { margin: 6px 0 12px; color: var(--tinta-suave); }
+.turma-lista { list-style: none; margin: 12px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 10px; }
+.turma-lista li { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border: 2px solid var(--linha); border-radius: var(--raio-pequeno); background: var(--papel); }
+.turma-lista span, .turma-lista small { color: var(--tinta-suave); }
+
+.pol-form { margin-top: 14px; }
+.pol-check { display: flex; gap: 10px; align-items: center; margin-top: 4px; }
+.pol-check input { width: 18px; height: 18px; flex: none; }
+.pol-foto { display: grid; gap: 10px; margin-top: 12px; }
+.pol-foto .botao { justify-self: start; }
+
+.pol-ideias { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 12px; }
+.pol-ideias li { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; border: 2px solid var(--linha); border-radius: var(--raio); background: var(--papel); }
+.pol-ideias b { font: 700 1.1rem var(--fonte-titulo); }
+.pol-ideias span { color: var(--tinta-suave); font-size: .95rem; }
+
+.pol-form .tres { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+@container (max-width: 620px) { .pol-form .tres { grid-template-columns: 1fr; } }

@@ -271,6 +271,19 @@ export const ramificacoes = [
     ],
   },
   {
+    id: "politecnico",
+    grupo: "acessos",
+    titulo: "Área do politécnico",
+    caminho: "politecnico/",
+    resumo: "Politécnico uma vez, politécnico para sempre: a rede dos ex-alunos para reencontrar a turma, guardar as fotos e manter contato.",
+    filhos: [
+      { id: "turma", titulo: "Encontre a sua turma", texto: "Quem da sua turma já está na rede, por curso e ano de entrada." },
+      { id: "entrar", titulo: "Entre para a rede", texto: "O seu perfil de politécnico, com o contato só para quem você deixar." },
+      { id: "fotos", titulo: "Fotos da turma", texto: "As fotos da sua época, guardadas no arquivo das turmas." },
+      { id: "vem-ai", titulo: "O que vem por aí", texto: "Mentoria, vagas, reencontros e apoio aos projetos de quem está estudando." },
+    ],
+  },
+  {
     id: "admin",
     grupo: "acessos",
     titulo: "Área dos administradores",
