@@ -10,12 +10,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito:wght@400;600;700;800&display=swap">
-  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610141245">
-  <link rel="stylesheet" href="../../assets/css/base.css?v=202610141245">
-  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610141245">
-  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610141245">
-  <link rel="stylesheet" href="../../assets/css/circulares.css?v=202610141245">
-  <script type="module" src="../../assets/js/site.js?v=202610141245"></script>
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610141506">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=202610141506">
+  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610141506">
+  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610141506">
+  <link rel="stylesheet" href="../../assets/css/circulares.css?v=202610141506">
+  <script type="module" src="../../assets/js/site.js?v=202610141506"></script>
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -30,23 +30,24 @@
         <h1 id="circ-titulo">Circulares da USP</h1>
         <p class="abertura__lead">Qual ônibus pegar, onde ele para e onde ele está agora.</p>
         <p class="abertura__texto">Os circulares ligam o Metrô Butantã ao campus e são de graça com o BUSP. No mapa estão os trajetos, as paradas e, quando a SPTrans manda, os ônibus andando ao vivo.</p>
-        <nav class="pagina__atalhos" aria-label="Nesta página"><a class="chip" href="#mapa">Mapa</a><a class="chip" href="#linhas">As linhas</a><a class="chip" href="#busp">Como pedir o BUSP</a></nav>
+        <nav class="pagina__atalhos" aria-label="Nesta página"><a class="chip" href="#mapa">Linhas e mapa</a><a class="chip" href="#busp">Como pedir o BUSP</a></nav>
       </section>
 
       <section class="bloco-portal" id="mapa" aria-labelledby="circ-mapa">
         <div class="circ-mapa__topo">
-          <h2 id="circ-mapa">O mapa</h2>
+          <h2 id="circ-mapa">Escolha uma linha</h2>
           <p class="ao-vivo" id="seloAoVivo"><i></i><span>Procurando os ônibus…</span></p>
         </div>
-        <p class="circ-aviso" id="avisoAoVivo" role="status" hidden><b>A localização ao vivo não está funcionando agora.</b> Os trajetos, as paradas e os horários abaixo continuam valendo; os ônibus voltam a aparecer no mapa assim que a SPTrans voltar a mandar as posições.</p>
-        <div class="circ-filtro" id="filtroCirculares" role="group" aria-label="Mostrar no mapa"></div>
-        <div class="circ-mapa" id="mapaCirculares" tabindex="0" aria-label="Mapa das linhas de ônibus da Cidade Universitária"></div>
-        <p class="nota">Toque numa parada para ver o nome. Algumas linhas ainda não têm o trajeto desenhado no mapa.</p>
-      </section>
-
-      <section class="bloco-portal" id="linhas" aria-labelledby="circ-linhas">
-        <h2 id="circ-linhas">As linhas</h2>
-        <div id="linhasCirculares"></div>
+        <div class="circ-guia">
+          <div class="circ-painel">
+            <div class="circ-lista" id="linhasCirculares"></div>
+            <article class="circ-detalhe" id="detalheCircular" aria-live="polite"></article>
+          </div>
+          <div class="circ-mapa-caixa">
+            <div class="circ-mapa" id="mapaCirculares" tabindex="0" aria-label="Mapa das linhas de ônibus da Cidade Universitária"></div>
+            <p class="circ-aviso" id="avisoAoVivo" role="status" hidden>A localização ao vivo não está funcionando agora. Os trajetos, as paradas e os horários continuam valendo.</p>
+          </div>
+        </div>
       </section>
 
       <section class="bloco-portal" id="busp" aria-labelledby="circ-busp">
