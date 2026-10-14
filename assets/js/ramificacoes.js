@@ -218,6 +218,14 @@ export const ramificacoes = [
         chamada: "Encontrar uma sala",
       },
       {
+        id: "circulares",
+        titulo: "Circulares da USP",
+        caminho: "aluno/circulares/",
+        estado: "no-ar",
+        resumo: "Os ônibus que entram no campus: os circulares de graça com o BUSP, as paradas no mapa e onde cada ônibus está agora.",
+        chamada: "Ver os circulares",
+      },
+      {
         id: "demandas",
         titulo: "Demandas",
         caminho: "aluno/demandas/",

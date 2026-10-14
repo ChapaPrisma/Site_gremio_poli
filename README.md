@@ -104,6 +104,12 @@ As vendas da loja entram sozinhas na Transparência: o painel **Vendas da loja**
 
 A página `aluno/salas/` lê `assets/dados/salas.json`, gerado por `node ferramentas/salas.mjs` a partir do USPolis (sistema de alocação de salas da Poli). Como o USPolis não aceita chamadas diretas do navegador, o padrão é o mesmo do cardápio: o agendamento em `.github/workflows/salas.yml` roda o script três vezes por dia. De reuniões e eventos o arquivo guarda só o tipo, sem título nem quem reservou. A grade montada pelo aluno fica apenas no navegador dele.
 
+## Circulares da USP
+
+A página `aluno/circulares/` mostra as linhas que entram na Cidade Universitária num mapa (Leaflet + OpenStreetMap), com cartões por linha (informações em `assets/js/dados/circulares.js`). O traçado e as paradas vêm de `assets/dados/circulares.json`, gerado por `node ferramentas/circulares.mjs` a partir do OpenStreetMap; linhas que o OpenStreetMap não tem completas podem ser desenhadas à mão em `ferramentas/rotas/<linha>.json` (é o caso do 8084-10, reconstruído cruzando SPTrans, BusInfo e Moovit).
+
+A posição ao vivo dos ônibus vem da função `onibus` do Supabase (`ferramentas/supabase/funcoes/onibus/index.ts`), que consulta a API Olho Vivo da SPTrans com a chave guardada no segredo `SPTRANS_TOKEN`. Sem a função, sem a chave ou com a SPTrans fora do ar, a página avisa que a localização ao vivo não está funcionando e segue mostrando mapa e linhas.
+
 ## Ao transferir o site para o Grêmio
 
 Quando o site deixar de ser de uma pessoa e passar a ser do Grêmio, transfira também os serviços ligados a ele:

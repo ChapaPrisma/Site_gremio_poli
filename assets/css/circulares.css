@@ -1,0 +1,35 @@
+/* Circulares da USP (aluno/circulares/): mapa Leaflet com as linhas, os ônibus ao vivo e os cartões. */
+.circ-mapa__topo { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+.circ-aviso { margin-top: 12px; padding: 12px 16px; border: 2px solid #e9b949; border-radius: var(--raio-pequeno); background: var(--sol-claro); font-size: .95rem; }
+.circ-filtro { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.circ-chip { border-color: var(--cor); }
+.circ-chip[aria-pressed="true"] { background: var(--cor); border-color: var(--cor); color: #fff; }
+.circ-mapa { height: min(70vh, 560px); margin-top: 12px; border: var(--borda); border-radius: var(--raio); overflow: hidden; background: #e8eaf2; z-index: 0; }
+.circ-mapa:focus-visible { outline: 3px solid var(--sol); outline-offset: 2px; }
+.circ-mapa__erro { padding: 24px; text-align: center; color: var(--tinta-suave); }
+.circ-onibus span { display: grid; place-items: center; width: 30px; height: 30px; border: 2px solid #fff; border-radius: 50%; background: var(--cor); color: #fff; box-shadow: 0 2px 6px rgba(0, 0, 0, .35); }
+.leaflet-container { font: 400 .9rem var(--fonte); }
+
+.circ-grupo + .circ-grupo { margin-top: 28px; }
+.circ-grupo__topo h3 { font-size: 1.25rem; }
+.circ-grupo__topo p { margin-top: 2px; color: var(--tinta-suave); }
+.circ-linhas { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 12px; margin-top: 12px; }
+.circ-linha { display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 2px solid var(--linha); border-left: 6px solid var(--cor); border-radius: var(--raio-pequeno); background: var(--papel); }
+.circ-linha__topo { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.circ-linha__codigo { font: 800 1.15rem var(--fonte-titulo); }
+.circ-linha h4 { font-size: 1rem; }
+.circ-linha p { color: var(--tinta-suave); font-size: .93rem; }
+.circ-linha__info { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 0; font-size: .88rem; }
+.circ-linha__info dt { color: var(--tinta-suave); }
+.circ-linha__info dd { margin: 0; font-weight: 700; }
+.circ-linha__ao-vivo { font-weight: 700; color: var(--tinta) !important; }
+.circ-linha .chip { align-self: flex-start; margin-top: auto; }
+.circ-linha .chip:disabled { opacity: .55; cursor: default; }
+
+/* selo ao vivo (claro, fora da faixa escura da Transparência) */
+.circ-mapa__topo .ao-vivo { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: .9rem; font-weight: 700; color: var(--tinta-suave); }
+.circ-mapa__topo .ao-vivo i { width: 10px; height: 10px; border-radius: 50%; background: #d9534f; }
+.circ-mapa__topo .ao-vivo.on { color: var(--tinta); }
+.circ-mapa__topo .ao-vivo.on i { background: #22b573; animation: circ-pulso 2s ease-out infinite; }
+@keyframes circ-pulso { 0% { box-shadow: 0 0 0 0 rgba(34, 181, 115, .55); } 100% { box-shadow: 0 0 0 10px rgba(34, 181, 115, 0); } }
+@media (prefers-reduced-motion: reduce) { .circ-mapa__topo .ao-vivo.on i { animation: none; } }

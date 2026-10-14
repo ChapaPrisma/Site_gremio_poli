@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Circulares da USP | Grêmio Politécnico da USP</title>
+  <meta name="description" content="Os ônibus que entram na Cidade Universitária: os circulares gratuitos com o BUSP, as paradas no mapa e onde cada ônibus está agora.">
+  <meta name="theme-color" content="#fbfbfe">
+  <link rel="icon" href="../../assets/img/marca/favicon.png?v=d2fd1b1f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610141209">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=202610141209">
+  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610141209">
+  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610141209">
+  <link rel="stylesheet" href="../../assets/css/circulares.css?v=202610141209">
+  <script type="module" src="../../assets/js/site.js?v=202610141209"></script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <div data-componente="cabecalho"></div>
+
+  <div class="container leiaute leiaute--pagina">
+    <div data-componente="indice" data-modo="lateral" data-raiz="aluno"></div>
+    <main id="conteudo" class="leiaute__principal portal">
+      <div data-componente="trilha" data-id="circulares"></div>
+
+      <section class="abertura" aria-labelledby="circ-titulo">
+        <h1 id="circ-titulo">Circulares da USP</h1>
+        <p class="abertura__lead">Qual ônibus pegar, onde ele para e onde ele está agora.</p>
+        <p class="abertura__texto">Os circulares ligam o Metrô Butantã ao campus e são de graça com o BUSP. No mapa estão os trajetos, as paradas e, quando a SPTrans manda, os ônibus andando ao vivo.</p>
+        <nav class="pagina__atalhos" aria-label="Nesta página"><a class="chip" href="#mapa">Mapa</a><a class="chip" href="#linhas">As linhas</a><a class="chip" href="#busp">Como pedir o BUSP</a></nav>
+      </section>
+
+      <section class="bloco-portal" id="mapa" aria-labelledby="circ-mapa">
+        <div class="circ-mapa__topo">
+          <h2 id="circ-mapa">O mapa</h2>
+          <p class="ao-vivo" id="seloAoVivo"><i></i><span>Procurando os ônibus…</span></p>
+        </div>
+        <p class="circ-aviso" id="avisoAoVivo" role="status" hidden><b>A localização ao vivo não está funcionando agora.</b> Os trajetos, as paradas e os horários abaixo continuam valendo; os ônibus voltam a aparecer no mapa assim que a SPTrans voltar a mandar as posições.</p>
+        <div class="circ-filtro" id="filtroCirculares" role="group" aria-label="Mostrar no mapa"></div>
+        <div class="circ-mapa" id="mapaCirculares" tabindex="0" aria-label="Mapa das linhas de ônibus da Cidade Universitária"></div>
+        <p class="nota">Toque numa parada para ver o nome. Algumas linhas ainda não têm o trajeto desenhado no mapa.</p>
+      </section>
+
+      <section class="bloco-portal" id="linhas" aria-labelledby="circ-linhas">
+        <h2 id="circ-linhas">As linhas</h2>
+        <div id="linhasCirculares"></div>
+      </section>
+
+      <section class="bloco-portal" id="busp" aria-labelledby="circ-busp">
+        <div class="cartao cartao--forte">
+          <h2 id="circ-busp">Como pedir o BUSP</h2>
+          <p>O BUSP é o cartão que libera de graça os circulares. Peça no <a href="https://uspdigital.usp.br/jupiterweb/" target="_blank" rel="noopener">JupiterWeb</a>, em <b>Cartões USP &gt; Solicitação Bilhete USP</b>. O passo a passo, junto com o do Cartão USP e do Bilhete Único, está no <a href="../bixo/#kit">Kit burocrático do bixo</a>.</p>
+        </div>
+      </section>
+
+      <div data-componente="guia-circulares"></div>
+    </main>
+  </div>
+
+  <div data-componente="rodape"></div>
+</body>
+</html>
