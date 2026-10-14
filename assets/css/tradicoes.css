@@ -87,3 +87,4 @@
 .video-destaque > p:not(.video-credito) { margin: 6px auto 14px; max-width: 60ch; color: var(--tinta-suave); }
 .video-destaque .video-leve { box-shadow: 0 6px 0 var(--tinta); }
 .duas-vozes--uma { grid-template-columns: 1fr; }
+.voz h3 { margin-top: 6px; font-size: 1.12rem; }

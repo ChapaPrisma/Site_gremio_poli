@@ -2,7 +2,7 @@
 // com o saldo acumulado. Os lançamentos vêm de dados/contas.js (banco Supabase ou arquivo).
 // Uso: marcação em transparencia/index.html e <div data-componente="guia-transparencia"></div>.
 
-import { carregar, ouvir, extrato, reais, dataBR, INICIO_CONTAS } from "../dados/contas.js?v=202610141032";
+import { carregar, ouvir, extrato, reais, dataBR, INICIO_CONTAS } from "../dados/contas.js?v=202610141037";
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
