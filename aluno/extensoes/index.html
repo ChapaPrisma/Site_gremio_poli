@@ -10,11 +10,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito:wght@400;600;700;800&display=swap">
-  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610141956">
-  <link rel="stylesheet" href="../../assets/css/base.css?v=202610141956">
-  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610141956">
-  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610141956">
-  <script type="module" src="../../assets/js/site.js?v=202610141956"></script>
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610142009">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=202610142009">
+  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610142009">
+  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610142009">
+  <link rel="stylesheet" href="../../assets/css/extensoes.css?v=202610142009">
+  <script type="module" src="../../assets/js/site.js?v=202610142009"></script>
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -27,11 +28,17 @@
 
       <section class="abertura" aria-labelledby="ext-titulo">
         <h1 id="ext-titulo">Extensões</h1>
-        <p class="abertura__lead">Cada grupo de extensão é uma Poli diferente para viver. Aqui você vai conhecer todos, o ano inteiro.</p>
-        <div class="abertura__estado"><span class="pill pill--breve">Em construção</span><span>Entra no ar com o portal, na Semana de Recepção de 2027.</span></div>
+        <p class="abertura__lead">Cada grupo de extensão é uma Poli diferente para viver. Aqui estão todos, com o que fazem e onde encontrá-los.</p>
+        <p class="abertura__texto">Equipes que constroem carros e foguetes, ligas de mercado, projetos sociais, teatro e coletivos. Escolha uma área ou role a página.</p>
+        <nav class="pagina__atalhos" aria-label="Nesta página"><a class="chip" href="#grupos">Os grupos</a><a class="chip" href="#feira">Feira de Extensão</a><a class="chip" href="#ext-salas">Sala para o seu grupo</a></nav>
       </section>
 
-      <section class="bloco-portal hoje-existe" aria-labelledby="ext-hoje">
+      <section class="bloco-portal" id="grupos" aria-label="Os grupos de extensão">
+        <div data-componente="extensoes"></div>
+        <p class="nota gex-fonte">Lista montada com os grupos credenciados pela Poli, as páginas de equipes e coletivos do Departamento de Engenharia Mecânica, o site de cada grupo e o <a href="https://www.politecnicos.com.br/grupos-de-extensao/" target="_blank" rel="noopener">politecnicos.com.br</a>.</p>
+      </section>
+
+      <section class="bloco-portal hoje-existe" id="feira" aria-labelledby="ext-hoje">
         <div>
           <span class="pill pill--aberto">Já acontece</span>
           <h2 id="ext-hoje">Feira de Extensão</h2>
@@ -74,11 +81,11 @@
 
       <section class="bloco-portal hoje-existe" aria-labelledby="ext-salas">
         <div>
-          <span class="pill pill--aberto">Já funciona</span>
+          <span class="pill pill--breve">Em breve</span>
           <h2 id="ext-salas">Precisa de uma sala para o seu grupo?</h2>
-          <p>Veja as salas livres em cada prédio da Poli, no dia e no horário da sua reunião, filtrando pelo número de pessoas.</p>
+          <p>A ideia é ver as salas livres em cada prédio da Poli, no dia e no horário da sua reunião, filtrando pelo número de pessoas. Por enquanto é só uma prévia, que ainda não funciona de verdade.</p>
         </div>
-        <a class="botao" href="../salas/#livres">Ver salas livres</a>
+        <a class="botao botao--linha" href="../salas/#livres">Ver a prévia</a>
       </section>
 
       <p class="nota" style="margin-top:18px">Os projetos que o Grêmio constrói com os grupos ficam em <a href="../../parcerias/#gex">Parcerias</a>, com início, prazo e andamento.</p>

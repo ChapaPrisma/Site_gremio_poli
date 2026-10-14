@@ -85,6 +85,12 @@ dá acesso a recursos do celular: notificações, compartilhar e salvar arquivos
 - **Jornal:** "Baixar em PDF" usa `window.print()`, que não existe no app. Gerar o PDF ou abrir a
   versão de impressão no navegador.
 - **Demandas e Extensões:** os links de e-mail (`mailto:`) abrem o app de e-mail do celular.
+- **Extensões (`aluno/extensoes/`):** a lista dos grupos vem de `assets/js/dados/extensoes.js` (texto leve,
+  entra no pacote). Os links de Instagram e LinkedIn abrem os apps; os selos com as iniciais viram as logos
+  quando os grupos mandarem. As subpáginas de cada grupo (`aluno/extensoes/ID/`) ainda vão existir.
+- **Circulares (`aluno/circulares/`):** trajetos, paradas e horários vêm do GTFS da SPTrans
+  (`assets/dados/circulares.json`, uns 70 KB), bom para funcionar sem sinal. O mapa (Leaflet) precisa de
+  internet para o fundo; a posição ao vivo depende da função `onibus` do Supabase.
 - **Guia dos cursos (`aluno/cursos/`):** as logos dos CAs já são SVG leves e entram no pacote do app.
   As fotos das turmas pesam: o app deve baixá-las sob demanda e guardar só a do curso do aluno. Um
   bom recurso do app é o aluno escolher o seu curso na primeira abertura e o SBB Poli abrir direto no

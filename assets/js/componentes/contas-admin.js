@@ -7,10 +7,10 @@
 // interface: quem protege os dados de verdade são as regras do banco.
 // Uso: #painelEntrada, #areaAdmin com #painelContas, e <div data-componente="contas-admin"></div>.
 
-import { supabase, configurado, carregar, extrato, reais, dataBR, CATEGORIAS, INICIO_CONTAS } from "../dados/contas.js?v=202610141956";
-import { hojeSP } from "../dados/tempo.js?v=202610141956";
-import { projetosAdmin } from "./projetos-admin.js?v=202610141956";
-import { vendasAdmin } from "./vendas-admin.js?v=202610141956";
+import { supabase, configurado, carregar, extrato, reais, dataBR, CATEGORIAS, INICIO_CONTAS } from "../dados/contas.js?v=202610142009";
+import { hojeSP } from "../dados/tempo.js?v=202610142009";
+import { projetosAdmin } from "./projetos-admin.js?v=202610142009";
+import { vendasAdmin } from "./vendas-admin.js?v=202610142009";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 

@@ -1,0 +1,19 @@
+/* Extensões (aluno/extensoes/): os grupos por área, um cartão por grupo, no espírito do Guia dos cursos
+   (cursos.css). O selo com as iniciais segura o lugar da logo até cada grupo mandar a sua. */
+.gex-atalhos { display: flex; flex-wrap: wrap; gap: 8px; }
+.gex-area { margin-top: 30px; scroll-margin-top: calc(var(--altura-cabecalho) + 20px); }
+.gex-area h2 { font-size: clamp(1.35rem, 3.2cqi, 1.7rem); }
+.gex-lista { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 12px; }
+.gex { display: flex; flex-direction: column; gap: 8px; padding: 16px 18px; border: var(--borda); border-radius: var(--raio); background: var(--papel); scroll-margin-top: calc(var(--altura-cabecalho) + 20px); }
+.gex:target { box-shadow: 0 5px 0 var(--sol); }
+.gex__cabeca { display: flex; align-items: center; gap: 12px; }
+.gex__selo { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border: 2px solid var(--tinta); border-radius: var(--raio-pequeno); background: var(--azul-tinta); color: var(--azul); font: 800 1rem var(--fonte-titulo); letter-spacing: .02em; }
+.gex-area--competicao .gex__selo { background: var(--sol-claro); color: var(--tinta); }
+.gex h3 { font-size: 1.12rem; line-height: 1.2; }
+.gex > p { font-size: .94rem; line-height: 1.45; color: var(--tinta-suave); }
+.gex__links { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: auto; padding-top: 4px; }
+.gex__links a { font-size: .86rem; font-weight: 800; color: var(--azul); }
+.gex-sub { margin-top: 30px; padding: 16px 20px; border-left: 5px solid var(--sol); border-radius: var(--raio-pequeno); background: var(--sol-claro); }
+.gex-sub p { max-width: 70ch; }
+.gex-confirmando { margin-top: 12px; max-width: 80ch; }
+.gex-fonte { margin-top: 10px; font-size: .82rem; }

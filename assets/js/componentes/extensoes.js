@@ -1,0 +1,42 @@
+// Grupos de extensão e coletivos da Poli (aluno/extensoes/), a partir de dados/extensoes.js: atalhos por
+// área e, em cada área, um cartão por grupo com o que ele faz e os seus links (site e redes).
+// Cada grupo vai ganhar uma subpágina escrita por ele; enquanto isso, o cartão leva às redes do grupo.
+// Uso: <div data-componente="extensoes"></div>.
+
+import { areas, grupos, confirmando } from "../dados/extensoes.js?v=202610142009";
+
+const esc = (t = "") => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+// iniciais para o selo do grupo (ainda sem as logos): "Equipe Poli de Baja" -> "PB", "Turing USP" -> "TU"
+const SEM_PESO = new Set(["equipe", "de", "da", "do", "e", "grupo", "núcleo", "usp"]);
+const iniciais = (nome) => {
+  const palavras = nome.replace(/\.[a-z]+$/, "").split(/[\s,.()]+/).filter((p) => p && !SEM_PESO.has(p.toLowerCase()));
+  if (palavras.length > 1) return (palavras[0][0] + palavras[1][0]).toUpperCase();
+  const maiusculas = palavras[0].match(/[A-ZÀ-Ý]/g) || [];   // PoliSat -> PS, ThundeRatz -> TR
+  return (maiusculas.length >= 2 ? maiusculas.slice(0, 2).join("") : palavras[0].slice(0, 2)).toUpperCase();
+};
+const ROTULO = { site: "Site", instagram: "Instagram", linkedin: "LinkedIn", youtube: "YouTube" };
+// a página do grupo no site da Poli (para quem ainda não tem site próprio) aparece como "Na Poli"
+const rotulo = (tipo, v) => tipo === "site" && /poli\.usp\.br\/(noticias|cultura)/.test(v) ? "Na Poli" : ROTULO[tipo];
+const endereco = (tipo, valor) => tipo === "instagram" ? `https://www.instagram.com/${valor}/`
+  : tipo === "linkedin" ? `https://www.linkedin.com/company/${valor}/` : valor;
+
+export default function extensoes(alvo) {
+  const cartao = (g) => `
+    <li class="gex" id="${g.id}">
+      <div class="gex__cabeca"><span class="gex__selo" aria-hidden="true">${esc(g.selo || iniciais(g.nome))}</span><h3>${esc(g.nome)}</h3></div>
+      <p>${esc(g.texto)}</p>
+      <p class="gex__links">${Object.entries(g.links || {}).map(([tipo, v]) => `<a href="${esc(endereco(tipo, v))}" target="_blank" rel="noopener">${rotulo(tipo, v)}</a>`).join("")}</p>
+    </li>`;
+  alvo.innerHTML = `
+    <nav class="gex-atalhos" aria-label="Áreas dos grupos">${areas.map((a) => `<a class="chip" href="#area-${a.id}">${esc(a.titulo)}</a>`).join("")}</nav>
+    ${areas.map((a) => `
+      <section class="gex-area gex-area--${a.id}" id="area-${a.id}" aria-labelledby="titulo-${a.id}">
+        <h2 id="titulo-${a.id}">${esc(a.titulo)}</h2>
+        <p class="bloco-portal__intro">${esc(a.texto)}</p>
+        <ul class="gex-lista">${grupos.filter((g) => g.area === a.id).map(cartao).join("")}</ul>
+      </section>`).join("")}
+    <div class="gex-sub">
+      <p><b>Cada grupo vai ter a sua própria página aqui</b>, escrita por ele: os projetos, o processo seletivo, como é o dia a dia e quem procurar para entrar.</p>
+    </div>
+    ${confirmando.length ? `<p class="nota gex-confirmando">Estamos confirmando se continuam ativos: ${confirmando.map(esc).join(", ")}. Faz parte de um deles, ou de um grupo que não está aqui? <a href="mailto:chapa.poli.prisma@gmail.com?subject=Meu%20grupo%20de%20extens%C3%A3o">Escreva para a gente</a>.</p>` : ""}`;
+}
