@@ -89,3 +89,6 @@
 .duas-vozes--uma { grid-template-columns: 1fr; }
 .voz h3 { margin-top: 6px; font-size: 1.12rem; }
 .arquivo-faixa__item:has(.arquivo--centro) { grid-column: 1 / -1; justify-self: center; width: 100%; max-width: 640px; text-align: center; }
+/* vídeos do "Olha como era": do mesmo tamanho do vídeo da Rateria, no centro */
+.video-destaque .video-leve { max-width: 640px; margin-inline: auto; }
+.video-destaque .video-credito { margin-bottom: 14px; }
