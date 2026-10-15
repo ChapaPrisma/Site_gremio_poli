@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-15T13:14:00.767Z",
+ "atualizadoEm": "2026-10-15T22:27:14.918Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-15T13:14:00.767Z",
+   "atualizadoEm": "2026-10-15T22:27:14.918Z",
    "dias": {
     "2026-10-12": {
      "almoco": [
@@ -66,7 +66,7 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Filé de tilápia com molho à escabeche",
-      "Opção: Moqueca de grão-de-bico",
+      "Opção: Grão-de-bico",
       "Mandioquinha sauté",
       "Salada de almeirão",
       "Banana",
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-15T13:14:00.767Z",
+   "atualizadoEm": "2026-10-15T22:27:14.918Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-15T13:14:00.767Z",
+   "atualizadoEm": "2026-10-15T22:27:14.918Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-15T13:14:00.767Z",
+   "atualizadoEm": "2026-10-15T22:27:14.918Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
