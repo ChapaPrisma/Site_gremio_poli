@@ -2,8 +2,9 @@
 // Fontes conferidas em outubro de 2026: grupos credenciados pela Poli (poli.usp.br/grupos-de-extensao),
 // páginas de equipes e de coletivos do Departamento de Engenharia Mecânica (sites.usp.br/pme), o site
 // de cada grupo, o Jornal da USP e a lista histórica do politecnicos.com.br. Só entram aqui links que
-// estavam no ar ou que vieram de uma dessas fontes; os grupos sem confirmação recente ficam em
-// `confirmando`, até o próprio grupo escrever para o Grêmio.
+// estavam no ar ou que vieram de uma dessas fontes. Dos grupos antigos sem sinal recente (Poli Dance, ABU,
+// CORE Júnior, USP Mining Team, MatMov, ESF São Paulo, Poli Mundi), o usuário confirmou em out/2026 que só
+// o AcappoLLi segue ativo; os outros ficaram de fora.
 //
 // Cada grupo vai ganhar uma subpágina (aluno/extensoes/ID/) escrita por ele. Para incluir um grupo:
 //   { id: "sigla-curta", logo: "assets/img/extensoes/ID.jpg", nome: "Nome do grupo", texto: "uma ou duas frases", links: { site, instagram, youtube } }
@@ -18,7 +19,7 @@ export const areas = [
   { id: "tecnologia", titulo: "Tecnologia e estudo", texto: "Inteligência artificial, blockchain, saúde e os grupos PET." },
   { id: "mercado", titulo: "Mercado e empreendedorismo", texto: "Empresa júnior, ligas de finanças, negócios, consultoria e startups." },
   { id: "social", titulo: "Impacto social e educação", texto: "Engenharia para quem precisa, cursinho e expedições pelo Brasil." },
-  { id: "cultura", titulo: "Cultura e internacional", texto: "Teatro e a porta da Poli para o mundo." },
+  { id: "cultura", titulo: "Cultura e internacional", texto: "Teatro, canto a cappella e a porta da Poli para o mundo." },
   { id: "coletivos", titulo: "Coletivos", texto: "Acolhimento, representatividade e uma Poli para todo mundo." },
 ];
 
@@ -84,6 +85,8 @@ export const grupos = [
   // cultura e internacional
   { id: "gtp", area: "cultura", logo: "assets/img/extensoes/gtp.jpg?v=81302fca", nome: "GTP, Grupo de Teatro da Poli", selo: "GTP", texto: "Teatro na Poli desde os anos 1940, ligado ao Grêmio. Aberto a toda a cidade, de graça.",
     links: { instagram: "grupoteatropoli" } },
+  { id: "acappolli", area: "cultura", logo: "assets/img/extensoes/acappolli.jpg?v=e856593f", nome: "AcappoLLi", texto: "Estudantes da USP, a maioria da engenharia, cantando a cappella: só com a voz, sem instrumentos. Fique de olho nas audições.",
+    links: { instagram: "acappolli", youtube: "https://www.youtube.com/channel/UCO3dtppMfJ82nzD8Cuhs_YA" } },
   { id: "ipoli", area: "cultura", logo: "assets/img/extensoes/ipoli.jpg?v=19a19b5f", nome: "iPoli", texto: "O Escritório Politécnico Internacional: intercâmbio, duplo diploma e apoio a quem vem de fora.",
     links: { site: "https://www.ipoli.com.br/", instagram: "ipoliusp" } },
 
@@ -98,5 +101,4 @@ export const grupos = [
     links: { instagram: "politecnicas.r.existem" } },
 ];
 
-// Grupos que já passaram pela Poli, mas sem confirmação recente de que continuam ativos.
-export const confirmando = ["AcappoLLi", "Poli Dance", "ABU na Poli", "CORE Júnior (Poli Santos)", "USP Mining Team", "Matemática em Movimento", "Engenheiros Sem Fronteiras, Núcleo São Paulo", "Poli Mundi"];
+

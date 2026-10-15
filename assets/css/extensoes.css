@@ -15,7 +15,3 @@
 .gex > p { font-size: .94rem; line-height: 1.45; color: var(--tinta-suave); }
 .gex__links { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: auto; padding-top: 4px; }
 .gex__links a { font-size: .86rem; font-weight: 800; color: var(--azul); }
-.gex-sub { margin-top: 30px; padding: 16px 20px; border-left: 5px solid var(--sol); border-radius: var(--raio-pequeno); background: var(--sol-claro); }
-.gex-sub p { max-width: 70ch; }
-.gex-confirmando { margin-top: 12px; max-width: 80ch; }
-.gex-fonte { margin-top: 10px; font-size: .82rem; }

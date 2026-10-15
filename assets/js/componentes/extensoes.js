@@ -1,9 +1,9 @@
 // Grupos de extensão e coletivos da Poli (aluno/extensoes/), a partir de dados/extensoes.js: atalhos por
 // área e, em cada área, um cartão por grupo com a logo, o que ele faz e os seus links (site e redes).
-// Cada grupo vai ganhar uma subpágina escrita por ele; enquanto isso, o cartão leva às redes do grupo.
+// Cada grupo pode mandar a sua página (chamada no fim de aluno/extensoes/); por ora o cartão leva às redes.
 // Uso: <div data-componente="extensoes"></div>.
 
-import { areas, grupos, confirmando } from "../dados/extensoes.js?v=202610150003";
+import { areas, grupos } from "../dados/extensoes.js?v=202610150007";
 
 const esc = (t = "") => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 // iniciais para o selo de quem ainda não tem logo: "Equipe Poli de Baja" -> "PB", "Turing USP" -> "TU"
@@ -36,8 +36,5 @@ export default function extensoes(alvo, { url }) {
         <p class="bloco-portal__intro">${esc(a.texto)}</p>
         <ul class="gex-lista">${grupos.filter((g) => g.area === a.id).map(cartao).join("")}</ul>
       </section>`).join("")}
-    <div class="gex-sub">
-      <p><b>Cada grupo vai ter a sua própria página aqui</b>, escrita por ele: os projetos, o processo seletivo, como é o dia a dia e quem procurar para entrar.</p>
-    </div>
-    ${confirmando.length ? `<p class="nota gex-confirmando">Estamos confirmando se continuam ativos: ${confirmando.map(esc).join(", ")}. Faz parte de um deles, ou de um grupo que não está aqui? <a href="mailto:chapa.poli.prisma@gmail.com?subject=Meu%20grupo%20de%20extens%C3%A3o">Escreva para a gente</a>.</p>` : ""}`;
+`;
 }
