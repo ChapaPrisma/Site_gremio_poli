@@ -145,7 +145,12 @@
 .salas-previa { margin: 8px 0 12px; padding: 10px 14px; border-left: 4px solid var(--sol); border-radius: var(--raio-pequeno); background: var(--sol-claro); color: var(--tinta); font-size: .92rem; max-width: 70ch; }
 
 /* crédito ao USPolis, de onde vêm todos os dados da página (no espírito do crédito ao Politécnicos) */
-.credito-uspolis { display: grid; gap: 10px; margin-top: 28px; padding: clamp(18px, 3vw, 26px); border: 2px dashed var(--tinta); border-radius: var(--raio); background: var(--papel); }
+.credito-uspolis { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 18px 28px; margin-top: 28px; padding: clamp(18px, 3vw, 26px); border: 2px dashed var(--tinta); border-radius: var(--raio); background: var(--papel); }
 .credito-uspolis h2 { font-size: 1.3rem; }
 .credito-uspolis p { max-width: 70ch; color: var(--tinta-suave); }
 .credito-uspolis .fonte-dados { margin: 0; font-size: .85rem; }
+.credito-uspolis__texto { display: grid; gap: 10px; }
+/* a logo do USPolis tem partes brancas: fica num quadro cinza-esverdeado para aparecer inteira */
+.credito-uspolis__logo { display: grid; place-items: center; width: clamp(110px, 16cqi, 150px); aspect-ratio: 1; padding: 14px; border-radius: var(--raio); background: #e2eaea; }
+.credito-uspolis__logo img { width: 100%; height: auto; }
+@container (max-width: 560px) { .credito-uspolis { grid-template-columns: 1fr; } .credito-uspolis__logo { grid-row: 1; width: 96px; } }

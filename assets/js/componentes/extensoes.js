@@ -3,7 +3,7 @@
 // Cada grupo pode mandar a sua página (chamada no fim de aluno/extensoes/); por ora o cartão leva às redes.
 // Uso: <div data-componente="extensoes"></div>.
 
-import { areas, grupos } from "../dados/extensoes.js?v=202610151139";
+import { areas, grupos } from "../dados/extensoes.js?v=202610151149";
 
 const esc = (t = "") => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 // iniciais para o selo de quem ainda não tem logo: "Equipe Poli de Baja" -> "PB", "Turing USP" -> "TU"

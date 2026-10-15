@@ -227,7 +227,7 @@ export const ramificacoes = [
         titulo: "Meu Amor",
         caminho: "aluno/meu-amor/",
         estado: "no-ar",
-        resumo: "Festas, esportes, cultura e o mural de memórias: a parte da Poli que não cai em prova, como está hoje e como a gente quer que fique.",
+        resumo: "Recepção, festas, viagens, esportes, cultura e o mural com as memórias que a Poli guarda desde 1903: tudo o que faz um politécnico se apaixonar pela Escola.",
         chamada: "Ver eventos, esportes e memórias",
         filhos: [
           { id: "festas-e-viagens", titulo: "Eventos", texto: "Semana de Recepção, festas e viagens (datas, lotes e contato para comprar) e a Feira de Extensão." },
