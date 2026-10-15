@@ -10,7 +10,8 @@
 //   (opcional: selo: "ABC", as letras do selo, quando as iniciais automáticas não ficarem boas)
 // `instagram` é só o nome do perfil (sem o endereço inteiro).
 // Logos: a foto de perfil do Instagram de cada grupo (100 × 100 px), salva em assets/img/extensoes/; o PET
-// Mecatrônica e a Poli Cidadã vêm dos seus sites. Sem logo, o cartão mostra um selo com as iniciais.
+// Mecatrônica e a Poli Cidadã vêm dos seus sites; a do NEP foi enviada à parte. Sem logo, o cartão mostra
+// um selo com as iniciais.
 
 export const areas = [
   { id: "competicao", titulo: "Equipes de competição", texto: "Carros, aviões, foguetes, satélites, robôs, drones e barcos, projetados e construídos pelos alunos." },
@@ -71,7 +72,7 @@ export const grupos = [
   // impacto social e educação
   { id: "poli-social", area: "social", logo: "assets/img/extensoes/poli-social.jpg?v=d4c49b3c", nome: "Poli Social", texto: "Consultoria gratuita para ONGs e eventos com impacto social, desde 2014.",
     links: { site: "https://www.grupopolisocial.com/", instagram: "grupopolisocial" } },
-  { id: "nep", area: "social", nome: "NEP, Núcleo de Engenharia Popular", selo: "NEP", texto: "Engenharia feita por pessoas, para pessoas: projetos junto de quem vai usá-los, como um chatbot para UBS.",
+  { id: "nep", area: "social", logo: "assets/img/extensoes/nep.jpg?v=444ccaa9", nome: "NEP, Núcleo de Engenharia Popular", texto: "Engenharia feita por pessoas, para pessoas: projetos junto de quem vai usá-los, como um chatbot para UBS.",
     links: { site: "https://www.poli.usp.br/noticias/nep-nucleo-de-engenharia-popular/" } },
   { id: "cursinho", area: "social", logo: "assets/img/extensoes/cursinho.jpg?v=53f47cfe", nome: "Cursinho da Poli", texto: "Pré-vestibular criado em 1987 pela Escola e pelo Grêmio, para quem não pode pagar um cursinho.",
     links: { site: "https://cursinhodapoli.com.br/", instagram: "oficialcursinhodapoli" } },

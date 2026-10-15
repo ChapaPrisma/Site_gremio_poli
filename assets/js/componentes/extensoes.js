@@ -3,7 +3,7 @@
 // Cada grupo vai ganhar uma subpágina escrita por ele; enquanto isso, o cartão leva às redes do grupo.
 // Uso: <div data-componente="extensoes"></div>.
 
-import { areas, grupos, confirmando } from "../dados/extensoes.js?v=202610142345";
+import { areas, grupos, confirmando } from "../dados/extensoes.js?v=202610142348";
 
 const esc = (t = "") => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 // iniciais para o selo de quem ainda não tem logo: "Equipe Poli de Baja" -> "PB", "Turing USP" -> "TU"
