@@ -6,8 +6,8 @@
 //   turmas     [disciplina, turma, [[dia da semana (0 = seg), início, fim, sala|null]], professores]
 // A grade do aluno fica só no navegador dele (localStorage), sem ir a lugar nenhum.
 
-import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610150007";
-import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610150007";
+import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610151139";
+import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610151139";
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -26,10 +26,20 @@ export default async function guiaSalas(_alvo, { raiz }) {
   const mapa = $("#mapaSalas");
   if (!mapa) return;
 
+  // Cache de 1 hora também no navegador: quem volta à página dentro de uma hora usa a cópia guardada.
+  // (Os dados já chegam aqui no máximo uma vez por hora do USPolis; ver ferramentas/salas.mjs.)
+  const CHAVE = "salas:cache", UMA_HORA = 60 * 60_000;
   let D;
   try {
-    const r = await fetch(new URL("assets/dados/salas.json", raiz), { cache: "no-cache" });
-    D = await r.json();
+    const guardado = JSON.parse(localStorage.getItem(CHAVE) || "null");
+    if (guardado && Date.now() - guardado.em < UMA_HORA) D = guardado.dados;
+  } catch {}
+  try {
+    if (!D) {
+      const r = await fetch(new URL("assets/dados/salas.json", raiz), { cache: "no-cache" });
+      D = await r.json();
+      try { localStorage.setItem(CHAVE, JSON.stringify({ em: Date.now(), dados: D })); } catch {}
+    }
   } catch {
     $("#pulsoSub").textContent = "Não deu para carregar os dados do USPolis agora.";
     mapa.innerHTML = `<p class="mapa-salas__vazio">Não deu para carregar as salas agora. Tente de novo em alguns minutos.</p>`;
@@ -357,7 +367,7 @@ export default async function guiaSalas(_alvo, { raiz }) {
   function tudo() { marcar(); desenharMapa(); desenharCurva(); }
   const atualizado = new Date(D.atualizadoEm);
   if (!isNaN(atualizado)) {
-    $("#fonteDados").insertAdjacentText("beforeend", ` Atualizado em ${atualizado.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", timeZone: "America/Sao_Paulo" })} às ${atualizado.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" })}.`);
+    $("#fonteDados").insertAdjacentText("beforeend", ` Dados do USPolis de ${atualizado.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", timeZone: "America/Sao_Paulo" })} às ${atualizado.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" })}.`);
   }
   tudo(); desenharPulso(); buscar(); desenharGrade();
   setInterval(() => { desenharPulso(); if (S.seguindo) { S.min = agoraMin(); tudo(); } }, 60_000);

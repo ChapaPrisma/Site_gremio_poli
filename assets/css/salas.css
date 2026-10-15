@@ -143,3 +143,9 @@
 /* a disponibilidade das salas ainda é uma prévia (depende de uma parceria com o USPolis) */
 .pulso__previa { margin-top: 10px; padding: 3px 10px; border: 1.5px solid var(--sol); border-radius: 999px; color: var(--sol); font-size: .8rem; font-weight: 800; }
 .salas-previa { margin: 8px 0 12px; padding: 10px 14px; border-left: 4px solid var(--sol); border-radius: var(--raio-pequeno); background: var(--sol-claro); color: var(--tinta); font-size: .92rem; max-width: 70ch; }
+
+/* crédito ao USPolis, de onde vêm todos os dados da página (no espírito do crédito ao Politécnicos) */
+.credito-uspolis { display: grid; gap: 10px; margin-top: 28px; padding: clamp(18px, 3vw, 26px); border: 2px dashed var(--tinta); border-radius: var(--raio); background: var(--papel); }
+.credito-uspolis h2 { font-size: 1.3rem; }
+.credito-uspolis p { max-width: 70ch; color: var(--tinta-suave); }
+.credito-uspolis .fonte-dados { margin: 0; font-size: .85rem; }

@@ -6,6 +6,12 @@
 //   node ferramentas/salas.mjs
 // Hoje roda sozinho pelo agendamento em .github/workflows/salas.yml.
 //
+// Cache de 1 hora (vital para não sobrecarregar o USPolis): o script consulta o USPolis no máximo uma
+// vez por hora, onde quer que rode. A hora da última consulta fica em ferramentas/.cache/salas-consulta.json
+// (fora do git; no GitHub Actions ela é guardada entre as execuções pelo actions/cache). Consultas
+// antes de 1 hora são recusadas, mesmo se a anterior falhou. Os visitantes do site nunca chamam o
+// USPolis: leem só o arquivo gerado aqui.
+//
 // Privacidade: de reuniões e eventos guardamos só o tipo (não o título nem quem reservou).
 // De aulas e provas guardamos o código da disciplina, a turma e os professores, que já são
 // públicos no Júpiter. Se o USPolis falhar, o arquivo anterior é mantido.
@@ -14,6 +20,10 @@ import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const API = "https://www.uspolis.com.br/api";
+// uma consulta ao USPolis por hora, no máximo (55 min de trava: o agendador do GitHub atrasa ou adianta
+// alguns segundos, e com 60 min exatos uma rodada podia pular a hora inteira)
+const INTERVALO_MINIMO = 55 * 60_000;
+const trava = fileURLToPath(new URL("./.cache/salas-consulta.json", import.meta.url));
 const DIAS = 14;
 const arquivo = fileURLToPath(new URL("../assets/dados/salas.json", import.meta.url));
 
@@ -106,6 +116,17 @@ async function gerar() {
     turmas: listaTurmas,
   };
 }
+
+// a trava de 1 hora vem antes de qualquer chamada ao USPolis
+let ultima = 0;
+try { ultima = JSON.parse(readFileSync(trava, "utf8")).consultadoEm || 0; } catch {}
+const passou = Date.now() - ultima;
+if (passou < INTERVALO_MINIMO) {
+  console.log(`USPolis consultado há ${Math.round(passou / 60_000)} min. A próxima só na hora seguinte; arquivo atual mantido.`);
+  process.exit(0);
+}
+mkdirSync(fileURLToPath(new URL("./.cache/", import.meta.url)), { recursive: true });
+writeFileSync(trava, JSON.stringify({ consultadoEm: Date.now() }));
 
 try {
   const dados = await gerar();

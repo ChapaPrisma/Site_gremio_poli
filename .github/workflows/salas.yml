@@ -1,14 +1,17 @@
 # Atualiza assets/dados/salas.json com as salas e ocupações do USPolis.
 # É só um agendador: todo o trabalho está em ferramentas/salas.mjs, que roda igual
 # em qualquer servidor com Node (ver README, seção "Salas da Poli").
+#
+# Cache de 1 hora, vital para não sobrecarregar o USPolis: roda no máximo uma vez por hora, e só
+# no período em que a Poli está aberta. O script ainda tem a própria trava (uma consulta por hora,
+# no máximo), guardada entre as execuções pelo actions/cache, então nem uma execução manual
+# fora de hora chama o USPolis antes do tempo.
 name: Salas da Poli
 
 on:
   schedule:
-    # Horários em UTC: 5h30, 11h30 e 17h30 em São Paulo.
-    - cron: "30 8 * * *"
-    - cron: "30 14 * * *"
-    - cron: "30 20 * * *"
+    # De hora em hora, das 6h às 23h de São Paulo (9h às 2h em UTC).
+    - cron: "15 0-2,9-23 * * *"
   workflow_dispatch:
 
 permissions:
@@ -26,6 +29,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      # a hora da última consulta ao USPolis passa de uma execução para a outra
+      - uses: actions/cache@v4
+        with:
+          path: ferramentas/.cache
+          key: salas-trava-${{ github.run_id }}
+          restore-keys: salas-trava-
       - run: node ferramentas/salas.mjs
       - name: Publicar se mudou
         run: |

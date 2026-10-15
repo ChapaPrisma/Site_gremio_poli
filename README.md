@@ -102,7 +102,7 @@ As vendas da loja entram sozinhas na Transparência: o painel **Vendas da loja**
 
 ## Salas da Poli
 
-A página `aluno/salas/` lê `assets/dados/salas.json`, gerado por `node ferramentas/salas.mjs` a partir do USPolis (sistema de alocação de salas da Poli). Como o USPolis não aceita chamadas diretas do navegador, o padrão é o mesmo do cardápio: o agendamento em `.github/workflows/salas.yml` roda o script três vezes por dia. De reuniões e eventos o arquivo guarda só o tipo, sem título nem quem reservou. A grade montada pelo aluno fica apenas no navegador dele.
+A página `aluno/salas/` lê `assets/dados/salas.json`, gerado por `node ferramentas/salas.mjs` a partir do USPolis (sistema de alocação de salas da Poli). Como o USPolis não aceita chamadas diretas do navegador, o padrão é o mesmo do cardápio: o agendamento em `.github/workflows/salas.yml` roda o script de hora em hora, das 6h às 23h. **Cache de 1 hora, vital para não sobrecarregar o USPolis:** o script consulta o USPolis no máximo uma vez por hora, onde quer que rode (trava em `ferramentas/.cache/`, guardada entre as execuções do GitHub pelo `actions/cache`); os visitantes nunca chamam o USPolis, e o navegador ainda guarda o arquivo por 1 hora. Todo o crédito dos dados é do USPolis, e a página diz isso. De reuniões e eventos o arquivo guarda só o tipo, sem título nem quem reservou. A grade montada pelo aluno fica apenas no navegador dele.
 
 ## Circulares da USP
 

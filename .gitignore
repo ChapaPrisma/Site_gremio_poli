@@ -1,3 +1,6 @@
 # configuração local do Claude Code e segredos (nunca publicar)
 .mcp.json
 .env.local
+
+# hora da última consulta ao USPolis (trava de 1 hora de ferramentas/salas.mjs)
+ferramentas/.cache/
