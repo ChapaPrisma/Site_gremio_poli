@@ -1,7 +1,7 @@
 // Painel "Bandejões agora": quais bandejões estão abertos neste momento,
 // com o atalho para o guia completo na Área do aluno.
 
-import { bandejoes, situacao } from "../dados/bandejoes.js?v=202610142348";
+import { bandejoes, situacao } from "../dados/bandejoes.js?v=202610150003";
 
 export default function agora(alvo, { url, encontrar, destino }) {
   const guia = encontrar("bandejoes");
