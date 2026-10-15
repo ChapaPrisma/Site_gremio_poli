@@ -516,5 +516,6 @@
 .so-se-eleita__email { user-select: all; color: var(--tinta); }
 
 /* botão da Área do politécnico: contorno azul com um toque de sol e o capelo de formatura */
-.gaveta .botao--politecnico, .botao--politecnico { border: 2px solid var(--azul); color: var(--azul); background: linear-gradient(90deg, var(--sol-claro), var(--papel) 70%); box-shadow: inset 4px 0 0 var(--sol); }
-.botao--politecnico:hover { background: var(--sol-claro); color: var(--azul); }
+/* acesso da Área do politécnico: o nome sublinhado em verde-água, para se distinguir sem chamar atenção */
+.gaveta .botao--politecnico, .botao--politecnico { border: 2px solid var(--azul); color: var(--azul); background: var(--papel); box-shadow: none; text-decoration: underline; text-decoration-color: #2a9d8f; text-decoration-thickness: 3px; text-underline-offset: 5px; }
+.botao--politecnico:hover { background: var(--azul-tinta); color: var(--azul); }
