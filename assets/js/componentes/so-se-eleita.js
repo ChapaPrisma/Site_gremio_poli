@@ -2,7 +2,10 @@
 // verdade. Todo botão que manda algo (formulários e links de e-mail das chamadas) abre um aviso
 // animado em vez de enviar, inclusive todos os links de e-mail do site. Só o portal interno (admin/),
 // que a chapa já usa, fica de fora. O próprio aviso mostra o e-mail da chapa, para copiar.
-// Para desligar quando a chapa for eleita: tire a chamada a soSeEleita() em site.js.
+// Links que não são de e-mail mas também devem esperar a eleição levam data-so-se-eleita (ex.: o
+// "Novidades no Instagram" da Loja). O href de cada botão continua o original: o aviso só intercepta
+// o clique. Para desligar quando a chapa for eleita: tire a chamada a soSeEleita() em site.js, e
+// todos os botões voltam a ir para onde já apontam (e-mails e links com data-so-se-eleita).
 
 // [data-local]: formulários que não enviam nada (buscas e filtros na própria página).
 const fora = "#entrada, #areaAdmin, [data-local]";
@@ -46,7 +49,7 @@ export default function soSeEleita(site) {
     abrir(site);
   }, true);
   document.addEventListener("click", (e) => {
-    const a = e.target.closest('a[href^="mailto:"]');
+    const a = e.target.closest('a[href^="mailto:"], [data-so-se-eleita]');
     if (!a || a.closest(fora) || a.closest(".so-se-eleita")) return;
     e.preventDefault(); e.stopPropagation();
     abrir(site);
