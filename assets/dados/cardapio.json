@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-14T22:26:51.518Z",
+ "atualizadoEm": "2026-10-15T13:14:00.767Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-14T22:26:51.518Z",
+   "atualizadoEm": "2026-10-15T13:14:00.767Z",
    "dias": {
     "2026-10-12": {
      "almoco": [
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-14T22:26:51.518Z",
+   "atualizadoEm": "2026-10-15T13:14:00.767Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-14T22:26:51.518Z",
+   "atualizadoEm": "2026-10-15T13:14:00.767Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
@@ -221,8 +221,8 @@
       "Estrogonofe de frango",
       "Opção: Estrogonofe de PVT com extrato vegetal",
       "Batata rústica",
-      "Salada de escarola",
-      "Pudim de morango",
+      "Salada de acelga",
+      "Laranja",
       "Minipão / refresco"
      ],
      "jantar": [
@@ -230,8 +230,8 @@
       "Carne em cubos com molho ferrugem",
       "Opção: Soja à jardineira",
       "Chuchu refogado",
-      "Salada de alface",
-      "Laranja",
+      "Salada de escarola",
+      "Pudim de morango",
       "Minipão / refresco"
      ]
     },
@@ -241,8 +241,8 @@
       "Lagarto com molho roti",
       "Opção: Bolinho de PVT",
       "Mandioca sauté",
-      "Salada de acelga",
-      "Banana",
+      "Salada de folhas mistas",
+      "Biscoito de goiabinha",
       "Minipão / refresco"
      ],
      "jantar": [
@@ -251,7 +251,7 @@
       "Opção: Yakisoba de legumes e PVT",
       "Repolho refogado",
       "Salada de pepino",
-      "Biscoito de goiabinha",
+      "Banana",
       "Minipão / refresco"
      ]
     },
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-14T22:26:51.518Z",
+   "atualizadoEm": "2026-10-15T13:14:00.767Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
