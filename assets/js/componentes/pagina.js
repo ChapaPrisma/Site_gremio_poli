@@ -7,7 +7,7 @@
 // Com duas ou mais seções que têm itens, a página ganha atalhos "Nesta página" no topo. Para escrever uma página à mão, troque este
 // componente pelo conteúdo em HTML e mantenha a trilha com data-componente="trilha".
 
-import { trilha } from "./trilha.js?v=202610142337";
+import { trilha } from "./trilha.js?v=202610142341";
 
 // Pílula de estado de um nó (campo `estado` no registro).
 export function pilulaEstado({ site }, no) {
@@ -24,7 +24,7 @@ export function linkVeja({ url, destino, encontrar }, no) {
 
 // Cartões das subpáginas de um nó. Também usado em páginas escritas à mão
 // (<div data-componente="recursos" data-id="aluno"></div>).
-// estilo "portal": lista numerada, na ordem do registro, com a pílula de estado.
+// estilo "portal": lista numerada, na ordem do registro, sem pílula de estado (página inicial da Área do aluno).
 export function cartoes(contexto, no, ancestrais, estilo = "") {
   const { url, destino } = contexto;
   const comPagina = (no.filhos || []).filter((f) => f.caminho && !f.botao && f.cartao !== false);
@@ -32,7 +32,7 @@ export function cartoes(contexto, no, ancestrais, estilo = "") {
   const tag = estilo === "portal" ? "ol" : "ul";
   return `<${tag} class="recursos${estilo ? ` recursos--${estilo}` : ""}">${comPagina
     .map((f) => `<li><a class="recurso${f.estado ? ` recurso--${f.estado}` : ""}" href="${url(destino(f, [...ancestrais, no]))}">
-        ${pilulaEstado(contexto, f)}
+        ${estilo === "portal" ? "" : pilulaEstado(contexto, f)}
         <h3>${f.titulo}</h3>
         ${f.destaque ? `<span class="indice__destaque">${f.destaque}</span>` : ""}
         ${f.resumo ? `<p>${f.resumo}</p>` : ""}

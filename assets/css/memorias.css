@@ -79,3 +79,10 @@
 @container (max-width: 520px) { .envio-foto__campos .dupla { grid-template-columns: 1fr; } }
 .envio-foto__campos .formulario__fim { margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
 .ok-foto { margin-top: 12px; padding: 10px 14px; border-radius: var(--raio-pequeno); background: var(--aberto-fundo); color: var(--aberto); font-weight: 700; }
+
+/* Meu Amor no tom das Tradições: o que já dá para usar, e cada tema em duas vozes (tradicoes.css) */
+.amor-hoje { max-width: 72ch; padding: 12px 16px; border: 2px solid var(--linha); border-radius: var(--raio-pequeno); background: var(--papel); color: var(--tinta-suave); }
+.amor-hoje b { color: var(--tinta); }
+.amor-tema > h2 { margin-bottom: 12px; }
+.amor-tema .voz h3 { font-size: 1.15rem; }
+.amor-tema .voz .veja, .amor-tema .voz .acoes { margin-top: auto; }

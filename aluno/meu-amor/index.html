@@ -11,13 +11,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito:wght@400;600;700;800&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap">
-  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610142337">
-  <link rel="stylesheet" href="../../assets/css/base.css?v=202610142337">
-  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610142337">
-  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610142337">
-  <link rel="stylesheet" href="../../assets/css/memorias.css?v=202610142337">
-  <link rel="stylesheet" href="../../assets/css/cursos.css?v=202610142337">
-  <script type="module" src="../../assets/js/site.js?v=202610142337"></script>
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610142341">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=202610142341">
+  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610142341">
+  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610142341">
+  <link rel="stylesheet" href="../../assets/css/tradicoes.css?v=202610142341">
+  <link rel="stylesheet" href="../../assets/css/memorias.css?v=202610142341">
+  <link rel="stylesheet" href="../../assets/css/cursos.css?v=202610142341">
+  <script type="module" src="../../assets/js/site.js?v=202610142341"></script>
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -30,77 +31,67 @@
 
       <section class="abertura abertura--sol" aria-labelledby="amor-titulo">
         <h1 id="amor-titulo">Meu Amor</h1>
-        <p class="abertura__lead">O amor pela Poli nasce na primeira semana como bixo, quando você veste a camisa numa modalidade, conhece as culturas da Escola ou vive as melhores festas da sua vida. E fica guardado nas memórias que a Poli coleciona desde 1903.</p>
-        <p class="abertura__texto">Esta seção junta os lados sociocultural e esportivo do Grêmio, com os eventos do ano e o mural de memórias.</p>
-        <div class="abertura__estado"><span class="pill pill--breve">Em construção</span><span>O mural de memórias já está no ar. Datas e lotes, esportes e cultura entram com o portal, na Semana de Recepção de 2027.</span></div>
+        <p class="abertura__texto">É a parte da Poli que não cai em prova: as festas, os jogos, a arte e as fotos de cada turma. Sendo sincero, ela anda mais fraca do que já foi. As festas encolheram, a arquibancada esvaziou e muita coisa boa ficou só nas fotos dos veteranos. Esta página junta o que ainda acontece e o que a gente quer trazer de volta.</p>
         <nav class="pagina__atalhos" aria-label="Nesta página"><a class="chip" href="#festas-e-viagens">Eventos</a><a class="chip" href="#esportes">Esportes</a><a class="chip" href="#exposicao-cultural">Cultura</a><a class="chip" href="#mural">Mural de memórias</a><a class="chip" href="#turmas">Turmas</a></nav>
       </section>
 
-      <div class="amor">
-        <section class="amor__secao amor__secao--eventos" id="festas-e-viagens" aria-labelledby="amor-eventos">
-          <div>
-            <h2 id="amor-eventos">Eventos</h2>
-            <p>Da primeira semana como bixo à última festa antes da formatura: os eventos do Grêmio ao longo do ano.</p>
+      <figure class="bloco-portal arquivo arquivo--destaque"><img src="../../assets/img/tradicoes/caep-campeao-2013-foto.jpg?v=57dd7056" alt="Alunos do CAEP comemorando o título do IntegraPoli de 2013" loading="lazy" width="694" height="438" style="max-width:640px"><figcaption>A turma do CAEP, campeã do Integra de 2013. É desse barulho que a gente sente falta. Foto: Politécnicos</figcaption></figure>
+
+      <p class="bloco-portal amor-hoje"><b>O que já dá para usar aqui:</b> o mural de memórias e o arquivo das turmas. As datas das festas, os jogos e o espaço da cultura entram quando o portal estiver no ar, em 2027.</p>
+
+      <section class="bloco-portal amor-tema" id="festas-e-viagens" aria-labelledby="amor-eventos">
+        <h2 id="amor-eventos">Eventos</h2>
+        <div class="duas-vozes">
+          <div class="voz voz--era">
+            <h3>Como está</h3>
+            <p>A Semana de Recepção continua acontecendo todo começo de ano, e a Feira de Extensão reuniu mais de 50 grupos e 400 alunos em 2026. As festas existem, mas data, lote e contato para comprar ficam espalhados em grupos de WhatsApp e em stories que somem em um dia.</p>
           </div>
-          <div class="eventos">
-            <article class="evento" id="recepcao">
-              <span class="evento__quando">Todo começo de ano</span>
-              <h3>Semana de Recepção</h3>
-              <p>A chegada dos calouros à Poli: integração, apresentação do campus, dos grupos e de tudo o que o Grêmio faz.</p>
-            </article>
-            <article class="evento" id="festas">
-              <span class="evento__quando">Ao longo do ano</span>
-              <h3>Festas e viagens</h3>
-              <p>Encontros que aproximam turmas e cursos, com tudo o que você precisa saber antes de garantir o seu lugar:</p>
-              <ul>
-                <li>Contato para comprar</li>
-                <li>Aviso de novos lotes</li>
-                <li>As novidades de cada evento</li>
-              </ul>
-            </article>
-            <article class="evento" id="feira-de-extensoes">
-              <span class="evento__quando">Duas vezes por ano</span>
-              <h3>Feira de Extensão</h3>
-              <p>Os grupos de extensão e coletivos da Poli reunidos num só lugar. Na de 2026, foram mais de 50 grupos e 400 alunos.</p>
-              <a class="veja" href="../extensoes/">Ver também: Extensões</a>
-            </article>
-          </div>
-          <p class="nota">As datas dos próximos eventos entram aqui assim que forem anunciadas.</p>
-        </section>
-        <section class="amor__secao" id="esportes" aria-labelledby="amor-esportes">
-          <div>
-            <h2 id="amor-esportes">Esportes</h2>
-            <p>Um espaço da AAAP, atualizado o tempo todo.</p>
-          </div>
-          <div>
+          <div class="voz voz--vai">
+            <h3>Como a gente quer</h3>
             <ul>
-              <li>Os jogos da rodada</li>
-              <li>Os resultados do fim de semana</li>
-              <li>Links para assistir aos jogos</li>
+              <li>As datas da Recepção, das festas, das viagens e da Feira num lugar só.</li>
+              <li>Aviso de lote novo e o contato para comprar, sem caçar no grupo.</li>
+              <li>Festas que juntem turmas e cursos, e não só quem já se conhece.</li>
             </ul>
-            <p style="margin-top:14px">Quanto mais perto das equipes e das modalidades, maior a chance de você entrar numa delas, e maior a paixão pelo amarelo e azul.</p>
+            <a class="veja" href="../extensoes/">Ver também: Extensões</a>
           </div>
-        </section>
-        <section class="amor__secao" id="exposicao-cultural" aria-labelledby="amor-cultura">
-          <div>
-            <h2 id="amor-cultura">Cultura</h2>
-            <p>Um espaço livre para a arte da Poli.</p>
+        </div>
+      </section>
+
+      <section class="bloco-portal amor-tema" id="esportes" aria-labelledby="amor-esportes">
+        <h2 id="amor-esportes">Esportes</h2>
+        <div class="duas-vozes">
+          <div class="voz voz--era">
+            <h3>Como está</h3>
+            <p>As modalidades da Poli treinam o ano inteiro, mas quase ninguém fora delas sabe quando tem jogo. A arquibancada que enchia no BichUSP e no InterUSP anda bem mais vazia.</p>
           </div>
-          <div>
-            <ul>
-              <li>Os grupos de teatro, dança e música</li>
-              <li>A arte de cada aluno: pintura, desenho, canto, vídeos de humor, história e filosofia</li>
-            </ul>
-            <p style="margin-top:14px">Quem se inscrever e for aprovado vira produtor de conteúdo cultural da Escola, a qualquer momento.</p>
-            <div class="acoes"><a class="botao" href="mailto:chapa.poli.prisma@gmail.com?subject=Inscri%C3%A7%C3%A3o%20na%20Cultura%20do%20portal">Quero expor minha arte</a></div>
+          <div class="voz voz--vai">
+            <h3>Como a gente quer</h3>
+            <p>Um espaço da AAAP com os jogos da rodada, os resultados do fim de semana e onde assistir. Quem acompanha de perto acaba indo ao jogo, e quem vai ao jogo acaba entrando numa modalidade.</p>
+            <a class="veja" href="../tradicoes/">As tradições que a gente quer acordar</a>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      <section class="bloco-portal amor-tema" id="exposicao-cultural" aria-labelledby="amor-cultura">
+        <h2 id="amor-cultura">Cultura</h2>
+        <div class="duas-vozes">
+          <div class="voz voz--era">
+            <h3>Como está</h3>
+            <p>A Poli tem teatro desde os anos 1940, com o GTP, e teve a sua primeira Semana de Arte, a SAPO, em 1989. E tem muita gente que desenha, canta, toca ou escreve e não tem onde mostrar.</p>
+          </div>
+          <div class="voz voz--vai">
+            <h3>Como a gente quer</h3>
+            <p>Um espaço livre para os grupos de teatro, dança e música e para a arte de cada aluno: pintura, desenho, canto, vídeo de humor, história, filosofia. Quem se inscrever e for aprovado publica aqui quando quiser.</p>
+            <div class="acoes"><a class="botao" href="mailto:chapa.poli.prisma@gmail.com?subject=Inscri%C3%A7%C3%A3o%20na%20Cultura%20do%20portal">Quero mostrar minha arte</a></div>
+          </div>
+        </div>
+      </section>
 
       <!-- Mural de memórias -->
       <section class="bloco-portal" id="mural" aria-labelledby="amor-mural">
         <h2 id="amor-mural">Mural de memórias</h2>
-        <p class="bloco-portal__intro">Mais de um século de Poli, um retrato de cada vez. O mural cresce com as fotos que vocês mandarem.</p>
+        <p class="bloco-portal__intro">Mais de um século de Poli, um retrato de cada vez. Por enquanto tem pouca coisa: o mural cresce com as fotos que vocês mandarem.</p>
         <div class="carrossel" data-carrossel aria-roledescription="carrossel" aria-label="Fotos do Mural de memórias">
         <button type="button" class="carrossel__seta carrossel__seta--ant" data-passo="-1" aria-label="Foto anterior"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
         <ul class="carrossel__trilho" tabindex="0" aria-label="Fotos do mural; use as setas do teclado para passar">
@@ -125,7 +116,7 @@
             <p class="slide__legenda">casa cheia</p>
           </li>
           <li class="slide slide--sol">
-            <div class="slide__corpo"><b>2027</b><span>Os bixos chegam e o portal do Novo Grêmio está pronto para eles.</span></div>
+            <div class="slide__corpo"><b>2027</b><span>A próxima foto deste mural pode ser da sua turma.</span></div>
             <p class="slide__legenda">o próximo capítulo</p>
           </li>
         </ul>

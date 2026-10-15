@@ -346,7 +346,6 @@
 .recursos--portal .recurso { position: relative; padding-top: 22px; }
 .recursos--portal .recurso::before { content: counter(secao); position: absolute; top: 16px; right: 18px; font: 800 2.4rem/1 var(--fonte-titulo); color: var(--azul-tinta); -webkit-text-stroke: 2px var(--azul); }
 .recursos--portal .recurso .pill { align-self: flex-start; }
-.recursos--portal .recurso--no-ar { box-shadow: 0 4px 0 var(--aberto); }
 .recursos .pill { align-self: flex-start; }
 
 
