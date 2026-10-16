@@ -13,13 +13,23 @@
 .pulso__texto { margin-top: 6px; font: 700 1.35rem var(--fonte-titulo); color: #fff; }
 .pulso__sub { margin-top: 6px; color: rgba(255, 255, 255, .72); font-size: .95rem; }
 .curva { grid-column: 1 / -1; margin: 6px 0 0; }
-.curva svg { display: block; width: 100%; height: 120px; cursor: pointer; touch-action: none; }
+.curva svg { display: block; width: 100%; height: 120px; cursor: grab; touch-action: none; overflow: visible; }
+.curva svg.arrastando { cursor: grabbing; }
 .curva figcaption { margin-top: 6px; font-size: .85rem; color: rgba(255, 255, 255, .7); }
 .curva .area { fill: rgba(255, 216, 77, .22); stroke: var(--sol); stroke-width: 2; vector-effect: non-scaling-stroke; }
 .curva .grade-linha { stroke: rgba(255, 255, 255, .14); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .curva .rotulo { fill: rgba(255, 255, 255, .65); font: 600 11px var(--fonte); }
 .curva .marca { stroke: #fff; stroke-width: 2; vector-effect: non-scaling-stroke; }
-.curva .marca-ponto { fill: var(--sol); stroke: var(--tinta); stroke-width: 2; }
+.curva .marca-ponto { fill: var(--sol); stroke: var(--tinta); stroke-width: 2.5; }
+/* a alça: puxador amarelo com dois riscos (cara de "arraste"), halo e o número de salas livres colado */
+.curva .alca__halo { fill: rgba(255, 216, 77, .22); transition: r .15s ease; }
+.curva svg:hover .alca__halo, .curva svg.arrastando .alca__halo { r: 19; }
+.curva .alca__risco { stroke: var(--tinta); stroke-width: 1.6; stroke-linecap: round; }
+.curva .alca__rotulo rect { fill: var(--sol); }
+.curva .alca__rotulo text { fill: var(--tinta); font: 800 11.5px var(--fonte); }
+.pulso__agora { margin-top: 10px; padding: 4px 12px; border: 1.5px solid #fff; border-radius: 999px; background: transparent; color: #fff; font: 700 .85rem var(--fonte); cursor: pointer; }
+.pulso__agora:hover { background: rgba(255, 255, 255, .14); }
+@media (prefers-reduced-motion: reduce) { .curva .alca__halo { transition: none; } }
 .curva .marca-agora { stroke: rgba(255, 255, 255, .5); stroke-dasharray: 3 4; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 
 .salas-atalhos { margin-top: 20px; }

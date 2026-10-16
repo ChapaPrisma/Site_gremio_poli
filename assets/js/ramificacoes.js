@@ -160,7 +160,7 @@ export const ramificacoes = [
         titulo: "Salas e grade horária",
         caminho: "aluno/salas/",
         estado: "no-ar",
-        resumo: "Onde é a sua aula e a sua grade com as salas, com os dados do USPolis. Em breve, as salas livres em cada prédio da Poli.",
+        resumo: "Salas livres em cada prédio da Poli, onde é a sua aula e a sua grade com as salas, com os dados do USPolis.",
         chamada: "Encontrar uma sala",
       },
       {

@@ -10,7 +10,7 @@
 // carregarem (servidor lento ou bloqueado), o mapa troca sozinho para a próxima fonte da lista FUNDOS.
 // Uso: marcação em aluno/circulares/index.html e <div data-componente="guia-circulares"></div>.
 
-import { LINHAS, GRUPOS } from "../dados/circulares.js?v=202610151149";
+import { LINHAS, GRUPOS } from "../dados/circulares.js?v=202610161631";
 
 const CDN = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/";
 const INICIAL = "8084-10";

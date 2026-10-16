@@ -7,8 +7,8 @@
 // Dados: bandejões e horários em dados/bandejoes.js; mapa em dados/mapa-campus.js;
 // cardápio em assets/dados/cardapio.json, atualizado por ferramentas/cardapio.mjs.
 
-import { L, ICONS, GRID_RLE } from "../dados/mapa-campus.js?v=202610151149";
-import { bandejoes as B, hora as fmtH, agoraSP, hojeSP, situacao, temJantar, carregarCardapio } from "../dados/bandejoes.js?v=202610151149";
+import { L, ICONS, GRID_RLE } from "../dados/mapa-campus.js?v=202610161631";
+import { bandejoes as B, hora as fmtH, agoraSP, hojeSP, situacao, temJantar, carregarCardapio } from "../dados/bandejoes.js?v=202610161631";
 
 const NS = "http://www.w3.org/2000/svg", MPP = 2.143, CELL = 4, GW = 500, GH = 353, SPEED = 75;
 const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)];

@@ -6,8 +6,8 @@
 //   turmas     [disciplina, turma, [[dia da semana (0 = seg), início, fim, sala|null]], professores]
 // A grade do aluno fica só no navegador dele (localStorage), sem ir a lugar nenhum.
 
-import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610151149";
-import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610151149";
+import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610161631";
+import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610161631";
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -140,10 +140,10 @@ export default async function guiaSalas(_alvo, { raiz }) {
     else if (ds === 0 || ds === 6) { aviso.hidden = false; aviso.textContent = "Fim de semana: quase não há aulas, mas os prédios podem estar fechados ou com acesso restrito."; }
     else aviso.hidden = true;
 
-    // Cobertura: quanto o USPolis registra neste dia (ele ainda não tem todas as atividades da Poli).
+    // Cobertura: quanto o USPolis registra neste dia (ele depende de as pessoas registrarem as atividades).
     const doDiaTodo = D.ocupacoes.filter((o) => o[1] === S.dia);
     const salasUsadas = new Set(doDiaTodo.map((o) => o[0])).size;
-    $("#cobertura").textContent = `Neste dia o USPolis registra ${doDiaTodo.length} aulas, provas, reuniões e eventos em ${salasUsadas} das ${salas.length} salas. Ele ainda não cobre todas as atividades da Poli: uma sala verde não tem nada registrado, mas pode estar em uso. Confira no local antes de ocupar.`;
+    $("#cobertura").textContent = `Neste dia o USPolis registra ${doDiaTodo.length} aulas, provas, reuniões e eventos em ${salasUsadas} das ${salas.length} salas. Como o USPolis depende de input humano, ele pode ter imprecisões: uma sala verde não tem nada registrado, mas pode estar em uso.`;
 
     if (!lista.length) { mapa.innerHTML = `<p class="mapa-salas__vazio">Nenhuma sala com esses filtros. Tente outro tamanho de grupo ou outro prédio.</p>`; return; }
     const grupos = new Map();
@@ -169,8 +169,19 @@ export default async function guiaSalas(_alvo, { raiz }) {
   mapa.addEventListener("click", (e) => { const b = e.target.closest("[data-sala]"); if (b) abrirSala(+b.dataset.sala); });
 
   /* ---------- pulso e curva ---------- */
+  // O número grande mostra "agora" enquanto a tela segue o relógio; quando o aluno escolhe um dia ou um
+  // horário (na curva, no controle ou nos dias), ele passa a mostrar as salas livres naquele momento.
   function desenharPulso() {
     const total = salas.length;
+    $("#pulsoAgora").hidden = S.seguindo;
+    if (!S.seguindo && !semDados) {
+      const livres = filtradas().filter((s) => estado(s.id, S.dia, S.min).livre).length;
+      const quando = S.dia === hoje ? `às ${hora(S.min)}` : `${nomeDia(S.dia).toLowerCase() === "amanhã" ? "amanhã" : nomeDia(S.dia)}, às ${hora(S.min)}`;
+      $("#pulsoNum").textContent = livres;
+      $("#pulsoTxt").textContent = `${livres === 1 ? "sala livre" : "salas livres"} ${quando}, segundo o USPolis`;
+      $("#pulsoSub").textContent = `de ${filtradas().length} salas${filtradas().length < total ? " com os filtros escolhidos" : ` em ${D.predios.length} prédios da Poli`}.`;
+      return;
+    }
     if (semDados || !dias.includes(hoje)) {
       $("#pulsoNum").textContent = "–";
       $("#pulsoSub").textContent = "Dados do USPolis desatualizados no momento.";
@@ -206,9 +217,15 @@ export default async function guiaSalas(_alvo, { raiz }) {
     if (S.dia === hoje) { const m = agoraSP().minuto; if (m >= INICIO && m <= FIM) agora = `<line class="marca-agora" x1="${x(m)}" x2="${x(m)}" y1="${topo}" y2="${base}"/>`; }
     svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
     const escala = `<text class="rotulo" x="${w - 4}" y="${topo + 10}" text-anchor="end">${maxN}</text><text class="rotulo" x="${w - 4}" y="${base - 4}" text-anchor="end">${piso}</text>`;
+    // a alça: a linha do horário, um puxador redondo e, colado nele, quantas salas estão livres
+    const ax = x(S.min), ay = y(atual[1]);
+    const rotulo = `${atual[1]} livres`, larg = rotulo.length * 6.6 + 14;
+    const rx = Math.min(w - larg - 2, Math.max(2, ax - larg / 2)), ry = ay - 34 < 0 ? ay + 14 : ay - 34;
     svg.innerHTML = `${grade}${escala}<path class="area" d="${d}"/>${agora}
-      <line class="marca" x1="${x(S.min)}" x2="${x(S.min)}" y1="${topo}" y2="${base}"/>
-      <circle class="marca-ponto" cx="${x(S.min)}" cy="${y(atual[1])}" r="6"/>`;
+      <line class="marca" x1="${ax}" x2="${ax}" y1="${topo}" y2="${base}"/>
+      <g class="alca"><circle class="alca__halo" cx="${ax}" cy="${ay}" r="15"/><circle class="marca-ponto" cx="${ax}" cy="${ay}" r="9"/>
+        <line class="alca__risco" x1="${ax - 2.5}" x2="${ax - 2.5}" y1="${ay - 3.5}" y2="${ay + 3.5}"/><line class="alca__risco" x1="${ax + 2.5}" x2="${ax + 2.5}" y1="${ay - 3.5}" y2="${ay + 3.5}"/></g>
+      <g class="alca__rotulo"><rect x="${rx}" y="${ry}" width="${larg}" height="20" rx="10"/><text x="${rx + larg / 2}" y="${ry + 14}" text-anchor="middle">${rotulo}</text></g>`;
     svg.setAttribute("aria-label", `Salas livres ao longo do dia. Às ${hora(S.min)}, ${atual[1]} de ${lista.length} salas livres.`);
   }
   const escolherNaCurva = (e) => {
@@ -217,9 +234,11 @@ export default async function guiaSalas(_alvo, { raiz }) {
     S.min = Math.min(FIM, Math.max(INICIO, t)); S.seguindo = false; tudo();
   };
   let arrastando = false;
-  svg.addEventListener("pointerdown", (e) => { arrastando = true; svg.setPointerCapture(e.pointerId); escolherNaCurva(e); });
+  svg.addEventListener("pointerdown", (e) => { arrastando = true; svg.classList.add("arrastando"); svg.setPointerCapture(e.pointerId); escolherNaCurva(e); });
   svg.addEventListener("pointermove", (e) => { if (arrastando) escolherNaCurva(e); });
-  svg.addEventListener("pointerup", () => { arrastando = false; });
+  const soltar = () => { arrastando = false; svg.classList.remove("arrastando"); };
+  svg.addEventListener("pointerup", soltar);
+  svg.addEventListener("pointercancel", soltar);
   new ResizeObserver(() => desenharCurva()).observe(svg);
 
   /* ---------- detalhe da sala ---------- */
@@ -364,7 +383,8 @@ export default async function guiaSalas(_alvo, { raiz }) {
   };
 
   /* ---------- tudo ---------- */
-  function tudo() { marcar(); desenharMapa(); desenharCurva(); }
+  function tudo() { marcar(); desenharMapa(); desenharCurva(); desenharPulso(); }
+  $("#pulsoAgora").addEventListener("click", () => $("#agora").click());
   const atualizado = new Date(D.atualizadoEm);
   if (!isNaN(atualizado)) {
     $("#fonteDados").insertAdjacentText("beforeend", ` Dados do USPolis de ${atualizado.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", timeZone: "America/Sao_Paulo" })} às ${atualizado.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" })}.`);
