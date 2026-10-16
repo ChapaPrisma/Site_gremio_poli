@@ -117,6 +117,19 @@ async function gerar() {
   };
 }
 
+// Salas fora dos prédios da Poli (como o "LCG 1 e 2", na FAU) só entram se o USPolis registrar alguma
+// ocupação nelas na janela ou se alguma turma da Poli tiver aula lá. Sem isso, elas aparecem sempre como
+// livres e engordam o total. Se a Poli voltar a ter aula num desses prédios, a sala reaparece sozinha.
+const PREDIOS_DA_POLI = new Set(["Biênio", "Civil", "Elétrica", "Mecânica", "Metalúrgica e Materiais", "Minas e Petróleo", "Produção", "Química"]);
+export function soOQueAPoliUsa(dados) {
+  const usadas = new Set(dados.ocupacoes.map((o) => o[0]));
+  for (const [, , horarios] of dados.turmas) for (const h of horarios) if (h[3] != null) usadas.add(h[3]);
+  const fica = (s) => PREDIOS_DA_POLI.has(dados.predios[s[1]]) || usadas.has(s[0]);
+  const salas = dados.salas.filter(fica);
+  const predios = [...new Set(salas.map((s) => dados.predios[s[1]]))].sort((a, b) => a.localeCompare(b, "pt"));
+  return { ...dados, predios, salas: salas.map((s) => [s[0], predios.indexOf(dados.predios[s[1]]), ...s.slice(2)]) };
+}
+
 // a trava de 1 hora vem antes de qualquer chamada ao USPolis
 let ultima = 0;
 try { ultima = JSON.parse(readFileSync(trava, "utf8")).consultadoEm || 0; } catch {}
@@ -129,7 +142,7 @@ mkdirSync(fileURLToPath(new URL("./.cache/", import.meta.url)), { recursive: tru
 writeFileSync(trava, JSON.stringify({ consultadoEm: Date.now() }));
 
 try {
-  const dados = await gerar();
+  const dados = soOQueAPoliUsa(await gerar());
   let anterior = null;
   try { anterior = JSON.parse(readFileSync(arquivo, "utf8")); } catch {}
   const semData = (o) => o && JSON.stringify({ ...o, atualizadoEm: null });

@@ -6,8 +6,8 @@
 //   turmas     [disciplina, turma, [[dia da semana (0 = seg), início, fim, sala|null]], professores]
 // A grade do aluno fica só no navegador dele (localStorage), sem ir a lugar nenhum.
 
-import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610161631";
-import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610161631";
+import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610161636";
+import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610161636";
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -219,7 +219,9 @@ export default async function guiaSalas(_alvo, { raiz }) {
     const escala = `<text class="rotulo" x="${w - 4}" y="${topo + 10}" text-anchor="end">${maxN}</text><text class="rotulo" x="${w - 4}" y="${base - 4}" text-anchor="end">${piso}</text>`;
     // a alça: a linha do horário, um puxador redondo e, colado nele, quantas salas estão livres
     const ax = x(S.min), ay = y(atual[1]);
-    const rotulo = `${atual[1]} livres`, larg = rotulo.length * 6.6 + 14;
+    // seguindo o relógio, a alça mostra o mesmo número do pulso (minuto exato, não o ponto de 10 em 10 min)
+    const n = S.seguindo && S.dia === hoje ? lista.filter((s) => estado(s.id, hoje, agoraSP().minuto).livre).length : atual[1];
+    const rotulo = `${n} livres`, larg = rotulo.length * 6.6 + 14;
     const rx = Math.min(w - larg - 2, Math.max(2, ax - larg / 2)), ry = ay - 34 < 0 ? ay + 14 : ay - 34;
     svg.innerHTML = `${grade}${escala}<path class="area" d="${d}"/>${agora}
       <line class="marca" x1="${ax}" x2="${ax}" y1="${topo}" y2="${base}"/>
