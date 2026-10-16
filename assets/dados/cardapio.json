@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-16T13:12:29.452Z",
+ "atualizadoEm": "2026-10-16T16:23:46.464Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-16T13:12:29.452Z",
+   "atualizadoEm": "2026-10-16T16:23:46.464Z",
    "dias": {
     "2026-10-12": {
      "almoco": [
@@ -79,7 +79,7 @@
       "Lombo com molho de limão",
       "Opção: Yakissoba de PVT",
       "Couve à provençal",
-      "Salada de beterraba",
+      "Salada de pepino",
       "Laranja",
       "Minipão / refresco"
      ],
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-16T13:12:29.452Z",
+   "atualizadoEm": "2026-10-16T16:23:46.464Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-16T13:12:29.452Z",
+   "atualizadoEm": "2026-10-16T16:23:46.464Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-16T13:12:29.452Z",
+   "atualizadoEm": "2026-10-16T16:23:46.464Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
