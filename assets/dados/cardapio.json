@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-16T16:23:46.464Z",
+ "atualizadoEm": "2026-10-16T22:26:15.619Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-16T16:23:46.464Z",
+   "atualizadoEm": "2026-10-16T22:26:15.619Z",
    "dias": {
     "2026-10-12": {
      "almoco": [
@@ -84,12 +84,12 @@
       "Minipão / refresco"
      ],
      "jantar": [
-      "Arroz / feijão / arroz integral",
+      "Arroz / feijão preto / arroz integral",
       "Frango em tiras",
       "Opção: Ratatouille com PVT",
       "Chuchu refogado",
-      "Salada de alface",
-      "Cocada",
+      "Salada de alface com beterraba",
+      "Bananada",
       "Minipão / refresco"
      ]
     },
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-16T16:23:46.464Z",
+   "atualizadoEm": "2026-10-16T22:26:15.619Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-16T16:23:46.464Z",
+   "atualizadoEm": "2026-10-16T22:26:15.619Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-16T16:23:46.464Z",
+   "atualizadoEm": "2026-10-16T22:26:15.619Z",
    "dias": {
     "2026-10-12": {
      "almoco": [],
