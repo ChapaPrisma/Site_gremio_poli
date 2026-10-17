@@ -4,3 +4,6 @@
 
 # hora da última consulta ao USPolis (trava de 1 hora de ferramentas/salas.mjs)
 ferramentas/.cache/
+
+# cache do Python
+__pycache__/
