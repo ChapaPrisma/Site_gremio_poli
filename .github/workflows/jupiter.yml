@@ -1,0 +1,43 @@
+# Atualiza as fichas das disciplinas (créditos, ementa, avaliação) e o 1º semestre de cada curso, a partir
+# do JupiterWeb. É só um agendador: todo o trabalho está em ferramentas/jupiter.mjs (ver README, seção
+# "Fichas das disciplinas"). O caminho até esses dados foi mapeado pelo usp-mcp, de Caio Castro e João
+# Pedro Gunthen (github.com/CaioCastro1/mcp-usp).
+#
+# Gentileza com a USP: uma vez por dia, de madrugada, no máximo 50 fichas por vez, uma requisição por vez
+# com pausa entre elas; cada ficha vale por um semestre e as grades são buscadas no máximo uma vez por semana.
+name: Fichas das disciplinas
+
+on:
+  schedule:
+    # 4h20 de São Paulo (7h20 em UTC)
+    - cron: "20 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dados-do-site
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node ferramentas/jupiter.mjs
+      - name: Publicar se mudou
+        run: |
+          git add assets/dados/disciplinas.json assets/dados/disciplinas/
+          if git diff --cached --quiet; then
+            echo "Sem mudanças nas fichas."
+            exit 0
+          fi
+          git config user.name "fichas-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Atualiza fichas das disciplinas (JupiterWeb)"
+          git pull --rebase origin main
+          git push

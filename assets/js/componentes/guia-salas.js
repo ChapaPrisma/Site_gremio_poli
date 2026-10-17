@@ -6,8 +6,9 @@
 //   turmas     [disciplina, turma, [[dia da semana (0 = seg), início, fim, sala|null]], professores]
 // A grade do aluno fica só no navegador dele (localStorage), sem ir a lugar nenhum.
 
-import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610161636";
-import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610161636";
+import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610162259";
+import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610162259";
+import { carregarIndice, textoCreditos, detalhes, ligarFichas } from "./ficha-disciplina.js?v=202610162259";
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -288,8 +289,9 @@ export default async function guiaSalas(_alvo, { raiz }) {
     const palavras = q.split(/\s+/);
     const achadas = indiceBusca.filter((d) => d.nc.startsWith(q) || palavras.every((p) => d.nn.includes(p) || d.nc.includes(p))).slice(0, 12);
     est.textContent = achadas.length ? (achadas.length === 12 ? "Mostrando as 12 primeiras. Refine a busca para ver outras." : `${achadas.length} disciplina${achadas.length > 1 ? "s" : ""} encontrada${achadas.length > 1 ? "s" : ""}.`) : "Nenhuma disciplina encontrada. Confira o código ou tente uma palavra do nome.";
-    res.innerHTML = achadas.map((d) => `<article class="disciplina">
+    res.innerHTML = achadas.map((d) => { const j = fichas?.indice?.[d.c]; return `<article class="disciplina">
         <h3><span>${esc(d.c)}</span>${esc(d.n)}</h3>
+        ${j ? `<p class="disciplina__creditos">${esc(textoCreditos(j[1], j[2]))}</p>${detalhes(d.c)}` : ""}
         <ul class="turmas">${(turmasPor.get(d.c) || []).map(([c, t, hs, prof]) => `<li class="turma">
             <div>
               <span class="turma__cod">Turma ${esc(t)}</span>
@@ -298,8 +300,14 @@ export default async function guiaSalas(_alvo, { raiz }) {
             </div>
             <button type="button" class="chip" data-grade="${esc(c)}|${esc(t)}" aria-pressed="${naGrade(c, t)}">${naGrade(c, t) ? "Na sua grade" : "Adicionar à grade"}</button>
           </li>`).join("")}</ul>
-      </article>`).join("");
+      </article>`; }).join("");
   }
+  // Créditos e ementa de cada disciplina (JupiterWeb, ficha-disciplina.js): o índice chega em segundo
+  // plano e, quando chega, a busca e a grade são redesenhadas com ele.
+  const url = (p) => new URL(p, raiz).href;
+  let fichas = null;
+  carregarIndice(url).then((d) => { fichas = d; if (d) { buscar(); desenharGrade(); } });
+  ligarFichas($("#resultados"), url);
   let espera;
   $("#busca").addEventListener("input", () => { clearTimeout(espera); espera = setTimeout(buscar, 150); });
   $("#resultados").addEventListener("click", (e) => {
@@ -344,7 +352,9 @@ export default async function guiaSalas(_alvo, { raiz }) {
     }
     html += `</div>`;
     // duração em horas e minutos e, depois, em créditos (cada crédito-aula vale 50 minutos)
-    const hs = Math.floor(minutosSemana / 60), mins = minutosSemana % 60, creditos = Math.round(minutosSemana / 50);
+    // créditos: os oficiais do JupiterWeb quando todas as disciplinas da grade têm ficha; senão, a estimativa pelas horas de aula
+    const doJupiter = [...new Set(grade.map((k) => k.split("|")[0]))].map((c) => fichas?.indice?.[c]?.[1]);
+    const hs = Math.floor(minutosSemana / 60), mins = minutosSemana % 60, creditos = doJupiter.length && doJupiter.every((x) => x != null) ? doJupiter.reduce((a, b) => a + b, 0) : Math.round(minutosSemana / 50);
     const duracao = [hs ? `${hs} hora${hs === 1 ? "" : "s"}` : "", mins ? `${mins} minuto${mins === 1 ? "" : "s"}` : ""].filter(Boolean).join(" e ") || "0 minutos";
     const notas = [`${grade.length - faltando.length} turma${grade.length - faltando.length === 1 ? "" : "s"}, ${duracao} de aula por semana, ${creditos} crédito${creditos === 1 ? "" : "s"}.`];
     if (blocos.some((x) => x.conflito)) notas.push("Os blocos com contorno tracejado têm conflito de horário.");

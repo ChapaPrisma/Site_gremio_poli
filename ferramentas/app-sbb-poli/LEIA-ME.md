@@ -88,6 +88,9 @@ dá acesso a recursos do celular: notificações, compartilhar e salvar arquivos
 - **Extensões (`aluno/extensoes/`):** a lista dos grupos vem de `assets/js/dados/extensoes.js` (texto leve,
   entra no pacote). Os links de Instagram e LinkedIn abrem os apps; os selos com as iniciais viram as logos
   quando os grupos mandarem. As subpáginas de cada grupo (`aluno/extensoes/ID/`) ainda vão existir.
+- **Fichas das disciplinas (Guia dos cursos, Salas, Fuja do Nabo):** o índice `assets/dados/disciplinas.json`
+  (uns 10 a 40 KB) entra no pacote; as fichas completas (`assets/dados/disciplinas/<SIGLA>.json`) são baixadas
+  quando o aluno abre e podem ficar em cache. Manter o crédito ao usp-mcp (Caio Castro e João Pedro Gunthen).
 - **Circulares (`aluno/circulares/`):** trajetos, paradas e horários vêm do GTFS da SPTrans
   (`assets/dados/circulares.json`, uns 70 KB), bom para funcionar sem sinal. O mapa (Leaflet) precisa de
   internet para o fundo; a posição ao vivo depende da função `onibus` do Supabase.

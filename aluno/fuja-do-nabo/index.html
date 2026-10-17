@@ -10,11 +10,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito:wght@400;600;700;800&display=swap">
-  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610161636">
-  <link rel="stylesheet" href="../../assets/css/base.css?v=202610161636">
-  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610161636">
-  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610161636">
-  <script type="module" src="../../assets/js/site.js?v=202610161636"></script>
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610162259">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=202610162259">
+  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610162259">
+  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610162259">
+  <script type="module" src="../../assets/js/site.js?v=202610162259"></script>
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -53,6 +53,19 @@
           </span>
           <span class="botao">Ir para o Poli-Share</span>
         </a>
+      </section>
+
+      <section class="bloco-portal" id="fichas" aria-labelledby="fuja-fichas">
+        <h2 id="fuja-fichas">Antes de começar uma disciplina</h2>
+        <p class="bloco-portal__intro">Digite o código ou o nome e veja quantos créditos ela vale, do que trata e como é a avaliação.</p>
+        <div class="ficha-busca">
+          <label class="sr" for="fichaBusca">Código ou nome da disciplina</label>
+          <input type="search" id="fichaBusca" placeholder="Ex.: MAC2166 ou Cálculo" autocomplete="off" spellcheck="false" data-local>
+        </div>
+        <p class="ficha-busca__estado" id="fichaEstado" aria-live="polite"></p>
+        <div class="ficha-busca__resultados" id="fichaResultados"></div>
+        <p class="nota ficha-busca__fonte">Créditos e ementas do JupiterWeb, pelo caminho mapeado pelo <a href="https://github.com/CaioCastro1/mcp-usp" target="_blank" rel="noopener">usp-mcp</a>, de Caio Castro e João Pedro Gunthen.</p>
+        <div data-componente="fichas-disciplinas" data-alvo="fichaResultados"></div>
       </section>
 
       <section class="bloco-portal" aria-labelledby="fuja-hub">

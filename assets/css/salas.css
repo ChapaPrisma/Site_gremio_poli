@@ -164,3 +164,5 @@
 .credito-uspolis__logo { display: grid; place-items: center; width: clamp(110px, 16cqi, 150px); aspect-ratio: 1; padding: 14px; border-radius: var(--raio); background: #e2eaea; }
 .credito-uspolis__logo img { width: 100%; height: auto; }
 @container (max-width: 560px) { .credito-uspolis { grid-template-columns: 1fr; } .credito-uspolis__logo { grid-row: 1; width: 96px; } }
+.disciplina__creditos { margin-top: 2px; font-size: .85rem; color: var(--tinta-suave); }
+.credito-uspolis__jupiter + .fonte-dados { border-top: 0; padding-top: 0; }

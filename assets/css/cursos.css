@@ -70,3 +70,11 @@
 .turma-foto--vazia { border-style: dashed; border-color: var(--linha); }
 .turma-foto p { padding: 6px 10px; font-size: .88rem; font-weight: 700; }
 @media (prefers-reduced-motion: reduce) { .vitrine-cas a { transition: none; } }
+
+/* créditos e ficha da disciplina (JupiterWeb, ficha-disciplina.js): discretos, a ficha recolhida */
+.curso__creditos { display: block; margin-top: 2px; font-size: .82rem; color: var(--tinta-suave); }
+.curso__fonte { margin-top: 12px; font-size: .8rem; }
+/* com a ementa aberta, o cartão ocupa a linha inteira (texto legível) e os outros não esticam */
+.curso__materias { align-items: start; }
+.curso__materias li:has(.ficha-disc[open]) { grid-column: 1 / -1; }
+.curso__materias .ficha-disc__corpo p { max-width: 75ch; }

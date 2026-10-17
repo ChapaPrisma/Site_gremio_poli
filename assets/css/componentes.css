@@ -519,3 +519,32 @@
 /* acesso da Área do politécnico: o nome sublinhado em verde-água, para se distinguir sem chamar atenção */
 .gaveta .botao--politecnico, .botao--politecnico { border: 2px solid var(--azul); color: var(--azul); background: var(--papel); box-shadow: none; text-decoration: underline; text-decoration-color: #2a9d8f; text-decoration-thickness: 3px; text-underline-offset: 5px; }
 .botao--politecnico:hover { background: var(--azul-tinta); color: var(--azul); }
+
+/* ficha da disciplina (ficha-disciplina.js): um "Ementa e avaliação" recolhido, que abre no lugar */
+.ficha-disc { margin-top: 8px; }
+.ficha-disc > summary { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; list-style: none; font-size: .85rem; font-weight: 800; color: var(--azul); }
+.ficha-disc > summary::-webkit-details-marker { display: none; }
+.ficha-disc > summary::before { content: ""; width: 6px; height: 6px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform .15s ease; }
+.ficha-disc[open] > summary::before { transform: rotate(45deg); }
+.ficha-disc__corpo { margin-top: 8px; padding: 10px 12px; border-left: 3px solid var(--azul-tinta); font-size: .88rem; color: var(--tinta-suave); }
+.ficha-disc__corpo h4 { margin: 10px 0 2px; font: 800 .82rem var(--fonte); color: var(--tinta); }
+.ficha-disc__corpo h4:first-child { margin-top: 0; }
+.ficha-disc__corpo p { margin: 4px 0 0; }
+.ficha-disc__mais { margin-top: 10px; }
+.ficha-disc__mais > summary { cursor: pointer; font: 800 .82rem var(--fonte); color: var(--tinta); }
+.ficha-disc__fim { margin-top: 10px !important; }
+.ficha-disc__fim a { font-weight: 800; }
+.ficha-disc__nota { font-style: italic; }
+@media (prefers-reduced-motion: reduce) { .ficha-disc > summary::before { transition: none; } }
+
+/* busca de fichas de disciplina (Fuja do Nabo, fichas-disciplinas.js): vazia até a pessoa digitar */
+.ficha-busca input { width: 100%; max-width: 520px; padding: 12px 14px; border: var(--borda); border-radius: var(--raio); font: 600 1rem var(--fonte); background: var(--papel); color: var(--tinta); }
+.ficha-busca__estado { margin-top: 8px; font-size: .9rem; color: var(--tinta-suave); }
+.ficha-busca__estado:empty { display: none; }
+.ficha-busca__resultados { display: grid; gap: 10px; margin-top: 10px; }
+.ficha-busca__resultados:empty { display: none; }
+.ficha-busca__item { padding: 14px 16px; border: 2px solid var(--linha); border-radius: var(--raio); background: var(--papel); }
+.ficha-busca__item h3 { font-size: 1.05rem; }
+.ficha-busca__item h3 span { color: var(--azul); }
+.ficha-busca__creditos { margin-top: 2px; font-size: .85rem; color: var(--tinta-suave); }
+.ficha-busca__fonte { margin-top: 12px; font-size: .8rem; }

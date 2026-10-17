@@ -5,7 +5,8 @@
 //   vitrine  (aluno/)                 a faixa pequena com as logos, no fim da Área do aluno
 //   arquivo  (aluno/meu-amor/#turmas) as fotos das turmas, organizadas por ano
 
-import { centros, cursos, centroDo, cursoPor, arquivoDesde } from "../dados/cursos.js?v=202610161636";
+import { centros, cursos, centroDo, cursoPor, arquivoDesde } from "../dados/cursos.js?v=202610162259";
+import { carregarIndice, textoCreditos, detalhes, ligarFichas, creditoUspMcp } from "./ficha-disciplina.js?v=202610162259";
 
 const esc = (t = "") => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 const insta = (c) => `<a class="ca__insta" href="https://instagram.com/${esc(c.instagram)}" target="_blank" rel="noopener">@${esc(c.instagram)}</a>`;
@@ -20,6 +21,28 @@ function menu(alvo, { url }) {
       </div>
       <ul class="ca__cursos">${c.cursos.map((id) => `<li><a href="${url(`aluno/cursos/${id}/`)}">${esc(cursoPor(id).nome)}</a></li>`).join("")}</ul>
     </section>`).join("")}</div>`;
+}
+
+// Matérias do 1º semestre: [sigla, nome, créditos-aula, créditos-trabalho, dica do CA]. Os créditos e a
+// ementa vêm do JupiterWeb (ficha-disciplina.js); a dica, quando existe, é a do centro acadêmico.
+const listaMaterias = (itens) => `<ul class="curso__materias">${itens.map(([c, n, ca, ct, dica]) => `<li>
+  <span class="curso__codigo">${esc(c)}</span><b>${esc(n)}</b>${ca || ct ? `<small class="curso__creditos">${esc(textoCreditos(ca, ct))}</small>` : ""}
+  ${dica ? `<p>${esc(dica)}</p>` : ""}${c ? detalhes(c) : ""}</li>`).join("")}</ul>`;
+
+// Depois de desenhar a página: sem a lista do CA, entram as obrigatórias do 1º semestre do currículo
+// oficial; com ela, cada matéria ganha os créditos. Sem o índice (falha de rede), fica como estava.
+async function completarMaterias(curso, url) {
+  const caixa = document.getElementById("materiasPrimeiro");
+  const dados = await carregarIndice(url);
+  if (!caixa || !dados) return;
+  const doCurso = dados.cursos?.[curso.id]?.primeiro || [];
+  const itens = curso.primeiroSemestre.length
+    ? curso.primeiroSemestre.map((m) => { const i = dados.indice?.[m.codigo] || []; return [m.codigo || "", m.nome, i[1], i[2], m.dica]; })
+    : doCurso.map(([c, n, ca, ct]) => [c, n, ca, ct, ""]);
+  if (!itens.length) return;
+  caixa.innerHTML = `${curso.primeiroSemestre.length ? "" : `<p class="bloco-portal__intro">As obrigatórias do primeiro semestre no currículo oficial. Toque numa matéria para ver do que ela trata e como é a avaliação.</p>`}
+    ${listaMaterias(itens)}<p class="nota curso__fonte">${creditoUspMcp}</p>`;
+  ligarFichas(caixa, url);
 }
 
 function paginaDoCurso(alvo, { url }) {
@@ -42,9 +65,9 @@ function paginaDoCurso(alvo, { url }) {
 
     <section class="bloco-portal" aria-labelledby="curso-materias">
       <h2 id="curso-materias">As matérias do primeiro semestre</h2>
-      ${curso.primeiroSemestre.length
-        ? `<ul class="curso__materias">${curso.primeiroSemestre.map((m) => `<li><span class="curso__codigo">${esc(m.codigo || "")}</span><b>${esc(m.nome)}</b>${m.dica ? `<p>${esc(m.dica)}</p>` : ""}</li>`).join("")}</ul>`
-        : preparando("as matérias do primeiro semestre, com as dicas de quem já passou por elas")}
+      <div id="materiasPrimeiro">${curso.primeiroSemestre.length
+        ? listaMaterias(curso.primeiroSemestre.map((m) => [m.codigo || "", m.nome, null, null, m.dica]))
+        : preparando("as matérias do primeiro semestre, com as dicas de quem já passou por elas")}</div>
     </section>
 
     <section class="bloco-portal" aria-labelledby="curso-centrinho">
@@ -64,6 +87,7 @@ function paginaDoCurso(alvo, { url }) {
       ${irmaos.length ? `<p>Também do ${esc(ca.sigla)}: ${irmaos.map((id) => `<a href="${url(`aluno/cursos/${id}/`)}">${esc(cursoPor(id).nome)}</a>`).join(", ")}.</p>` : ""}
       <a class="botao botao--linha" href="${url(`aluno/cursos/#${ca.id}`)}">Ver todos os cursos</a>
     </nav>`;
+  completarMaterias(curso, url);
 }
 
 function vitrine(alvo, { url }) {
