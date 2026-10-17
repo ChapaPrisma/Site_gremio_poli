@@ -91,3 +91,36 @@
 .materias-1sem__optativas b { color: var(--tinta); }
 .materias-1sem__grade { margin-top: 10px; font-weight: 800; }
 @media (prefers-reduced-motion: reduce) { .materias-1sem > summary h2::before { transition: none; } }
+
+/* "Onde fica cada engenharia": ilustração dos prédios da Poli (gerada por ferramentas/mapa_poli.py) */
+.mapa-poli__figura { margin: 14px 0 0; }
+.mapa-poli__svg { display: block; width: 100%; max-width: 760px; height: auto; border: var(--borda); border-radius: 16px; background: var(--painel); }
+.mp-fundo { fill: var(--painel); }
+.mp-ruas path, .mp-ruas-borda path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.mp-ruas-borda path { stroke: #c9cfdf; stroke-width: 13; }
+.mp-ruas path { stroke: #fff; stroke-width: 9; }
+.mp-aro { fill: none; stroke: var(--tinta); stroke-width: 2.5; }
+.mapa-poli__svg { filter: none; }
+.mp-pino { fill: #fff; stroke: var(--tinta); stroke-width: 2.5; }
+.mp-pino--bienio { fill: var(--sol); }
+.mp-pino--neutro { fill: var(--azul-tinta); stroke: var(--azul); }
+.mp-num circle { fill: var(--tinta); }
+.mp-num text { fill: #fff; font: 800 11px var(--fonte); }
+.mp-rotulo { fill: var(--tinta); font: 800 14px var(--fonte-titulo); paint-order: stroke; stroke: var(--painel); stroke-width: 5px; stroke-linejoin: round; }
+.mp-rotulo .mp-sub { font: 600 12px var(--fonte); fill: var(--tinta-suave); }
+.mapa-poli a:hover .mp-pino, .mapa-poli a:focus-visible .mp-pino { fill: var(--sol-claro); }
+.mapa-poli a:hover .mp-rotulo { fill: var(--azul); }
+.mp-seta, .mp-seta-ponta { stroke: var(--azul); stroke-width: 3; fill: none; stroke-linecap: round; }
+.mp-seta-ponta { fill: var(--azul); stroke-width: 1; }
+.mp-escala path { stroke: var(--tinta); stroke-width: 3; }
+.mp-escala text, .mp-norte text { fill: var(--tinta-suave); font: 700 11px var(--fonte); }
+.mp-norte path { fill: var(--tinta); }
+.mapa-poli__legenda { display: none; list-style: none; margin: 12px 0 0; padding: 0; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 6px 18px; font-size: .9rem; }
+.mapa-poli__legenda li { display: flex; align-items: center; gap: 8px; }
+.mapa-poli__n { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--tinta); color: #fff; font: 800 .75rem var(--fonte); }
+.mapa-poli__n--seta { background: var(--azul); }
+.mapa-poli figcaption .nota { margin-top: 10px; font-size: .8rem; max-width: 80ch; }
+/* no celular os nomes no desenho ficariam minúsculos: ficam os números e a legenda */
+@container (max-width: 560px) { .mp-rotulo { display: none; } .mapa-poli__legenda { display: grid; } }
+.mp-rua { fill: var(--tinta-suave); font: italic 600 11.5px var(--fonte); letter-spacing: .02em; paint-order: stroke; stroke: var(--painel); stroke-width: 4px; }
+@container (max-width: 560px) { .mp-rua { display: none; } }

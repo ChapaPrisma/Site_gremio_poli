@@ -4,7 +4,8 @@
 # Pedro Gunthen (github.com/CaioCastro1/mcp-usp).
 #
 # Gentileza com a USP: uma vez por dia, de madrugada, no máximo 50 fichas por vez, uma requisição por vez
-# com pausa entre elas; cada ficha vale por um semestre e as grades são buscadas no máximo uma vez por semana.
+# com pausa entre elas; cada ficha vale por um semestre e as grades dos cursos são conferidas uma vez por mês.
+# Nos dias em que não há ficha faltando nem grade vencida, o script termina sem chamar o JupiterWeb.
 name: Fichas das disciplinas
 
 on:

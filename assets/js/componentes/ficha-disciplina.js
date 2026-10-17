@@ -11,7 +11,7 @@ export const LINK_USP_MCP = "https://github.com/CaioCastro1/mcp-usp";
 // a grade curricular pública do curso no JupiterWeb (todos os semestres)
 export const linkGrade = (codcur, codhab) => `https://uspdigital.usp.br/jupiterweb/listarGradeCurricular?codcg=3&codcur=${encodeURIComponent(codcur)}&codhab=${encodeURIComponent(codhab)}&tipo=N`;
 export const linkJupiter = (sigla) => `https://uspdigital.usp.br/jupiterweb/obterDisciplina?sgldis=${encodeURIComponent(sigla)}`;
-export const creditoUspMcp = `Créditos e ementas do JupiterWeb, pelo caminho mapeado pelo <a href="${LINK_USP_MCP}" target="_blank" rel="noopener">usp-mcp</a>, de Caio Castro e João Pedro Gunthen.`;
+export const creditoUspMcp = `Créditos e ementas do JupiterWeb, pelo caminho mapeado pelo <a href="${LINK_USP_MCP}" target="_blank" rel="noopener">usp-mcp</a>, de <span class="nome-credito">Caio Castro</span> e <span class="nome-credito">João Pedro Gunthen</span>.`;
 
 let indice = null;
 // O índice leve: { cursos: { id: { primeiro: [[sigla, nome, créditos-aula, créditos-trabalho]] } }, indice: { sigla: [nome, ca, ct] } }

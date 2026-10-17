@@ -31,7 +31,7 @@ export default function rodape(alvo, { site, url, registro, destino }) {
         </div>
 
         <nav class="rodape__menu" aria-label="Mapa do site"><ul>${menu}</ul></nav>
-        <p class="rodape__autoria">${site.autoria}</p>
+        <div class="rodape__fim"><p class="rodape__autoria">${site.autoria}</p><a class="rodape__colabs" href="${url("colaboradores/")}">Colaboradores</a></div>
       </div>
     </footer>`;
 }

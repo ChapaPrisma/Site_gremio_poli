@@ -317,7 +317,11 @@
 
 .rodape__menu ul { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 20px; }
 .rodape__menu a { color: var(--tinta-suave); font-size: var(--t-pequeno); font-weight: 600; }
-.rodape__autoria { margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--linha); font-size: var(--t-pequeno); color: var(--tinta-suave); }
+.rodape__fim { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 18px; margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--linha); }
+.rodape__autoria { font-size: var(--t-pequeno); color: var(--tinta-suave); }
+/* link singelo, no canto inferior direito */
+.rodape__colabs { margin-left: auto; font-size: .8rem; color: var(--tinta-suave); text-decoration: underline; text-decoration-color: var(--linha); text-underline-offset: 3px; }
+.rodape__colabs:hover { color: var(--azul); text-decoration-color: currentColor; }
 
 /* ---------- área do aluno ---------- */
 .aluno__recursos { padding-top: 32px; }
@@ -548,3 +552,9 @@
 .ficha-busca__item h3 span { color: var(--azul); }
 .ficha-busca__creditos { margin-top: 2px; font-size: .85rem; color: var(--tinta-suave); }
 .ficha-busca__fonte { margin-top: 12px; font-size: .8rem; }
+
+/* nomes de quem colaborou, sublinhados nos créditos */
+.nome-credito { text-decoration: underline; text-decoration-color: var(--sol); text-decoration-thickness: 2px; text-underline-offset: 3px; color: var(--tinta); font-weight: 700; }
+/* "Potencial": ideia com muito a crescer, ainda sem data (ex.: o assistente com IA do Fuja do Nabo) */
+.pill--potencial { background: var(--azul-tinta); color: var(--azul); border-color: transparent; }
+.modulo .pill { align-self: flex-start; }

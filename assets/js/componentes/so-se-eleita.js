@@ -8,7 +8,8 @@
 // todos os botões voltam a ir para onde já apontam (e-mails e links com data-so-se-eleita).
 
 // [data-local]: formulários que não enviam nada (buscas e filtros na própria página).
-const fora = "#entrada, #areaAdmin, [data-local]";
+// [data-sempre]: links que já devem funcionar hoje (o contato para colaborar, em colaboradores/).
+const fora = "#entrada, #areaAdmin, [data-local], [data-sempre]";
 let dialogo = null;
 
 function abrir(site) {

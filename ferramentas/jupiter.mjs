@@ -11,7 +11,7 @@
 //
 // Gentileza com a USP: uma requisição por vez, com pausa entre elas, no máximo LIMITE fichas novas por
 // execução, e cada ficha guardada por um semestre (ementa não muda por pergunta). As grades dos cursos
-// são buscadas no máximo uma vez por semana. Nada de login, cookie ou credencial.
+// são buscadas no máximo uma vez por mês. Sem ficha faltando nem grade vencida, a execução não chama o JupiterWeb. Nada de login, cookie ou credencial.
 // Rode com Node 18+: node ferramentas/jupiter.mjs (hoje roda sozinho por .github/workflows/jupiter.yml).
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from "node:fs";
@@ -22,7 +22,7 @@ const AGENTE = "Site do Gremio Politecnico (fichas de disciplinas; caminho mapea
 const LIMITE = Number(process.env.JUPITER_LIMITE ?? 50);   // fichas novas ou vencidas por execução
 const PAUSA = 1500;                        // ms entre uma requisição e outra
 const VALIDADE_FICHA = 120 * 864e5;        // um semestre
-const VALIDADE_GRADE = 7 * 864e5;          // uma semana
+const VALIDADE_GRADE = 30 * 864e5;         // um mês: as grades dos cursos quase nunca mudam
 const indiceArq = fileURLToPath(new URL("../assets/dados/disciplinas.json", import.meta.url));
 const pastaFichas = fileURLToPath(new URL("../assets/dados/disciplinas/", import.meta.url));
 const salasArq = fileURLToPath(new URL("../assets/dados/salas.json", import.meta.url));
@@ -133,7 +133,7 @@ const fichas = {};
 for (const f of readdirSync(pastaFichas)) if (f.endsWith(".json")) fichas[f.slice(0, -5)] = ler(pastaFichas + f);
 
 try {
-  /* ---------- grades: o primeiro semestre de cada curso (uma vez por semana) ---------- */
+  /* ---------- grades: o primeiro semestre de cada curso (uma vez por mês) ---------- */
   if (!indice.gradesEm || agora - indice.gradesEm > VALIDADE_GRADE || process.env.JUPITER_GRADES) {
     const entrada = await chamar("listar", "pubListarCursoEntrada", { codclg: "3" });   // 3 = Escola Politécnica
     const grades = {};
