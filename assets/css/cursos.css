@@ -91,3 +91,48 @@
 .materias-1sem__optativas b { color: var(--tinta); }
 .materias-1sem__grade { margin-top: 10px; font-weight: 800; }
 @media (prefers-reduced-motion: reduce) { .materias-1sem > summary h2::before { transition: none; } }
+
+/* "Onde fica cada engenharia": a Poli num disco com o Biênio no centro, que desenrola em coordenadas
+   polares (componentes/poli-do-bienio.js) */
+.pb { margin: 18px 0 0; }
+.pb__quadro { min-height: 200px; }
+.pb__svg { display: block; max-width: 100%; height: auto; margin: 0 auto; overflow: visible; }
+.pb-disco { fill: var(--painel); }
+.pb-grade { fill: none; stroke: #dde1ec; stroke-width: .8; }
+.pb-anel, .pb-raio { fill: none; stroke: #b9c0d4; stroke-width: 1; stroke-dasharray: 3 4; }
+.pb-predio { fill: #cbd1e0; }
+.pb-poli--eng { fill: var(--azul); transition: fill .15s ease; }
+.pb-poli--bienio { fill: var(--sol); stroke: var(--tinta); stroke-width: 1.2; stroke-linejoin: round; }
+.pb-poli.is-ativo { fill: #4a5bd6; }
+.pb-poli--bienio.is-ativo { fill: #ffe68a; }
+.pb-borda { fill: none; stroke: var(--tinta); stroke-width: 2; }
+.pb-marca { font: 700 10.5px var(--fonte); fill: var(--tinta-suave); text-anchor: middle; paint-order: stroke; stroke: var(--painel); stroke-width: 3px; }
+.pb-direcao { font: 800 11px var(--fonte-titulo); fill: var(--tinta); }
+.pb-guia { stroke: var(--tinta); stroke-width: 1.2; }
+.pb-rotulo text { paint-order: stroke; stroke: var(--painel); stroke-width: 4px; stroke-linejoin: round; }
+.pb-nome { font: 800 13.5px var(--fonte-titulo); fill: var(--tinta); }
+.pb-sub { font: 700 11.5px var(--fonte); fill: var(--tinta-suave); }
+.pb-logo__aro { fill: none; stroke: var(--tinta); stroke-width: 1.5; }
+.pb-rotulo a:hover .pb-logo__aro, .pb-rotulo a:focus-visible .pb-logo__aro { stroke: var(--sol); stroke-width: 3; }
+.pb-num { fill: var(--tinta); stroke: #fff; stroke-width: 2; }
+.pb-num__t { font: 800 11px var(--fonte); fill: #fff; stroke: none !important; }
+.pb__controle { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 10px; text-align: center; }
+.pb__legenda { max-width: 64ch; font-size: .88rem; color: var(--tinta-suave); }
+.pb__lista-caixa { margin-top: 16px; }
+.pb__lista-caixa > summary { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; list-style: none; font-weight: 800; color: var(--azul); }
+.pb__lista-caixa > summary::-webkit-details-marker { display: none; }
+.pb__lista-caixa > summary::before { content: ""; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform .15s ease; }
+.pb__lista-caixa[open] > summary::before { transform: rotate(45deg); }
+.pb__lista { list-style: none; margin: 12px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 10px 22px; }
+.pb__lista li { display: flex; gap: 10px; font-size: .92rem; }
+.pb__lista p { margin-top: 2px; color: var(--tinta-suave); line-height: 1.4; }
+.pb__dist { color: var(--tinta-suave); font-size: .85rem; }
+.pb__n { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--tinta); color: #fff; font: 800 .72rem var(--fonte); }
+.pb__cas { display: flex; flex-wrap: wrap; gap: 10px; }
+.pb__cas a { display: inline-flex; align-items: center; gap: 5px; font-weight: 800; font-size: .85rem; }
+.pb__cas img { border-radius: 4px; border: 1.5px solid var(--tinta); }
+.pb-zonas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px 24px; margin-top: 18px; }
+.pb-zonas h3 { font-size: 1.02rem; }
+.pb-zonas p { margin-top: 4px; font-size: .93rem; color: var(--tinta-suave); }
+@container (max-width: 640px) { .pb-zonas { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .pb__lista-caixa > summary::before, .pb-poli--eng { transition: none; } }
