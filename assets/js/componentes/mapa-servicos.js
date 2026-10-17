@@ -4,8 +4,8 @@
 // Uso: <div class="mapa-serv" id="mapaServ"></div>, cartões com data-servico, e
 // <div data-componente="mapa-servicos"></div>.
 
-import { L } from "../dados/mapa-campus.js?v=202610162341";
-import { servicos, pontoNoMapa } from "../dados/servicos.js?v=202610162341";
+import { L } from "../dados/mapa-campus.js?v=202610170831";
+import { servicos, pontoNoMapa } from "../dados/servicos.js?v=202610170831";
 
 const NS = "http://www.w3.org/2000/svg";
 const el = (t, a = {}, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
