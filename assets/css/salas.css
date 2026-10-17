@@ -121,9 +121,9 @@
 .grade-topo { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px; }
 .grade { margin-top: 18px; border: var(--borda); border-radius: var(--raio); background: var(--papel); overflow-x: auto; }
 .grade__vazia { padding: 28px; text-align: center; color: var(--tinta-suave); }
-.grade__tabela { display: grid; grid-template-columns: 52px repeat(6, minmax(110px, 1fr)); min-width: 720px; }
+.grade__tabela { display: grid; grid-template-columns: 52px repeat(var(--dias, 6), minmax(110px, 1fr)); min-width: calc(52px + var(--dias, 6) * 112px); }
 .grade__cab { padding: 10px 8px; font-weight: 800; text-align: center; border-bottom: 2px solid var(--tinta); background: var(--painel); }
-.grade__horas, .grade__dia { position: relative; height: calc(16 * 44px); }
+.grade__horas, .grade__dia { position: relative; height: var(--altura, calc(16 * 44px)); }
 .grade__horas span { position: absolute; right: 8px; transform: translateY(-50%); font-size: .72rem; color: var(--tinta-suave); }
 .grade__dia { border-left: 1px solid var(--linha); background-image: repeating-linear-gradient(to bottom, transparent 0 43px, var(--linha) 43px 44px); }
 .bloco-aula { position: absolute; left: 4px; right: 4px; padding: 5px 7px; border-radius: 6px; overflow: hidden; font-size: .74rem; line-height: 1.25; border: 2px solid var(--tinta); }
@@ -166,3 +166,72 @@
 @container (max-width: 560px) { .credito-uspolis { grid-template-columns: 1fr; } .credito-uspolis__logo { grid-row: 1; width: 96px; } }
 .disciplina__creditos { margin-top: 2px; font-size: .85rem; color: var(--tinta-suave); }
 .credito-uspolis__jupiter + .fonte-dados { border-top: 0; padding-top: 0; }
+
+/* turmas: tipo (prática vinculada) e vagas do JupiterWeb */
+.turma__tipo { font-size: .8rem; font-weight: 700; color: var(--azul); }
+.turma__vagas { display: block; margin-top: 4px; font-size: .8rem; color: var(--tinta-suave); }
+.is-lotada { color: #a3243c; font-weight: 700; }
+
+/* Monte a sua grade: 1º ano (conferência) e 3º semestre em diante (montador) */
+.montador__etapas { display: flex; flex-wrap: wrap; gap: 0; margin-top: 16px; border-bottom: 2px solid var(--tinta); }
+.montador__etapas [role="tab"] { margin-bottom: -2px; padding: 10px 16px; border: 2px solid transparent; border-bottom: 0; border-radius: var(--raio-pequeno) var(--raio-pequeno) 0 0; background: none; color: var(--tinta-suave); font: 800 1rem var(--fonte-titulo); cursor: pointer; }
+.montador__etapas [role="tab"][aria-selected="true"] { border-color: var(--tinta); background: var(--papel); color: var(--tinta); }
+.montador__etapas [role="tab"]:hover { color: var(--tinta); }
+.montador__painel { padding: 18px; border: 2px solid var(--tinta); border-top: 0; border-radius: 0 0 var(--raio) var(--raio); background: var(--papel); }
+.montador__painel > p { max-width: 66ch; }
+.montador__painel > p + p { margin-top: 8px; }
+.montador__credito { margin-top: 10px; }
+.conferencia__controles { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 18px; margin-top: 14px; }
+.conferencia__curso { display: grid; gap: 4px; font-weight: 800; font-size: .9rem; }
+.conferencia__curso select { min-width: min(320px, 80vw); padding: 8px 10px; border: 2px solid var(--tinta); border-radius: var(--raio-pequeno); background: var(--papel); font: 600 1rem var(--fonte); color: var(--tinta); }
+.conferencia__semestre { display: flex; gap: 8px; }
+.conferencia__resumo { margin-top: 16px; padding: 10px 14px; border-left: 4px solid var(--sol); background: var(--sol-claro); font-weight: 700; }
+.conferencia__resumo.is-ok { border-color: var(--aberto); background: var(--aberto-fundo); }
+.conferencia__lista { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+.conf-item { display: flex; gap: 10px; padding: 10px 12px; border: 2px solid var(--linha); border-radius: var(--raio-pequeno); }
+.conf-item.is-ok { border-color: #b7dfc8; }
+.conf-item__marca { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border: 2px solid var(--tinta); border-radius: 6px; font-weight: 900; font-size: .85rem; }
+.conf-item.is-ok .conf-item__marca { background: var(--aberto); border-color: var(--aberto); color: #fff; }
+.conf-item small { color: var(--tinta-suave); }
+.conf-item__estado { margin-top: 2px; font-size: .88rem; color: var(--tinta-suave); }
+.conf-turmas, .conf-eletivas { margin-top: 6px; }
+.conf-turmas > summary, .conf-eletivas > summary, .mont-disc details > summary { cursor: pointer; font-weight: 800; font-size: .88rem; color: var(--azul); }
+.conf-eletivas { margin-top: 14px; }
+.conf-eletivas ul { margin: 6px 0 0; padding-left: 18px; font-size: .9rem; }
+.mont-sugestoes { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 4px; }
+.mont-sugestoes button { width: 100%; text-align: left; padding: 8px 12px; border: 2px solid var(--linha); border-radius: var(--raio-pequeno); background: var(--papel); font: 600 .95rem var(--fonte); color: var(--tinta); cursor: pointer; }
+.mont-sugestoes button:hover, .mont-sugestoes button:focus-visible { border-color: var(--tinta); background: var(--sol-claro); }
+.mont-sugestoes small { color: var(--tinta-suave); }
+.mont-vazio, .mont-aviso { margin-top: 14px; color: var(--tinta-suave); }
+.mont-aviso { padding: 10px 14px; border-left: 4px solid #c4304f; background: #fbe9ed; color: var(--tinta); }
+.mont-lotadas { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-weight: 700; font-size: .9rem; }
+.mont-lista { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 8px; }
+.mont-disc { padding: 10px 12px; border: 2px solid var(--tinta); border-radius: var(--raio-pequeno); }
+.mont-disc__topo { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.mont-disc__topo small, .mont-disc__sem { color: var(--tinta-suave); font-size: .85rem; }
+.mont-disc details { margin-top: 6px; }
+.mont-turmas { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; font-size: .86rem; }
+.mont-turmas label { display: flex; gap: 8px; align-items: flex-start; cursor: pointer; }
+.mont-turmas input { margin-top: 3px; }
+.mont-res__topo { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-top: 18px; }
+.mont-ordens { display: flex; flex-wrap: wrap; gap: 6px; }
+.mont-ordens .chip { padding: 4px 12px; font-size: .85rem; }
+.mont-res__nav { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 12px; font-weight: 800; }
+.mont-res__quadro { margin-top: 10px; }
+.mont-res__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 12px; }
+.grade-compartilhada { margin: 12px 0; padding: 12px 16px; border: 2px solid var(--tinta); border-radius: var(--raio); background: var(--sol-claro); }
+.grade-compartilhada .grade-acoes { margin-top: 8px; }
+.grade-link { margin: 10px 0; font-size: .88rem; color: var(--tinta-suave); overflow-wrap: anywhere; }
+.grade__tabela--mini { grid-template-columns: 40px repeat(var(--dias, 5), minmax(54px, 1fr)); min-width: 0; }
+.grade__tabela--mini .grade__cab { padding: 6px 4px; font-size: .8rem; }
+.grade__tabela--mini .bloco-aula { padding: 2px 4px; font-size: .7rem; }
+.grade__tabela--mini .bloco-aula b { font-size: .72rem; }
+.grade__horas span:first-child { transform: none; }
+@media (max-width: 560px) {
+  .montador__etapas { flex-wrap: nowrap; }
+  .montador__etapas [role="tab"] { flex: 1 1 0; padding: 10px 6px; font-size: .9rem; text-align: center; }
+  .montador__painel { padding: 14px; }
+  .grade__tabela--mini { grid-template-columns: 32px repeat(var(--dias, 5), minmax(0, 1fr)); }
+  .grade__tabela--mini .bloco-aula { padding: 2px; }
+  .grade__tabela--mini .bloco-aula b { font-size: .58rem; letter-spacing: -.02em; }
+}

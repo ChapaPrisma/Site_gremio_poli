@@ -79,6 +79,12 @@ dá acesso a recursos do celular: notificações, compartilhar e salvar arquivos
   - O app não baixa arquivos como o navegador. O PDF (jsPDF) e o `.ics` devem ser salvos com
     `@capacitor/filesystem` e entregues com `@capacitor/share`, para o aluno mandar para a agenda
     ou para o WhatsApp.
+  - O montador de grade e a conferência do 1º ano guardam escolhas no `localStorage` (`gremio:montador`,
+    `gremio:conferencia`): também vão para `@capacitor/preferences`. As turmas (`assets/dados/turmas.json`,
+    algumas centenas de KB) devem ser baixadas e guardadas, com "rede primeiro, cópia se estiver sem sinal".
+  - "Compartilhar" já usa `navigator.share` no celular; no app, `@capacitor/share` com o link da grade.
+    O link (`?grade=...`) pode virar um deep link que abre a grade direto no app.
+  - Manter o crédito ao MatrUSP (ideia do montador e caminho até as turmas).
 - **Meu Amor:** o envio de foto ao mural usa o FormSubmit com redirecionamento (`_next`). No app,
   trocar pelo envio por `fetch` ao endpoint `https://formsubmit.co/ajax/...`, sem sair da tela.
   Ainda melhor, a foto pode vir da câmera ou da galeria pelo `@capacitor/camera`.
@@ -98,6 +104,8 @@ dá acesso a recursos do celular: notificações, compartilhar e salvar arquivos
   As fotos das turmas pesam: o app deve baixá-las sob demanda e guardar só a do curso do aluno. Um
   bom recurso do app é o aluno escolher o seu curso na primeira abertura e o SBB Poli abrir direto no
   guia dele. Os @ do Instagram dos CAs abrem o app do Instagram.
+  - "Onde fica cada engenharia" (`componentes/poli-do-bienio.js`) lê `assets/dados/campus-poli.json` (uns 110 KB,
+    entra no pacote) e funciona sem internet. O zoom com dois dedos já é tratado pelo componente.
 - **Sou bixo burro (`aluno/bixo/`):**
   - O progresso do Manual do bixo fica no `localStorage` (`manual-bixo:vistos`) e deve ir para
     `@capacitor/preferences`.

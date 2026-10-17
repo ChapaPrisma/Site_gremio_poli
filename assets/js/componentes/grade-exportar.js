@@ -4,8 +4,10 @@
 //   { c, nome, t, prof: [], cor: "#hex", wd (0 = seg), a, b (minutos), local, conflito }
 // As funções de desenho não dependem do navegador, para poderem ser testadas no Node.
 
-// Uma cor por disciplina: as duas (ou mais) aulas da mesma disciplina saem com a mesma cor.
-export const CORES = ["#c9d3ff", "#ffe9a3", "#c9f0d9", "#ffd2c2", "#e3d1ff", "#c6ecf2", "#f8c8e2", "#dcefa8", "#ffd59a", "#ddd0bd", "#b5e3c6", "#f2b8b8"];
+// Uma cor por disciplina: as duas (ou mais) aulas da mesma disciplina saem com a mesma cor. Tons claros com a
+// mesma luminosidade (o texto escuro é legível em todos), em ordem de matizes bem diferentes entre vizinhos:
+// azul, amarelo, verde, coral, lilás, turquesa, laranja, rosa, lima, areia, céu e terracota.
+export const CORES = ["#a9c1ff", "#ffd96b", "#9fe0b4", "#ffb09c", "#cdb6ff", "#8fdbe2", "#ffc48a", "#f6a9cf", "#cfe58a", "#d9cbb4", "#b4dcff", "#e8b39b"];
 
 const SEMANA = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
 const hhmm = (m) => `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;

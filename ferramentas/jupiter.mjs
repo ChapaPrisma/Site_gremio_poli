@@ -149,7 +149,17 @@ try {
         .map((d) => [d.coddis, limpa(d.nomdis), +d.creaul || 0, +d.cretrb || 0])
         .sort((a, b) => a[1].localeCompare(b[1], "pt"));
       const semestres = Math.max(0, ...grades[chave].map((d) => +d.numsemidl || 0));
-      cursos[id] = { codcur: c.codcur, codhab: c.codhab, habilitacao: limpa(c.nomhab), primeiro: doSemestre1("O"), optativas: doSemestre1("L"), semestres };
+      // a grade inteira, por semestre ideal: [sigla, nome, créditos-aula, créditos-trabalho, tipo] com tipo
+      // "O" obrigatória, "L" optativa eletiva e "V" optativa livre (usada pela conferência do 1º ano e pelo
+      // robô das turmas, ferramentas/turmas.mjs)
+      const grade = {};
+      for (const d of grades[chave]) {
+        const s = String(+d.numsemidl || 0);
+        if (s === "0") continue;
+        (grade[s] ??= []).push([d.coddis, limpa(d.nomdis), +d.creaul || 0, +d.cretrb || 0, d.tipobg]);
+      }
+      for (const s in grade) grade[s].sort((a, b) => a[4].localeCompare(b[4]) || a[1].localeCompare(b[1], "pt"));
+      cursos[id] = { codcur: c.codcur, codhab: c.codhab, habilitacao: limpa(c.nomhab), primeiro: doSemestre1("O"), optativas: doSemestre1("L"), semestres, grade };
     }
     indice.cursos = cursos;
     indice.gradesEm = agora;

@@ -1,22 +1,27 @@
-"""Contornos dos prédios em volta do Biênio, para a ilustração "Onde fica cada engenharia" do Guia dos cursos.
+"""Prédios, caminhos e tempo a pé a partir do Biênio, para a ilustração "Onde fica cada engenharia" do Guia dos cursos.
 
 Uso: python ferramentas/campus_poli.py            (baixa do OpenStreetMap e grava assets/dados/campus-poli.json)
 
-Baixa todos os prédios (building=*) num raio de RAIO metros do Biênio pela API Overpass, projeta em metros
-com o Biênio na origem (x para leste, y para norte), simplifica, recorta no círculo e grava em JSON. Os
-prédios da Poli saem separados, pelo id do OpenStreetMap (PREDIOS abaixo). Dois cuidados por causa do
-botão que desenrola o desenho em coordenadas polares em volta do Biênio:
-  - o corte das coordenadas polares é a semirreta para o sul a partir do Biênio (ângulo de ±180°): todo
-    prédio que cruza essa semirreta é dividido em dois, um de cada lado;
-  - o próprio Biênio contém a origem e fica inteiro (o componente trata ele à parte).
+1. Baixa pela API Overpass todos os prédios (building=*) e todas as vias por onde se anda (calçadas, trilhas,
+   escadas, ruas internas...) num raio de RAIO metros do Biênio.
+2. Projeta tudo em metros com o Biênio na origem (x para leste, y para norte), simplifica e recorta no círculo.
+   Os prédios da Poli saem separados, pelo id do OpenStreetMap (PREDIOS abaixo).
+3. Calcula a distância a pé do Biênio até cada esquina da rede (Dijkstra) e, com ela, um "campo de caminhada":
+   para cada direção (de 4 em 4 graus) e cada distância em linha reta (de 25 em 25 m), quantos metros se anda
+   até lá. O componente usa esse campo para redesenhar o campus em tempo a pé (cada ponto se afasta do Biênio
+   até a distância que se anda para chegar nele). O campo nunca diminui ao longo de uma direção, para o
+   desenho não se dobrar sobre si mesmo.
 Dados: © colaboradores do OpenStreetMap (ODbL).
 """
-import json, math, os, sys, time, urllib.parse, urllib.request
+import heapq, json, math, os, sys, time, urllib.parse, urllib.request
 
 BIENIO = (-23.5566899, -46.7326809)       # o mesmo ponto de assets/js/dados/predios-poli.js
 RAIO = 1100                               # metros
+PASSO_R, ANGULOS = 25, 90                 # resolução do campo de caminhada (25 m, 4°)
 SAIDA = os.path.join(os.path.dirname(__file__), "..", "assets", "dados", "campus-poli.json")
 SERVIDORES = ["https://overpass-api.de/api/interpreter", "https://lz4.overpass-api.de/api/interpreter"]
+A_PE = {"footway", "path", "pedestrian", "steps", "living_street", "residential", "service", "unclassified", "tertiary", "tertiary_link",
+        "secondary", "secondary_link", "primary", "primary_link", "track", "cycleway", "corridor", "road"}
 
 # prédio da Poli -> elementos do OpenStreetMap que o desenham
 PREDIOS = {
@@ -31,18 +36,18 @@ PREDIOS = {
     "qui": ["r6029676"],                  # Poli - Ed. Semi-Industrial (Engenharia Química)
 }
 
-def baixar():
+def overpass(filtro, folga=50):
     lat, lon = BIENIO
-    dlat = (RAIO + 50) / 110540
-    dlon = (RAIO + 50) / (111320 * math.cos(math.radians(lat)))
+    dlat = (RAIO + folga) / 110540
+    dlon = (RAIO + folga) / (111320 * math.cos(math.radians(lat)))
     bbox = f"{lat - dlat},{lon - dlon},{lat + dlat},{lon + dlon}"
-    consulta = f'[out:json][timeout:90];(way["building"]({bbox});relation["building"]({bbox}););out geom;'
+    consulta = f"[out:json][timeout:90];({filtro.replace('BBOX', bbox)});out geom;"
     for tentativa in range(4):
         for url in SERVIDORES:
             try:
                 req = urllib.request.Request(url, data=urllib.parse.urlencode({"data": consulta}).encode(), headers={"User-Agent": "site-gremio-poli/1.0"})
                 with urllib.request.urlopen(req, timeout=150) as r:
-                    return json.load(r)
+                    return json.load(r)["elements"]
             except Exception as e:  # servidor cheio: tenta o próximo, depois espera e repete
                 print("  falhou", url, e, file=sys.stderr)
         time.sleep(20 * (tentativa + 1))
@@ -70,19 +75,21 @@ def juntar(trechos):
     return aneis
 
 def simplifica(p, tol=0.7):
-    """Douglas-Peucker num anel fechado."""
-    if len(p) < 5: return p
+    """Douglas-Peucker numa linha (os anéis chegam com o primeiro ponto repetido no fim)."""
+    if len(p) < 3: return p
     def dp(a, b):
         (x1, y1), (x2, y2) = p[a], p[b]; L = math.hypot(x2 - x1, y2 - y1) or 1e-9; pior, k = 0, None
         for i in range(a + 1, b):
             d = abs((x2 - x1) * (y1 - p[i][1]) - (x1 - p[i][0]) * (y2 - y1)) / L
             if d > pior: pior, k = d, i
         return [p[a]] if pior < tol else dp(a, k) + dp(k, b)
-    meio = max(range(len(p)), key=lambda i: math.dist(p[0], p[i]))
-    return dp(0, meio) + dp(meio, len(p) - 1) + [p[-1]]
+    if p[0] == p[-1]:
+        meio = max(range(len(p)), key=lambda i: math.dist(p[0], p[i]))
+        return dp(0, meio) + dp(meio, len(p) - 1) + [p[-1]]
+    return dp(0, len(p) - 1) + [p[-1]]
 
 def recorta(p, dentro, corte):
-    """Sutherland-Hodgman contra um semiplano: dentro(q) diz o lado, corte(a, b) acha a interseção."""
+    """Sutherland-Hodgman contra um semiplano."""
     out = []
     for i in range(len(p)):
         a, b = p[i - 1], p[i]
@@ -105,61 +112,16 @@ def no_circulo(p, n=256):
         if len(p) < 3: return []
     return p
 
-def cruza_o_sul(p):
-    """O anel atravessa a semirreta x = 0, y < 0?"""
-    for i in range(len(p)):
-        (x1, y1), (x2, y2) = p[i - 1], p[i]
-        if (x1 < 0) != (x2 < 0) and y1 + (y2 - y1) * (0 - x1) / (x2 - x1) < 0: return True
-    return False
-
-def contem_origem(p):
-    c = False
-    for i in range(len(p)):
-        (x1, y1), (x2, y2) = p[i - 1], p[i]
-        if (y1 > 0) != (y2 > 0) and 0 < (x2 - x1) * (0 - y1) / (y2 - y1) + x1: c = not c
-    return c
-
-def main():
-    dados = baixar()
-    dono = {oid: pid for pid, ids in PREDIOS.items() for oid in ids}
-    saida = {pid: [] for pid in PREDIOS}; saida["outros"] = []
-    for e in dados["elements"]:
-        oid = e["type"][0] + str(e["id"])
-        if e["type"] == "way":
-            grupos = [[[metros(g) for g in e.get("geometry", [])]]]
+def linha_no_circulo(p):
+    """Pedaços de uma linha que ficam dentro do círculo."""
+    pecas, atual = [], []
+    for q in p:
+        if math.hypot(*q) <= RAIO: atual.append(q)
         else:
-            fora = juntar([[metros(g) for g in m.get("geometry", [])] for m in e.get("members", []) if m.get("role") == "outer"])
-            dentro = juntar([[metros(g) for g in m.get("geometry", [])] for m in e.get("members", []) if m.get("role") == "inner"])
-            grupos = [[f] + [d for d in dentro if contem_ponto(d[0], f)] for f in fora]
-        alvo = saida[dono.get(oid, "outros")]
-        for aneis in grupos:
-            pecas = []
-            for anel in aneis:
-                if len(anel) < 4: continue
-                if anel[0] == anel[-1]: anel = anel[:-1]
-                anel = no_circulo(simplifica(anel + [anel[0]])[:-1])
-                if len(anel) >= 3: pecas.append(anel)
-            if not pecas: continue
-            # o Biênio contém a origem e fica inteiro; os outros que cruzam o corte do sul viram dois
-            if dono.get(oid) != "bie" and any(cruza_o_sul(a) for a in pecas):
-                def corte(a, b):
-                    t = (0 - a[0]) / (b[0] - a[0]); return (0.0, a[1] + (b[1] - a[1]) * t)
-                for lado in (lambda q: q[0] <= 0, lambda q: q[0] >= 0):
-                    metade = [recorta(a, lado, corte) for a in pecas]
-                    metade = [a for a in metade if len(a) >= 3]
-                    if metade: alvo.append(metade)
-            else:
-                alvo.append(pecas)
-    arred = lambda grupo: [[[round(x), round(y)] for x, y in anel] for anel in grupo]   # 1 m basta no desenho
-    json_ = {
-        "fonte": "© colaboradores do OpenStreetMap (ODbL), gerado por ferramentas/campus_poli.py",
-        "gerado": time.strftime("%Y-%m-%d"),
-        "origem": BIENIO, "raio": RAIO,
-        "predios": {k: [arred(g) for g in v] for k, v in saida.items()},
-    }
-    with open(SAIDA, "w", encoding="utf-8") as f:
-        json.dump(json_, f, ensure_ascii=False, separators=(",", ":"))
-    print("prédios:", {k: len(v) for k, v in saida.items()}, "->", os.path.relpath(SAIDA), os.path.getsize(SAIDA) // 1024, "KB")
+            if len(atual) > 1: pecas.append(atual)
+            atual = []
+    if len(atual) > 1: pecas.append(atual)
+    return pecas
 
 def contem_ponto(q, p):
     c = False
@@ -167,6 +129,97 @@ def contem_ponto(q, p):
         (x1, y1), (x2, y2) = p[i - 1], p[i]
         if (y1 > q[1]) != (y2 > q[1]) and q[0] < (x2 - x1) * (q[1] - y1) / (y2 - y1) + x1: c = not c
     return c
+
+def predios():
+    dono = {oid: pid for pid, ids in PREDIOS.items() for oid in ids}
+    saida = {pid: [] for pid in PREDIOS}; saida["outros"] = []
+    for e in overpass('way["building"](BBOX);relation["building"](BBOX);'):
+        oid = e["type"][0] + str(e["id"])
+        if e["type"] == "way":
+            grupos = [[[metros(g) for g in e.get("geometry", [])]]]
+        else:
+            fora = juntar([[metros(g) for g in m.get("geometry", [])] for m in e.get("members", []) if m.get("role") == "outer"])
+            dentro = juntar([[metros(g) for g in m.get("geometry", [])] for m in e.get("members", []) if m.get("role") == "inner"])
+            grupos = [[f] + [d for d in dentro if contem_ponto(d[0], f)] for f in fora]
+        for aneis in grupos:
+            pecas = []
+            for anel in aneis:
+                if len(anel) < 4: continue
+                if anel[0] != anel[-1]: anel = anel + [anel[0]]
+                anel = no_circulo(simplifica(anel)[:-1])
+                if len(anel) >= 3: pecas.append(anel)
+            if pecas: saida[dono.get(oid, "outros")].append(pecas)
+    return saida
+
+def caminhos():
+    """As vias a pé (para desenhar) e a distância a pé do Biênio até cada nó (Dijkstra)."""
+    vias = [e for e in overpass('way["highway"](BBOX);', folga=250)
+            if e.get("tags", {}).get("highway") in A_PE and e.get("tags", {}).get("foot") != "no" and e.get("tags", {}).get("access") != "private"]
+    pos, viz = {}, {}
+    for v in vias:
+        ids, geo = v.get("nodes", []), v.get("geometry", [])
+        for i, (n, g) in enumerate(zip(ids, geo)):
+            pos[n] = metros(g)
+            if i:
+                a = ids[i - 1]; d = math.dist(pos[a], pos[n])
+                viz.setdefault(a, []).append((n, d)); viz.setdefault(n, []).append((a, d))
+    # saída do Biênio: os nós a até 90 m do centro dele, pela distância em linha reta
+    dist = {n: math.hypot(*p) for n, p in pos.items() if math.hypot(*p) <= 90}
+    fila = [(d, n) for n, d in dist.items()]; heapq.heapify(fila)
+    while fila:
+        d, n = heapq.heappop(fila)
+        if d > dist.get(n, math.inf): continue
+        for m, w in viz.get(n, []):
+            if d + w < dist.get(m, math.inf): dist[m] = d + w; heapq.heappush(fila, (d + w, m))
+    desenho = []
+    for v in vias:
+        linha = [metros(g) for g in v.get("geometry", [])]
+        for peca in linha_no_circulo(simplifica(linha, 1.5)):
+            desenho.append(peca)
+    return desenho, [(pos[n], d) for n, d in dist.items()]
+
+def campo_de_caminhada(nos):
+    """Metros andados até cada ponto (direção de 4 em 4°, distância de 25 em 25 m), nunca menos que a linha reta."""
+    CEL = 60; grade = {}
+    for p, d in nos: grade.setdefault((int(p[0] // CEL), int(p[1] // CEL)), []).append((p, d))
+    def andar(q):
+        cx, cy = int(q[0] // CEL), int(q[1] // CEL); melhor = math.inf
+        for alcance in (2, 4, 8):
+            for i in range(cx - alcance, cx + alcance + 1):
+                for j in range(cy - alcance, cy + alcance + 1):
+                    for p, d in grade.get((i, j), ()):
+                        melhor = min(melhor, d + 1.25 * math.dist(p, q))   # o último trecho, fora da rede, rende menos
+            if melhor < math.inf: return melhor
+        return 1.4 * math.hypot(*q)
+    nr = RAIO // PASSO_R + 1
+    campo = []
+    for k in range(ANGULOS):
+        t = 2 * math.pi * k / ANGULOS
+        linha = [max(r * PASSO_R, andar((r * PASSO_R * math.sin(t), r * PASSO_R * math.cos(t)))) if r else 0 for r in range(nr)]
+        campo.append(linha)
+    for _ in range(2):   # suaviza entre direções vizinhas e garante que só cresce ao longo de cada direção
+        campo = [[0.25 * campo[k - 1][r] + 0.5 * campo[k][r] + 0.25 * campo[(k + 1) % ANGULOS][r] for r in range(nr)] for k in range(ANGULOS)]
+        for linha in campo:
+            for r in range(1, nr): linha[r] = max(linha[r], linha[r - 1], r * PASSO_R)
+    return [[round(v) for v in linha] for linha in campo]
+
+def main():
+    saida = predios()
+    vias, nos = caminhos()
+    campo = campo_de_caminhada(nos)
+    arred = lambda grupo: [[[round(x), round(y)] for x, y in anel] for anel in grupo]   # 1 m basta no desenho
+    json_ = {
+        "fonte": "© colaboradores do OpenStreetMap (ODbL), gerado por ferramentas/campus_poli.py",
+        "gerado": time.strftime("%Y-%m-%d"),
+        "origem": BIENIO, "raio": RAIO,
+        "predios": {k: [arred(g) for g in v] for k, v in saida.items()},
+        "caminhos": [[[round(x), round(y)] for x, y in p] for p in vias],
+        "caminhada": {"passo": PASSO_R, "angulos": ANGULOS, "metros": campo},
+    }
+    with open(SAIDA, "w", encoding="utf-8") as f:
+        json.dump(json_, f, ensure_ascii=False, separators=(",", ":"))
+    print("prédios:", {k: len(v) for k, v in saida.items()}, "caminhos:", len(vias), "nós a pé:", len(nos),
+          "->", os.path.relpath(SAIDA), os.path.getsize(SAIDA) // 1024, "KB")
 
 if __name__ == "__main__":
     main()

@@ -1,84 +1,42 @@
-// "Onde fica cada engenharia" (Guia dos cursos): a Poli desenhada em escala, num disco com o Biênio no
-// centro, e um botão que desenrola o desenho inteiro em coordenadas polares em volta do Biênio.
+// "Onde fica cada engenharia" (Guia dos cursos): a Poli desenhada em escala a partir do Biênio, com zoom,
+// e um botão que redesenha o campus em minutos a pé.
 // Uso: <div data-componente="poli-do-bienio"></div>
 //
-// Cada ponto do desenho (x para leste, y para norte, em metros a partir do Biênio) vira (r, θ): r é a
-// distância ao Biênio e θ a direção, medida a partir do norte no sentido horário (o corte fica no sul).
-// No mapa, (r, θ) é desenhado como sempre; no modo polar, θ vira o eixo horizontal e r o vertical. A
-// transição é contínua: os círculos em volta do Biênio vão se abrindo em arcos cada vez mais retos, em
-// volta de um centro que desce até o infinito, até virarem linhas (ver projetar()). Por isso todo
-// contorno é amostrado em pedaços curtos: reta no mapa vira curva no modo polar.
+// Tempo a pé: cada ponto do desenho continua na mesma direção a partir do Biênio, mas vai para a distância
+// que se anda para chegar nele (pelas calçadas e caminhos do OpenStreetMap), em vez da distância em linha
+// reta. O que é fácil de alcançar fica onde está; o que obriga a dar a volta se afasta. As linhas de 5, 10 e
+// 15 minutos, tortas no mapa, viram círculos. O "campo de caminhada" vem pronto de ferramentas/campus_poli.py.
 //
-// Dados: dados/predios-poli.js (nomes, endereços, rótulos) e assets/dados/campus-poli.json (contornos
-// do OpenStreetMap, gerado por ferramentas/campus_poli.py).
+// Coordenadas: metros com o Biênio na origem (x para leste, y para norte). O desenho fica num <g> com a
+// transformação da câmera (zoom e arrasto mexem só nela); os rótulos são desenhados por cima, em pixels de
+// tela, e se reorganizam a cada mudança para não se encostarem.
+//
+// Dados: dados/predios-poli.js (nomes, endereços) e assets/dados/campus-poli.json (OpenStreetMap).
 
-import { predios, bienio } from "../dados/predios-poli.js?v=202610170917";
-import { centros } from "../dados/cursos.js?v=202610170917";
+import { predios, bienio } from "../dados/predios-poli.js?v=202610171410";
+import { centros } from "../dados/cursos.js?v=202610171410";
 
 const NS = "http://www.w3.org/2000/svg";
 const GRAU = Math.PI / 180;
-const ANEIS = [250, 500, 750, 1000];
-const DIRECOES = [["N", 0], ["NE", 45], ["L", 90], ["SE", 135], ["S", 180], ["SO", -135], ["O", -90], ["NO", -45], ["S", -180]];
+const M_POR_MIN = 80;                 // 4,8 km/h
+const ISOCRONAS = [5, 10, 15];        // minutos
 const NOMES_DIRECAO = { N: "norte", NE: "nordeste", L: "leste", SE: "sudeste", S: "sul", SO: "sudoeste", O: "oeste", NO: "noroeste" };
 const esc = (t = "") => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 const lerp = (a, b, t) => a + (b - a) * t;
 const suave = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
-
 const metros = (lat, lon) => [(lon - bienio.lon) * 111320 * Math.cos(bienio.lat * GRAU), (lat - bienio.lat) * 110540];
-// θ a partir do norte, sentido horário; no corte do sul (x = 0, y < 0) o lado diz se é -180° ou +180°
-const angulo = ([x, y], lado) => (x === 0 && y < 0 ? (lado < 0 ? -Math.PI : Math.PI) : Math.atan2(x, y));
-const paraPolar = (p, lado) => [Math.hypot(p[0], p[1]), angulo(p, lado)];
-
-// um segmento em metros, amostrado até cada pedaço ter no máximo 16 m e 2,5° vistos do Biênio
-function amostrar(a, b, lado, saida, prof = 0) {
-  const da = angulo(a, lado), db = angulo(b, lado);
-  if (prof > 9 || (Math.hypot(b[0] - a[0], b[1] - a[1]) <= 16 && Math.abs(db - da) <= 2.5 * GRAU)) { saida.push(paraPolar(b, lado)); return; }
-  const m = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
-  amostrar(a, m, lado, saida, prof + 1); amostrar(m, b, lado, saida, prof + 1);
-}
-function anelPolar(anel, lado, fechado = true) {
-  const saida = [paraPolar(anel[0], lado)];
-  const n = fechado ? anel.length : anel.length - 1;
-  for (let i = 0; i < n; i++) amostrar(anel[i], anel[(i + 1) % anel.length], lado, saida);
-  return saida;
-}
-const ladoDe = (aneis) => Math.sign(aneis[0].reduce((s, p) => s + p[0], 0)) || 1;
-const voltaInteira = (r, n = 180) => Array.from({ length: n + 1 }, (_, k) => [r, -Math.PI + (2 * Math.PI * k) / n]);
-// região de 0 até r(θ) em todas as direções (o disco, o Biênio): a borda e, de volta, o próprio centro
-const regiaoEmVolta = (borda) => [...borda, ...borda.map(([, t]) => [0, t]).reverse()];
-
-// borda do Biênio vista do centro: para cada direção, a distância até o contorno
-function bordaEmVolta(anel, n = 240) {
-  return voltaInteira(0, n).map(([, t]) => {
-    const dx = Math.sin(t), dy = Math.cos(t); let melhor = Infinity;
-    for (let i = 0; i < anel.length; i++) {
-      const [x1, y1] = anel[i], [x2, y2] = anel[(i + 1) % anel.length];
-      const ex = x2 - x1, ey = y2 - y1, det = ex * dy - ey * dx;
-      if (Math.abs(det) < 1e-9) continue;
-      const s = (ex * y1 - ey * x1) / det, u = (dx * y1 - dy * x1) / det;   // ponto = s·(dx, dy) = (x1, y1) + u·(ex, ey)
-      if (s > 0 && u >= 0 && u <= 1) melhor = Math.min(melhor, s);
-    }
-    return [melhor === Infinity ? 0 : melhor, t];
-  });
-}
-
-// quadriculado de 100 m, deslocado 50 m para nenhuma linha cair em cima do corte do sul
-function quadriculado(R) {
-  const linhas = [];
-  for (let g = -R + 50; g < R; g += 100) {
-    const h = Math.sqrt(R * R - g * g) - 1;
-    const lado = Math.sign(g);
-    linhas.push(anelPolar([[g, -h], [g, h]], lado, false));
-    if (g < 0) { linhas.push(anelPolar([[-h, g], [0, g]], -1, false)); linhas.push(anelPolar([[0, g], [h, g]], 1, false)); }
-    else linhas.push(anelPolar([[-h, g], [h, g]], 1, false));
-  }
-  return linhas;
-}
-
 const distancia = (m) => (m >= 995 ? `${(m / 1000).toFixed(1).replace(".0", "").replace(".", ",")} km` : `${Math.round(m / 10) * 10} m`);
-function direcao(t) {
-  const g = ((t / GRAU) + 360) % 360;
-  return ["N", "NE", "L", "SE", "S", "SO", "O", "NO"][Math.round(g / 45) % 8];
+const direcao = (x, y) => ["N", "NE", "L", "SE", "S", "SO", "O", "NO"][Math.round((((Math.atan2(x, y) / GRAU) + 360) % 360) / 45) % 8];
+const minutos = (m) => `${Math.max(1, Math.round(m / M_POR_MIN))} min a pé`;
+
+// centro de área do maior anel (o "meio" do prédio, de onde sai a linha do rótulo)
+function centroide(aneis) {
+  let A = 0, X = 0, Y = 0;
+  for (const anel of aneis) for (let i = 0; i < anel.length; i++) {
+    const [x1, y1] = anel[i], [x2, y2] = anel[(i + 1) % anel.length], c = x1 * y2 - x2 * y1;
+    A += c; X += (x1 + x2) * c; Y += (y1 + y2) * c;
+  }
+  return Math.abs(A) < 1e-6 ? aneis[0][0] : [X / (3 * A), Y / (3 * A)];
 }
 
 export default async function poliDoBienio(alvo, { url }) {
@@ -86,191 +44,380 @@ export default async function poliDoBienio(alvo, { url }) {
   try { dados = await (await fetch(url("assets/dados/campus-poli.json"))).json(); }
   catch { alvo.innerHTML = `<p class="nota">Não deu para carregar o desenho dos prédios agora.</p>`; return; }
 
-  const RAIO = dados.raio;
+  const RAIO = dados.raio, campo = dados.caminhada;
   const casPorId = Object.fromEntries(centros.map((c) => [c.id, c]));
-  const lugares = predios.map((p, i) => {
-    const [r, t] = paraPolar(metros(p.lat, p.lon), 1);
-    return { ...p, n: i + 1, r, t, dir: direcao(t) };
-  });
 
-  // tudo em (r em metros, θ), pronto para projetar a cada quadro
-  const formas = { disco: [regiaoEmVolta(voltaInteira(RAIO))], borda: [voltaInteira(RAIO)], aneis: ANEIS.map((r) => voltaInteira(r)),
-    raios: DIRECOES.map(([, g]) => [[0, g * GRAU], [RAIO, g * GRAU]]), grade: quadriculado(RAIO), outros: [], poli: {} };
-  for (const grupo of dados.predios.outros) { const lado = ladoDe(grupo); formas.outros.push(...grupo.map((a) => anelPolar(a, lado))); }
-  for (const [id, grupos] of Object.entries(dados.predios)) {
-    if (id === "outros") continue;
-    formas.poli[id] = id === "bie"
-      ? grupos.map((g) => regiaoEmVolta(bordaEmVolta(g[0])))
-      : grupos.flatMap((g) => { const lado = ladoDe(g); return g.map((a) => anelPolar(a, lado)); });
+  /* ---------- campo de caminhada: metros andados até (r, θ) ---------- */
+  const nR = campo.metros[0].length;
+  function andado(r, th) {
+    const ft = ((((th / (2 * Math.PI)) % 1) + 1) % 1) * campo.angulos, k0 = Math.floor(ft) % campo.angulos, k1 = (k0 + 1) % campo.angulos, ak = ft - Math.floor(ft);
+    const fr = Math.min(r / campo.passo, nR - 1), j0 = Math.floor(fr), j1 = Math.min(j0 + 1, nR - 1), aj = fr - j0;
+    const v = (k, j) => campo.metros[k][j];
+    const base = lerp(lerp(v(k0, j0), v(k0, j1), aj), lerp(v(k1, j0), v(k1, j1), aj), ak);
+    const andadoNoCampo = r > (nR - 1) * campo.passo ? base + (r - (nR - 1) * campo.passo) : base;
+    // perto do Biênio (dentro dele e na saída) conta a linha reta, passando aos poucos para o campo
+    return r <= 80 ? r : r < 170 ? lerp(r, andadoNoCampo, (r - 80) / 90) : andadoNoCampo;
   }
+  // um ponto em metros, pronto para os dois desenhos: [direção, r em linha reta, r andado]
+  const preparar = ([x, y]) => { const r = Math.hypot(x, y), th = Math.atan2(x, y); return [th, r, r ? andado(r, th) : 0]; };
+  // segmentos curtos: reta no mapa vira curva no desenho em tempo a pé
+  function amostrar(linha, fechada) {
+    const out = [];
+    const n = fechada ? linha.length : linha.length - 1;
+    for (let i = 0; i < n; i++) {
+      const a = linha[i], b = linha[(i + 1) % linha.length], passos = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 14));
+      for (let k = 0; k < passos; k++) out.push(preparar([lerp(a[0], b[0], k / passos), lerp(a[1], b[1], k / passos)]));
+    }
+    if (!fechada) out.push(preparar(linha.at(-1)));
+    return out;
+  }
+  const formas = {
+    grade: [], caminhos: dados.caminhos.map((l) => amostrar(l, false)), outros: [], poli: {},
+    borda: [amostrar(Array.from({ length: 180 }, (_, k) => [RAIO * Math.sin((k * 2 * Math.PI) / 180), RAIO * Math.cos((k * 2 * Math.PI) / 180)]), true)],
+    isocronas: [],
+  };
+  for (let g = -RAIO + 50; g < RAIO; g += 100) {
+    const h = Math.sqrt(RAIO * RAIO - g * g);
+    formas.grade.push(amostrar([[g, -h], [g, h]], false), amostrar([[-h, g], [h, g]], false));
+  }
+  for (const grupo of dados.predios.outros) formas.outros.push(...grupo.map((a) => amostrar(a, true)));
+  for (const [id, grupos] of Object.entries(dados.predios)) if (id !== "outros") formas.poli[id] = grupos.flatMap((g) => g.map((a) => amostrar(a, true)));
+  // linhas de mesmo tempo a pé: em cada direção, onde o campo passa de 5, 10 e 15 minutos
+  for (const min of ISOCRONAS) {
+    const alvoM = min * M_POR_MIN, pts = [];
+    for (let k = 0; k <= 360; k++) {
+      const th = (k * 2 * Math.PI) / 360;
+      if (andado(RAIO, th) < alvoM) { pts.push(null); continue; }
+      let lo = 0, hi = RAIO;
+      for (let i = 0; i < 22; i++) { const m = (lo + hi) / 2; if (andado(m, th) < alvoM) lo = m; else hi = m; }
+      pts.push([th, hi, alvoM]);
+    }
+    const pedacos = [[]];
+    for (const p of pts) { if (p) pedacos.at(-1).push(p); else if (pedacos.at(-1).length) pedacos.push([]); }
+    formas.isocronas.push({ min, pedacos: pedacos.filter((p) => p.length > 1) });
+  }
+
+  const lugares = predios.map((p, i) => {
+    const [x, y] = metros(p.lat, p.lon);
+    const aneis = (dados.predios[p.id] || []).flat();
+    const meio = aneis.length ? centroide([aneis.reduce((a, b) => (b.length > a.length ? b : a))]) : [x, y];
+    return { ...p, n: i + 1, r: Math.hypot(x, y), dir: direcao(x, y), meio: preparar(meio), andar: andado(Math.hypot(x, y), Math.atan2(x, y)) };
+  });
 
   alvo.innerHTML = `
     <figure class="pb">
-      <div class="pb__quadro"><svg class="pb__svg" role="img" aria-labelledby="pbTitulo pbDesc">
-        <title id="pbTitulo">Onde fica cada engenharia da Poli, com o Biênio no centro</title>
-        <desc id="pbDesc">Desenho em escala dos prédios da Cidade Universitária num raio de ${distancia(RAIO)} do Biênio, com os prédios da Poli destacados. A lista abaixo traz os mesmos prédios, com distância, direção e endereço.</desc>
-      </svg></div>
+      <div class="pb__quadro">
+        <svg class="pb__svg" role="img" aria-labelledby="pbTitulo pbDesc">
+          <title id="pbTitulo">Onde fica cada engenharia da Poli, a partir do Biênio</title>
+          <desc id="pbDesc">Desenho dos prédios da Cidade Universitária num raio de ${distancia(RAIO)} do Biênio, com os prédios da Poli destacados. A lista abaixo traz os mesmos prédios, com distância, tempo a pé e endereço.</desc>
+          <rect class="pb-fundo" width="100%" height="100%"/>
+          <g class="pb-mundo"></g>
+          <g class="pb-tela"></g>
+        </svg>
+        <div class="pb__zoom" role="group" aria-label="Zoom do desenho">
+          <button type="button" data-zoom="1" aria-label="Aproximar">+</button>
+          <button type="button" data-zoom="-1" aria-label="Afastar">−</button>
+          <button type="button" data-zoom="0" class="pb__zoom-tudo">Ver tudo</button>
+        </div>
+        <p class="pb__dica" aria-hidden="true"></p>
+      </div>
       <div class="pb__controle">
-        <button type="button" class="botao botao--linha botao--pequeno pb__botao" aria-pressed="false">Desenrolar em coordenadas polares</button>
+        <button type="button" class="botao botao--linha botao--pequeno pb__botao" aria-pressed="false">Ver em minutos a pé</button>
         <p class="pb__legenda" aria-live="polite"></p>
       </div>
       <details class="pb__lista-caixa">
         <summary>Endereço e departamentos de cada prédio</summary>
         <ol class="pb__lista">${lugares.map((l) => `<li>
           <span class="pb__n" aria-hidden="true">${l.n}</span>
-          <div><b>${esc(l.nome)}</b> <span class="pb__dist">${l.id === "bie" ? "o centro do desenho" : `${distancia(l.r)} a ${NOMES_DIRECAO[l.dir]} do Biênio`}</span>
+          <div><b>${esc(l.nome)}</b> <span class="pb__dist">${l.id === "bie" ? "o ponto de partida" : `${distancia(l.r)} a ${NOMES_DIRECAO[l.dir]} do Biênio, uns ${minutos(l.andar)}`}</span>
             <p>${esc(l.endereco)}. ${esc(l.deptos.length ? l.deptos.join("; ") : l.cursos)}.</p>
             ${l.cas.length ? `<p class="pb__cas">${l.cas.map((id) => `<a href="#${id}"><img src="${url(casPorId[id].logo)}" alt="" width="22" height="22" loading="lazy">${esc(casPorId[id].sigla)}</a>`).join("")}</p>` : ""}</div></li>`).join("")}</ol>
       </details>
     </figure>`;
 
-  // a div do componente tem display: contents (largura 0): mede-se a figura
-  const figura = alvo.querySelector(".pb");
-  const svg = alvo.querySelector("svg"), botao = alvo.querySelector(".pb__botao"), legenda = alvo.querySelector(".pb__legenda");
+  const figura = alvo.querySelector(".pb"), quadro = alvo.querySelector(".pb__quadro"), svg = alvo.querySelector("svg");
+  const mundo = svg.querySelector(".pb-mundo"), tela = svg.querySelector(".pb-tela");
+  const botao = alvo.querySelector(".pb__botao"), legenda = alvo.querySelector(".pb__legenda"), dica = alvo.querySelector(".pb__dica");
   const caixaLista = alvo.querySelector(".pb__lista-caixa");
+  const toque = matchMedia("(pointer: coarse)").matches;
+  dica.textContent = toque ? "Use dois dedos para mover e dar zoom." : "Arraste para mover. Para dar zoom, use os botões ou segure Ctrl e role.";
   const LEGENDAS = [
-    `Em escala, com o norte para cima. Os anéis marcam ${ANEIS.map((a) => distancia(a)).join(", ").replace(/, ([^,]*)$/, " e $1")} a partir do Biênio.`,
-    "O mesmo desenho em coordenadas polares em volta do Biênio: a direção virou o eixo horizontal e a distância, o vertical. O Biênio virou o chão, os anéis viraram retas e o quadriculado de 100 m se curvou.",
+    "Em escala, com o norte para cima. As linhas tracejadas marcam até onde se chega a pé em 5, 10 e 15 minutos saindo do Biênio.",
+    `Cada ponto ficou na mesma direção, mas na distância que se anda para chegar nele, pelas calçadas e caminhos do campus (a ${String(M_POR_MIN * 60 / 1000).replace(".", ",")} km/h). O que exige dar a volta se afastou, e as linhas de 5, 10 e 15 minutos viraram círculos.`,
   ];
 
-  let t = 0, alvoT = 0, anim = 0, largura = 0, G = null;
+  const el = (tag, attrs = {}, pai) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (pai) pai.appendChild(e); return e; };
+  const P = {
+    grade: el("path", { class: "pb-grade" }, mundo), caminhos: el("path", { class: "pb-caminho" }, mundo),
+    outros: el("path", { class: "pb-predio", "fill-rule": "evenodd" }, mundo),
+    poli: Object.fromEntries(Object.keys(formas.poli).map((id) => [id, el("path", { class: `pb-poli pb-poli--${id.startsWith("bie") ? "bienio" : "eng"}`, "fill-rule": "evenodd", "data-id": id.replace("-anexo", "") }, mundo)])),
+    isocronas: formas.isocronas.map(() => el("path", { class: "pb-iso" }, mundo)),
+    borda: el("path", { class: "pb-borda" }, mundo),
+  };
 
-  // monta os elementos para a largura atual (textos em px de tela, então refaz quando a largura muda)
-  function montar() {
-    largura = Math.min(figura.clientWidth, 720);
-    const compacto = largura < 520;
-    const m = compacto ? 20 : 26, R = largura / 2 - m;
-    G = { W: largura, m, R, s: R / RAIO, cx: largura / 2, cy: m + R, L: R / Math.PI, compacto };
-    caixaLista.open = compacto || caixaLista.open;
-    const el = (tag, attrs = {}, pai = svg) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); pai.appendChild(e); return e; };
-    svg.querySelectorAll(":scope > :not(title, desc)").forEach((e) => e.remove());
-    G.p = {
-      disco: el("path", { class: "pb-disco" }),
-      grade: el("path", { class: "pb-grade" }),
-      aneis: el("path", { class: "pb-anel" }),
-      raios: el("path", { class: "pb-raio" }),
-      outros: el("path", { class: "pb-predio", "fill-rule": "evenodd" }),
-      poli: Object.fromEntries(Object.keys(formas.poli).map((id) => [id, el("path", { class: `pb-poli pb-poli--${id.startsWith("bie") ? "bienio" : "eng"}`, "fill-rule": "evenodd", "data-id": id.replace("-anexo", "") })])),
-      borda: el("path", { class: "pb-borda" }),
-    };
-    G.marcasAnel = ANEIS.filter((a) => a < RAIO).map((a) => { const e = el("text", { class: "pb-marca" }); e.textContent = distancia(a); return { a, e }; });
-    G.direcoes = DIRECOES.map(([d, g]) => { const e = el("text", { class: "pb-direcao", "text-anchor": "middle" }); e.textContent = d; return { g, e }; });
-    G.rotulos = lugares.map((l) => {
-      const g = el("g", { class: "pb-rotulo", "data-id": l.id });
-      const linha = el("line", { class: "pb-guia" }, g);
+  /* ---------- estado: transformação (t) e câmera ---------- */
+  let t = 0, alvoT = 0, anim = 0, W = 0, H = 0, compacto = false;
+  const cam = { x: 0, y: 0, z: 1 };
+  let zMin = 0.1, zMax = 5;
+  const posMundo = ([th, r, ra], tt = suave(t)) => { const rr = lerp(r, ra, tt); return [rr * Math.sin(th), rr * Math.cos(th)]; };
+  const paraTela = ([x, y]) => [W / 2 + (x - cam.x) * cam.z, H / 2 - (y - cam.y) * cam.z];
+
+  function desenharFormas() {
+    const te = suave(t);
+    const d = (linhas, fechado) => linhas.map((l) => "M" + l.map((p) => posMundo(p, te).map((v) => v.toFixed(1)).join(" ")).join("L") + (fechado ? "Z" : "")).join("");
+    P.grade.setAttribute("d", d(formas.grade));
+    P.caminhos.setAttribute("d", d(formas.caminhos));
+    P.outros.setAttribute("d", d(formas.outros, true));
+    for (const id in P.poli) P.poli[id].setAttribute("d", d(formas.poli[id], true));
+    formas.isocronas.forEach((iso, i) => P.isocronas[i].setAttribute("d", d(iso.pedacos)));
+    P.borda.setAttribute("d", d(formas.borda, true));
+  }
+
+  /* ---------- rótulos, em pixels de tela ---------- */
+  let R = [];
+  function montarRotulos() {
+    tela.replaceChildren();
+    R = lugares.map((l) => {
+      const g = el("g", { class: "pb-rotulo", "data-id": l.id }, tela);
+      const linha = el("polyline", { class: "pb-guia" }, g);
+      el("circle", { class: "pb-ponto", r: 3 }, g);
       const corpo = el("g", {}, g);
+      const r = { l, g, linha, corpo, logos: [] };
       if (compacto) {
         el("circle", { r: 10, class: "pb-num" }, corpo);
         const n = el("text", { class: "pb-num__t", "text-anchor": "middle", y: 4 }, corpo); n.textContent = l.n;
+        r.larg = 20; r.alt = 20;
       } else {
-        const tx = el("text", { class: "pb-nome" }, corpo); tx.textContent = l.nome;
-        const sub = el("text", { class: "pb-sub" }, corpo); sub.textContent = l.id === "bie" ? "o centro do desenho" : `${distancia(l.r)} a ${l.dir}`;
-        const logos = l.cas.map((id) => {
+        r.tx = el("text", { class: "pb-nome" }, corpo); r.tx.textContent = l.nome;
+        r.sub = el("text", { class: "pb-sub" }, corpo);
+        r.logos = l.cas.map((id) => {
           const a = el("a", { href: `#${id}`, "aria-label": `Ir até o ${casPorId[id].sigla}` }, corpo);
-          el("image", { href: url(casPorId[id].logo), width: 22, height: 22, class: "pb-logo" }, a);
+          el("image", { href: url(casPorId[id].logo), width: 22, height: 22 }, a);
           el("rect", { width: 22, height: 22, rx: 4, class: "pb-logo__aro" }, a);
           return a;
         });
-        return { l, g, linha, corpo, tx, sub, logos };
+        r.larg = Math.max(r.tx.getComputedTextLength(), 110, r.logos.length * 26);
+        r.alt = 30 + (r.logos.length ? 26 : 0);
       }
-      return { l, g, linha, corpo };
-    });
-    // passar o mouse num rótulo acende o prédio
-    G.rotulos.forEach(({ l, g }) => {
       const acende = (on) => svg.querySelectorAll(`.pb-poli[data-id="${l.id}"]`).forEach((p) => p.classList.toggle("is-ativo", on));
       g.addEventListener("pointerenter", () => acende(true)); g.addEventListener("pointerleave", () => acende(false));
+      return r;
     });
-    desenhar(t);
+    // setas para os prédios fora da vista (ex.: a Química, quase 1 km longe)
+    R.forEach((r) => {
+      r.fora = el("g", { class: "pb-fora", tabindex: 0, role: "button", "aria-label": `Ir até ${r.l.nome}` }, tela);
+      r.foraFundo = el("rect", { rx: 12, height: 24 }, r.fora);
+      r.foraTx = el("text", { y: 16, x: 10 }, r.fora);
+      const ir = () => voar(posMundo(r.l.meio));
+      r.fora.addEventListener("click", ir);
+      r.fora.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); ir(); } });
+    });
+    G.marcas = formas.isocronas.map((iso) => { const e = el("text", { class: "pb-iso__t" }, tela); e.textContent = `${iso.min} min`; return e; });
+    G.norte = el("g", { class: "pb-norte" }, tela);
+    el("path", { d: "M0 -14 L6 4 L0 0 L-6 4 Z" }, G.norte);
+    el("text", { y: 18, "text-anchor": "middle" }, G.norte).textContent = "N";
+    G.escala = el("g", { class: "pb-escala" }, tela);
+    G.escalaLinha = el("path", {}, G.escala);
+    G.escalaTx = el("text", { y: -6 }, G.escala);
+  }
+  const G = {};
+
+  function posicionarRotulos() {
+    const te = suave(t);
+    const B = paraTela(posMundo(lugares[0].meio));
+    const margem = 14;
+    const vis = [];
+    for (const r of R) {
+      const A = paraTela(posMundo(r.l.meio));
+      const dentro = A[0] > margem && A[0] < W - margem && A[1] > margem && A[1] < H - margem;
+      r.A = A; r.dentro = dentro;
+      r.g.style.display = dentro ? "" : "none";
+      if (!dentro) continue;
+      if (!compacto) r.sub.textContent = r.l.id === "bie" ? (te < 0.5 ? "o ponto de partida" : "0 min") : (te < 0.5 ? `${distancia(r.l.r)} a ${r.l.dir}` : minutos(r.l.andar));
+      // direção da linha: para fora, a partir do Biênio (o próprio Biênio aponta para baixo e para a esquerda)
+      let ux = A[0] - B[0], uy = A[1] - B[1], n = Math.hypot(ux, uy);
+      if (n < 12) { ux = -0.75; uy = 0.66; n = 1; }
+      ux /= n; uy /= n;
+      const L = compacto ? 26 : 38;
+      r.lado = Math.abs(ux) < 0.25 ? (A[0] < W / 2 ? -1 : 1) : Math.sign(ux);
+      r.P = [A[0] + ux * L, A[1] + uy * L];
+      vis.push(r);
+    }
+    // cada lado (esquerda e direita) em coluna: de cima para baixo, sem um rótulo encostar no outro
+    for (const lado of [-1, 1]) {
+      const col = vis.filter((r) => r.lado === lado).sort((a, b) => a.P[1] - b.P[1]);
+      for (let i = 1; i < col.length; i++) {
+        const ant = col[i - 1], min = ant.P[1] + (ant.alt + col[i].alt) / 2 + 6;
+        const perto = Math.abs(col[i].P[0] - ant.P[0]) < (ant.larg + col[i].larg) / 2 + 30;
+        if (perto && col[i].P[1] < min) col[i].P[1] = min;
+      }
+      // o que passou da borda de baixo volta para cima, empurrando os de cima; depois o mesmo com a de cima
+      for (let i = col.length - 1; i >= 0; i--) {
+        const lim = i === col.length - 1 ? H - 8 - col[i].alt / 2 : col[i + 1].P[1] - (col[i + 1].alt + col[i].alt) / 2 - 6;
+        if (col[i].P[1] > lim) col[i].P[1] = lim;
+      }
+      for (let i = 0; i < col.length; i++) {
+        const lim = i === 0 ? 8 + col[i].alt / 2 : col[i - 1].P[1] + (col[i - 1].alt + col[i].alt) / 2 + 6;
+        if (col[i].P[1] < lim) col[i].P[1] = lim;
+      }
+    }
+    for (const r of vis) {
+      const [ax, ay] = r.A, [px, py] = r.P, cauda = compacto ? 8 : 12;
+      const qx = px + r.lado * cauda;
+      r.linha.setAttribute("points", `${ax.toFixed(1)},${ay.toFixed(1)} ${px.toFixed(1)},${py.toFixed(1)} ${qx.toFixed(1)},${py.toFixed(1)}`);
+      r.g.querySelector(".pb-ponto").setAttribute("cx", ax.toFixed(1)); r.g.querySelector(".pb-ponto").setAttribute("cy", ay.toFixed(1));
+      if (compacto) { r.corpo.setAttribute("transform", `translate(${(qx + r.lado * 10).toFixed(1)} ${py.toFixed(1)})`); continue; }
+      const al = r.lado > 0 ? "start" : "end", gx = r.lado * 5;
+      r.corpo.setAttribute("transform", `translate(${qx.toFixed(1)} ${py.toFixed(1)})`);
+      const topo = -r.alt / 2;
+      r.tx.setAttribute("x", gx); r.tx.setAttribute("y", topo + 12); r.tx.setAttribute("text-anchor", al);
+      r.sub.setAttribute("x", gx); r.sub.setAttribute("y", topo + 26); r.sub.setAttribute("text-anchor", al);
+      const total = r.logos.length * 26 - 4;
+      r.logos.forEach((a, i) => a.setAttribute("transform", `translate(${(r.lado > 0 ? gx : gx - total) + i * 26} ${topo + 32})`));
+    }
+    // fora da vista: uma etiqueta na borda, na direção do prédio
+    for (const r of R) {
+      r.fora.style.display = r.dentro ? "none" : "";
+      if (r.dentro) continue;
+      const [ax, ay] = r.A, dx = ax - W / 2, dy = ay - H / 2;
+      const s = Math.min((W / 2 - 16) / Math.abs(dx || 1e-9), (H / 2 - 16) / Math.abs(dy || 1e-9));
+      const seta = (dy < -Math.abs(dx) * 0.4 ? "↑" : dy > Math.abs(dx) * 0.4 ? "↓" : "") + (dx > Math.abs(dy) * 0.4 ? "→" : dx < -Math.abs(dy) * 0.4 ? "←" : "");
+      r.foraTx.textContent = compacto ? `${r.l.n} ${seta}` : `${r.l.nome} ${seta}`;
+      const w = r.foraTx.getComputedTextLength() + 20;
+      r.foraFundo.setAttribute("width", w);
+      const x = Math.min(W - w - 8, Math.max(8, W / 2 + dx * s - w / 2)), y = Math.min(H - 32, Math.max(8, H / 2 + dy * s - 12));
+      r.fora.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+    }
+    // marcas das linhas de tempo a pé, na direção oés-sudoeste (onde há menos nomes)
+    G.marcas.forEach((e, i) => {
+      const th = -112 * GRAU, alvoM = formas.isocronas[i].min * M_POR_MIN;
+      let lo = 0, hi = RAIO; for (let k = 0; k < 22; k++) { const m = (lo + hi) / 2; if (andado(m, th) < alvoM) lo = m; else hi = m; }
+      const [x, y] = paraTela(posMundo([th, hi, alvoM]));
+      e.setAttribute("x", x.toFixed(1)); e.setAttribute("y", y.toFixed(1));
+      e.style.display = x < 20 || x > W - 20 || y < 12 || y > H - 8 ? "none" : "";
+    });
+    G.norte.setAttribute("transform", `translate(${W - 26} 30)`);
+    // escala: só no mapa (no desenho em tempo a pé, as distâncias deixam de ser uniformes)
+    const opcoes = [20, 50, 100, 200, 500, 1000], m = opcoes.find((v) => v * cam.z >= 70) || 1000, px = m * cam.z;
+    G.escalaLinha.setAttribute("d", `M0 0 V-5 M0 0 H${px.toFixed(1)} V-5`);
+    G.escalaTx.textContent = distancia(m);
+    G.escala.setAttribute("transform", `translate(16 ${H - 14})`);
+    G.escala.style.opacity = Math.max(0, 1 - te * 2);
   }
 
-  // (r em metros, θ) -> tela, no instante tt (0 = mapa, 1 = polar)
-  function projetor(tt) {
-    const { R, s, cx, cy, L } = G;
-    const a = 1 - tt, reto = a < 1e-6, c = reto ? 0 : (L * tt) / a;
-    // escala para o desenho nunca passar da largura durante a transição
-    const maxX = reto ? R : (a >= 0.5 ? R + c : (R + c) * Math.sin(Math.PI * a));
-    const k = Math.min(1, R / maxX);
-    const proj = (rm, th) => {
-      const r = rm * s;
-      if (reto) return [cx + th * L, cy - r];
-      const u = th * a;
-      return [cx + k * (r + c) * Math.sin(u), cy - k * (r * Math.cos(u) - 2 * c * Math.sin(u / 2) ** 2)];
+  function aplicarCamera() {
+    mundo.setAttribute("transform", `matrix(${cam.z} 0 0 ${-cam.z} ${(W / 2 - cam.x * cam.z).toFixed(2)} ${(H / 2 + cam.y * cam.z).toFixed(2)})`);
+    posicionarRotulos();
+  }
+
+  // enquadra todos os prédios da Poli menos a Química (que fica longe e ganha a etiqueta na borda)
+  function enquadrar() {
+    const pts = lugares.filter((l) => l.id !== "qui").flatMap((l) => (formas.poli[l.id] || []).flat().map((p) => posMundo(p)));
+    const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+    const folgaX = compacto ? 46 : 190, folgaY = compacto ? 40 : 70;
+    const z = Math.min((W - 2 * folgaX) / (Math.max(...xs) - Math.min(...xs)), (H - 2 * folgaY) / (Math.max(...ys) - Math.min(...ys)));
+    return { x: (Math.max(...xs) + Math.min(...xs)) / 2, y: (Math.max(...ys) + Math.min(...ys)) / 2, z: Math.min(zMax, Math.max(zMin, z)) };
+  }
+  const limitar = () => {
+    cam.z = Math.min(zMax, Math.max(zMin, cam.z));
+    const n = Math.hypot(cam.x, cam.y), lim = RAIO * 1.3;
+    if (n > lim) { cam.x *= lim / n; cam.y *= lim / n; }
+  };
+  let voo = 0;
+  function voar(destino, z = Math.max(cam.z, enquadrar().z * 0.9)) {
+    cancelAnimationFrame(voo);
+    const ini = { ...cam }, fim = { x: destino[0], y: destino[1], z }, t0 = performance.now();
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { Object.assign(cam, fim); limitar(); aplicarCamera(); return; }
+    const passo = (agora) => {
+      const f = suave(Math.min(1, (agora - t0) / 550));
+      cam.x = lerp(ini.x, fim.x, f); cam.y = lerp(ini.y, fim.y, f); cam.z = ini.z * (fim.z / ini.z) ** f;
+      limitar(); aplicarCamera();
+      if (f < 1) voo = requestAnimationFrame(passo);
     };
-    let minY = 0;
-    for (let i = 0; i <= 40; i++) for (const r of [0, RAIO]) minY = Math.min(minY, cy - proj(r, (Math.PI * i) / 40)[1]);
-    return { proj, fundo: -minY };
+    voo = requestAnimationFrame(passo);
+  }
+  function zoomEm(fator, sx = W / 2, sy = H / 2) {
+    const wx = cam.x + (sx - W / 2) / cam.z, wy = cam.y - (sy - H / 2) / cam.z;
+    cam.z = Math.min(zMax, Math.max(zMin, cam.z * fator));
+    cam.x = wx - (sx - W / 2) / cam.z; cam.y = wy + (sy - H / 2) / cam.z;
+    limitar(); aplicarCamera();
   }
 
-  function desenhar(tt) {
-    const te = suave(tt);
-    const { proj, fundo } = projetor(te);
-    const { W, m, cy, R, compacto } = G;
-    const caminho = (aneis, fechado = true) => aneis.map((anel) => "M" + anel.map(([r, th]) => proj(r, th).map((v) => v.toFixed(1)).join(" ")).join("L") + (fechado ? "Z" : "")).join("");
-    G.p.disco.setAttribute("d", caminho(formas.disco));
-    G.p.grade.setAttribute("d", caminho(formas.grade, false));
-    G.p.aneis.setAttribute("d", caminho(formas.aneis, false));
-    G.p.raios.setAttribute("d", caminho(formas.raios, false));
-    G.p.outros.setAttribute("d", caminho(formas.outros));
-    for (const id in G.p.poli) G.p.poli[id].setAttribute("d", caminho(formas.poli[id]));
-    G.p.borda.setAttribute("d", caminho(formas.borda, false));
-
-    const H = cy + Math.max(fundo, 0) + lerp(m, 34, te);
-    svg.setAttribute("viewBox", `0 0 ${W} ${H.toFixed(1)}`);
-    svg.setAttribute("width", W); svg.setAttribute("height", H.toFixed(1));
-
-    // marcas dos anéis na direção oés-sudoeste, onde há menos nomes
-    G.marcasAnel.forEach(({ a, e }) => { const [x, y] = proj(a, -112.5 * GRAU); e.setAttribute("x", x.toFixed(1)); e.setAttribute("y", (y - 4).toFixed(1)); });
-    // letras das direções: em volta do disco no mapa, embaixo do chão no modo polar
-    G.direcoes.forEach(({ g, e }) => {
-      const a0 = [G.cx + (R + m * 0.55) * Math.sin(g * GRAU), cy - (R + m * 0.55) * Math.cos(g * GRAU) + 4];
-      const a1 = [G.cx + (g * GRAU) * G.L, cy + 22];
-      e.setAttribute("x", lerp(a0[0], a1[0], te).toFixed(1)); e.setAttribute("y", lerp(a0[1], a1[1], te).toFixed(1));
-      // as letras somem no meio da transição (não têm um lugar natural entre o disco e a faixa)
-      const visivel = Math.min(1, Math.max(0, (Math.abs(2 * te - 1) - 0.4) / 0.6));
-      e.style.opacity = g === -180 && te < 0.5 ? 0 : visivel;   // o segundo "S" só existe na faixa
-    });
-
-    G.rotulos.forEach((rot) => {
-      const { l, g, linha, corpo } = rot;
-      const [ax, ay] = proj(l.r, l.t);
-      // no celular só o número, mais perto do prédio (os mesmos desvios, em escala menor)
-      const f = compacto ? 0.36 : 1;
-      const [dx0, dy0, al0] = l.rotulo.mapa, [dx1, dy1, al1] = l.rotulo.polar;
-      const lx = ax + lerp(dx0, dx1, te) * f, ly = ay + lerp(dy0, dy1, te) * f, al = te < 0.5 ? al0 : al1;
-      linha.setAttribute("x1", ax.toFixed(1)); linha.setAttribute("y1", ay.toFixed(1));
-      linha.setAttribute("x2", lx.toFixed(1)); linha.setAttribute("y2", ly.toFixed(1));
-      corpo.setAttribute("transform", `translate(${lx.toFixed(1)} ${ly.toFixed(1)})`);
-      if (compacto) return;
-      const gx = al === "end" ? -6 : al === "start" ? 6 : 0;
-      const acima = al === "middle" && (te < 0.5 ? dy0 : dy1) < 0;
-      const y0 = al === "middle" ? (acima ? -24 - (rot.logos.length ? 26 : 0) : 16) : 4;
-      rot.tx.setAttribute("x", gx); rot.tx.setAttribute("y", y0); rot.tx.setAttribute("text-anchor", al);
-      rot.sub.setAttribute("x", gx); rot.sub.setAttribute("y", y0 + 15); rot.sub.setAttribute("text-anchor", al);
-      const total = rot.logos.length * 26 - 4;
-      const x0 = al === "end" ? gx - total : al === "start" ? gx : -total / 2;
-      rot.logos.forEach((a, i) => a.setAttribute("transform", `translate(${x0 + i * 26} ${y0 + 22})`));
-    });
+  function montar(manterCamera = false) {
+    W = Math.round(quadro.clientWidth);
+    compacto = W < 560;
+    H = Math.round(Math.min(620, Math.max(380, W * (compacto ? 1.05 : 0.72))));
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("width", W); svg.setAttribute("height", H);
+    zMin = Math.min(W, H) / (2.2 * RAIO); zMax = 4;
+    if (compacto) caixaLista.open = true;
+    montarRotulos();
+    if (!manterCamera) Object.assign(cam, enquadrar());
+    limitar(); aplicarCamera();
   }
 
+  /* ---------- tempo a pé ---------- */
   function animar(para) {
     alvoT = para;
     botao.setAttribute("aria-pressed", String(para === 1));
-    botao.textContent = para === 1 ? "Enrolar de volta no mapa" : "Desenrolar em coordenadas polares";
+    botao.textContent = para === 1 ? "Voltar à distância real" : "Ver em minutos a pé";
     legenda.textContent = LEGENDAS[para];
     cancelAnimationFrame(anim);
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { t = para; desenhar(t); return; }
-    const ini = t, inicio = performance.now(), dur = 1500 * Math.abs(para - ini);
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { t = para; desenharFormas(); posicionarRotulos(); return; }
+    const ini = t, t0 = performance.now(), dur = 1300 * Math.abs(para - ini);
     const passo = (agora) => {
-      const f = Math.min(1, (agora - inicio) / dur);
-      t = lerp(ini, para, f); desenhar(t);
+      const f = Math.min(1, (agora - t0) / dur);
+      t = lerp(ini, para, f); desenharFormas(); posicionarRotulos();
       if (f < 1) anim = requestAnimationFrame(passo);
     };
     anim = requestAnimationFrame(passo);
   }
-
   legenda.textContent = LEGENDAS[0];
   botao.addEventListener("click", () => animar(alvoT === 1 ? 0 : 1));
+
+  /* ---------- zoom e arrasto ---------- */
+  const avisar = () => { quadro.classList.add("pb__quadro--dica"); clearTimeout(G.dicaT); G.dicaT = setTimeout(() => quadro.classList.remove("pb__quadro--dica"), 1800); };
+  alvo.querySelector(".pb__zoom").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-zoom]"); if (!b) return;
+    const v = +b.dataset.zoom;
+    if (v === 0) { const e2 = enquadrar(); voar([e2.x, e2.y], e2.z); }
+    else zoomEm(v > 0 ? 1.6 : 1 / 1.6);
+  });
+  svg.addEventListener("wheel", (e) => {
+    if (!(e.ctrlKey || e.metaKey)) { avisar(); return; }
+    e.preventDefault();
+    const b = svg.getBoundingClientRect();
+    zoomEm(Math.exp(-e.deltaY * 0.0022), e.clientX - b.left, e.clientY - b.top);
+  }, { passive: false });
+  svg.addEventListener("dblclick", (e) => { const b = svg.getBoundingClientRect(); zoomEm(1.8, e.clientX - b.left, e.clientY - b.top); });
+  // mouse: arrastar move
+  let arrasto = null;
+  svg.addEventListener("pointerdown", (e) => {
+    if (e.pointerType !== "mouse" || e.button !== 0 || e.target.closest("a, .pb-fora")) return;
+    arrasto = { x: e.clientX, y: e.clientY, cx: cam.x, cy: cam.y }; svg.setPointerCapture(e.pointerId); quadro.classList.add("is-arrastando");
+  });
+  svg.addEventListener("pointermove", (e) => {
+    if (!arrasto) return;
+    cam.x = arrasto.cx - (e.clientX - arrasto.x) / cam.z; cam.y = arrasto.cy + (e.clientY - arrasto.y) / cam.z; limitar(); aplicarCamera();
+  });
+  const soltar = () => { arrasto = null; quadro.classList.remove("is-arrastando"); };
+  svg.addEventListener("pointerup", soltar); svg.addEventListener("pointercancel", soltar);
+  // toque: um dedo rola a página; dois dedos movem e dão zoom
+  let pinca = null;
+  const meioToque = (ts) => { const b = svg.getBoundingClientRect(); return [(ts[0].clientX + ts[1].clientX) / 2 - b.left, (ts[0].clientY + ts[1].clientY) / 2 - b.top, Math.hypot(ts[0].clientX - ts[1].clientX, ts[0].clientY - ts[1].clientY)]; };
+  svg.addEventListener("touchstart", (e) => { if (e.touches.length === 1 && !e.target.closest("a, .pb-fora")) avisar(); if (e.touches.length === 2) { e.preventDefault(); const [x, y, d] = meioToque(e.touches); pinca = { x, y, d, cam: { ...cam } }; } }, { passive: false });
+  svg.addEventListener("touchmove", (e) => {
+    if (!pinca || e.touches.length !== 2) return;
+    e.preventDefault();
+    const [x, y, d] = meioToque(e.touches);
+    const wx = pinca.cam.x + (pinca.x - W / 2) / pinca.cam.z, wy = pinca.cam.y - (pinca.y - H / 2) / pinca.cam.z;
+    cam.z = Math.min(zMax, Math.max(zMin, pinca.cam.z * (d / pinca.d)));
+    cam.x = wx - (x - W / 2) / cam.z; cam.y = wy + (y - H / 2) / cam.z;
+    limitar(); aplicarCamera();
+  }, { passive: false });
+  svg.addEventListener("touchend", (e) => { if (e.touches.length < 2) pinca = null; });
+
+  desenharFormas();
   montar();
   let espera;
-  new ResizeObserver(() => { if (Math.abs(Math.min(figura.clientWidth, 720) - largura) > 4) { clearTimeout(espera); espera = setTimeout(montar, 120); } }).observe(figura);
+  new ResizeObserver(() => { if (Math.abs(Math.round(quadro.clientWidth) - W) > 4) { clearTimeout(espera); espera = setTimeout(() => montar(true), 120); } }).observe(figura);
 }

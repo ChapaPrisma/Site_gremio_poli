@@ -110,6 +110,16 @@ As matérias do primeiro semestre no Guia dos cursos, os créditos e a ementa na
 
 **Crédito:** o caminho até esses dados foi mapeado pelo [usp-mcp](https://github.com/CaioCastro1/mcp-usp), de Caio Castro e João Pedro Gunthen (licença MIT): foram eles que descobriram a interface pública e sem login do JupiterWeb (o `ControlePublicoDWR`) e documentaram as chamadas. O leitor de respostas de `ferramentas/jupiter.mjs` é uma tradução do `usp_mcp/jupiter/dwr.py` deles. O site cita os dois em cada lugar em que essas fichas aparecem.
 
+## Turmas e montador de grade (JupiterWeb)
+
+O montador de grade, a conferência do 1º ano e "Minha grade" em `aluno/salas/` leem `assets/dados/turmas.json`: as turmas do semestre de todas as disciplinas da Poli, das grades dos cursos e do USPolis, com horários, professores, turmas práticas vinculadas e vagas. É gerado por `node ferramentas/turmas.mjs`, agendado em `.github/workflows/turmas.yml` (uma vez por dia, no máximo 220 disciplinas por vez, uma página por vez com pausa; cada disciplina vale 3 dias). A conferência do 1º ano usa a grade de cada curso por semestre, que `ferramentas/jupiter.mjs` guarda em `disciplinas.json` (campo `grade`). A lógica das combinações fica em `assets/js/componentes/montador-grade.js` (testável no Node). A grade compartilhada vai no próprio link (`?grade=SIGLA~TURMA.SIGLA~TURMA`), sem servidor.
+
+**Crédito:** a ideia do montador e o caminho até as turmas (a página pública `obterTurma` do JupiterWeb) vêm do [MatrUSP](https://github.com/matrusp/matrusp), dos alunos do BCC do IME-USP, inspirado no MatrUFSC e no CAPIM de Ramiro Polla. Nenhum código do MatrUSP foi copiado: a licença dele (a do CAPIM) proíbe retorno financeiro em sites relacionados, e este site tem a Loja. Os nomes de quem fez o MatrUSP estão em Colaboradores.
+
+## "Onde fica cada engenharia" (Guia dos cursos)
+
+O desenho no fim de `aluno/cursos/` lê `assets/dados/campus-poli.json`, gerado por `python ferramentas/campus_poli.py` a partir do OpenStreetMap: os prédios num raio de 1,1 km do Biênio, as vias por onde se anda e o "campo de caminhada" (quantos metros se anda do Biênio até cada ponto, que o botão "Ver em minutos a pé" usa para redesenhar o campus). Nomes e endereços dos prédios ficam em `assets/js/dados/predios-poli.js`. Rode de novo se o OpenStreetMap ganhar prédios ou caminhos novos.
+
 ## Circulares da USP
 
 A página `aluno/circulares/` mostra as linhas que entram na Cidade Universitária num mapa (Leaflet + OpenStreetMap), com cartões por linha (informações em `assets/js/dados/circulares.js`). O traçado, as paradas e os horários vêm de `assets/dados/circulares.json`, gerado por `python ferramentas/circulares_gtfs.py` a partir do GTFS oficial da SPTrans (espelhado sem cadastro pelo Mobility Database). Revise a cada semestre: rode o script e confira os textos dos cartões.

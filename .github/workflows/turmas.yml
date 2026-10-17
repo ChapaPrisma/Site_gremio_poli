@@ -1,0 +1,42 @@
+# Atualiza as turmas do semestre (horários, professores e vagas) a partir das páginas públicas do JupiterWeb.
+# É só um agendador: todo o trabalho está em ferramentas/turmas.mjs. A ideia de ler a página "obterTurma" e
+# de montar grades com ela vem do MatrUSP (github.com/matrusp/matrusp), dos alunos do BCC do IME-USP.
+#
+# Gentileza com a USP: uma vez por dia, de madrugada, uma página por vez com pausa de 1,5 s, no máximo 220
+# disciplinas por execução (as consultadas há mais tempo); cada disciplina vale 3 dias.
+name: Turmas do semestre
+
+on:
+  schedule:
+    # 5h40 de São Paulo (8h40 em UTC)
+    - cron: "40 8 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dados-do-site
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node ferramentas/turmas.mjs
+      - name: Publicar se mudou
+        run: |
+          git add assets/dados/turmas.json
+          if git diff --cached --quiet; then
+            echo "Sem mudanças nas turmas."
+            exit 0
+          fi
+          git config user.name "turmas-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Atualiza turmas do semestre (JupiterWeb)"
+          git pull --rebase origin main
+          git push

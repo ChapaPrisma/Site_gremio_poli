@@ -92,23 +92,25 @@
 .materias-1sem__grade { margin-top: 10px; font-weight: 800; }
 @media (prefers-reduced-motion: reduce) { .materias-1sem > summary h2::before { transition: none; } }
 
-/* "Onde fica cada engenharia": a Poli num disco com o Biênio no centro, que desenrola em coordenadas
-   polares (componentes/poli-do-bienio.js) */
+/* "Onde fica cada engenharia": a Poli a partir do Biênio, com zoom e o desenho em minutos a pé
+   (componentes/poli-do-bienio.js) */
 .pb { margin: 18px 0 0; }
-.pb__quadro { min-height: 200px; }
-.pb__svg { display: block; max-width: 100%; height: auto; margin: 0 auto; overflow: visible; }
-.pb-disco { fill: var(--painel); }
-.pb-grade { fill: none; stroke: #dde1ec; stroke-width: .8; }
-.pb-anel, .pb-raio { fill: none; stroke: #b9c0d4; stroke-width: 1; stroke-dasharray: 3 4; }
-.pb-predio { fill: #cbd1e0; }
+.pb__quadro { position: relative; min-height: 300px; border: var(--borda); border-radius: var(--raio); overflow: hidden; background: var(--painel); }
+.pb__svg { display: block; width: 100%; height: auto; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+.pb__quadro.is-arrastando .pb__svg { cursor: grabbing; }
+.pb-fundo { fill: var(--painel); }
+.pb-grade { fill: none; stroke: #e1e5ef; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.pb-caminho { fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.pb-predio { fill: #cdd3e2; }
 .pb-poli--eng { fill: var(--azul); transition: fill .15s ease; }
-.pb-poli--bienio { fill: var(--sol); stroke: var(--tinta); stroke-width: 1.2; stroke-linejoin: round; }
+.pb-poli--bienio { fill: var(--sol); stroke: var(--tinta); stroke-width: 1.4; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .pb-poli.is-ativo { fill: #4a5bd6; }
 .pb-poli--bienio.is-ativo { fill: #ffe68a; }
-.pb-borda { fill: none; stroke: var(--tinta); stroke-width: 2; }
-.pb-marca { font: 700 10.5px var(--fonte); fill: var(--tinta-suave); text-anchor: middle; paint-order: stroke; stroke: var(--painel); stroke-width: 3px; }
-.pb-direcao { font: 800 11px var(--fonte-titulo); fill: var(--tinta); }
-.pb-guia { stroke: var(--tinta); stroke-width: 1.2; }
+.pb-iso { fill: none; stroke: var(--azul); stroke-width: 1.4; stroke-dasharray: 6 5; opacity: .55; vector-effect: non-scaling-stroke; }
+.pb-iso__t { font: 800 11px var(--fonte); fill: var(--azul); text-anchor: middle; paint-order: stroke; stroke: var(--painel); stroke-width: 4px; stroke-linejoin: round; }
+.pb-borda { fill: none; stroke: #b9c0d4; stroke-width: 1; stroke-dasharray: 2 4; vector-effect: non-scaling-stroke; }
+.pb-guia { fill: none; stroke: var(--tinta); stroke-width: 1.3; stroke-linejoin: round; }
+.pb-ponto { fill: var(--tinta); stroke: #fff; stroke-width: 1.5; }
 .pb-rotulo text { paint-order: stroke; stroke: var(--painel); stroke-width: 4px; stroke-linejoin: round; }
 .pb-nome { font: 800 13.5px var(--fonte-titulo); fill: var(--tinta); }
 .pb-sub { font: 700 11.5px var(--fonte); fill: var(--tinta-suave); }
@@ -116,7 +118,22 @@
 .pb-rotulo a:hover .pb-logo__aro, .pb-rotulo a:focus-visible .pb-logo__aro { stroke: var(--sol); stroke-width: 3; }
 .pb-num { fill: var(--tinta); stroke: #fff; stroke-width: 2; }
 .pb-num__t { font: 800 11px var(--fonte); fill: #fff; stroke: none !important; }
-.pb__controle { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 10px; text-align: center; }
+.pb-fora { cursor: pointer; }
+.pb-fora rect { fill: var(--papel); stroke: var(--tinta); stroke-width: 1.5; }
+.pb-fora text { font: 800 12px var(--fonte); fill: var(--tinta); }
+.pb-fora:hover rect, .pb-fora:focus-visible rect { fill: var(--sol-claro); }
+.pb-fora:focus-visible { outline: none; }
+.pb-fora:focus-visible rect { stroke-width: 3; }
+.pb-norte path { fill: var(--tinta); }
+.pb-norte text, .pb-escala text { font: 800 11px var(--fonte); fill: var(--tinta); }
+.pb-escala path { fill: none; stroke: var(--tinta); stroke-width: 2; }
+.pb__zoom { position: absolute; top: 10px; left: 10px; display: flex; flex-direction: column; gap: 6px; }
+.pb__zoom button { min-width: 34px; height: 34px; padding: 0 8px; border: 2px solid var(--tinta); border-radius: 8px; background: var(--papel); color: var(--tinta); font: 800 1.05rem/1 var(--fonte); cursor: pointer; }
+.pb__zoom .pb__zoom-tudo { font-size: .75rem; }
+.pb__zoom button:hover { background: var(--sol-claro); }
+.pb__dica { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); margin: 0; padding: 4px 10px; border-radius: 99px; background: rgba(18, 23, 53, .82); color: #fff; font-size: .78rem; white-space: nowrap; opacity: 0; transition: opacity .2s ease; pointer-events: none; }
+.pb__quadro--dica .pb__dica { opacity: 1; }
+.pb__controle { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; text-align: center; }
 .pb__legenda { max-width: 64ch; font-size: .88rem; color: var(--tinta-suave); }
 .pb__lista-caixa { margin-top: 16px; }
 .pb__lista-caixa > summary { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; list-style: none; font-weight: 800; color: var(--azul); }
@@ -135,4 +152,4 @@
 .pb-zonas h3 { font-size: 1.02rem; }
 .pb-zonas p { margin-top: 4px; font-size: .93rem; color: var(--tinta-suave); }
 @container (max-width: 640px) { .pb-zonas { grid-template-columns: minmax(0, 1fr); } }
-@media (prefers-reduced-motion: reduce) { .pb__lista-caixa > summary::before, .pb-poli--eng { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .pb__lista-caixa > summary::before, .pb-poli--eng, .pb__dica { transition: none; } }
