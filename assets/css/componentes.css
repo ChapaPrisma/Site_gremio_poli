@@ -554,7 +554,7 @@
 .ficha-busca__fonte { margin-top: 12px; font-size: .8rem; }
 
 /* nomes de quem colaborou, sublinhados nos créditos */
-.nome-credito { text-decoration: underline; text-decoration-color: var(--sol); text-decoration-thickness: 2px; text-underline-offset: 3px; color: var(--tinta); font-weight: 700; }
+.nome-credito { text-decoration: underline; text-decoration-color: var(--sol); text-decoration-thickness: 2px; text-underline-offset: 3px; }
 /* "Potencial": ideia com muito a crescer, ainda sem data (ex.: o assistente com IA do Fuja do Nabo) */
 .pill--potencial { background: var(--azul-tinta); color: var(--azul); border-color: transparent; }
 .modulo .pill { align-self: flex-start; }

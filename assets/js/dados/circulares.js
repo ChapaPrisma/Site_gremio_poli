@@ -1,6 +1,6 @@
 // Guia dos circulares (aluno/circulares/): as linhas de ônibus que entram na Cidade Universitária.
 // O traçado, as paradas e os horários vêm do GTFS oficial da SPTrans, em assets/dados/circulares.json
-// (ferramentas/circulares_gtfs.py; a 280BI1, da EMTU, vem do OpenStreetMap, ferramentas/circulares.mjs).
+// (ferramentas/circulares_gtfs.py). A 280BI1, da EMTU, saiu em out/2026: não foi possível confirmar que ainda passa pela USP.
 // Aqui ficam os textos dos cartões, escritos a partir das paradas do GTFS de outubro de 2026. O GTFS só
 // traz o horário dos dias úteis; o das linhas de fim de semana vem da PUSP-C e do Jornal da USP.
 // Revise no começo de cada semestre: rode o script e confira os textos (linhas e horários mudam).
@@ -31,13 +31,11 @@ export const LINHAS = [
     resumo: "Outra ligação com o Metrô Santana. No campus, dá a volta pelo Hospital Universitário e pela Praça do Relógio e sai pela Metalurgia, Mecânica e Biênio. Paga com Bilhete Único." },
   { ref: "702U-10", nome: "Terminal Parque Dom Pedro II ↔ Cidade Universitária", cor: "#adb5bd", busp: false, dias: "Todos os dias", horario: "Dias úteis: cerca de 4h à 0h", intervalo: "A cada 12 a 30 min durante o dia",
     resumo: "Liga o centro à USP, com o mesmo caminho da 701U dentro do campus. Paga com Bilhete Único." },
-  { ref: "280BI1", nome: "São Bernardo do Campo ↔ Cidade Universitária", cor: "#b5838d", busp: false, dias: "Dias úteis", horario: "Consulte a EMTU",
-    resumo: "Linha intermunicipal da EMTU (ARTESP), do ABC até a USP. Paga com o cartão da EMTU." },
 ];
 
 // Grupos de exibição, na ordem da página.
 export const GRUPOS = [
   { id: "semana", titulo: "Circulares de segunda a sexta", texto: "Gratuitos com o BUSP. Os outros passageiros pagam com Bilhete Único.", refs: ["8084-10", "8082-10", "8083-10", "8085-10"] },
   { id: "fim-de-semana", titulo: "Fins de semana, feriados e madrugadas", texto: "Também gratuitos com o BUSP.", refs: ["8012-10", "8022-10"] },
-  { id: "outras", titulo: "Outras linhas que entram no campus", texto: "Linhas comuns, pagas com Bilhete Único ou com o cartão da EMTU.", refs: ["177H-10", "701U-10", "702U-10", "280BI1"] },
+  { id: "outras", titulo: "Outras linhas que entram no campus", texto: "Linhas comuns, pagas com Bilhete Único.", refs: ["177H-10", "701U-10", "702U-10"] },
 ];

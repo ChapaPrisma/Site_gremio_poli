@@ -1,7 +1,6 @@
 """Gera assets/dados/circulares.json com o traçado, as paradas e os horários das linhas da SPTrans que
 entram na Cidade Universitária, a partir do GTFS oficial da SPTrans (o mesmo arquivo da área de
-desenvolvedores, espelhado sem cadastro pelo Mobility Database). Linhas que não são da SPTrans (como a
-280BI1, da EMTU) continuam vindo do OpenStreetMap (ferramentas/circulares.mjs) e são mantidas.
+desenvolvedores, espelhado sem cadastro pelo Mobility Database).
 
 Uso (Python 3.9+, só biblioteca padrão):
     python ferramentas/circulares_gtfs.py                 # baixa o GTFS mais recente
@@ -124,14 +123,9 @@ def main():
         resumo[l] = {"dias": DIAS.get(h["servico"], h["servico"]), "horario": funcionamento(h["janelas"]),
                      "intervalo": f"{min(dia)} a {max(dia)} min" if dia else ""}
 
-    # o que não é da SPTrans (280BI1, EMTU) continua vindo do OpenStreetMap
-    anterior = json.loads(SAIDA.read_text(encoding="utf-8")) if SAIDA.exists() else {"linhas": {}}
-    for ref, sentidos in anterior.get("linhas", {}).items():
-        if ref not in linhas: saida[ref] = sentidos
-
     validade = next(tabela(z, "calendar.txt"))
     dados = {
-        "fonte": "GTFS da SPTrans (sptrans.com.br/desenvolvedores); linhas da EMTU: OpenStreetMap (© colaboradores do OpenStreetMap, ODbL)",
+        "fonte": "GTFS da SPTrans (sptrans.com.br/desenvolvedores)",
         "atualizadoEm": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "validoAte": validade["end_date"],
         "horarios": resumo,
