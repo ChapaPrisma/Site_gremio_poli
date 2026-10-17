@@ -5,8 +5,8 @@
 //   vitrine  (aluno/)                 a faixa pequena com as logos, no fim da Área do aluno
 //   arquivo  (aluno/meu-amor/#turmas) as fotos das turmas, organizadas por ano
 
-import { centros, cursos, centroDo, cursoPor, arquivoDesde } from "../dados/cursos.js?v=202610162259";
-import { carregarIndice, textoCreditos, detalhes, ligarFichas, creditoUspMcp } from "./ficha-disciplina.js?v=202610162259";
+import { centros, cursos, centroDo, cursoPor, arquivoDesde } from "../dados/cursos.js?v=202610162310";
+import { carregarIndice, textoCreditos, detalhes, ligarFichas, creditoUspMcp, linkGrade } from "./ficha-disciplina.js?v=202610162310";
 
 const esc = (t = "") => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 const insta = (c) => `<a class="ca__insta" href="https://instagram.com/${esc(c.instagram)}" target="_blank" rel="noopener">@${esc(c.instagram)}</a>`;
@@ -40,8 +40,15 @@ async function completarMaterias(curso, url) {
     ? curso.primeiroSemestre.map((m) => { const i = dados.indice?.[m.codigo] || []; return [m.codigo || "", m.nome, i[1], i[2], m.dica]; })
     : doCurso.map(([c, n, ca, ct]) => [c, n, ca, ct, ""]);
   if (!itens.length) return;
+  const info = dados.cursos?.[curso.id];
+  const total = itens.reduce((a, i) => a + (i[2] || 0) + (i[3] || 0), 0);
+  document.getElementById("materiasResumo").textContent = `${itens.length} matérias${total ? `, ${total} créditos` : ""}`;
+  const optativas = info?.optativas || [];
   caixa.innerHTML = `${curso.primeiroSemestre.length ? "" : `<p class="bloco-portal__intro">As obrigatórias do primeiro semestre no currículo oficial. Toque numa matéria para ver do que ela trata e como é a avaliação.</p>`}
-    ${listaMaterias(itens)}<p class="nota curso__fonte">${creditoUspMcp}</p>`;
+    ${listaMaterias(itens)}
+    ${optativas.length ? `<p class="materias-1sem__optativas"><b>Optativas no mesmo semestre:</b> ${optativas.map(([c, n]) => `${esc(n)} (${esc(c)})`).join(", ")}.</p>` : ""}
+    ${info ? `<p class="materias-1sem__grade"><a href="${linkGrade(info.codcur, info.codhab)}" target="_blank" rel="noopener">Ver a grade completa, com os outros semestres, no JupiterWeb</a></p>` : ""}
+    <p class="nota curso__fonte">${creditoUspMcp}</p>`;
   ligarFichas(caixa, url);
 }
 
@@ -64,10 +71,12 @@ function paginaDoCurso(alvo, { url }) {
     </header>
 
     <section class="bloco-portal" aria-labelledby="curso-materias">
-      <h2 id="curso-materias">As matérias do primeiro semestre</h2>
-      <div id="materiasPrimeiro">${curso.primeiroSemestre.length
-        ? listaMaterias(curso.primeiroSemestre.map((m) => [m.codigo || "", m.nome, null, null, m.dica]))
-        : preparando("as matérias do primeiro semestre, com as dicas de quem já passou por elas")}</div>
+      <details class="materias-1sem">
+        <summary><h2 id="curso-materias">As matérias do primeiro semestre</h2><span class="materias-1sem__resumo" id="materiasResumo">${curso.primeiroSemestre.length ? `${curso.primeiroSemestre.length} matérias` : ""}</span></summary>
+        <div id="materiasPrimeiro">${curso.primeiroSemestre.length
+          ? listaMaterias(curso.primeiroSemestre.map((m) => [m.codigo || "", m.nome, null, null, m.dica]))
+          : preparando("as matérias do primeiro semestre, com as dicas de quem já passou por elas")}</div>
+      </details>
     </section>
 
     <section class="bloco-portal" aria-labelledby="curso-centrinho">

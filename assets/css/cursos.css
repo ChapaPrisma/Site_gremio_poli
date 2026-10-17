@@ -78,3 +78,16 @@
 .curso__materias { align-items: start; }
 .curso__materias li:has(.ficha-disc[open]) { grid-column: 1 / -1; }
 .curso__materias .ficha-disc__corpo p { max-width: 75ch; }
+
+/* as matérias do 1º semestre ficam recolhidas: o título com a contagem abre a lista */
+.materias-1sem > summary { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; cursor: pointer; list-style: none; }
+.materias-1sem > summary::-webkit-details-marker { display: none; }
+.materias-1sem > summary h2 { display: inline-flex; align-items: center; gap: 10px; }
+.materias-1sem > summary h2::before { content: ""; flex: none; width: 9px; height: 9px; border-right: 2.5px solid var(--tinta); border-bottom: 2.5px solid var(--tinta); transform: rotate(-45deg); transition: transform .15s ease; }
+.materias-1sem[open] > summary h2::before { transform: rotate(45deg); }
+.materias-1sem__resumo { font-size: .9rem; color: var(--tinta-suave); }
+.materias-1sem > summary:hover h2 { color: var(--azul); }
+.materias-1sem__optativas { margin-top: 12px; font-size: .88rem; color: var(--tinta-suave); max-width: 80ch; }
+.materias-1sem__optativas b { color: var(--tinta); }
+.materias-1sem__grade { margin-top: 10px; font-weight: 800; }
+@media (prefers-reduced-motion: reduce) { .materias-1sem > summary h2::before { transition: none; } }

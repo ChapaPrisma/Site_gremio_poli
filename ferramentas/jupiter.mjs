@@ -19,7 +19,7 @@ import { fileURLToPath } from "node:url";
 
 const URL_DWR = "https://uspdigital.usp.br/jupiterweb/dwr/call/plaincall/ControlePublicoDWR";
 const AGENTE = "Site do Gremio Politecnico (fichas de disciplinas; caminho mapeado pelo usp-mcp)";
-const LIMITE = 50;                         // fichas novas ou vencidas por execução
+const LIMITE = Number(process.env.JUPITER_LIMITE ?? 50);   // fichas novas ou vencidas por execução
 const PAUSA = 1500;                        // ms entre uma requisição e outra
 const VALIDADE_FICHA = 120 * 864e5;        // um semestre
 const VALIDADE_GRADE = 7 * 864e5;          // uma semana
@@ -134,7 +134,7 @@ for (const f of readdirSync(pastaFichas)) if (f.endsWith(".json")) fichas[f.slic
 
 try {
   /* ---------- grades: o primeiro semestre de cada curso (uma vez por semana) ---------- */
-  if (!indice.gradesEm || agora - indice.gradesEm > VALIDADE_GRADE) {
+  if (!indice.gradesEm || agora - indice.gradesEm > VALIDADE_GRADE || process.env.JUPITER_GRADES) {
     const entrada = await chamar("listar", "pubListarCursoEntrada", { codclg: "3" });   // 3 = Escola Politécnica
     const grades = {};
     const cursos = {};
@@ -143,10 +143,13 @@ try {
       if (!c) { console.warn(`Curso não encontrado no JupiterWeb: ${id} (${trecho})`); continue; }
       const chave = `${c.codcur}|${c.codhab}`;
       grades[chave] ??= await chamar("listar", "pubGradeCurricular", { codcur: c.codcur, codhab: c.codhab, tipo: "N" });
-      const primeiro = grades[chave].filter((d) => String(d.numsemidl) === "1" && d.tipobg === "O")
+      // as obrigatórias do 1º semestre, as optativas do mesmo semestre (onde aparecem trilhas novas, como a
+      // dos módulos da Elétrica) e até que semestre vai a grade pública (a da Poli costuma parar no 5º)
+      const doSemestre1 = (tipo) => grades[chave].filter((d) => String(d.numsemidl) === "1" && d.tipobg === tipo)
         .map((d) => [d.coddis, limpa(d.nomdis), +d.creaul || 0, +d.cretrb || 0])
         .sort((a, b) => a[1].localeCompare(b[1], "pt"));
-      cursos[id] = { codcur: c.codcur, codhab: c.codhab, habilitacao: limpa(c.nomhab), primeiro };
+      const semestres = Math.max(0, ...grades[chave].map((d) => +d.numsemidl || 0));
+      cursos[id] = { codcur: c.codcur, codhab: c.codhab, habilitacao: limpa(c.nomhab), primeiro: doSemestre1("O"), optativas: doSemestre1("L"), semestres };
     }
     indice.cursos = cursos;
     indice.gradesEm = agora;
