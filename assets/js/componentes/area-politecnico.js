@@ -4,8 +4,8 @@
 // entrar na rede. Os formulários (entrar na rede, mandar fotos) passam pelo aviso de proposta.
 // Uso: marcação em politecnico/index.html e <div data-componente="area-politecnico"></div>.
 
-import { cursos } from "../dados/cursos.js?v=202610181016";
-import { supabase, configurado } from "../dados/contas.js?v=202610181016";
+import { cursos } from "../dados/cursos.js?v=202610181021";
+import { supabase, configurado } from "../dados/contas.js?v=202610181021";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const nomeCurso = (id) => cursos.find((c) => c.id === id)?.nome || id;

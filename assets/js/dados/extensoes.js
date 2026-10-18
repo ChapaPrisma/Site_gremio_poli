@@ -55,6 +55,8 @@ export const grupos = [
     links: { instagram: "pet_mecanica" } },
   { id: "pet-mecatronica", area: "tecnologia", logo: "assets/img/extensoes/pet-mecatronica.png?v=42b07532", nome: "PET Mecatrônica", texto: "O grupo PET da Mecatrônica: projetos, cursos e atividades para a graduação.",
     links: { site: "https://www.petmecatronica.poli.usp.br/" } },
+  { id: "poli-cerevisiae", area: "tecnologia", logo: "assets/img/extensoes/poli-cerevisiae.jpg?v=324a498f", nome: "Poli Cerevisiae", texto: "Estuda o mercado cervejeiro, com foco em inovação e em engenharia na prática.",
+    links: { instagram: "policerevisiae" } },
 
   // mercado e empreendedorismo
   { id: "poli-junior", area: "mercado", logo: "assets/img/extensoes/poli-junior.jpg?v=0721883b", nome: "Poli Júnior", texto: "Fundada em 1989, é a primeira empresa júnior de engenharia do Brasil, toda gerida por alunos da Poli.",
@@ -69,8 +71,6 @@ export const grupos = [
     links: { site: "https://www.policonsultingclub.com.br/", instagram: "poli_consultingclub" } },
   { id: "lepoli", area: "mercado", logo: "assets/img/extensoes/lepoli.jpg?v=35713eab", nome: "LEPoli", texto: "A Liga de Empreendedorismo da Poli: eventos, conexões com startups e a aceleradora LEPoli Ventures.",
     links: { instagram: "lepoliusp", site: "https://www.poli.usp.br/noticias/grupos-de-extensao/liga-de-empreendedorismo-da-poli-lepoli/" } },
-  { id: "poli-cerevisiae", area: "mercado", logo: "assets/img/extensoes/poli-cerevisiae.jpg?v=324a498f", nome: "Poli Cerevisiae", texto: "Estuda o mercado cervejeiro, com foco em inovação e em engenharia na prática.",
-    links: { instagram: "policerevisiae" } },
 
   // impacto social e educação
   { id: "poli-social", area: "social", logo: "assets/img/extensoes/poli-social.jpg?v=d4c49b3c", nome: "Poli Social", texto: "Consultoria gratuita para ONGs e eventos com impacto social, desde 2014.",
