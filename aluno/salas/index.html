@@ -10,12 +10,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito:wght@400;600;700;800&display=swap">
-  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610171410">
-  <link rel="stylesheet" href="../../assets/css/base.css?v=202610171410">
-  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610171410">
-  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610171410">
-  <link rel="stylesheet" href="../../assets/css/salas.css?v=202610171410">
-  <script type="module" src="../../assets/js/site.js?v=202610171410"></script>
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610181007">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=202610181007">
+  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610181007">
+  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610181007">
+  <link rel="stylesheet" href="../../assets/css/salas.css?v=202610181007">
+  <script type="module" src="../../assets/js/site.js?v=202610181007"></script>
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -129,7 +129,7 @@
 
         <div class="montador__painel" id="painelPrimeiro" role="tabpanel" aria-labelledby="abaPrimeiro">
           <p><b>No primeiro ano, a grade já vem pronta.</b> A Poli matricula você nas turmas das obrigatórias, e elas aparecem no seu <a href="https://uspdigital.usp.br/jupiterweb/" target="_blank" rel="noopener">JupiterWeb</a>. No segundo semestre, dá para acrescentar optativas eletivas pelo JupiterWeb, no período de matrícula.</p>
-          <p>Para conferir se não falta nada, escolha o seu curso e o semestre. Cada obrigatória aparece marcada quando a turma dela está na sua grade aqui embaixo.</p>
+          <p>Para ver a sua grade aqui, com a sala de cada aula, escolha o curso e o semestre e marque a sua turma em cada matéria (o código da turma está no JupiterWeb). A lista também serve para conferir que nenhuma obrigatória ficou de fora.</p>
           <div class="conferencia__controles">
             <label class="conferencia__curso">Curso
               <select id="confCurso"></select>
@@ -143,12 +143,35 @@
         </div>
 
         <div class="montador__painel" id="painelDepois" role="tabpanel" aria-labelledby="abaDepois" hidden>
-          <p><b>Do terceiro semestre em diante, você escolhe as turmas.</b> Diga quais disciplinas quer cursar e o montador mostra todas as combinações de turmas sem choque de horário. Escolha a que preferir e leve para a sua grade.</p>
+          <p><b>Do terceiro semestre em diante, você escolhe as turmas.</b> Diga em que semestre ideal você está para puxar as obrigatórias dele, ou acrescente as disciplinas uma por uma. O montador mostra todas as grades sem choque de horário; escolha a que preferir e leve para a sua grade.</p>
+          <div class="conferencia__controles">
+            <label class="conferencia__curso">Curso
+              <select id="montCurso"></select>
+            </label>
+            <label class="conferencia__curso">Semestre ideal
+              <select id="montSemestre"></select>
+            </label>
+            <button type="button" class="botao botao--linha botao--pequeno" id="montPuxar">Puxar as obrigatórias</button>
+          </div>
+          <p class="nota mont-puxado" id="montPuxado" aria-live="polite"></p>
           <div class="busca">
             <label class="sr" for="montBusca">Acrescentar disciplina ao montador</label>
             <input type="search" id="montBusca" placeholder="Acrescente uma disciplina: código ou nome" autocomplete="off" spellcheck="false">
           </div>
           <ul class="mont-sugestoes" id="montSugestoes"></ul>
+          <div class="mont-fixos">
+            <h3>Vai cursar uma optativa?</h3>
+            <p>Se ela é da Poli, procure-a no campo acima. Se não estiver na lista (uma optativa de outra unidade, por exemplo), veja o horário dela no JupiterWeb e informe aqui: o montador passa a mostrar só as grades que não batem com esse horário. Serve também para estágio ou trabalho.</p>
+            <form class="mont-fixos__form" id="montFixoForm" data-local>
+              <label>Nome <input type="text" id="fixoNome" maxlength="40" placeholder="Ex.: optativa da FFLCH"></label>
+              <label>Dia <select id="fixoDia"></select></label>
+              <label>Das <input type="time" id="fixoInicio" value="14:00" step="300" required></label>
+              <label>Às <input type="time" id="fixoFim" value="15:40" step="300" required></label>
+              <button type="submit" class="botao botao--linha botao--pequeno">Reservar o horário</button>
+            </form>
+            <p class="mont-fixos__aviso" id="fixoAviso" aria-live="polite"></p>
+            <ul class="mont-fixos__lista" id="montFixos"></ul>
+          </div>
           <div class="mont-escolhidas" id="montEscolhidas"></div>
           <div class="mont-resultado" id="montResultado" aria-live="polite"></div>
         </div>
@@ -189,16 +212,6 @@
           <p class="nota">No iPhone e no Outlook, abrir o arquivo já oferece adicionar as aulas à agenda. As cores da grade ficam no site e no PDF: o Google Agenda usa a cor da agenda escolhida.</p>
         </div>
         <div class="grade" id="gradeQuadro"></div>
-      </section>
-
-      <!-- Para os grupos de extensão -->
-      <section class="bloco-portal chamado chamado--gex" id="gex" aria-labelledby="gex-titulo">
-        <div>
-          <span class="selo-gex">GEX, deem uma olhada</span>
-          <h2 id="gex-titulo" style="margin-top:10px">Uma sala para o seu grupo, em segundos</h2>
-          <p>Escolha o dia e o horário da reunião, filtre pelo número de pessoas e abra a sala para ver até quando ela fica livre. Reservar pelo site ainda não é possível: para isso, siga as regras do prédio.</p>
-        </div>
-        <a class="botao" href="#livres" id="gexIr">Procurar uma sala</a>
       </section>
 
       <section class="bloco-portal credito-uspolis" aria-labelledby="salas-credito">

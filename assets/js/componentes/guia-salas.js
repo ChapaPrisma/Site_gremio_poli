@@ -8,11 +8,11 @@
 // A grade do aluno fica só no navegador dele (localStorage), sem ir a lugar nenhum; o botão "Compartilhar"
 // põe a grade no próprio link (?grade=SIGLA~TURMA.SIGLA~TURMA), sem passar por servidor.
 
-import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610171410";
-import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610171410";
-import { carregarIndice, textoCreditos, detalhes, ligarFichas } from "./ficha-disciplina.js?v=202610171410";
-import { opcoesDe, combinar, incompativeis, notas, ORDENS } from "./montador-grade.js?v=202610171410";
-import { cursos as cursosDoGuia } from "../dados/cursos.js?v=202610171410";
+import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610181007";
+import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610181007";
+import { carregarIndice, textoCreditos, detalhes, ligarFichas } from "./ficha-disciplina.js?v=202610181007";
+import { opcoesDe, combinar, incompativeis, notas, ORDENS } from "./montador-grade.js?v=202610181007";
+import { cursos as cursosDoGuia } from "../dados/cursos.js?v=202610181007";
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -312,7 +312,7 @@ export default async function guiaSalas(_alvo, { raiz }) {
   /* ---------- a grade: a minha (salva neste navegador) ou uma compartilhada pelo link ---------- */
   let minha = lerGrade();
   const doLink = new URLSearchParams(location.search).get("grade");
-  let compartilhada = doLink ? doLink.split(".").map((k) => k.replace("~", "|")).filter((k) => /^[A-Z0-9]{7}\|\w+$/.test(k)) : null;
+  let compartilhada = doLink ? doLink.split(".").map((k) => k.replaceAll("~", "|")).filter((k) => /^[A-Z0-9]{7}\|\w+$/.test(k) || /^#[^|]{1,40}\|[0-5]\|\d{1,4}\|\d{1,4}$/.test(k)) : null;
   if (compartilhada && !compartilhada.length) compartilhada = null;
   let grade = compartilhada || minha;
   const guardar = () => { if (!compartilhada) { minha = grade; salvarGrade(grade); } };
@@ -355,7 +355,7 @@ export default async function guiaSalas(_alvo, { raiz }) {
   const url = (p) => new URL(p, raiz).href;
   let fichas = null;
   indexarTurmas(); indexarBusca();
-  carregarIndice(url).then((d) => { fichas = d; if (d) { indexarBusca(); buscar(); desenharGrade(); montarConferencia(); desenharMontador(); } });
+  carregarIndice(url).then((d) => { fichas = d; if (d) { indexarBusca(); buscar(); desenharGrade(); montarConferencia(); preencherSemestres(); desenharMontador(); } });
   fetch(url("assets/dados/turmas.json"), { cache: "no-cache" }).then((r) => r.json()).then((d) => {
     J = d; indexarTurmas(); indexarBusca(); depoisDaGrade(); desenharMontador();
   }).catch(() => {});
@@ -366,10 +366,12 @@ export default async function guiaSalas(_alvo, { raiz }) {
 
   /* ---------- quadro da semana (a grade e a prévia do montador) ---------- */
   const corDe = (codigos, c) => CORES[codigos.indexOf(c) % CORES.length];
+  const COR_FIXO = "#e1e4ec";   // horário reservado (optativa de fora da lista, estágio)
   function blocosDe(chaves) {
-    const codigos = [...new Set(chaves.map((k) => k.split("|")[0]))];
+    const codigos = [...new Set(chaves.filter((k) => k[0] !== "#").map((k) => k.split("|")[0]))];
     const blocos = [], faltando = [];
     for (const k of chaves) {
+      if (k[0] === "#") { const [nome, wd, a, b] = k.slice(1).split("|"); blocos.push({ c: nome, t: "", cor: COR_FIXO, prof: [], wd: +wd, a: +a, b: +b, sala: null, fixo: true }); continue; }
       const [c, t] = k.split("|"), x = turmaDe(c, t);
       if (!x) { faltando.push(`${c} (turma ${t})`); continue; }
       for (const h of x.h) blocos.push({ c, t, cor: corDe(codigos, c), prof: x.prof, wd: h[0], a: h[1], b: h[2], sala: h[3] != null ? porId.get(h[3]) : null });
@@ -388,7 +390,7 @@ export default async function guiaSalas(_alvo, { raiz }) {
       html += `<div class="grade__dia">${blocos.filter((x) => x.wd === wd).map((x) => {
         const top = ((Math.max(ini, x.a) - ini) / 60) * px, alt = Math.max(mini ? 18 : 28, ((Math.min(hFim * 60, x.b) - Math.max(ini, x.a)) / 60) * px - 2);
         return `<div class="bloco-aula${x.conflito ? " conflito" : ""}" style="top:${top}px;height:${alt}px;background:${x.cor}" title="${esc(`${x.c} ${nomeDe(x.c)}, turma ${x.t}, ${hora(x.a)}–${hora(x.b)}`)}">
-          <b>${esc(x.c)}</b>${mini ? "" : `${hora(x.a)}–${hora(x.b)}<br>${x.sala ? esc(`${x.sala.predio} ${x.sala.nome}`) : "sala a definir"}`}</div>`;
+          <b>${esc(x.c)}</b>${mini ? "" : `${hora(x.a)}–${hora(x.b)}<br>${x.fixo ? "horário reservado" : x.sala ? esc(`${x.sala.predio} ${x.sala.nome}`) : "sala a definir"}`}</div>`;
       }).join("")}</div>`;
     }
     return html + `</div>`;
@@ -405,24 +407,26 @@ export default async function guiaSalas(_alvo, { raiz }) {
     aulas = [];
     if (!grade.length) { quadro.innerHTML = `<p class="grade__vazia">Sua grade está vazia. Procure uma disciplina acima e toque em "Adicionar à grade", ou use o montador.</p>`; return; }
     const { blocos, faltando, codigos } = blocosDe(grade);
-    const minutosSemana = blocos.reduce((s, x) => s + (x.b - x.a), 0);
+    const minutosSemana = blocos.filter((x) => !x.fixo).reduce((s, x) => s + (x.b - x.a), 0);
     // créditos: os oficiais do JupiterWeb quando todas as disciplinas da grade têm ficha; senão, a estimativa pelas horas de aula
     const doJupiter = codigos.map((c) => fichas?.indice?.[c]?.[1]);
     const hs = Math.floor(minutosSemana / 60), mins = minutosSemana % 60, creditos = doJupiter.length && doJupiter.every((x) => x != null) ? doJupiter.reduce((a, b) => a + b, 0) : Math.round(minutosSemana / 50);
     const duracao = [hs ? `${hs} hora${hs === 1 ? "" : "s"}` : "", mins ? `${mins} minuto${mins === 1 ? "" : "s"}` : ""].filter(Boolean).join(" e ") || "0 minutos";
-    const n = grade.length - faltando.length;
+    const n = grade.filter((k) => k[0] !== "#").length - faltando.length;
     const notasGrade = [`${n} turma${n === 1 ? "" : "s"}, ${duracao} de aula por semana, ${creditos} crédito${creditos === 1 ? "" : "s"}.`];
     if (blocos.some((x) => x.conflito)) notasGrade.push("Os blocos com contorno tracejado têm conflito de horário.");
     if (faltando.length) notasGrade.push(J ? `Não estão nas turmas deste semestre: ${faltando.join(", ")}.` : "Carregando as turmas do JupiterWeb…");
     const lista = grade.map((k) => {
+      if (k[0] === "#") { const [nome, wd, a, b] = k.slice(1).split("|"); return `<li><i style="background:${COR_FIXO}"></i><span><b>${esc(nome)}</b> <small>horário reservado, ${SEMANA[+wd]} ${hora(+a)}–${hora(+b)}</small></span>
+        <button type="button" class="chip" data-tirar="${esc(k)}" aria-label="Tirar ${esc(nome)} da grade">Tirar da grade</button></li>`; }
       const [c, t] = k.split("|");
       return `<li><i style="background:${corDe(codigos, c)}"></i><span><b>${esc(c)}</b> ${esc(nomeDe(c))} <small>turma ${esc(t)}</small></span>
         <button type="button" class="chip" data-tirar="${esc(k)}" aria-label="Tirar ${esc(c)} da grade">Tirar da grade</button></li>`;
     }).join("");
     quadro.innerHTML = quadroSemana(blocos) + `<p class="grade__nota">${esc(notasGrade.join(" "))}</p><ul class="grade__turmas">${lista}</ul>`;
     aulas = blocos.filter((x) => x.wd >= 0 && x.wd < 6).sort((x, y) => x.wd - y.wd || x.a - y.a).map((x) => ({
-      c: x.c, nome: nomeDe(x.c), t: x.t, prof: x.prof, cor: x.cor, wd: x.wd, a: x.a, b: x.b, conflito: x.conflito,
-      local: x.sala ? `${x.sala.predio}, ${x.sala.nome}` : "Sala a definir",
+      c: x.c, nome: x.fixo ? "Horário reservado" : nomeDe(x.c), t: x.t, prof: x.prof, cor: x.cor, wd: x.wd, a: x.a, b: x.b, conflito: x.conflito,
+      local: x.fixo ? "Conferir no JupiterWeb" : x.sala ? `${x.sala.predio}, ${x.sala.nome}` : "Sala a definir",
     }));
   }
   function depoisDaGrade() { desenharGrade(); buscar(); montarConferencia(); }
@@ -449,7 +453,7 @@ export default async function guiaSalas(_alvo, { raiz }) {
   };
   $("#gradeCompartilhar").onclick = async () => {
     if (!grade.length) return;
-    const link = `${location.origin}${location.pathname}?grade=${grade.map((k) => k.replace("|", "~")).join(".")}#grade`;
+    const link = `${location.origin}${location.pathname}?grade=${encodeURIComponent(grade.map((k) => k.replaceAll("|", "~")).join("."))}#grade`;
     const aviso = $("#gradeLink");
     try {
       if (navigator.share && matchMedia("(pointer: coarse)").matches) { await navigator.share({ title: "Minha grade", text: "A minha grade da Poli:", url: link }); return; }
@@ -459,16 +463,36 @@ export default async function guiaSalas(_alvo, { raiz }) {
     aviso.hidden = false;
   };
 
-  /* ---------- 1º ano: conferir a grade com as obrigatórias do semestre ---------- */
+  /* ---------- curso do aluno (vale para o 1º ano e para o montador) ---------- */
   const PALAVRA_CURSO = { civil: "civil", ambiental: "ambiental", computacao: "computacao", eletrica: "eletrica", mecanica: "mecanica", mecatronica: "mecatronica", producao: "producao", quimica: "quimica", naval: "naval", "materiais-metalurgica-nuclear": "materiais", "minas-petroleo": "minas" };
   const CHAVE_CONF = "gremio:conferencia";
   const conf = (() => { try { return JSON.parse(localStorage.getItem(CHAVE_CONF)) || {}; } catch { return {}; } })();
-  conf.sem ??= new Date().getMonth() >= 6 ? "2" : "1";
-  const selCurso = $("#confCurso");
-  selCurso.innerHTML = `<option value="">Escolha o seu curso</option>` + cursosDoGuia.map((c) => `<option value="${c.id}">${esc(c.nome)}</option>`).join("");
-  selCurso.value = conf.curso || "";
+  const semestreAgora = new Date().getMonth() >= 6 ? 2 : 1;   // 1º ou 2º semestre do ano
+  conf.sem ??= String(semestreAgora);
   const guardarConf = () => { try { localStorage.setItem(CHAVE_CONF, JSON.stringify(conf)); } catch {} };
-  selCurso.addEventListener("change", () => { conf.curso = selCurso.value; guardarConf(); montarConferencia(); });
+  const opcoesCurso = `<option value="">Escolha o seu curso</option>` + cursosDoGuia.map((c) => `<option value="${c.id}">${esc(c.nome)}</option>`).join("");
+  const selCursos = [$("#confCurso"), $("#montCurso")];
+  selCursos.forEach((s) => { s.innerHTML = opcoesCurso; s.value = conf.curso || ""; });
+  selCursos.forEach((s) => s.addEventListener("change", () => {
+    conf.curso = s.value; guardarConf();
+    selCursos.forEach((o) => { o.value = conf.curso; });
+    montarConferencia(); preencherSemestres(); desenharMontador();
+  }));
+  // Uma turma "serve para mim" se tem vagas da Poli e, quando o curso é conhecido, vagas para o curso ou
+  // para toda a unidade. As turmas reservadas a outras unidades (IQ, IF, IME, FEA...) ficam de fora.
+  const nomesGrupos = (x) => (x.grupos || []).map(([g]) => J?.grupos?.[g] || "");
+  function serveParaMim(x) {
+    const nomes = nomesGrupos(x);
+    if (!nomes.length) return true;   // sem o detalhe das vagas, não dá para saber: fica
+    const daPoli = nomes.filter((n) => /(^|: )EP\b/.test(n));
+    if (!daPoli.length) return false;
+    const palavra = PALAVRA_CURSO[conf.curso];
+    if (!palavra) return true;
+    return daPoli.some((n) => /toda a Unidade/i.test(n) || norm(n).includes(palavra) || !/Engenharia|Ciclo/.test(n));
+  }
+  const doMeuCurso = (x) => { const p = PALAVRA_CURSO[conf.curso]; return !!p && nomesGrupos(x).some((n) => /(^|: )EP\b/.test(n) && norm(n).includes(p)); };
+
+  /* ---------- 1º ano: a grade que já vem pronta, aqui com as salas ---------- */
   $(".conferencia__semestre").addEventListener("click", (e) => { const b = e.target.closest("[data-sem]"); if (!b) return; conf.sem = b.dataset.sem; guardarConf(); montarConferencia(); });
   function montarConferencia() {
     document.querySelectorAll(".conferencia__semestre [data-sem]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.sem === conf.sem));
@@ -477,33 +501,34 @@ export default async function guiaSalas(_alvo, { raiz }) {
     const g = fichas?.cursos?.[conf.curso]?.grade?.[conf.sem];
     if (!g) { caixa.innerHTML = `<p class="nota">${fichas ? "A grade deste curso ainda não está disponível." : "Carregando a grade do curso…"}</p>`; return; }
     const obrig = g.filter((d) => d[4] === "O"), eletivas = g.filter((d) => d[4] === "L");
-    const naGradeC = new Set(grade.map((k) => k.split("|")[0]));
-    const palavra = PALAVRA_CURSO[conf.curso];
-    const faltam = obrig.filter((d) => !naGradeC.has(d[0]));
+    const naGradeT = new Map(grade.filter((k) => k[0] !== "#").map((k) => k.split("|")));
+    const prontas = obrig.filter((d) => naGradeT.has(d[0])).length;
     const itens = obrig.map(([c, n, ca, ct]) => {
-      const tem = naGradeC.has(c);
-      const ts = turmasDe(c);
-      const doCurso = ts.filter((x) => (x.grupos || []).some(([gi]) => norm(J?.grupos?.[gi]).includes(palavra)));
+      const t = naGradeT.get(c);
+      const ts = turmasDe(c).filter(serveParaMim);
+      const doCurso = ts.filter(doMeuCurso);
       const mostrar = doCurso.length ? doCurso : ts;
-      const estado = tem ? "Na sua grade."
-        : `Não está na sua grade aqui.${ts.length ? ` Escolha a sua turma${doCurso.length ? " (mostrando as que reservam vagas para o seu curso)" : ""}:` : J ? " Sem turma no JupiterWeb neste semestre." : ""}`;
-      return `<li class="conf-item${tem ? " is-ok" : ""}">
-        <span class="conf-item__marca" aria-hidden="true">${tem ? "✓" : ""}</span>
+      const estado = t ? `Turma ${t} na sua grade.`
+        : mostrar.length ? `Qual é a sua turma? ${doCurso.length ? `${doCurso.length === 1 ? "Esta é a que tem" : "Estas são as que têm"} vagas para o seu curso.` : "Confira o código no JupiterWeb."}`
+        : J ? "Sem turma no JupiterWeb neste semestre." : "Carregando as turmas…";
+      return `<li class="conf-item${t ? " is-ok" : ""}">
+        <span class="conf-item__marca" aria-hidden="true">${t ? "✓" : ""}</span>
         <div><b>${esc(c)}</b> ${esc(n)} <small>${esc(textoCreditos(ca, ct))}</small>
           <p class="conf-item__estado">${esc(estado)}</p>
-          ${!tem && mostrar.length ? `<details class="conf-turmas"><summary>${mostrar.length} turma${mostrar.length > 1 ? "s" : ""}</summary><ul class="turmas">${mostrar.map(itemTurma).join("")}</ul></details>` : ""}
+          ${!t && mostrar.length ? `<details class="conf-turmas"${mostrar.length <= 2 ? " open" : ""}><summary>${mostrar.length === 1 ? "Ver a turma" : `Ver as ${mostrar.length} turmas`}</summary><ul class="turmas">${mostrar.map(itemTurma).join("")}</ul></details>` : ""}
         </div></li>`;
     }).join("");
-    const resumo = !faltam.length
-      ? `Todas as ${obrig.length} obrigatórias do ${conf.sem}º semestre estão na sua grade.`
-      : `Faltam ${faltam.length} de ${obrig.length} obrigatórias do ${conf.sem}º semestre na sua grade aqui. Se elas estiverem no seu JupiterWeb, é só acrescentar a turma; se não estiverem, procure o Serviço de Graduação.`;
-    caixa.innerHTML = `<p class="conferencia__resumo${faltam.length ? "" : " is-ok"}">${esc(resumo)}</p><ul class="conferencia__lista">${itens}</ul>
-      ${eletivas.length && conf.sem === "2" ? `<details class="conf-eletivas"><summary>Optativas eletivas do 2º semestre (${eletivas.length})</summary><p class="nota">Dá para pedir no JupiterWeb, no período de matrícula.</p><ul>${eletivas.map(([c, n, ca, ct]) => `<li><b>${esc(c)}</b> ${esc(n)} <small>${esc(textoCreditos(ca, ct))}</small></li>`).join("")}</ul></details>` : ""}`;
+    const resumo = prontas === obrig.length ? `Pronto: as ${obrig.length} obrigatórias do ${conf.sem}º semestre estão na sua grade.`
+      : prontas ? `${prontas} de ${obrig.length} obrigatórias do ${conf.sem}º semestre já estão na sua grade. Marque a turma das outras.`
+      : `São ${obrig.length} obrigatórias no ${conf.sem}º semestre. Marque a sua turma em cada uma.`;
+    caixa.innerHTML = `<p class="conferencia__resumo${prontas === obrig.length ? " is-ok" : ""}">${esc(resumo)}</p><ul class="conferencia__lista">${itens}</ul>
+      <p class="nota">Se alguma destas obrigatórias não aparece no seu JupiterWeb, procure o Serviço de Graduação da Poli.</p>
+      ${eletivas.length && conf.sem === "2" ? `<details class="conf-eletivas"><summary>Optativas eletivas do 2º semestre (${eletivas.length})</summary><p class="nota">Dá para pedir no JupiterWeb, no período de matrícula. Depois, acrescente a turma aqui pela busca de cima.</p><ul>${eletivas.map(([c, n, ca, ct]) => `<li><b>${esc(c)}</b> ${esc(n)} <small>${esc(textoCreditos(ca, ct))}</small></li>`).join("")}</ul></details>` : ""}`;
   }
 
   /* ---------- 3º semestre em diante: o montador ---------- */
   const CHAVE_MONT = "gremio:montador";
-  const mont = (() => { const base = { discs: [], fora: [], lotadas: false, ordem: "janelas" }; try { return { ...base, ...JSON.parse(localStorage.getItem(CHAVE_MONT)) }; } catch { return base; } })();
+  const mont = (() => { const base = { discs: [], fora: [], lotadas: false, soMeu: true, ordem: "janelas", fixos: [], alt: {} }; try { return { ...base, ...JSON.parse(localStorage.getItem(CHAVE_MONT)) }; } catch { return base; } })();
   let combos = [], atual = 0;
   const guardarMont = () => { try { localStorage.setItem(CHAVE_MONT, JSON.stringify(mont)); } catch {} };
   const abas = [$("#abaPrimeiro"), $("#abaDepois")];
@@ -517,6 +542,49 @@ export default async function guiaSalas(_alvo, { raiz }) {
     a.addEventListener("keydown", (e) => { if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); abrirAba(1 - i, true); } });
   });
   try { if (localStorage.getItem("gremio:montador-aba") === "1") abrirAba(1); } catch {}
+
+  // semestre ideal: puxa as obrigatórias daquele semestre da grade do curso
+  function preencherSemestres() {
+    const sel = $("#montSemestre"), g = fichas?.cursos?.[conf.curso]?.grade || {};
+    const sems = Object.keys(g).map(Number).filter((s) => s >= 3).sort((a, b) => a - b);
+    sel.innerHTML = sems.length ? sems.map((s) => `<option value="${s}">${s}º semestre</option>`).join("") : `<option value="">${conf.curso ? (fichas ? "Sem grade pública" : "Carregando…") : "Escolha o curso"}</option>`;
+    if (mont.semestre && sems.includes(+mont.semestre)) sel.value = mont.semestre;
+    else if (sems.length) sel.value = sems.find((s) => s % 2 === semestreAgora % 2) || sems[0];
+    $("#montPuxar").disabled = !sems.length;
+  }
+  $("#montSemestre").addEventListener("change", (e) => { mont.semestre = e.target.value; guardarMont(); });
+  $("#montPuxar").addEventListener("click", () => {
+    const s = $("#montSemestre").value, g = fichas?.cursos?.[conf.curso]?.grade?.[s];
+    if (!g) return;
+    mont.semestre = s;
+    const obrig = g.filter((d) => d[4] === "O").map((d) => d[0]);
+    const comTurma = obrig.filter((c) => turmasDe(c).some(serveParaMim));
+    const semTurma = obrig.filter((c) => !comTurma.includes(c));
+    mont.discs = comTurma; mont.alt = {}; guardarMont(); atual = 0;
+    const outroSemestre = (+s % 2) !== (semestreAgora % 2);
+    $("#montPuxado").textContent = [
+      comTurma.length ? `Puxamos ${comTurma.length} obrigatória${comTurma.length === 1 ? "" : "s"} do ${s}º semestre.` : `Nenhuma obrigatória do ${s}º semestre tem turma agora.`,
+      semTurma.length ? `Sem turma neste semestre: ${semTurma.join(", ")}.` : "",
+      outroSemestre ? `As matérias do ${s}º semestre costumam ser oferecidas no ${semestreAgora === 2 ? "primeiro" : "segundo"} semestre do ano.` : "",
+    ].filter(Boolean).join(" ");
+    desenharMontador();
+  });
+
+  // horários reservados: optativa de fora da lista, estágio, trabalho
+  const DIAS_FORM = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+  $("#fixoDia").innerHTML = DIAS_FORM.map((d, i) => `<option value="${i}">${d}</option>`).join("");
+  const minutoDe = (v) => { const [h, m] = String(v || "").split(":").map(Number); return Number.isFinite(h) ? h * 60 + (m || 0) : null; };
+  const chaveFixo = (f) => `#${f.nome}|${f.wd}|${f.a}|${f.b}`;
+  $("#montFixoForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const nome = $("#fixoNome").value.replace(/[|~.#]/g, " ").trim() || "Optativa", wd = +$("#fixoDia").value, a = minutoDe($("#fixoInicio").value), b = minutoDe($("#fixoFim").value);
+    const aviso = $("#fixoAviso");
+    if (a == null || b == null || b <= a) { aviso.textContent = "Confira os horários: o fim tem de ser depois do início."; return; }
+    aviso.textContent = "";
+    mont.fixos.push({ nome: nome.slice(0, 40), wd, a, b }); guardarMont();
+    $("#fixoNome").value = ""; atual = 0; desenharMontador();
+  });
+  $("#montFixos").addEventListener("click", (e) => { const b = e.target.closest("[data-tirar-fixo]"); if (!b) return; mont.fixos.splice(+b.dataset.tirarFixo, 1); guardarMont(); atual = 0; desenharMontador(); });
 
   $("#montBusca").addEventListener("input", () => {
     const achadas = (achar($("#montBusca").value, 8) || []).filter((d) => !mont.discs.includes(d.c));
@@ -536,6 +604,7 @@ export default async function guiaSalas(_alvo, { raiz }) {
     const cx = e.target.closest("[data-turma]");
     if (cx) { const k = cx.dataset.turma; mont.fora = cx.checked ? mont.fora.filter((x) => x !== k) : [...mont.fora, k]; guardarMont(); atual = 0; calcular(); }
     if (e.target.id === "montLotadas") { mont.lotadas = e.target.checked; guardarMont(); atual = 0; desenharMontador(); }
+    if (e.target.id === "montSoMeu") { mont.soMeu = e.target.checked; guardarMont(); atual = 0; desenharMontador(); }
   });
   $("#montResultado").addEventListener("click", (e) => {
     const o = e.target.closest("[data-ordem]");
@@ -544,19 +613,31 @@ export default async function guiaSalas(_alvo, { raiz }) {
     if (p) { atual = (atual + +p.dataset.passo + combos.length) % combos.length; mostrarCombo(); return; }
     if (e.target.closest("#montUsar")) {
       if (compartilhada) sairDoLink(false);
-      // o que já estava na grade e não é destas disciplinas continua lá
-      grade = [...grade.filter((k) => !mont.discs.includes(k.split("|")[0])), ...combos[atual].chaves];
+      const chaves = chavesDoCombo(combos[atual]);
+      // o que já estava na grade e não é destas disciplinas nem horário reservado continua lá
+      grade = [...grade.filter((k) => k[0] !== "#" && !mont.discs.includes(k.split("|")[0])), ...chaves];
       guardar(); depoisDaGrade();
       $("#grade").scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
+  $("#montResultado").addEventListener("change", (e) => {
+    const s = e.target.closest("[data-alt]"); if (!s) return;
+    mont.alt[s.dataset.alt] = +s.value; guardarMont(); mostrarCombo();
+  });
 
+  const turmasUsaveis = (c) => turmasDe(c).filter((x) => x.h.length && (!mont.lotadas || !lotada(x)) && (!mont.soMeu || serveParaMim(x)));
   function desenharMontador() {
+    const fixos = $("#montFixos");
+    fixos.innerHTML = mont.fixos.map((f, i) => `<li><span><b>${esc(f.nome)}</b> · ${DIAS_FORM[f.wd]} ${hora(f.a)}–${hora(f.b)}</span><button type="button" class="chip" data-tirar-fixo="${i}" aria-label="Tirar ${esc(f.nome)}">Tirar</button></li>`).join("");
     const caixa = $("#montEscolhidas");
-    if (!mont.discs.length) { caixa.innerHTML = `<p class="mont-vazio">Nenhuma disciplina ainda. Acrescente as que você pretende cursar, uma por vez.</p>`; $("#montResultado").innerHTML = ""; combos = []; return; }
-    caixa.innerHTML = `<label class="mont-lotadas"><input type="checkbox" id="montLotadas"${mont.lotadas ? " checked" : ""}> Esconder turmas sem vaga</label>
+    if (!mont.discs.length) { caixa.innerHTML = `<p class="mont-vazio">Nenhuma disciplina ainda. Puxe as obrigatórias do seu semestre ou acrescente as disciplinas uma por vez.</p>`; $("#montResultado").innerHTML = ""; combos = []; return; }
+    const escondidas = mont.discs.reduce((s, c) => s + turmasDe(c).filter((x) => !serveParaMim(x)).length, 0);
+    caixa.innerHTML = `<div class="mont-filtros">
+        <label class="mont-lotadas"><input type="checkbox" id="montSoMeu"${mont.soMeu ? " checked" : ""}> Só turmas com vaga para ${conf.curso ? "o meu curso" : "a Poli"}${mont.soMeu && escondidas ? ` <small>(${escondidas} turma${escondidas === 1 ? "" : "s"} de outras unidades ou cursos escondida${escondidas === 1 ? "" : "s"})</small>` : ""}</label>
+        <label class="mont-lotadas"><input type="checkbox" id="montLotadas"${mont.lotadas ? " checked" : ""}> Esconder turmas sem vaga</label>
+      </div>
       <ul class="mont-lista">${mont.discs.map((c) => {
-        const ts = turmasDe(c).filter((x) => !mont.lotadas || !lotada(x));
+        const ts = turmasUsaveis(c);
         const j = fichas?.indice?.[c];
         return `<li class="mont-disc">
           <div class="mont-disc__topo"><span><b>${esc(c)}</b> ${esc(nomeDe(c))}${j ? ` <small>${esc(textoCreditos(j[1], j[2]))}</small>` : ""}</span>
@@ -564,49 +645,76 @@ export default async function guiaSalas(_alvo, { raiz }) {
           ${ts.length ? `<details><summary>${ts.length === 1 ? "1 turma" : `${ts.length} turmas: desmarque as que você não quer`}</summary><ul class="mont-turmas">${ts.map((x) => `<li><label>
               <input type="checkbox" data-turma="${esc(x.c)}|${esc(x.t)}"${mont.fora.includes(`${x.c}|${x.t}`) ? "" : " checked"}>
               <span><b>Turma ${esc(x.t)}</b>${textoTipo(x) ? ` · ${esc(textoTipo(x))}` : ""} · ${esc(x.h.map(([wd, a, b]) => `${SEMANA[wd]} ${hora(a)}–${hora(b)}`).join(", "))}${x.prof.length ? ` · ${esc(x.prof.join(", "))}` : ""}${textoVagas(x) ? ` · <span class="${lotada(x) ? "is-lotada" : ""}">${esc(textoVagas(x))}</span>` : ""}</span>
-            </label></li>`).join("")}</ul></details>` : `<p class="mont-disc__sem">${J ? "Sem turma com vaga neste semestre." : "Carregando as turmas…"}</p>`}
+            </label></li>`).join("")}</ul></details>` : `<p class="mont-disc__sem">${J ? "Nenhuma turma com vaga para você neste semestre." : "Carregando as turmas…"}</p>`}
         </li>`;
       }).join("")}</ul>`;
     calcular();
   }
 
+  // Turmas no mesmo horário (só muda o professor ou a sala) são a mesma grade: viram uma opção só, com as
+  // turmas como alternativas. Assim o número de grades é o de horários diferentes de verdade.
+  function agruparPorHorario(opcoes) {
+    const grupos = new Map();
+    for (const o of opcoes) {
+      const k = o.h.map((x) => x.join(",")).sort().join(";");
+      if (!grupos.has(k)) grupos.set(k, { h: o.h, alternativas: [] });
+      grupos.get(k).alternativas.push(o);
+    }
+    return [...grupos.values()];
+  }
+  let listaAtual = [];
   function calcular() {
     const res = $("#montResultado");
     const lista = mont.discs.map((c) => ({
-      c, opcoes: opcoesDe(turmasDe(c).filter((x) => x.h.length && (!mont.lotadas || !lotada(x))).map((x) => ({ c: x.c, t: x.t, tipo: x.tipo, teorica: x.teorica, h: x.h.map(([wd, a, b]) => [wd, a, b]) })))
-        .filter((op) => !op.chaves.some((k) => mont.fora.includes(k))),
+      c, opcoes: agruparPorHorario(opcoesDe(turmasUsaveis(c).map((x) => ({ c: x.c, t: x.t, tipo: x.tipo, teorica: x.teorica, h: x.h.map(([wd, a, b]) => [wd, a, b]) })))
+        .filter((op) => !op.chaves.some((k) => mont.fora.includes(k)))),
     }));
+    // os horários reservados entram como uma "disciplina" de uma opção só, que as outras não podem atravessar
+    if (mont.fixos.length) lista.push({ c: "#", fixo: true, opcoes: [{ h: mont.fixos.map((f) => [f.wd, f.a, f.b]), alternativas: [{ chaves: mont.fixos.map(chaveFixo) }] }] });
+    listaAtual = lista;
     const vazias = lista.filter((d) => !d.opcoes.length).map((d) => d.c);
-    if (vazias.length) { res.innerHTML = `<p class="mont-aviso">Sem turma para ${esc(vazias.join(", "))}. ${J ? `Marque ao menos uma turma${vazias.length > 1 ? " de cada" : ""}.` : "Carregando as turmas do JupiterWeb…"}</p>`; combos = []; return; }
-    const { combinacoes, cortado } = combinar(lista);
+    if (vazias.length) { res.innerHTML = `<p class="mont-aviso">Sem turma para ${esc(vazias.join(", "))}. ${J ? `Marque ao menos uma turma${vazias.length > 1 ? " de cada" : ""}, ou tire ${vazias.length > 1 ? "essas disciplinas" : "essa disciplina"}.` : "Carregando as turmas do JupiterWeb…"}</p>`; combos = []; return; }
+    const { combinacoes, cortado } = combinar(lista, 2000);
     if (!combinacoes.length) {
-      const pares = incompativeis(lista);
-      res.innerHTML = `<p class="mont-aviso">Não existe combinação sem choque de horário com estas turmas.${pares.length ? ` Não cabem juntas de jeito nenhum: ${pares.map(([a, b]) => `${esc(a)} e ${esc(b)}`).join("; ")}.` : " Tente liberar mais turmas ou tirar uma disciplina."}</p>`;
+      const pares = incompativeis(lista).map(([a, b]) => [a === "#" ? "os horários reservados" : a, b === "#" ? "os horários reservados" : b]);
+      res.innerHTML = `<p class="mont-aviso">Não existe grade sem choque de horário com estas turmas.${pares.length ? ` Não cabem juntas de jeito nenhum: ${pares.map(([a, b]) => `${esc(a)} e ${esc(b)}`).join("; ")}.` : " Tente liberar mais turmas ou tirar uma disciplina."}</p>`;
       combos = []; return;
     }
-    combos = combinacoes.map((esc_) => {
-      const ops = esc_.map((j, i) => lista[i].opcoes[j]);
-      return { chaves: ops.flatMap((o) => o.chaves), notas: notas(ops.flatMap((o) => o.h)) };
-    }).sort((a, b) => ORDENS[mont.ordem].f(a.notas, b.notas));
+    combos = combinacoes.map((esc_) => ({ ops: esc_.map((j, i) => lista[i].opcoes[j]), notas: notas(esc_.flatMap((j, i) => lista[i].opcoes[j].h)) }))
+      .sort((a, b) => ORDENS[mont.ordem].f(a.notas, b.notas));
     atual = Math.min(atual, combos.length - 1);
     res.innerHTML = `<div class="mont-res__topo">
-        <p><b>${combos.length}${cortado ? "+" : ""} grade${combos.length === 1 ? "" : "s"} sem choque de horário</b>${cortado ? " (mostrando as primeiras; desmarque turmas para ver menos)" : ""}.</p>
+        <p><b>${combos.length}${cortado ? "+" : ""} grade${combos.length === 1 ? "" : "s"} sem choque de horário</b>${cortado ? " (são muitas: desmarque turmas para ver menos)" : ""}.</p>
         <div class="mont-ordens" role="group" aria-label="Ordenar as grades">${Object.entries(ORDENS).map(([k, o]) => `<button type="button" class="chip" data-ordem="${k}" aria-pressed="${mont.ordem === k}">${o.rotulo}</button>`).join("")}</div>
       </div>
       <div class="mont-res__nav"><button type="button" class="chip" data-passo="-1" aria-label="Grade anterior">←</button><span id="montContador" aria-live="polite"></span><button type="button" class="chip" data-passo="1" aria-label="Próxima grade">→</button></div>
       <div class="grade mont-res__quadro" id="montQuadro"></div>
-      <div class="mont-res__acoes"><button type="button" class="botao botao--pequeno" id="montUsar">Usar esta grade</button><p class="nota" id="montResumo"></p></div>`;
+      <p class="nota" id="montResumo"></p>
+      <ul class="mont-res__turmas" id="montTurmas"></ul>
+      <div class="mont-res__acoes"><button type="button" class="botao botao--pequeno" id="montUsar">Usar esta grade</button></div>`;
     mostrarCombo();
   }
+  // as chaves da grade escolhida: em cada disciplina, a turma alternativa que o aluno escolheu (ou a primeira)
+  const chavesDoCombo = (combo) => combo.ops.flatMap((op, i) => { const c = listaAtual[i].c; const alt = op.alternativas[Math.min(mont.alt[c] || 0, op.alternativas.length - 1)]; return alt.chaves; });
   function mostrarCombo() {
     if (!combos.length) return;
-    const c = combos[atual], { blocos } = blocosDe(c.chaves);
+    const combo = combos[atual], chaves = chavesDoCombo(combo), { blocos, codigos } = blocosDe(chaves);
     $("#montContador").textContent = `${atual + 1} de ${combos.length}`;
     $("#montQuadro").innerHTML = quadroSemana(blocos, { px: 26, mini: true });
-    const n = c.notas, h = Math.floor(n.janelas / 60), m = Math.round(n.janelas % 60);
+    const n = combo.notas, h = Math.floor(n.janelas / 60), m = Math.round(n.janelas % 60);
     const janelas = n.janelas ? `${h ? `${h} h` : ""}${h && m ? " e " : ""}${m ? `${m} min` : ""} de janelas` : "sem janelas";
-    $("#montResumo").textContent = `${n.dias} dia${n.dias === 1 ? "" : "s"} com aula, ${janelas} na semana. Turmas: ${c.chaves.map((k) => k.replace("|", " ")).join(", ")}.`;
+    $("#montResumo").textContent = `${n.dias} dia${n.dias === 1 ? "" : "s"} com aula, ${janelas} na semana.`;
+    $("#montTurmas").innerHTML = combo.ops.map((op, i) => {
+      const d = listaAtual[i];
+      if (d.fixo) return `<li><i style="background:${COR_FIXO}"></i><span>Horários reservados: ${esc(mont.fixos.map((f) => f.nome).join(", "))}</span></li>`;
+      const escolha = Math.min(mont.alt[d.c] || 0, op.alternativas.length - 1);
+      const rotuloAlt = (alt) => alt.chaves.map((k) => { const [c, t] = k.split("|"), x = turmaDe(c, t); return `turma ${t}${x?.prof.length ? ` (${x.prof.join(", ")})` : ""}`; }).join(" + ");
+      return `<li><i style="background:${corDe(codigos, d.c)}"></i><span><b>${esc(d.c)}</b> ${esc(nomeDe(d.c))}: ${op.alternativas.length > 1
+        ? `<select data-alt="${esc(d.c)}" aria-label="Turma de ${esc(d.c)}">${op.alternativas.map((alt, j) => `<option value="${j}"${j === escolha ? " selected" : ""}>${esc(rotuloAlt(alt))}</option>`).join("")}</select> <small>${op.alternativas.length} turmas no mesmo horário</small>`
+        : esc(rotuloAlt(op.alternativas[0]))}</span></li>`;
+    }).join("");
   }
+  preencherSemestres();
   desenharMontador();
 
   /* ---------- tudo ---------- */

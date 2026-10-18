@@ -190,7 +190,7 @@
 .conferencia__lista { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
 .conf-item { display: flex; gap: 10px; padding: 10px 12px; border: 2px solid var(--linha); border-radius: var(--raio-pequeno); }
 .conf-item.is-ok { border-color: #b7dfc8; }
-.conf-item__marca { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border: 2px solid var(--tinta); border-radius: 6px; font-weight: 900; font-size: .85rem; }
+.conf-item__marca { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border: 2px solid var(--linha); border-radius: 6px; font-weight: 900; font-size: .85rem; }
 .conf-item.is-ok .conf-item__marca { background: var(--aberto); border-color: var(--aberto); color: #fff; }
 .conf-item small { color: var(--tinta-suave); }
 .conf-item__estado { margin-top: 2px; font-size: .88rem; color: var(--tinta-suave); }
@@ -235,3 +235,24 @@
   .grade__tabela--mini .bloco-aula { padding: 2px; }
   .grade__tabela--mini .bloco-aula b { font-size: .58rem; letter-spacing: -.02em; }
 }
+
+/* montador: semestre ideal, horários reservados, turmas da grade escolhida */
+.mont-puxado:empty { display: none; }
+.mont-fixos { margin-top: 18px; padding: 14px 16px; border: 2px dashed var(--linha); border-radius: var(--raio-pequeno); }
+.mont-fixos h3 { font-size: 1.02rem; }
+.mont-fixos p { margin-top: 4px; font-size: .92rem; color: var(--tinta-suave); max-width: 70ch; }
+.mont-fixos__form { display: flex; flex-wrap: wrap; align-items: end; gap: 10px 12px; margin-top: 10px; }
+.mont-fixos__form label { display: grid; gap: 3px; font-weight: 800; font-size: .82rem; }
+.mont-fixos__form input, .mont-fixos__form select { padding: 7px 9px; border: 2px solid var(--tinta); border-radius: var(--raio-pequeno); background: var(--papel); font: 600 .95rem var(--fonte); color: var(--tinta); }
+.mont-fixos__form input[type="text"] { width: min(240px, 70vw); }
+.mont-fixos__aviso { color: #a3243c !important; font-weight: 700; }
+.mont-fixos__aviso:empty { display: none; }
+.mont-fixos__lista { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
+.mont-fixos__lista li { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: .92rem; }
+.mont-filtros { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.mont-filtros small { font-weight: 600; color: var(--tinta-suave); }
+.mont-res__turmas { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; font-size: .9rem; }
+.mont-res__turmas li { display: flex; align-items: flex-start; gap: 8px; }
+.mont-res__turmas i { flex: none; width: 14px; height: 14px; margin-top: 3px; border-radius: 4px; border: 2px solid var(--tinta); }
+.mont-res__turmas select { max-width: 100%; padding: 3px 6px; border: 2px solid var(--tinta); border-radius: 6px; font: 600 .85rem var(--fonte); background: var(--papel); }
+.mont-res__turmas small { color: var(--tinta-suave); }

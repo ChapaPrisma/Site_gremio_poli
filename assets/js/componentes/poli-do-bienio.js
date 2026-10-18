@@ -3,9 +3,10 @@
 // Uso: <div data-componente="poli-do-bienio"></div>
 //
 // Tempo a pé: cada ponto do desenho continua na mesma direção a partir do Biênio, mas vai para a distância
-// que se anda para chegar nele (pelas calçadas e caminhos do OpenStreetMap), em vez da distância em linha
-// reta. O que é fácil de alcançar fica onde está; o que obriga a dar a volta se afasta. As linhas de 5, 10 e
-// 15 minutos, tortas no mapa, viram círculos. O "campo de caminhada" vem pronto de ferramentas/campus_poli.py.
+// que se andaria no plano no tempo que se leva até ele (pelas calçadas e caminhos do OpenStreetMap, contando
+// subidas e descidas pelo relevo do SRTM). O que é fácil de alcançar fica onde está; o que obriga a dar a
+// volta ou a subir se afasta. As linhas de 5, 10 e 15 minutos, tortas no mapa, viram círculos. O "campo de
+// caminhada" vem pronto de ferramentas/campus_poli.py.
 //
 // Coordenadas: metros com o Biênio na origem (x para leste, y para norte). O desenho fica num <g> com a
 // transformação da câmera (zoom e arrasto mexem só nela); os rótulos são desenhados por cima, em pixels de
@@ -13,8 +14,8 @@
 //
 // Dados: dados/predios-poli.js (nomes, endereços) e assets/dados/campus-poli.json (OpenStreetMap).
 
-import { predios, bienio } from "../dados/predios-poli.js?v=202610171410";
-import { centros } from "../dados/cursos.js?v=202610171410";
+import { predios, bienio } from "../dados/predios-poli.js?v=202610181007";
+import { centros } from "../dados/cursos.js?v=202610181007";
 
 const NS = "http://www.w3.org/2000/svg";
 const GRAU = Math.PI / 180;
@@ -45,6 +46,15 @@ export default async function poliDoBienio(alvo, { url }) {
   catch { alvo.innerHTML = `<p class="nota">Não deu para carregar o desenho dos prédios agora.</p>`; return; }
 
   const RAIO = dados.raio, campo = dados.caminhada;
+  // altitude (m) em qualquer ponto, pela grade do relevo; serve para dizer quanto se sobe até cada prédio
+  const rel = dados.relevo;
+  const altitude = rel ? ([x, y]) => {
+    const fx = Math.min(Math.max((x + rel.lado) / rel.passo, 0), rel.n - 1.001), fy = Math.min(Math.max((y + rel.lado) / rel.passo, 0), rel.n - 1.001);
+    const j = Math.floor(fx), i = Math.floor(fy), ax = fx - j, ay = fy - i, m = rel.m;
+    return lerp(lerp(m[i][j], m[i][j + 1], ax), lerp(m[i + 1][j], m[i + 1][j + 1], ax), ay);
+  } : null;
+  const altBienio = altitude ? altitude([0, 0]) : 0;
+  const subida = (l) => (Math.abs(l.sobe) >= 8 ? `, ${l.sobe > 0 ? "sobe" : "desce"} ${Math.abs(l.sobe)} m` : "");
   const casPorId = Object.fromEntries(centros.map((c) => [c.id, c]));
 
   /* ---------- campo de caminhada: metros andados até (r, θ) ---------- */
@@ -101,7 +111,8 @@ export default async function poliDoBienio(alvo, { url }) {
     const [x, y] = metros(p.lat, p.lon);
     const aneis = (dados.predios[p.id] || []).flat();
     const meio = aneis.length ? centroide([aneis.reduce((a, b) => (b.length > a.length ? b : a))]) : [x, y];
-    return { ...p, n: i + 1, r: Math.hypot(x, y), dir: direcao(x, y), meio: preparar(meio), andar: andado(Math.hypot(x, y), Math.atan2(x, y)) };
+    return { ...p, n: i + 1, r: Math.hypot(x, y), dir: direcao(x, y), meio: preparar(meio), andar: andado(Math.hypot(x, y), Math.atan2(x, y)),
+      sobe: altitude ? Math.round((altitude([x, y]) - altBienio) / 5) * 5 : 0 };
   });
 
   alvo.innerHTML = `
@@ -129,7 +140,7 @@ export default async function poliDoBienio(alvo, { url }) {
         <summary>Endereço e departamentos de cada prédio</summary>
         <ol class="pb__lista">${lugares.map((l) => `<li>
           <span class="pb__n" aria-hidden="true">${l.n}</span>
-          <div><b>${esc(l.nome)}</b> <span class="pb__dist">${l.id === "bie" ? "o ponto de partida" : `${distancia(l.r)} a ${NOMES_DIRECAO[l.dir]} do Biênio, uns ${minutos(l.andar)}`}</span>
+          <div><b>${esc(l.nome)}</b> <span class="pb__dist">${l.id === "bie" ? "o ponto de partida" : `${distancia(l.r)} a ${NOMES_DIRECAO[l.dir]} do Biênio, uns ${minutos(l.andar)}${subida(l)}`}</span>
             <p>${esc(l.endereco)}. ${esc(l.deptos.length ? l.deptos.join("; ") : l.cursos)}.</p>
             ${l.cas.length ? `<p class="pb__cas">${l.cas.map((id) => `<a href="#${id}"><img src="${url(casPorId[id].logo)}" alt="" width="22" height="22" loading="lazy">${esc(casPorId[id].sigla)}</a>`).join("")}</p>` : ""}</div></li>`).join("")}</ol>
       </details>
@@ -142,8 +153,8 @@ export default async function poliDoBienio(alvo, { url }) {
   const toque = matchMedia("(pointer: coarse)").matches;
   dica.textContent = toque ? "Use dois dedos para mover e dar zoom." : "Arraste para mover. Para dar zoom, use os botões ou segure Ctrl e role.";
   const LEGENDAS = [
-    "Em escala, com o norte para cima. As linhas tracejadas marcam até onde se chega a pé em 5, 10 e 15 minutos saindo do Biênio.",
-    `Cada ponto ficou na mesma direção, mas na distância que se anda para chegar nele, pelas calçadas e caminhos do campus (a ${String(M_POR_MIN * 60 / 1000).replace(".", ",")} km/h). O que exige dar a volta se afastou, e as linhas de 5, 10 e 15 minutos viraram círculos.`,
+    "Em escala, com o norte para cima. As linhas tracejadas marcam até onde se chega a pé em 5, 10 e 15 minutos saindo do Biênio, contando as subidas.",
+    `Cada ponto ficou na mesma direção, mas tão longe quanto o tempo que se leva para chegar nele a pé, pelas calçadas e caminhos do campus e contando as subidas: no plano, ${String(M_POR_MIN * 60 / 1000).replace(".", ",")} km/h; subindo, mais devagar; numa descida suave, um pouco mais rápido. O que exige dar a volta ou subir se afastou, e as linhas de 5, 10 e 15 minutos viraram círculos.`,
   ];
 
   const el = (tag, attrs = {}, pai) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (pai) pai.appendChild(e); return e; };
@@ -212,6 +223,13 @@ export default async function poliDoBienio(alvo, { url }) {
       r.fora.addEventListener("click", ir);
       r.fora.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); ir(); } });
     });
+    // muitos prédios fora da vista: uma etiqueta só, que enquadra todos
+    G.todos = el("g", { class: "pb-fora", tabindex: 0, role: "button" }, tela);
+    G.todosFundo = el("rect", { rx: 12, height: 24 }, G.todos);
+    G.todosTx = el("text", { y: 16, x: 10 }, G.todos);
+    const verTodos = () => { const e2 = enquadrar(); voar([e2.x, e2.y], e2.z); };
+    G.todos.addEventListener("click", verTodos);
+    G.todos.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); verTodos(); } });
     G.marcas = formas.isocronas.map((iso) => { const e = el("text", { class: "pb-iso__t" }, tela); e.textContent = `${iso.min} min`; return e; });
     G.norte = el("g", { class: "pb-norte" }, tela);
     el("path", { d: "M0 -14 L6 4 L0 0 L-6 4 Z" }, G.norte);
@@ -233,7 +251,7 @@ export default async function poliDoBienio(alvo, { url }) {
       r.A = A; r.dentro = dentro;
       r.g.style.display = dentro ? "" : "none";
       if (!dentro) continue;
-      if (!compacto) r.sub.textContent = r.l.id === "bie" ? (te < 0.5 ? "o ponto de partida" : "0 min") : (te < 0.5 ? `${distancia(r.l.r)} a ${r.l.dir}` : minutos(r.l.andar));
+      if (!compacto) r.sub.textContent = r.l.id === "bie" ? (te < 0.5 ? "o ponto de partida" : "0 min") : (te < 0.5 ? `${distancia(r.l.r)} a ${r.l.dir}` : minutos(r.l.andar) + subida(r.l));
       // direção da linha: para fora, a partir do Biênio (o próprio Biênio aponta para baixo e para a esquerda)
       let ux = A[0] - B[0], uy = A[1] - B[1], n = Math.hypot(ux, uy);
       if (n < 12) { ux = -0.75; uy = 0.66; n = 1; }
@@ -285,9 +303,32 @@ export default async function poliDoBienio(alvo, { url }) {
       r.foraTx.textContent = compacto ? `${r.l.n} ${seta}` : `${r.l.nome} ${seta}`;
       const w = r.foraTx.getComputedTextLength() + 20;
       r.foraFundo.setAttribute("width", w);
-      const x = Math.min(W - w - 8, Math.max(8, W / 2 + dx * s - w / 2)), y = Math.min(H - 32, Math.max(8, H / 2 + dy * s - 12));
-      r.fora.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+      r.caixa = { x: Math.min(W - w - 8, Math.max(8, W / 2 + dx * s - w / 2)), y: Math.min(H - 32, Math.max(8, H / 2 + dy * s - 12)), w };
     }
+    // etiquetas na mesma borda não se sobrepõem: em cima e embaixo vão para o lado; nas laterais, para baixo
+    const fora = R.filter((r) => !r.dentro).sort((a, b) => a.caixa.y - b.caixa.y || a.caixa.x - b.caixa.x);
+    // os botões de zoom (canto de cima, à esquerda) e o norte (à direita) ficam livres
+    for (const r of fora) { const c = r.caixa; if (c.y < 130 && c.x < 96) c.x = 96; if (c.y < 56 && c.x + c.w > W - 48) c.x = W - 48 - c.w; }
+    G.todos.style.display = fora.length > 2 ? "" : "none";
+    if (fora.length > 2) {
+      fora.forEach((r) => { r.fora.style.display = "none"; });
+      G.todosTx.textContent = `${fora.length} prédios fora da vista · ver todos`;
+      const w = G.todosTx.getComputedTextLength() + 20;
+      G.todosFundo.setAttribute("width", w);
+      G.todos.setAttribute("aria-label", `Ver todos os prédios (${fora.length} estão fora da vista)`);
+      G.todos.setAttribute("transform", `translate(${((W - w) / 2).toFixed(1)} ${H - 34})`);
+      fora.length = 0;
+    }
+    for (let i = 0, voltas = 0; i < fora.length; i++, voltas = 0) for (let j = 0; j < i; j++) {
+      const a = fora[j].caixa, b = fora[i].caixa;
+      if (a.x < b.x + b.w + 6 && b.x < a.x + a.w + 6 && a.y < b.y + 30 && b.y < a.y + 30) {
+        const lateral = b.x <= 10 || b.x + b.w >= W - 10;
+        if (lateral) b.y = Math.min(H - 32, a.y + 30); else b.x = a.x + a.w + 6;
+        if (b.x + b.w > W - 8) { b.x = 8; b.y = Math.min(H - 32, b.y + 30); }
+        if (++voltas < 40) j = -1;   // confere de novo contra todas as anteriores (com limite, se faltar espaço)
+      }
+    }
+    for (const r of fora) r.fora.setAttribute("transform", `translate(${r.caixa.x.toFixed(1)} ${r.caixa.y.toFixed(1)})`);
     // marcas das linhas de tempo a pé, na direção oés-sudoeste (onde há menos nomes)
     G.marcas.forEach((e, i) => {
       const th = -112 * GRAU, alvoM = formas.isocronas[i].min * M_POR_MIN;

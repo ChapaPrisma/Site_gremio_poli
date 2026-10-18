@@ -6,18 +6,23 @@ Uso: python ferramentas/campus_poli.py            (baixa do OpenStreetMap e grav
    escadas, ruas internas...) num raio de RAIO metros do Biênio.
 2. Projeta tudo em metros com o Biênio na origem (x para leste, y para norte), simplifica e recorta no círculo.
    Os prédios da Poli saem separados, pelo id do OpenStreetMap (PREDIOS abaixo).
-3. Calcula a distância a pé do Biênio até cada esquina da rede (Dijkstra) e, com ela, um "campo de caminhada":
-   para cada direção (de 4 em 4 graus) e cada distância em linha reta (de 25 em 25 m), quantos metros se anda
-   até lá. O componente usa esse campo para redesenhar o campus em tempo a pé (cada ponto se afasta do Biênio
-   até a distância que se anda para chegar nele). O campo nunca diminui ao longo de uma direção, para o
-   desenho não se dobrar sobre si mesmo.
-Dados: © colaboradores do OpenStreetMap (ODbL).
+3. Baixa o relevo (altitudes do SRTM, da NASA, pela API pública do Open Topo Data) numa grade em volta do Biênio.
+4. Calcula o tempo a pé do Biênio até cada esquina da rede (Dijkstra), com a velocidade de cada trecho pela
+   função de Tobler: no plano, 4,8 km/h; subindo, mais devagar; numa descida suave, um pouco mais rápido; numa
+   descida forte, devagar de novo. Com isso, um "campo de caminhada": para cada direção (de 4 em 4 graus) e
+   cada distância em linha reta (de 25 em 25 m), o tempo até lá, guardado em "metros equivalentes" (o que se
+   andaria no plano nesse tempo, a 80 m por minuto). O componente usa esse campo para redesenhar o campus em
+   tempo a pé. O campo nunca diminui ao longo de uma direção, para o desenho não se dobrar sobre si mesmo.
+Dados: © colaboradores do OpenStreetMap (ODbL); relevo SRTM (NASA), via Open Topo Data.
 """
 import heapq, json, math, os, sys, time, urllib.parse, urllib.request
 
 BIENIO = (-23.5566899, -46.7326809)       # o mesmo ponto de assets/js/dados/predios-poli.js
 RAIO = 1100                               # metros
 PASSO_R, ANGULOS = 25, 90                 # resolução do campo de caminhada (25 m, 4°)
+M_POR_MIN = 80                            # 4,8 km/h no plano
+N_RELEVO = 45                             # grade de altitudes N × N cobrindo o quadrado do desenho (passo de ~60 m)
+TOPO = "https://api.opentopodata.org/v1/srtm30m?locations="
 SAIDA = os.path.join(os.path.dirname(__file__), "..", "assets", "dados", "campus-poli.json")
 SERVIDORES = ["https://overpass-api.de/api/interpreter", "https://lz4.overpass-api.de/api/interpreter"]
 A_PE = {"footway", "path", "pedestrian", "steps", "living_street", "residential", "service", "unclassified", "tertiary", "tertiary_link",
@@ -151,7 +156,39 @@ def predios():
             if pecas: saida[dono.get(oid, "outros")].append(pecas)
     return saida
 
-def caminhos():
+def relevo():
+    """Altitudes numa grade N × N (metros), do SRTM pelo Open Topo Data: 100 pontos por pedido, um pedido por segundo."""
+    lado = RAIO + 250; passo = 2 * lado / (N_RELEVO - 1)
+    lat0, lon0 = BIENIO
+    pts = [(-lado + j * passo, -lado + i * passo) for i in range(N_RELEVO) for j in range(N_RELEVO)]   # linha i = y, coluna j = x
+    alts = []
+    for k in range(0, len(pts), 100):
+        loc = "|".join(f"{lat0 + y / 110540:.6f},{lon0 + x / (111320 * math.cos(math.radians(lat0))):.6f}" for x, y in pts[k:k + 100])
+        for tentativa in range(4):
+            try:
+                with urllib.request.urlopen(urllib.request.Request(TOPO + loc, headers={"User-Agent": "site-gremio-poli/1.0"}), timeout=60) as r:
+                    alts += [round(x["elevation"] or 0, 1) for x in json.load(r)["results"]]
+                break
+            except Exception as e:
+                print("  relevo falhou", e, file=sys.stderr); time.sleep(5 * (tentativa + 1))
+        else: sys.exit("Open Topo Data indisponível; tente mais tarde.")
+        time.sleep(1.1)
+    grade = [alts[i * N_RELEVO:(i + 1) * N_RELEVO] for i in range(N_RELEVO)]
+    def altitude(q):
+        fx = min(max((q[0] + lado) / passo, 0), N_RELEVO - 1.001); fy = min(max((q[1] + lado) / passo, 0), N_RELEVO - 1.001)
+        j, i = int(fx), int(fy); ax, ay = fx - j, fy - i
+        return (grade[i][j] * (1 - ax) + grade[i][j + 1] * ax) * (1 - ay) + (grade[i + 1][j] * (1 - ax) + grade[i + 1][j + 1] * ax) * ay
+    return {"lado": lado, "passo": round(passo, 3), "n": N_RELEVO, "m": [[round(v) for v in linha] for linha in grade]}, altitude
+
+def minutos(a, b, altitude, extra=1.0):
+    """Minutos para andar de a até b em linha reta, pela função de Tobler (no plano: 80 m/min)."""
+    d = math.dist(a, b)
+    if d < 1e-6: return 0.0
+    s = (altitude(b) - altitude(a)) / d
+    v = M_POR_MIN * math.exp(-3.5 * abs(s + 0.05)) / math.exp(-3.5 * 0.05)
+    return extra * d / v
+
+def caminhos(altitude):
     """As vias a pé (para desenhar) e a distância a pé do Biênio até cada nó (Dijkstra)."""
     vias = [e for e in overpass('way["highway"](BBOX);', folga=250)
             if e.get("tags", {}).get("highway") in A_PE and e.get("tags", {}).get("foot") != "no" and e.get("tags", {}).get("access") != "private"]
@@ -160,11 +197,12 @@ def caminhos():
         ids, geo = v.get("nodes", []), v.get("geometry", [])
         for i, (n, g) in enumerate(zip(ids, geo)):
             pos[n] = metros(g)
-            if i:
-                a = ids[i - 1]; d = math.dist(pos[a], pos[n])
-                viz.setdefault(a, []).append((n, d)); viz.setdefault(n, []).append((a, d))
-    # saída do Biênio: os nós a até 90 m do centro dele, pela distância em linha reta
-    dist = {n: math.hypot(*p) for n, p in pos.items() if math.hypot(*p) <= 90}
+            if i:   # cada sentido tem o seu tempo: subir demora mais que descer
+                a = ids[i - 1]
+                viz.setdefault(a, []).append((n, minutos(pos[a], pos[n], altitude)))
+                viz.setdefault(n, []).append((a, minutos(pos[n], pos[a], altitude)))
+    # saída do Biênio: os nós a até 90 m do centro dele, em linha reta
+    dist = {n: minutos((0, 0), p, altitude) for n, p in pos.items() if math.hypot(*p) <= 90}
     fila = [(d, n) for n, d in dist.items()]; heapq.heapify(fila)
     while fila:
         d, n = heapq.heappop(fila)
@@ -178,8 +216,8 @@ def caminhos():
             desenho.append(peca)
     return desenho, [(pos[n], d) for n, d in dist.items()]
 
-def campo_de_caminhada(nos):
-    """Metros andados até cada ponto (direção de 4 em 4°, distância de 25 em 25 m), nunca menos que a linha reta."""
+def campo_de_caminhada(nos, altitude):
+    """Tempo até cada ponto (direção de 4 em 4°, distância de 25 em 25 m), em metros equivalentes no plano."""
     CEL = 60; grade = {}
     for p, d in nos: grade.setdefault((int(p[0] // CEL), int(p[1] // CEL)), []).append((p, d))
     def andar(q):
@@ -188,33 +226,35 @@ def campo_de_caminhada(nos):
             for i in range(cx - alcance, cx + alcance + 1):
                 for j in range(cy - alcance, cy + alcance + 1):
                     for p, d in grade.get((i, j), ()):
-                        melhor = min(melhor, d + 1.25 * math.dist(p, q))   # o último trecho, fora da rede, rende menos
-            if melhor < math.inf: return melhor
-        return 1.4 * math.hypot(*q)
+                        melhor = min(melhor, d + minutos(p, q, altitude, 1.25))   # o último trecho, fora da rede, rende menos
+            if melhor < math.inf: return melhor * M_POR_MIN
+        return minutos((0, 0), q, altitude, 1.4) * M_POR_MIN
     nr = RAIO // PASSO_R + 1
     campo = []
     for k in range(ANGULOS):
         t = 2 * math.pi * k / ANGULOS
-        linha = [max(r * PASSO_R, andar((r * PASSO_R * math.sin(t), r * PASSO_R * math.cos(t)))) if r else 0 for r in range(nr)]
+        linha = [andar((r * PASSO_R * math.sin(t), r * PASSO_R * math.cos(t))) if r else 0 for r in range(nr)]
         campo.append(linha)
     for _ in range(2):   # suaviza entre direções vizinhas e garante que só cresce ao longo de cada direção
         campo = [[0.25 * campo[k - 1][r] + 0.5 * campo[k][r] + 0.25 * campo[(k + 1) % ANGULOS][r] for r in range(nr)] for k in range(ANGULOS)]
         for linha in campo:
-            for r in range(1, nr): linha[r] = max(linha[r], linha[r - 1], r * PASSO_R)
+            for r in range(1, nr): linha[r] = max(linha[r], linha[r - 1])
     return [[round(v) for v in linha] for linha in campo]
 
 def main():
     saida = predios()
-    vias, nos = caminhos()
-    campo = campo_de_caminhada(nos)
+    alt_json, altitude = relevo()
+    vias, nos = caminhos(altitude)
+    campo = campo_de_caminhada(nos, altitude)
     arred = lambda grupo: [[[round(x), round(y)] for x, y in anel] for anel in grupo]   # 1 m basta no desenho
     json_ = {
-        "fonte": "© colaboradores do OpenStreetMap (ODbL), gerado por ferramentas/campus_poli.py",
+        "fonte": "© colaboradores do OpenStreetMap (ODbL); relevo SRTM (NASA) via Open Topo Data; gerado por ferramentas/campus_poli.py",
         "gerado": time.strftime("%Y-%m-%d"),
         "origem": BIENIO, "raio": RAIO,
         "predios": {k: [arred(g) for g in v] for k, v in saida.items()},
         "caminhos": [[[round(x), round(y)] for x, y in p] for p in vias],
-        "caminhada": {"passo": PASSO_R, "angulos": ANGULOS, "metros": campo},
+        "caminhada": {"passo": PASSO_R, "angulos": ANGULOS, "metros": campo, "mPorMin": M_POR_MIN, "relevo": True},
+        "relevo": alt_json,
     }
     with open(SAIDA, "w", encoding="utf-8") as f:
         json.dump(json_, f, ensure_ascii=False, separators=(",", ":"))

@@ -55,6 +55,8 @@ export const grupos = [
     links: { instagram: "pet_mecanica" } },
   { id: "pet-mecatronica", area: "tecnologia", logo: "assets/img/extensoes/pet-mecatronica.png?v=42b07532", nome: "PET Mecatrônica", texto: "O grupo PET da Mecatrônica: projetos, cursos e atividades para a graduação.",
     links: { site: "https://www.petmecatronica.poli.usp.br/" } },
+  { id: "poli-cerevisiae", area: "tecnologia", logo: "assets/img/extensoes/poli-cerevisiae.jpg?v=324a498f", nome: "Poli Cerevisiae", texto: "Cerveja artesanal levada a sério, da química da fermentação à produção. O nome vem da levedura que faz a cerveja, a Saccharomyces cerevisiae.",
+    links: { instagram: "policerevisiae" } },
 
   // mercado e empreendedorismo
   { id: "poli-junior", area: "mercado", logo: "assets/img/extensoes/poli-junior.jpg?v=0721883b", nome: "Poli Júnior", texto: "Fundada em 1989, é a primeira empresa júnior de engenharia do Brasil, toda gerida por alunos da Poli.",
