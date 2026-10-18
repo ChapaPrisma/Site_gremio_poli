@@ -3,8 +3,8 @@
 // atingir, uma barra com o quanto do prazo já passou e as atualizações do andamento.
 // Uso: #listaGex e #listaEmpresa na página e <div data-componente="guia-parcerias"></div>.
 
-import { carregarProjetos, prazo, SITUACOES } from "../dados/projetos.js?v=202610181007";
-import { dataBR } from "../dados/contas.js?v=202610181007";
+import { carregarProjetos, prazo, SITUACOES } from "../dados/projetos.js?v=202610181016";
+import { dataBR } from "../dados/contas.js?v=202610181016";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
