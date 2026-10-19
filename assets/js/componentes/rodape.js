@@ -22,7 +22,7 @@ export default function rodape(alvo, { site, url, registro, destino }) {
         </div>
 
         <div class="carimbo" role="group" aria-label="Sobre este site">
-          <div class="carimbo__logo"><img src="${url("assets/img/marca/prisma.svg?v=a3696c08")}" alt="Chapa Prisma" width="80" height="90"></div>
+          <div class="carimbo__logo"><img src="${url("assets/img/marca/prisma.svg?v=88a4c984")}" alt="Chapa Prisma" width="80" height="90"></div>
           <div class="carimbo__campo carimbo__campo--largo"><span>Site de campanha</span>Chapa Prisma, eleição do Grêmio Politécnico</div>
           <div class="carimbo__campo"><span>Conheça a chapa</span><a href="${site.chapa}" target="_blank" rel="noopener">site da Prisma</a></div>
           <div class="carimbo__campo carimbo__campo--largo"><span>Identidade</span>As cores e a logo são as da chapa. Se a Prisma for eleita, o portal adota a logo histórica e a identidade do Grêmio.</div>

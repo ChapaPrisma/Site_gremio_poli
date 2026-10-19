@@ -10,7 +10,7 @@ export const servicos = [
   {
     id: "copiadora",
     nome: "Copiadora Politécnica",
-    logo: "assets/img/servicos/copiadora.svg?v=e6a35b1a",
+    logo: "assets/img/servicos/copiadora-nome.svg?v=4b77e58a",
     frase: "A salvação da véspera.",
     texto: "Plano de cotas com preços mais acessíveis durante toda a graduação, itens de conveniência e impressão de material de divulgação.",
     onde: "No prédio do Biênio, junto do Triedro",
