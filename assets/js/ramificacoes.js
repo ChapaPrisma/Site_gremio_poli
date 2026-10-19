@@ -285,7 +285,7 @@ export const ramificacoes = [
     grupo: "acessos",
     titulo: "Área dos administradores",
     caminho: "admin/",
-    resumo: "O portal interno do Grêmio: contas, projetos e parcerias lançados pela gestão e publicados na hora.",
+    resumo: "O portal interno proposto para o Grêmio: contas, projetos e parcerias lançados pela gestão e publicados na hora.",
     filhos: [
       { id: "contas", titulo: "Contas do Grêmio", texto: "Receitas, despesas, dívida e saldo inicial, publicados na Transparência." },
       { id: "projetos", titulo: "Projetos e parcerias", texto: "Projetos com GEX e empresas, com prazo e atualizações, publicados em Parcerias." },

@@ -1,5 +1,6 @@
-// Rodapé no formato de carimbo (legenda) de folha de desenho técnico:
-// cada campo traz um dado da entidade.
+// Rodapé no formato de carimbo (legenda) de folha de desenho técnico.
+// Enquanto este é o site de campanha, o carimbo traz os dados da chapa Prisma, não os da entidade
+// (determinação da Comissão Eleitoral, 19/10/2026: nada de logo, cores ou dados oficiais do Grêmio).
 
 export default function rodape(alvo, { site, url, registro, destino }) {
   const { contato } = site;
@@ -20,13 +21,13 @@ export default function rodape(alvo, { site, url, registro, destino }) {
           </ul>
         </div>
 
-        <div class="carimbo" role="group" aria-label="Dados da entidade">
-          <div class="carimbo__logo"><img src="${url("assets/img/marca/gremio-azul.png?v=bef84bef")}" alt="${site.nomeCompleto}" width="88" height="88"></div>
-          <div class="carimbo__campo carimbo__campo--largo"><span>Entidade</span>${site.nomeCompleto}</div>
-          <div class="carimbo__campo"><span>Fundação</span>1º de setembro de 1903</div>
-          <div class="carimbo__campo carimbo__campo--largo"><span>Sede</span>${contato.endereco}</div>
-          <div class="carimbo__campo"><span>CNPJ</span>${contato.cnpj}</div>
-          <div class="carimbo__campo carimbo__campo--largo"><span>Representa</span>Alunos da Escola Politécnica da USP</div>
+        <div class="carimbo" role="group" aria-label="Sobre este site">
+          <div class="carimbo__logo"><img src="${url("assets/img/marca/prisma.svg?v=a3696c08")}" alt="Chapa Prisma" width="80" height="90"></div>
+          <div class="carimbo__campo carimbo__campo--largo"><span>Site de campanha</span>Chapa Prisma, eleição do Grêmio Politécnico</div>
+          <div class="carimbo__campo"><span>Conheça a chapa</span><a href="${site.chapa}" target="_blank" rel="noopener">site da Prisma</a></div>
+          <div class="carimbo__campo carimbo__campo--largo"><span>Identidade</span>As cores e a logo são as da chapa. Se a Prisma for eleita, o portal adota a logo histórica e a identidade do Grêmio.</div>
+          <div class="carimbo__campo"><span>Contato</span>${contato.email}</div>
+          <div class="carimbo__campo carimbo__campo--largo"><span>Proposta para</span>Os alunos da Escola Politécnica da USP</div>
           <div class="carimbo__campo"><span>Ano</span><span data-ano></span></div>
         </div>
 

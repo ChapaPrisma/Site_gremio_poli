@@ -558,3 +558,8 @@
 /* "Potencial": ideia com muito a crescer, ainda sem data (ex.: o assistente com IA do Fuja do Nabo) */
 .pill--potencial { background: var(--azul-tinta); color: var(--azul); border-color: transparent; }
 .modulo .pill { align-self: flex-start; }
+/* marca da chapa no cabeçalho: o nome e, embaixo, de que eleição é */
+.marca span { display: flex; flex-direction: column; line-height: 1.05; }
+.marca small { font: 600 .72rem var(--fonte); color: var(--tinta-suave); }
+.marca img { width: auto; }
+@media (max-width: 560px) { .marca span { display: none; } }

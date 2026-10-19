@@ -9,7 +9,7 @@
   --m-ground: #fbfcfe; --m-land: #eef1f8; --m-free: #e2e7f2; --m-road: #ffffff; --m-road-edge: #d3d8e6;
   --m-bld: rgba(18, 23, 53, .2); --m-poli: #dfe4fb; --m-poli-bld: var(--azul);
   --m-water: #d3e6f0; --m-raia: #a3c9da; --m-label: var(--tinta-suave);
-  --pd-bad: rgba(34, 46, 132, .16); --pd-good: rgba(29, 122, 82, .16);
+  --pd-bad: rgba(15, 31, 61, .16); --pd-good: rgba(29, 122, 82, .16);
   --linha-fraca: rgba(18, 23, 53, .12);
 }
 .guia h2 { font-size: clamp(1.6rem, 3.6vw, 2.3rem); margin-bottom: .5em; }

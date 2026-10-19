@@ -12,7 +12,7 @@ export const CORES = ["#a9c1ff", "#ffd96b", "#9fe0b4", "#ffb09c", "#cdb6ff", "#8
 const SEMANA = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
 const hhmm = (m) => `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
 const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
-const TINTA = [18, 23, 53], SUAVE = [90, 96, 125], LINHA = [214, 218, 232];
+const TINTA = [15, 31, 61], SUAVE = [74, 84, 112], LINHA = [218, 212, 201];
 
 /* ---------- PDF ---------- */
 let carregando;
@@ -35,8 +35,8 @@ export function desenharPdf(JsPDF, aulas, { geradaEm }) {
   // cabeçalho
   doc.setTextColor(...TINTA).setFont("helvetica", "bold").setFontSize(20).text("Minha grade", M, M + 8);
   doc.setFont("helvetica", "normal").setFontSize(9).setTextColor(...SUAVE)
-    .text(`Gerada em ${geradaEm} no site do Grêmio Politécnico. Salas segundo o USPolis: confira no Júpiter antes da primeira aula.`, M, M + 14);
-  doc.setFont("helvetica", "bold").setFontSize(10).setTextColor(...TINTA).text("Grêmio Politécnico da USP", W - M, M + 8, { align: "right" });
+    .text(`Gerada em ${geradaEm} no site da chapa Prisma. Salas segundo o USPolis: confira no Júpiter antes da primeira aula.`, M, M + 14);
+  doc.setFont("helvetica", "bold").setFontSize(10).setTextColor(...TINTA).text("Chapa Prisma", W - M, M + 8, { align: "right" });
 
   // legenda: uma linha por disciplina, em duas colunas
   const disciplinas = [];
@@ -50,7 +50,7 @@ export function desenharPdf(JsPDF, aulas, { geradaEm }) {
   const col = (x1 - x0) / nd, ph = (y1 - y0) / Math.max(1, hFim - hIni);
   const yDe = (min) => y0 + ((min - hIni * 60) / 60) * ph;
 
-  doc.setFillColor(238, 240, 250).rect(x0, yCab, x1 - x0, 8, "F");
+  doc.setFillColor(239, 234, 226).rect(x0, yCab, x1 - x0, 8, "F");
   doc.setFont("helvetica", "bold").setFontSize(9.5).setTextColor(...TINTA);
   for (let d = 0; d < nd; d++) doc.text(SEMANA[d], x0 + col * d + col / 2, yCab + 5.4, { align: "center" });
   doc.setDrawColor(...LINHA).setLineWidth(0.2);
@@ -138,7 +138,7 @@ export function gerarIcs(aulas, { hoje, agora = new Date() }) {
       "RRULE:FREQ=WEEKLY",
       `SUMMARY:${escIcs(`${x.c} ${x.nome}`)}`,
       `LOCATION:${escIcs(x.local)}`,
-      `DESCRIPTION:${escIcs(`Turma ${x.t}${x.prof.length ? `\nProfessores: ${x.prof.join(", ")}` : ""}\nSala segundo o USPolis. Grade montada no site do Grêmio Politécnico.`)}`,
+      `DESCRIPTION:${escIcs(`Turma ${x.t}${x.prof.length ? `\nProfessores: ${x.prof.join(", ")}` : ""}\nSala segundo o USPolis. Grade montada no site da chapa Prisma.`)}`,
       "END:VEVENT",
     );
   }

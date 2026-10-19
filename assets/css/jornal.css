@@ -8,8 +8,8 @@
    Pensado também para o papel: o PDF sai com cada página numa folha A3 inteira. */
 
 .jornal {
-  --azul-j: #0866b0;          /* azul da faixa das edições impressas */
-  --noite-j: #1d2a6b;         /* azul-marinho dos títulos das chamadas */
+  --azul-j: #b94a1f;          /* azul da faixa das edições impressas */
+  --noite-j: #0f1f3d;         /* azul-marinho dos títulos das chamadas */
   --amarelo-j: #fcbf2a;
   --creme-j: #fdebc6;         /* caixa do editorial */
   --cinza-j: #e9edf5;         /* fundo do expediente */

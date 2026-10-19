@@ -1,18 +1,23 @@
 /* Tokens de design: cores, tipografia e medidas usadas em todo o site.
-   O azul é o da logo histórica do Grêmio (#222E84); o amarelo é o sol do horizonte
-   e o destaque de foco e seleção. */
+   Enquanto este é o site de campanha da chapa Prisma, as cores são as da chapa (as mesmas do site
+   chapaprisma.github.io/site_chapa): marinho, laranja, amarelo e lilás. Por determinação da Comissão
+   Eleitoral (19/10/2026), o site não usa a logo nem as cores oficiais do Grêmio Politécnico.
+   Se a chapa for eleita, a identidade histórica do Grêmio volta: os valores antigos estão no git
+   (commit anterior a "Identidade da chapa Prisma"), com --azul #222e84.
+   Os nomes das variáveis (--azul, --sol...) ficaram os mesmos para a troca de volta ser só aqui. */
 :root {
-  --tinta: #121735;        /* texto principal e bordas fortes */
-  --tinta-suave: #4a5070;  /* texto secundário */
-  --azul: #222e84;         /* azul da logo: marca, links, ações */
-  --azul-forte: #1a2366;   /* hover das ações */
-  --azul-tinta: #e4e8fa;   /* realces suaves */
-  --sol: #ffd84d;          /* sol do horizonte, marcadores e destaques */
-  --sol-claro: #fff3c2;
+  --tinta: #0f1f3d;        /* marinho da Prisma: texto principal e bordas fortes */
+  --tinta-suave: #4a5470;  /* texto secundário */
+  --azul: #b94a1f;         /* laranja escuro da Prisma: marca, links, ações */
+  --azul-forte: #963b17;   /* hover das ações */
+  --azul-tinta: #fbe3d6;   /* realces suaves */
+  --sol: #f4be5a;          /* amarelo da Prisma: marcadores e destaques */
+  --sol-claro: #fbe9c4;
   --papel: #ffffff;
-  --fundo: #fbfbfe;        /* fundo da página */
-  --painel: #f1f3f8;       /* painéis e faixas alternadas */
-  --linha: #d5d9e6;        /* bordas e divisões leves */
+  --fundo: #f8f5f0;        /* fundo da página (papel da Prisma) */
+  --painel: #efeae2;       /* painéis e faixas alternadas */
+  --linha: #dad4c9;        /* bordas e divisões leves */
+  --lilas: #b292f5;        /* lilás da Prisma */
   --aberto: #1d7a52;       /* estado "aberto agora" */
   --aberto-fundo: #ddf2e7;
   --marca-texto: var(--sol);

@@ -1,7 +1,7 @@
 // Mapa de problemas do campus (aluno/demandas/#mapa e o painel do portal interno): categorias, ícones e
 // leitura do banco. Tabelas, regras e limites: ferramentas/supabase/problemas.sql (mesmo banco das contas).
 
-import { supabase } from "./contas.js?v=202610190742";
+import { supabase } from "./contas.js?v=202610191523";
 
 // Cada categoria com o seu ícone (traços num quadro de 24 × 24, desenhados em branco sobre a cor do pino).
 export const CATEGORIAS = {
@@ -12,7 +12,7 @@ export const CATEGORIAS = {
   estrutura: { rotulo: "Estrutura (goteira, piso, porta)", cor: "#8a5a32", icone: "M3.5 6h17v12h-17z M3.5 12h17 M9 6v6 M15 12v6" },
   climatizacao: { rotulo: "Calor, ar e ventilação", cor: "#c2410c", icone: "M12 3.5v17 M4.6 7.75l14.8 8.5 M4.6 16.25l14.8-8.5" },
   internet: { rotulo: "Wi-Fi e tomadas", cor: "#0e7490", icone: "M3 9.5a13 13 0 0 1 18 0 M6.3 12.8a8.2 8.2 0 0 1 11.4 0 M9.5 16a3.6 3.6 0 0 1 5 0 M12 19.3v.1" },
-  acessibilidade: { rotulo: "Acessibilidade", cor: "#222e84", icone: "M12 3.5v.1 M7 7.5h10 M12 7.5v5.5 M12 13l-3.5 7 M12 13l3.5 7" },
+  acessibilidade: { rotulo: "Acessibilidade", cor: "#0f1f3d", icone: "M12 3.5v.1 M7 7.5h10 M12 7.5v5.5 M12 13l-3.5 7 M12 13l3.5 7" },
   seguranca: { rotulo: "Segurança", cor: "#a3243c", icone: "M12 3.3l7 2.9v5.6c0 4.4-2.9 7.3-7 8.9-4.1-1.6-7-4.5-7-8.9V6.2z" },
   outro: { rotulo: "Outro problema", cor: "#4a5070", icone: "M6.5 12v.1 M12 12v.1 M17.5 12v.1" },
 };

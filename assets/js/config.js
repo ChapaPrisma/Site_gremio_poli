@@ -3,7 +3,7 @@
 // Os caminhos (href) são relativos à raiz do site, sem barra no início,
 // para funcionar igual em subpasta (github.io/Site_gremio_poli/) ou num domínio próprio.
 
-import { encontrar, destino } from "./ramificacoes.js?v=202610190742";
+import { encontrar, destino } from "./ramificacoes.js?v=202610191523";
 
 const doRegistro = (id, rotulo) => {
   const { no } = encontrar(id);
@@ -11,16 +11,20 @@ const doRegistro = (id, rotulo) => {
 };
 
 export const site = {
-  nome: "Grêmio Politécnico",
-  nomeCompleto: "Grêmio Politécnico da USP",
-  slogan: "Desde 1903 representando os alunos da Poli",
+  // Site de campanha da chapa Prisma. Por determinação da Comissão Eleitoral (19/10/2026), a marca é a da
+  // chapa: nada de logo, cores ou dados oficiais do Grêmio. Se a chapa for eleita, volte a
+  // nome "Grêmio Politécnico" / nomeCompleto "Grêmio Politécnico da USP" e à logo histórica (está no git).
+  nome: "Prisma",
+  nomeCompleto: "Prisma, chapa para o Grêmio Politécnico",
+  descricao: "chapa para o Grêmio Politécnico",
+  chapa: "https://chapaprisma.github.io/site_chapa/",
 
   // Faixa no topo de todas as páginas. Use null para esconder.
   aviso: {
-    texto: "O site atual continua no ar.",
-    link: { rotulo: "gremiopolitecnico.com.br", href: "https://www.gremiopolitecnico.com.br/" },
-    // Quem está fazendo este novo site (aparece na mesma faixa, com a logo).
-    autoria: { texto: "Este novo site está sendo feito pela chapa Prisma.", rotulo: "Conheça aqui", href: "https://chapaprisma.github.io/site_chapa/", logo: "assets/img/marca/prisma-claro.svg?v=b6820360" },
+    texto: "Site de campanha da chapa Prisma, com as cores da chapa. Se formos eleitos, o portal ganha a logo e a identidade históricas do Grêmio.",
+    link: null,
+    // Quem está fazendo este site (aparece na mesma faixa, com a logo).
+    autoria: { texto: "", rotulo: "Conheça a chapa", href: "https://chapaprisma.github.io/site_chapa/", logo: "assets/img/marca/prisma-claro.svg?v=b6820360" },
   },
 
   // O índice completo das ramificações abre pelo botão "Índice" do cabeçalho.
@@ -58,7 +62,6 @@ export const site = {
     telefone: null,
     email: "chapa.poli.prisma@gmail.com",
     provisorio: "Contato provisório da chapa Prisma, enquanto este site é uma proposta.",
-    cnpj: "62.841.382/0001-33",
   },
 
   // Redes do Grêmio fora do contato enquanto o contato é o provisório da chapa.

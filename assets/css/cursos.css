@@ -104,7 +104,7 @@
 .pb-predio { fill: #cdd3e2; }
 .pb-poli--eng { fill: var(--azul); transition: fill .15s ease; }
 .pb-poli--bienio { fill: var(--sol); stroke: var(--tinta); stroke-width: 1.4; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.pb-poli.is-ativo { fill: #4a5bd6; }
+.pb-poli.is-ativo { fill: #d4683f; }
 .pb-poli--bienio.is-ativo { fill: #ffe68a; }
 .pb-iso { fill: none; stroke: var(--azul); stroke-width: 1.4; stroke-dasharray: 6 5; opacity: .55; vector-effect: non-scaling-stroke; }
 .pb-iso__t { font: 800 11px var(--fonte); fill: var(--azul); text-anchor: middle; paint-order: stroke; stroke: var(--painel); stroke-width: 4px; stroke-linejoin: round; }
