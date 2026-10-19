@@ -14,6 +14,8 @@
 .mp-pino:hover .mp-pino__gota, .mp-pino:focus-visible .mp-pino__gota { stroke: var(--tinta); stroke-width: 2.5; }
 .mp-pino:focus-visible { outline: none; }
 .mp-pino.is-resolvido { opacity: .45; }
+.mp-pino.is-exemplo .mp-pino__gota { stroke-dasharray: 5 3; }
+.mp__selo-exemplo { padding: 1px 8px; border-radius: 99px; background: var(--sol); color: var(--tinta); font-size: .72rem; font-weight: 800; }
 .mp-pino.is-rascunho .mp-pino__gota { stroke: var(--tinta); stroke-width: 2.5; stroke-dasharray: 4 3; }
 .mp-precisao { fill: rgba(34, 46, 132, .12); stroke: rgba(34, 46, 132, .5); stroke-width: 1; }
 .mp__zoom { position: absolute; top: 10px; left: 10px; display: flex; flex-direction: column; gap: 6px; }

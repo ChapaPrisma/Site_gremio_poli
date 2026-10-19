@@ -8,9 +8,9 @@
 // (dados/problemas.js, ferramentas/supabase/problemas.sql). As fotos vão para um bucket privado: só a gestão
 // vê, no portal interno. No mapa público aparecem categoria, texto, data, situação e apoios.
 
-import { CATEGORIAS, SITUACOES, PERTO, carregarProblemas, distancia, iconeSvg } from "../dados/problemas.js?v=202610190042";
-import { bienio } from "../dados/predios-poli.js?v=202610190042";
-import { supabase } from "../dados/contas.js?v=202610190042";
+import { CATEGORIAS, SITUACOES, PERTO, carregarProblemas, distancia, iconeSvg } from "../dados/problemas.js?v=202610190709";
+import { bienio } from "../dados/predios-poli.js?v=202610190709";
+import { supabase } from "../dados/contas.js?v=202610190709";
 
 const NS = "http://www.w3.org/2000/svg";
 const GRAU = Math.PI / 180;
@@ -167,6 +167,10 @@ export default async function mapaProblemas(alvo, { url, site }) {
   const st = await carregarProblemas(site);
   banco = st.ok; problemas = st.problemas;
   let rascunho = null;   // { lat, lon, precisao, origem } do problema que está sendo registrado
+  // Enquanto o mapa não tem nenhum registro de verdade, um exemplo no Biênio mostra como um registro aparece.
+  // Ele não conta no resumo, não recebe apoio e não entra no aviso de registro próximo.
+  const EXEMPLO = { id: "exemplo", exemplo: true, criado_em: new Date().toISOString(), categoria: "agua", texto: "Bebedouro do térreo do Biênio sem água gelada.", lat: -23.55672, lon: -46.73262, situacao: "aberto", apoios: 0, resposta: null };
+  const noMapa = () => (problemas.length ? problemas : [EXEMPLO]);
   let marcando = false;
 
   // pino no estilo do Waze: gota com o ícone da categoria; o tamanho não muda com o zoom
@@ -179,8 +183,8 @@ export default async function mapaProblemas(alvo, { url, site }) {
   }
   function desenharPinos() {
     pinos.replaceChildren();
-    for (const pr of problemas) {
-      const p = pino(pinos, paraTela(paraMetros(pr.lat, pr.lon)), pr.categoria, pr.situacao === "resolvido" ? "is-resolvido" : "");
+    for (const pr of noMapa()) {
+      const p = pino(pinos, paraTela(paraMetros(pr.lat, pr.lon)), pr.categoria, pr.situacao === "resolvido" ? "is-resolvido" : pr.exemplo ? "is-exemplo" : "");
       p.setAttribute("tabindex", 0); p.setAttribute("role", "button");
       p.setAttribute("aria-label", `${CATEGORIAS[pr.categoria]?.rotulo || "Problema"}: ${pr.texto}`);
       const abrir = () => abrirBalao(pr); p.addEventListener("click", abrir);
@@ -195,6 +199,12 @@ export default async function mapaProblemas(alvo, { url, site }) {
   }
   function abrirBalao(pr) {
     balao.dataset.id = pr.id;
+    if (pr.exemplo) {
+      balao.innerHTML = `<div class="mp__balao-topo">${iconeSvg(pr.categoria, 24)}<b>${esc(CATEGORIAS[pr.categoria].rotulo)}</b><span class="mp__selo-exemplo">Exemplo</span><button type="button" class="mp__fechar" aria-label="Fechar">×</button></div>
+        <p>${esc(pr.texto)}</p>
+        <p class="mp__balao-meta">Este é só um exemplo de como um registro aparece no mapa. Ele some quando o primeiro problema de verdade for registrado.</p>`;
+      balao.hidden = false; posicionarBalao(); return;
+    }
     balao.innerHTML = `<div class="mp__balao-topo">${iconeSvg(pr.categoria, 24)}<b>${esc(CATEGORIAS[pr.categoria]?.rotulo || "Problema")}</b><button type="button" class="mp__fechar" aria-label="Fechar">×</button></div>
       <p>${esc(pr.texto)}</p>
       <p class="mp__balao-meta">Registrado em ${dataCurta(pr.criado_em)} · ${esc(SITUACOES[pr.situacao] || "")}${pr.apoios ? ` · ${pr.apoios} ${pr.apoios === 1 ? "pessoa também viu" : "pessoas também viram"}` : ""}</p>
@@ -203,7 +213,7 @@ export default async function mapaProblemas(alvo, { url, site }) {
     balao.hidden = false; posicionarBalao();
   }
   function posicionarBalao() {
-    const pr = problemas.find((x) => x.id === balao.dataset.id); if (!pr) { balao.hidden = true; return; }
+    const pr = noMapa().find((x) => x.id === balao.dataset.id); if (!pr) { balao.hidden = true; return; }
     const [sx, sy] = paraTela(paraMetros(pr.lat, pr.lon)), w = balao.offsetWidth || 260, h = balao.offsetHeight || 120;
     if (sx < 0 || sx > W || sy < 0 || sy > H) { balao.hidden = true; delete balao.dataset.id; return; }   // o pino saiu da vista
     balao.style.left = `${Math.min(W - w - 8, Math.max(8, sx - w / 2))}px`;
@@ -226,9 +236,9 @@ export default async function mapaProblemas(alvo, { url, site }) {
   // resumo por natureza: a pauta com dados para levar à diretoria da Poli
   function resumo() {
     const caixa = $(".mp__resumo");
-    if (!banco) { caixa.innerHTML = `<p class="nota">O mapa começa a receber registros assim que o banco do Grêmio estiver ligado.</p>`; return; }
+    if (!banco) { caixa.innerHTML = `<p class="nota">O mapa começa a receber registros assim que o banco do Grêmio estiver ligado. O pino no Biênio é um exemplo de como um registro aparece: toque nele.</p>`; return; }
     const abertos = problemas.filter((p) => p.situacao !== "resolvido");
-    if (!problemas.length) { caixa.innerHTML = `<p class="nota">Nenhum problema registrado ainda. O primeiro pode ser o seu.</p>`; return; }
+    if (!problemas.length) { caixa.innerHTML = `<p class="nota">Nenhum problema registrado ainda: o pino no Biênio é só um exemplo. O primeiro registro de verdade pode ser o seu.</p>`; return; }
     const conta = {};
     for (const p of abertos) conta[p.categoria] = (conta[p.categoria] || 0) + 1;
     const resolvidos = problemas.length - abertos.length;
