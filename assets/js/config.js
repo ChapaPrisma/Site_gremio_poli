@@ -3,7 +3,7 @@
 // Os caminhos (href) são relativos à raiz do site, sem barra no início,
 // para funcionar igual em subpasta (github.io/Site_gremio_poli/) ou num domínio próprio.
 
-import { encontrar, destino } from "./ramificacoes.js?v=202610191532";
+import { encontrar, destino } from "./ramificacoes.js?v=202610191546";
 
 const doRegistro = (id, rotulo) => {
   const { no } = encontrar(id);

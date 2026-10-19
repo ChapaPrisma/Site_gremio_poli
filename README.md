@@ -134,6 +134,14 @@ A posição ao vivo dos ônibus vem da função `onibus` do Supabase (`ferrament
 
 A página `politecnico/` é a rede dos ex-alunos (terceira área de acesso, ao lado da do aluno e da dos administradores): encontrar a turma por curso e ano de entrada, entrar para a rede, mandar fotos da turma e as ideias que vêm por aí (mentoria, vagas, reencontros). A busca lê a vitrine pública `politecnicos_publico` do Supabase; as tabelas e as regras de privacidade estão em `ferramentas/supabase/politecnico.sql`, que só deve ser rodado quando a rede for ligada de verdade. Até lá, a busca mostra a turma vazia e os formulários passam pelo aviso de proposta.
 
+## Identidade de campanha (temporária)
+
+Desde 19/10/2026, por determinação da Comissão Eleitoral, este é um site de campanha da chapa Prisma: sem a logo, as cores ou os dados oficiais do Grêmio. Tudo o que entrar no site precisa poder voltar à identidade do Grêmio quando a chapa for eleita. Por isso:
+
+- cores só pelas variáveis de `assets/css/tokens.css` (nunca hex fixo); para voltar, basta restaurar os valores antigos (azul #222e84);
+- nome e marca pelo `assets/js/config.js` (`site.nome`, `site.descricao`) e pelo cabeçalho e rodapé (`componentes/cabecalho.js`, `componentes/rodape.js`);
+- imagens com cor ou texto embutidos (banners de `assets/img/destaques/`, logos de serviços) precisam ser refeitas na volta; a logo do Grêmio, o `favicon.png`, a logo da Copiadora e as capas antigas d'O Politécnico estão no histórico do git (commits "Identidade da chapa Prisma" e "Campanha: banners...").
+
 ## Ao transferir o site para o Grêmio
 
 Quando o site deixar de ser de uma pessoa e passar a ser do Grêmio, transfira também os serviços ligados a ele:
