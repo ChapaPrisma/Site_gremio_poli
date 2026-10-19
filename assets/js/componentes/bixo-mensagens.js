@@ -3,8 +3,8 @@
 // As frases entram em duas batidas quando aparecem na tela (sem animação se o sistema pedir menos movimento).
 // Uso: <div data-componente="bixo-mensagens"></div>
 
-import { mensagens } from "../dados/bixo-mensagens.js?v=202610181021";
-import { montar } from "./carrossel.js?v=202610181021";
+import { mensagens } from "../dados/bixo-mensagens.js?v=202610190021";
+import { montar } from "./carrossel.js?v=202610190021";
 
 const esc = (t = "") => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 
