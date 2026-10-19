@@ -4,17 +4,17 @@
 // Componentes pesados, usados numa página só, entram em `sobDemanda`: o arquivo
 // só é baixado quando a página tem aquele componente.
 
-import { site } from "./config.js?v=202610190711";
-import { ramificacoes as registro, grupos, encontrar, destino } from "./ramificacoes.js?v=202610190711";
-import cabecalho from "./componentes/cabecalho.js?v=202610190711";
-import rodape from "./componentes/rodape.js?v=202610190711";
-import agora from "./componentes/agora.js?v=202610190711";
-import ramificacoes from "./componentes/ramificacoes.js?v=202610190711";
-import indice from "./componentes/indice.js?v=202610190711";
-import pagina from "./componentes/pagina.js?v=202610190711";
-import trilha from "./componentes/trilha.js?v=202610190711";
-import recursos from "./componentes/recursos.js?v=202610190711";
-import soSeEleita from "./componentes/so-se-eleita.js?v=202610190711";
+import { site } from "./config.js?v=202610190718";
+import { ramificacoes as registro, grupos, encontrar, destino } from "./ramificacoes.js?v=202610190718";
+import cabecalho from "./componentes/cabecalho.js?v=202610190718";
+import rodape from "./componentes/rodape.js?v=202610190718";
+import agora from "./componentes/agora.js?v=202610190718";
+import ramificacoes from "./componentes/ramificacoes.js?v=202610190718";
+import indice from "./componentes/indice.js?v=202610190718";
+import pagina from "./componentes/pagina.js?v=202610190718";
+import trilha from "./componentes/trilha.js?v=202610190718";
+import recursos from "./componentes/recursos.js?v=202610190718";
+import soSeEleita from "./componentes/so-se-eleita.js?v=202610190718";
 
 // Raiz do site calculada a partir deste arquivo (assets/js/site.js),
 // então funciona em qualquer domínio, subpasta ou hospedagem.
@@ -23,28 +23,28 @@ export const url = (caminho) => (/^[a-z]+:/i.test(caminho) ? caminho : new URL(c
 
 const componentes = { cabecalho, rodape, agora, ramificacoes, indice, pagina, trilha, recursos };
 const sobDemanda = {
-  "guia-transparencia": () => import("./componentes/guia-transparencia.js?v=202610190711"),
-  "contas-admin": () => import("./componentes/contas-admin.js?v=202610190711"),
-  "guia-parcerias": () => import("./componentes/guia-parcerias.js?v=202610190711"),
-  "foto-mural": () => import("./componentes/foto-mural.js?v=202610190711"),
-  carrossel: () => import("./componentes/carrossel.js?v=202610190711"),
-  destaques: () => import("./componentes/destaques.js?v=202610190711"),
-  "manual-bixo": () => import("./componentes/manual-bixo.js?v=202610190711"),
-  "kit-bixo": () => import("./componentes/kit-bixo.js?v=202610190711"),
-  "video-leve": () => import("./componentes/video-leve.js?v=202610190711"),
-  "guia-circulares": () => import("./componentes/guia-circulares.js?v=202610190711"),
-  "area-politecnico": () => import("./componentes/area-politecnico.js?v=202610190711"),
-  "bixo-mensagens": () => import("./componentes/bixo-mensagens.js?v=202610190711"),
-  cursos: () => import("./componentes/cursos.js?v=202610190711"),
-  "poli-do-bienio": () => import("./componentes/poli-do-bienio.js?v=202610190711"),
-  extensoes: () => import("./componentes/extensoes.js?v=202610190711"),
-  "fichas-disciplinas": () => import("./componentes/fichas-disciplinas.js?v=202610190711"),
-  jornal: () => import("./componentes/jornal.js?v=202610190711"),
-  "mapa-servicos": () => import("./componentes/mapa-servicos.js?v=202610190711"),
-  "guia-salas": () => import("./componentes/guia-salas.js?v=202610190711"),
-  demanda: () => import("./componentes/demanda.js?v=202610190711"),
-  "mapa-problemas": () => import("./componentes/mapa-problemas.js?v=202610190711"),
-  "guia-bandejoes": () => import("./componentes/guia-bandejoes.js?v=202610190711"),
+  "guia-transparencia": () => import("./componentes/guia-transparencia.js?v=202610190718"),
+  "contas-admin": () => import("./componentes/contas-admin.js?v=202610190718"),
+  "guia-parcerias": () => import("./componentes/guia-parcerias.js?v=202610190718"),
+  "foto-mural": () => import("./componentes/foto-mural.js?v=202610190718"),
+  carrossel: () => import("./componentes/carrossel.js?v=202610190718"),
+  destaques: () => import("./componentes/destaques.js?v=202610190718"),
+  "manual-bixo": () => import("./componentes/manual-bixo.js?v=202610190718"),
+  "kit-bixo": () => import("./componentes/kit-bixo.js?v=202610190718"),
+  "video-leve": () => import("./componentes/video-leve.js?v=202610190718"),
+  "guia-circulares": () => import("./componentes/guia-circulares.js?v=202610190718"),
+  "area-politecnico": () => import("./componentes/area-politecnico.js?v=202610190718"),
+  "bixo-mensagens": () => import("./componentes/bixo-mensagens.js?v=202610190718"),
+  cursos: () => import("./componentes/cursos.js?v=202610190718"),
+  "poli-do-bienio": () => import("./componentes/poli-do-bienio.js?v=202610190718"),
+  extensoes: () => import("./componentes/extensoes.js?v=202610190718"),
+  "fichas-disciplinas": () => import("./componentes/fichas-disciplinas.js?v=202610190718"),
+  jornal: () => import("./componentes/jornal.js?v=202610190718"),
+  "mapa-servicos": () => import("./componentes/mapa-servicos.js?v=202610190718"),
+  "guia-salas": () => import("./componentes/guia-salas.js?v=202610190718"),
+  demanda: () => import("./componentes/demanda.js?v=202610190718"),
+  "mapa-problemas": () => import("./componentes/mapa-problemas.js?v=202610190718"),
+  "guia-bandejoes": () => import("./componentes/guia-bandejoes.js?v=202610190718"),
 };
 const contexto = { site, url, raiz: RAIZ, registro, grupos, encontrar, destino };
 

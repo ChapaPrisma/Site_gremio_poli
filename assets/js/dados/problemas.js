@@ -1,7 +1,7 @@
 // Mapa de problemas do campus (aluno/demandas/#mapa e o painel do portal interno): categorias, ícones e
 // leitura do banco. Tabelas, regras e limites: ferramentas/supabase/problemas.sql (mesmo banco das contas).
 
-import { supabase } from "./contas.js?v=202610190711";
+import { supabase } from "./contas.js?v=202610190718";
 
 // Cada categoria com o seu ícone (traços num quadro de 24 × 24, desenhados em branco sobre a cor do pino).
 export const CATEGORIAS = {
