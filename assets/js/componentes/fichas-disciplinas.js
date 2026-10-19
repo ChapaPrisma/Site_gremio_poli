@@ -3,7 +3,7 @@
 // só mostra resultados depois que a pessoa digita.
 // Uso: <input id="fichaBusca"> e <div data-componente="fichas-disciplinas" data-alvo="fichaResultados"></div>.
 
-import { carregarIndice, textoCreditos, detalhes, ligarFichas } from "./ficha-disciplina.js?v=202610190720";
+import { carregarIndice, textoCreditos, detalhes, ligarFichas } from "./ficha-disciplina.js?v=202610190742";
 
 const esc = (t = "") => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 const norm = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();

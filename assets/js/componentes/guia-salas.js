@@ -8,11 +8,11 @@
 // A grade do aluno fica só no navegador dele (localStorage), sem ir a lugar nenhum; o botão "Compartilhar"
 // põe a grade no próprio link (?grade=SIGLA~TURMA.SIGLA~TURMA), sem passar por servidor.
 
-import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610190720";
-import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610190720";
-import { carregarIndice, textoCreditos, detalhes, ligarFichas } from "./ficha-disciplina.js?v=202610190720";
-import { opcoesDe, combinar, incompativeis, notas, ORDENS } from "./montador-grade.js?v=202610190720";
-import { cursos as cursosDoGuia } from "../dados/cursos.js?v=202610190720";
+import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610190742";
+import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610190742";
+import { carregarIndice, textoCreditos, detalhes, ligarFichas } from "./ficha-disciplina.js?v=202610190742";
+import { opcoesDe, combinar, incompativeis, notas, ORDENS } from "./montador-grade.js?v=202610190742";
+import { cursos as cursosDoGuia } from "../dados/cursos.js?v=202610190742";
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));

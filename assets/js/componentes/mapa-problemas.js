@@ -8,9 +8,9 @@
 // (dados/problemas.js, ferramentas/supabase/problemas.sql). As fotos vão para um bucket privado: só a gestão
 // vê, no portal interno. No mapa público aparecem categoria, texto, data, situação e apoios.
 
-import { CATEGORIAS, SITUACOES, PERTO, carregarProblemas, distancia, iconeSvg } from "../dados/problemas.js?v=202610190720";
-import { bienio } from "../dados/predios-poli.js?v=202610190720";
-import { supabase } from "../dados/contas.js?v=202610190720";
+import { CATEGORIAS, SITUACOES, PERTO, carregarProblemas, distancia, iconeSvg } from "../dados/problemas.js?v=202610190742";
+import { bienio } from "../dados/predios-poli.js?v=202610190742";
+import { supabase } from "../dados/contas.js?v=202610190742";
 
 const NS = "http://www.w3.org/2000/svg";
 const GRAU = Math.PI / 180;

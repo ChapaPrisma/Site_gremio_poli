@@ -14,8 +14,8 @@
 //
 // Dados: dados/predios-poli.js (nomes, endereços) e assets/dados/campus-poli.json (OpenStreetMap).
 
-import { predios, bienio } from "../dados/predios-poli.js?v=202610190720";
-import { centros } from "../dados/cursos.js?v=202610190720";
+import { predios, bienio } from "../dados/predios-poli.js?v=202610190742";
+import { centros } from "../dados/cursos.js?v=202610190742";
 
 const NS = "http://www.w3.org/2000/svg";
 const GRAU = Math.PI / 180;
