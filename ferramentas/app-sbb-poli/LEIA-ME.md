@@ -85,6 +85,9 @@ dá acesso a recursos do celular: notificações, compartilhar e salvar arquivos
   - "Compartilhar" já usa `navigator.share` no celular; no app, `@capacitor/share` com o link da grade.
     O link (`?grade=...`) pode virar um deep link que abre a grade direto no app.
   - Manter o crédito ao MatrUSP (ideia do montador e caminho até as turmas).
+- **Demandas, mapa de problemas:** a foto vem de `<input capture>` e a localização de `navigator.geolocation`;
+  no app, trocar por `@capacitor/camera` e `@capacitor/geolocation` (pedem permissão uma vez e são mais
+  precisos). O mapa lê `campus-poli.json`, que já entra no pacote.
 - **Meu Amor:** o envio de foto ao mural usa o FormSubmit com redirecionamento (`_next`). No app,
   trocar pelo envio por `fetch` ao endpoint `https://formsubmit.co/ajax/...`, sem sair da tela.
   Ainda melhor, a foto pode vir da câmera ou da galeria pelo `@capacitor/camera`.

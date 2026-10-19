@@ -29,6 +29,15 @@ Depois do `contas.sql`, rode no SQL Editor:
   guarda nada de quem comprou, e o público só vê o total do dia. Para ligar um checkout online,
   basta ele inserir cada pedido pago em `vendas` com `canal = 'online'`.
 
+## Mapa de problemas
+
+Rode `problemas.sql` no SQL Editor (depois do `contas.sql`). Ele cria a tabela `problemas` (o que os alunos
+registram no mapa da página Demandas), os apoios ("eu também vi isso"), os limites contra enxurrada (6 registros
+por hora por conexão e 400 por dia no total; a conexão é guardada só como um código embaralhado) e o bucket
+privado `problemas`, com as fotos (até 1,5 MB, só imagem; o site já reduz cada foto para uns 200 KB). O público
+vê natureza, texto, data, lugar, situação e apoios; as fotos e a lista completa ficam no painel **Mapa de
+problemas** do portal interno, que também baixa tudo como planilha.
+
 ## Sem o banco
 
 Enquanto `site.contas` estiver vazio, a Transparência lê `assets/dados/contas.json` (só leitura) e o

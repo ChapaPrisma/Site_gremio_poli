@@ -1,0 +1,74 @@
+/* Mapa de problemas do campus (aluno/demandas/#mapa, componentes/mapa-problemas.js) e o painel do portal
+   interno (componentes/problemas-admin.js). */
+
+.mp { margin-top: 16px; }
+.mp__quadro { position: relative; border: var(--borda); border-radius: var(--raio); overflow: hidden; background: var(--painel); }
+.mp__svg { display: block; width: 100%; height: auto; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+.mp-fundo { fill: var(--painel); }
+.mp-caminho { fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.mp-predio { fill: #cdd3e2; }
+.mp-predio--poli { fill: #aab4d4; }
+.mp-predio--bienio { fill: #f3dc8a; }
+.mp-pino { cursor: pointer; }
+.mp-pino__gota { stroke: #fff; stroke-width: 2; filter: drop-shadow(0 2px 2px rgba(18, 23, 53, .35)); }
+.mp-pino:hover .mp-pino__gota, .mp-pino:focus-visible .mp-pino__gota { stroke: var(--tinta); stroke-width: 2.5; }
+.mp-pino:focus-visible { outline: none; }
+.mp-pino.is-resolvido { opacity: .45; }
+.mp-pino.is-rascunho .mp-pino__gota { stroke: var(--tinta); stroke-width: 2.5; stroke-dasharray: 4 3; }
+.mp-precisao { fill: rgba(34, 46, 132, .12); stroke: rgba(34, 46, 132, .5); stroke-width: 1; }
+.mp__zoom { position: absolute; top: 10px; left: 10px; display: flex; flex-direction: column; gap: 6px; }
+.mp__zoom button { width: 34px; height: 34px; border: 2px solid var(--tinta); border-radius: 8px; background: var(--papel); color: var(--tinta); font: 800 1.05rem/1 var(--fonte); cursor: pointer; }
+.mp__zoom button:hover { background: var(--sol-claro); }
+.mp__marcar { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); margin: 0; padding: 6px 14px; border-radius: 99px; background: var(--tinta); color: #fff; font-weight: 800; font-size: .88rem; }
+.mp__balao { position: absolute; width: min(300px, calc(100% - 16px)); padding: 12px 14px; border: 2px solid var(--tinta); border-radius: var(--raio-pequeno); background: var(--papel); box-shadow: 0 4px 0 var(--tinta); font-size: .92rem; }
+.mp__balao-topo { display: flex; align-items: center; gap: 8px; }
+.mp__balao-topo b { flex: 1; }
+.mp__fechar { border: 0; background: none; font-size: 1.4rem; line-height: 1; cursor: pointer; color: var(--tinta); }
+.mp__balao p { margin-top: 6px; }
+.mp__balao-meta { color: var(--tinta-suave); font-size: .82rem; }
+.mp__balao-resposta { padding: 6px 8px; border-left: 3px solid var(--aberto); background: var(--aberto-fundo); }
+.mp__balao .chip { margin-top: 8px; padding: 4px 12px; font-size: .85rem; }
+.mp__resumo { margin-top: 12px; }
+.mp__contagem { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .9rem; }
+.mp__contagem li { display: inline-flex; align-items: center; gap: 6px; }
+.ico-problema { flex: none; display: block; }
+.mp__form { margin-top: 18px; }
+.mp__form h3 { font-size: 1.15rem; margin-bottom: 4px; }
+.mp__categorias { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr)); gap: 8px; }
+.mp__categorias label { cursor: pointer; }
+.mp__categorias input { position: absolute; opacity: 0; pointer-events: none; }
+.mp__categorias span { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 2px solid var(--linha); border-radius: var(--raio-pequeno); background: var(--papel); font-weight: 700; font-size: .92rem; }
+.mp__categorias input:checked + span { border-color: var(--tinta); box-shadow: 0 3px 0 var(--tinta); background: var(--sol-claro); }
+.mp__categorias input:focus-visible + span { outline: 3px solid var(--sol); outline-offset: 2px; }
+.mp__previa { display: block; max-width: min(260px, 100%); margin-top: 8px; border: 2px solid var(--tinta); border-radius: var(--raio-pequeno); }
+.mp__local { margin-top: 6px; padding: 12px 14px; border-left: 4px solid var(--sol); background: var(--sol-claro); }
+.mp__aviso-local { font-size: .92rem; }
+.mp__estado-local { margin-top: 6px; font-weight: 700; font-size: .92rem; }
+.mp__estado-local:empty { display: none; }
+.mp__botoes-local { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.mp__botoes-local .chip { padding: 4px 12px; font-size: .88rem; background: var(--papel); }
+.mp__perto { margin-top: 12px; padding: 12px 14px; border: 2px solid var(--tinta); border-radius: var(--raio-pequeno); background: var(--papel); }
+.mp__perto ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 8px; }
+.mp__perto li { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: .9rem; }
+.mp__perto li span { flex: 1 1 200px; }
+.mp__perto small { color: var(--tinta-suave); }
+.mp__perto .chip { padding: 4px 12px; font-size: .85rem; }
+.mp__ok:empty { display: none; }
+
+/* portal interno */
+.prob-admin__topo { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
+.prob-admin__topo .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.prob-admin__topo .chip { padding: 4px 12px; font-size: .85rem; }
+.prob-admin { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 12px; }
+.prob-admin__item { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 14px; padding: 12px; border: 2px solid var(--linha); border-radius: var(--raio-pequeno); background: var(--papel); }
+.prob-admin__foto img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px; border: 2px solid var(--tinta); background: var(--painel); }
+.prob-admin__foto span { display: grid; place-items: center; aspect-ratio: 4 / 3; border: 2px dashed var(--linha); border-radius: 6px; color: var(--tinta-suave); font-size: .85rem; }
+.prob-admin__cat { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.prob-admin__cat small, .prob-admin__meta { color: var(--tinta-suave); font-size: .85rem; }
+.prob-admin__corpo > p + p { margin-top: 4px; }
+.prob-admin__form { display: flex; flex-wrap: wrap; align-items: end; gap: 8px 10px; margin-top: 10px; }
+.prob-admin__form label { display: grid; gap: 3px; font-weight: 800; font-size: .8rem; }
+.prob-admin__form select, .prob-admin__form input { padding: 6px 8px; border: 2px solid var(--tinta); border-radius: 6px; font: 600 .9rem var(--fonte); background: var(--papel); }
+.prob-admin__resposta { flex: 1 1 260px; }
+.prob-admin__apagar { color: #a3243c; border-color: #a3243c; }
+@media (max-width: 560px) { .prob-admin__item { grid-template-columns: minmax(0, 1fr); } }

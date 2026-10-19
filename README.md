@@ -120,6 +120,10 @@ O montador de grade, a conferência do 1º ano e "Minha grade" em `aluno/salas/`
 
 O desenho no fim de `aluno/cursos/` lê `assets/dados/campus-poli.json`, gerado por `python ferramentas/campus_poli.py` a partir do OpenStreetMap: os prédios num raio de 1,1 km do Biênio, as vias por onde se anda, o relevo (SRTM da NASA, pelo Open Topo Data) e o "campo de caminhada" (o tempo a pé do Biênio até cada ponto, com a velocidade de cada trecho pela função de Tobler, que desacelera nas subidas; o botão "Ver em minutos a pé" usa esse campo para redesenhar o campus). Nomes e endereços dos prédios ficam em `assets/js/dados/predios-poli.js`. Rode de novo se o OpenStreetMap ganhar prédios ou caminhos novos.
 
+## Mapa de problemas (Demandas)
+
+A página `aluno/demandas/#mapa` tem um mapa do campus (os mesmos prédios e caminhos de `campus-poli.json`) com os problemas que os alunos registram, no estilo do Waze: natureza (10 categorias com ícone, em `assets/js/dados/problemas.js`), foto, texto curto e lugar. O lugar é a localização do celular na hora do envio; sem ela, a gravada na foto; sem as duas, o aluno marca no mapa. Antes de enviar, o mapa mostra o que já foi registrado a menos de 30 m, para apoiar em vez de repetir. Os registros ficam no Supabase (`ferramentas/supabase/problemas.sql`): o público vê natureza, texto, data, situação e apoios; as fotos (bucket privado) e o texto completo ficam no painel do portal interno (`componentes/problemas-admin.js`), que muda a situação, responde e exporta CSV. Enquanto a chapa não for eleita, o envio e o "eu também vi isso" mostram o aviso de proposta, como os outros envios do site.
+
 ## Circulares da USP
 
 A página `aluno/circulares/` mostra as linhas que entram na Cidade Universitária num mapa (Leaflet + OpenStreetMap), com cartões por linha (informações em `assets/js/dados/circulares.js`). O traçado, as paradas e os horários vêm de `assets/dados/circulares.json`, gerado por `python ferramentas/circulares_gtfs.py` a partir do GTFS oficial da SPTrans (espelhado sem cadastro pelo Mobility Database). Revise a cada semestre: rode o script e confira os textos dos cartões.
