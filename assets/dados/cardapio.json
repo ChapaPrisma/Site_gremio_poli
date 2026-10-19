@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-19T08:36:02.873Z",
+ "atualizadoEm": "2026-10-19T13:15:56.201Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-19T08:36:02.873Z",
+   "atualizadoEm": "2026-10-19T13:15:56.201Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -116,16 +116,16 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-19T08:36:02.873Z",
+   "atualizadoEm": "2026-10-19T13:15:56.201Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
       "Arroz / feijão / arroz integral",
-      "Bife de contrafilé grelhado acebolado",
+      "Bife de contrafilé com molho roti",
       "Opção: Escondidinho de PVT",
       "Abobrinha refogada",
       "Salada de almeirão",
-      "Goiabada",
+      "Biscoito de chocolate",
       "Minipão / refresco"
      ],
      "jantar": []
@@ -135,8 +135,8 @@
       "Arroz / feijão / arroz integral",
       "Fricassé de frango",
       "Opção: Lentilha refogada com cebola e tomate",
-      "Cenoura com alho-poró",
-      "Salada de rúcula",
+      "Legumes sauté",
+      "Salada de agrião",
       "Abacaxi",
       "Minipão / refresco"
      ],
@@ -161,7 +161,7 @@
       "Opção: Puchero vegetariano",
       "Mandioca sauté",
       "Salada de alface",
-      "Melão",
+      "Maçã",
       "Minipão / refresco"
      ],
      "jantar": []
@@ -171,8 +171,8 @@
       "Arroz / feijão / arroz integral",
       "Hambúrguer com molho de queijo",
       "Opção: PVT com vinagrete",
-      "Batata doce com alecrim",
-      "Salada de agrião",
+      "Repolho com molho de mostarda",
+      "Salada de beterraba",
       "Bolinho de chocolate",
       "Minipão / refresco"
      ],
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-19T08:36:02.873Z",
+   "atualizadoEm": "2026-10-19T13:15:56.201Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-19T08:36:02.873Z",
+   "atualizadoEm": "2026-10-19T13:15:56.201Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
