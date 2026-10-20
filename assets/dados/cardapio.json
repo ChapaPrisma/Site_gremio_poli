@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-19T22:27:14.738Z",
+ "atualizadoEm": "2026-10-20T13:14:44.445Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-19T22:27:14.738Z",
+   "atualizadoEm": "2026-10-20T13:14:44.445Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-19T22:27:14.738Z",
+   "atualizadoEm": "2026-10-20T13:14:44.445Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-19T22:27:14.738Z",
+   "atualizadoEm": "2026-10-20T13:14:44.445Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -224,7 +224,7 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Linguiça toscana ao vinagrete",
-      "Opção: Almôndegas de lentilha",
+      "Opção: Torta de lentilha",
       "Acelga refogada",
       "Salada de beterraba",
       "Gelatina de limão",
@@ -255,7 +255,7 @@
      "almoco": [
       "Arroz / feijão / arroz integral",
       "Copa lombo em cubos com molho barbecue",
-      "Opção: Hambúrguer de inhame com PVT",
+      "Opção: PVT com inhame",
       "Polenta",
       "Salada de alface",
       "Maçã",
@@ -267,7 +267,7 @@
       "Opção: PVT com alho-poró e tomate",
       "Batata rústica",
       "Salada de acelga",
-      "Pudim de coco",
+      "Gelatina de morango",
       "Minipão / refresco"
      ]
     },
@@ -275,7 +275,7 @@
      "almoco": [
       "Arroz / feijão / arroz integral",
       "Filé de frango com molho de laranja",
-      "Opção: Almôndega de lentilha",
+      "Opção: Lentilha refogada",
       "Chuchu à provençal",
       "Salada de mostarda",
       "Bolinho de chocolate",
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-19T22:27:14.738Z",
+   "atualizadoEm": "2026-10-20T13:14:44.445Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
