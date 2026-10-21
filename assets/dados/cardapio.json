@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-20T22:27:48.859Z",
+ "atualizadoEm": "2026-10-21T13:15:56.687Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-20T22:27:48.859Z",
+   "atualizadoEm": "2026-10-21T13:15:56.687Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -49,7 +49,7 @@
      "almoco": [
       "Arroz / feijão / arroz integral",
       "Almôndegas com molho de tomate",
-      "Opção: Lentilha",
+      "Opção: Lentilha com berinjela",
       "Macarrão ao alho e óleo",
       "Salada de acelga",
       "Maçã",
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-20T22:27:48.859Z",
+   "atualizadoEm": "2026-10-21T13:15:56.687Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-20T22:27:48.859Z",
+   "atualizadoEm": "2026-10-21T13:15:56.687Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -233,7 +233,7 @@
     },
     "2026-10-21": {
      "almoco": [
-      "Arroz / feijão preto / arroz integral",
+      "Arroz / feijão / arroz integral",
       "Carne em cubos com molho madeira",
       "Opção: PVT com vinagrete",
       "Macarrão ao sugo",
@@ -242,7 +242,7 @@
       "Minipão / refresco"
      ],
      "jantar": [
-      "Arroz / feijão preto / arroz integral",
+      "Arroz / feijão / arroz integral",
       "Filé de coxa de frango assado",
       "Opção: Cassoulet vegetariano",
       "Abóbora refogada",
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-20T22:27:48.859Z",
+   "atualizadoEm": "2026-10-21T13:15:56.687Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
