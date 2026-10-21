@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-21T13:15:56.687Z",
+ "atualizadoEm": "2026-10-21T22:28:41.106Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-21T13:15:56.687Z",
+   "atualizadoEm": "2026-10-21T22:28:41.106Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -58,9 +58,9 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Frango à passarinho",
-      "Opção: Baião de dois vegetariano",
+      "Opção: Estrogonofe de legumes",
       "Abóbora refogada",
-      "Salada de almeirão",
+      "Salada de acelga",
       "Bananada",
       "Minipão / refresco"
      ]
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-21T13:15:56.687Z",
+   "atualizadoEm": "2026-10-21T22:28:41.106Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-21T13:15:56.687Z",
+   "atualizadoEm": "2026-10-21T22:28:41.106Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-21T13:15:56.687Z",
+   "atualizadoEm": "2026-10-21T22:28:41.106Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
