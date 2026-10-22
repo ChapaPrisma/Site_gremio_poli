@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-22T13:17:28.187Z",
+ "atualizadoEm": "2026-10-22T22:27:14.643Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-22T13:17:28.187Z",
+   "atualizadoEm": "2026-10-22T22:27:14.643Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -78,9 +78,9 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Bife de alcatra acebolado",
-      "Opção: Moussaka de PVT",
-      "Jardineira de legumes",
-      "Salada de escarola",
+      "Opção: Berinjela à parmegiana",
+      "Macarrão ao alho e óleo",
+      "Salada de alface",
       "Maçã",
       "Minipão / refresco"
      ]
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-22T13:17:28.187Z",
+   "atualizadoEm": "2026-10-22T22:27:14.643Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-22T13:17:28.187Z",
+   "atualizadoEm": "2026-10-22T22:27:14.643Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-22T13:17:28.187Z",
+   "atualizadoEm": "2026-10-22T22:27:14.643Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
