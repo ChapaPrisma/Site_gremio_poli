@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-21T22:28:41.106Z",
+ "atualizadoEm": "2026-10-22T13:17:28.187Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-21T22:28:41.106Z",
+   "atualizadoEm": "2026-10-22T13:17:28.187Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -70,7 +70,7 @@
       "Arroz / feijão / arroz integral",
       "Frango em tiras com molho shoyu",
       "Opção: Paella vegetariana",
-      "Abobrinha refogada",
+      "Jardineira de legumes",
       "Salada de alface",
       "Cocada",
       "Minipão / refresco"
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-21T22:28:41.106Z",
+   "atualizadoEm": "2026-10-22T13:17:28.187Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-21T22:28:41.106Z",
+   "atualizadoEm": "2026-10-22T13:17:28.187Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -253,20 +253,20 @@
     },
     "2026-10-22": {
      "almoco": [
-      "Arroz / feijão / arroz integral",
+      "Arroz / feijão preto / arroz integral",
       "Copa lombo em cubos com molho barbecue",
       "Opção: PVT com inhame",
       "Polenta",
-      "Salada de alface",
+      "Salada de folhas mistas( Alface, repolho, almeirão)",
       "Maçã",
       "Minipão / refresco"
      ],
      "jantar": [
-      "Arroz / feijão / arroz integral",
+      "Arroz / feijão preto / arroz integral",
       "Estrogonofe de carne",
       "Opção: PVT com alho-poró e tomate",
       "Batata rústica",
-      "Salada de acelga",
+      "Salada de escarola",
       "Gelatina de morango",
       "Minipão / refresco"
      ]
@@ -275,7 +275,7 @@
      "almoco": [
       "Arroz / feijão / arroz integral",
       "Filé de frango com molho de laranja",
-      "Opção: Lentilha refogada",
+      "Opção: Mix de grãos com PVT",
       "Chuchu à provençal",
       "Salada de mostarda",
       "Bolinho de chocolate",
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-21T22:28:41.106Z",
+   "atualizadoEm": "2026-10-22T13:17:28.187Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
