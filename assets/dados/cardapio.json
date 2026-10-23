@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-23T13:11:44.571Z",
+ "atualizadoEm": "2026-10-23T22:27:27.323Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-23T13:11:44.571Z",
+   "atualizadoEm": "2026-10-23T22:27:27.323Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -97,10 +97,10 @@
      ],
      "jantar": [
       "Arroz / feijão / arroz integral",
-      "Lombo com molho de abacaxi",
-      "Opção: Escondidinho de PVT",
-      "Repolho ao alho e óleo",
-      "Salada de beterraba",
+      "Lombo com molho roti",
+      "Opção: Fricassê de grão-de-bico",
+      "Repolho com passas",
+      "Salada de almeirão",
       "Laranja",
       "Minipão / refresco"
      ]
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-23T13:11:44.571Z",
+   "atualizadoEm": "2026-10-23T22:27:27.323Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-23T13:11:44.571Z",
+   "atualizadoEm": "2026-10-23T22:27:27.323Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-23T13:11:44.571Z",
+   "atualizadoEm": "2026-10-23T22:27:27.323Z",
    "dias": {
     "2026-10-19": {
      "almoco": [
