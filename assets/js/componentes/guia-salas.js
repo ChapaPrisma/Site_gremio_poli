@@ -8,11 +8,11 @@
 // A grade do aluno fica só no navegador dele (localStorage), sem ir a lugar nenhum; o botão "Compartilhar"
 // põe a grade no próprio link (?grade=SIGLA~TURMA.SIGLA~TURMA), sem passar por servidor.
 
-import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610191546";
-import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610191546";
-import { carregarIndice, textoCreditos, detalhes, ligarFichas } from "./ficha-disciplina.js?v=202610191546";
-import { opcoesDe, combinar, incompativeis, notas, ORDENS } from "./montador-grade.js?v=202610191546";
-import { cursos as cursosDoGuia } from "../dados/cursos.js?v=202610191546";
+import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610222333";
+import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610222333";
+import { carregarIndice, textoCreditos, detalhes, ligarFichas } from "./ficha-disciplina.js?v=202610222333";
+import { opcoesDe, agruparPorHorario, combinar, incompativeis, notas, ORDENS, serveParaAluno, doCurso, obrigatoriasEC3, periodoDe, periodosDisponiveis } from "./montador-grade.js?v=202610222333";
+import { cursos as cursosDoGuia } from "../dados/cursos.js?v=202610222333";
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -138,7 +138,9 @@ export default async function guiaSalas(_alvo, { raiz }) {
     const lista = filtradas();
     const aviso = $("#avisoDia");
     const ds = diaSemana(S.dia);
+    const horasDeAtraso = (Date.now() - new Date(D.atualizadoEm)) / 36e5;
     if (semDados) { aviso.hidden = false; aviso.textContent = "Os dados do USPolis estão desatualizados. As salas podem não refletir o dia de hoje."; }
+    else if (horasDeAtraso > 3) { aviso.hidden = false; aviso.textContent = `O USPolis não está respondendo: estes dados são de ${new Date(D.atualizadoEm).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" })}. Aulas e reuniões marcadas depois disso não aparecem.`; }
     else if (ds === 0 || ds === 6) { aviso.hidden = false; aviso.textContent = "Fim de semana: quase não há aulas, mas os prédios podem estar fechados ou com acesso restrito."; }
     else aviso.hidden = true;
 
@@ -282,11 +284,30 @@ export default async function guiaSalas(_alvo, { raiz }) {
   const semR = (p) => String(p || "").replace(/^\(R\)\s*/, "").trim();
   const turmasU = new Map();   // disciplina -> Map(código -> turma)
   let J = null;
+  // Semestre letivo: o código da turma diz o período (20262xx = 2026, 2º semestre). Perto da matrícula o
+  // JupiterWeb mostra o semestre atual e o próximo juntos; o montador usa um de cada vez (o mais novo, a não
+  // ser que o aluno escolha o outro).
+  let periodos = [], periodo = null;
+  try { periodo = localStorage.getItem("gremio:periodo"); } catch {}
+  function escolherPeriodo() {
+    // os períodos vêm das turmas do JupiterWeb (o USPolis às vezes guarda turmas antigas ou códigos fora do padrão)
+    periodos = periodosDisponiveis((J?.turmas || D.turmas).map((t) => t[1]));
+    if (!periodos.some((x) => x.chave === periodo)) periodo = periodos.at(-1)?.chave || null;
+    const sel = document.getElementById("montPeriodo");
+    if (sel) {
+      sel.closest("label").hidden = periodos.length < 2;
+      sel.innerHTML = periodos.map((x) => `<option value="${x.chave}">${x.sem}º semestre de ${x.ano}</option>`).join("");
+      if (periodo) sel.value = periodo;
+    }
+  }
+  const doPeriodo = (t) => { const p = periodoDe(t); return !periodo || !p || p.chave === periodo; };   // código fora do padrão ("50", "51/52"): fica
   function indexarTurmas() {
     turmasU.clear();
+    escolherPeriodo();
     const por = (c) => { if (!turmasU.has(c)) turmasU.set(c, new Map()); return turmasU.get(c); };
-    for (const [c, t, hs, prof] of D.turmas) por(c).set(t, { c, t, tipo: 0, teorica: "", h: hs.map((x) => [...x]), prof: prof.map(semR), uspolis: true });
+    for (const [c, t, hs, prof] of D.turmas) if (doPeriodo(t)) por(c).set(t, { c, t, tipo: 0, teorica: "", h: hs.map((x) => [...x]), prof: prof.map(semR), uspolis: true });
     for (const [c, t, tipo, teorica, hs, prof, total, grupos, obs] of J?.turmas || []) {
+      if (!doPeriodo(t)) continue;
       const ja = por(c).get(t);
       if (ja) {
         Object.assign(ja, { tipo, teorica, vagas: total, grupos, obs });
@@ -464,7 +485,6 @@ export default async function guiaSalas(_alvo, { raiz }) {
   };
 
   /* ---------- curso do aluno (vale para o 1º ano e para o montador) ---------- */
-  const PALAVRA_CURSO = { civil: "civil", ambiental: "ambiental", computacao: "computacao", eletrica: "eletrica", mecanica: "mecanica", mecatronica: "mecatronica", producao: "producao", quimica: "quimica", naval: "naval", "materiais-metalurgica-nuclear": "materiais", "minas-petroleo": "minas" };
   const CHAVE_CONF = "gremio:conferencia";
   const conf = (() => { try { return JSON.parse(localStorage.getItem(CHAVE_CONF)) || {}; } catch { return {}; } })();
   const semestreAgora = new Date().getMonth() >= 6 ? 2 : 1;   // 1º ou 2º semestre do ano
@@ -476,21 +496,16 @@ export default async function guiaSalas(_alvo, { raiz }) {
   selCursos.forEach((s) => s.addEventListener("change", () => {
     conf.curso = s.value; guardarConf();
     selCursos.forEach((o) => { o.value = conf.curso; });
+    // outro curso: as disciplinas puxadas para o curso anterior não valem mais
+    mont.discs = []; mont.fora = []; mont.alt = {}; guardarMont(); atual = 0; $("#montPuxado").textContent = "";
     montarConferencia(); preencherSemestres(); desenharMontador();
   }));
-  // Uma turma "serve para mim" se tem vagas da Poli e, quando o curso é conhecido, vagas para o curso ou
-  // para toda a unidade. As turmas reservadas a outras unidades (IQ, IF, IME, FEA...) ficam de fora.
+  // Quem pode se matricular em cada turma vem dos grupos de vagas do JupiterWeb (regras em montador-grade.js,
+  // testadas por ferramentas/testar-montador.mjs): sai só a turma reservada explicitamente para outro curso,
+  // outra unidade ou outro currículo.
   const nomesGrupos = (x) => (x.grupos || []).map(([g]) => J?.grupos?.[g] || "");
-  function serveParaMim(x) {
-    const nomes = nomesGrupos(x);
-    if (!nomes.length) return true;   // sem o detalhe das vagas, não dá para saber: fica
-    const daPoli = nomes.filter((n) => /(^|: )EP\b/.test(n));
-    if (!daPoli.length) return false;
-    const palavra = PALAVRA_CURSO[conf.curso];
-    if (!palavra) return true;
-    return daPoli.some((n) => /toda a Unidade/i.test(n) || norm(n).includes(palavra) || !/Engenharia|Ciclo/.test(n));
-  }
-  const doMeuCurso = (x) => { const p = PALAVRA_CURSO[conf.curso]; return !!p && nomesGrupos(x).some((n) => /(^|: )EP\b/.test(n) && norm(n).includes(p)); };
+  const serveParaMim = (x, curriculo = mont.curriculo || "") => serveParaAluno(nomesGrupos(x), { curso: conf.curso || "", curriculo });
+  const doMeuCurso = (x, curriculo = mont.curriculo || "") => doCurso(nomesGrupos(x), { curso: conf.curso || "", curriculo });
 
   /* ---------- 1º ano: a grade que já vem pronta, aqui com as salas ---------- */
   $(".conferencia__semestre").addEventListener("click", (e) => { const b = e.target.closest("[data-sem]"); if (!b) return; conf.sem = b.dataset.sem; guardarConf(); montarConferencia(); });
@@ -505,8 +520,8 @@ export default async function guiaSalas(_alvo, { raiz }) {
     const prontas = obrig.filter((d) => naGradeT.has(d[0])).length;
     const itens = obrig.map(([c, n, ca, ct]) => {
       const t = naGradeT.get(c);
-      const ts = turmasDe(c).filter(serveParaMim);
-      const doCurso = ts.filter(doMeuCurso);
+      const ts = turmasDe(c).filter((x) => serveParaMim(x, "dcn"));
+      const doCurso = ts.filter((x) => doMeuCurso(x, "dcn"));
       const mostrar = doCurso.length ? doCurso : ts;
       const estado = t ? `Turma ${t} na sua grade.`
         : mostrar.length ? `Qual é a sua turma? ${doCurso.length ? `${doCurso.length === 1 ? "Esta é a que tem" : "Estas são as que têm"} vagas para o seu curso.` : "Confira o código no JupiterWeb."}`
@@ -528,7 +543,7 @@ export default async function guiaSalas(_alvo, { raiz }) {
 
   /* ---------- 3º semestre em diante: o montador ---------- */
   const CHAVE_MONT = "gremio:montador";
-  const mont = (() => { const base = { discs: [], fora: [], lotadas: false, soMeu: true, ordem: "janelas", fixos: [], alt: {} }; try { return { ...base, ...JSON.parse(localStorage.getItem(CHAVE_MONT)) }; } catch { return base; } })();
+  const mont = (() => { const base = { discs: [], fora: [], lotadas: false, soMeu: true, ordem: "janelas", fixos: [], alt: {}, curriculo: "" }; try { return { ...base, ...JSON.parse(localStorage.getItem(CHAVE_MONT)) }; } catch { return base; } })();
   let combos = [], atual = 0;
   const guardarMont = () => { try { localStorage.setItem(CHAVE_MONT, JSON.stringify(mont)); } catch {} };
   const abas = [$("#abaPrimeiro"), $("#abaDepois")];
@@ -543,31 +558,69 @@ export default async function guiaSalas(_alvo, { raiz }) {
   });
   try { if (localStorage.getItem("gremio:montador-aba") === "1") abrirAba(1); } catch {}
 
-  // semestre ideal: puxa as obrigatórias daquele semestre da grade do curso
+  // Currículo: quem entrou a partir de 2025 está no currículo novo (EC-DCN), cuja grade o JupiterWeb publica;
+  // quem entrou antes está no EC-3, cuja grade não é pública. Para o EC-3, o montador lista as obrigatórias que
+  // reservam vaga para o curso no EC-3 neste semestre.
+  function marcarCurriculo() {
+    document.querySelectorAll("[name=montCurriculo]").forEach((r) => { r.checked = r.value === mont.curriculo; });
+    $("#montDcn").hidden = mont.curriculo !== "dcn";
+    $("#montEc3").hidden = mont.curriculo !== "ec3";
+    if (mont.curriculo === "ec3") listarEC3();
+  }
+  document.querySelectorAll("[name=montCurriculo]").forEach((r) => r.addEventListener("change", () => {
+    mont.curriculo = r.value; mont.alt = {}; guardarMont(); atual = 0; $("#montPuxado").textContent = "";
+    marcarCurriculo(); desenharMontador();
+  }));
+  // semestre ideal (currículo novo): puxa as obrigatórias daquele semestre da grade do curso
   function preencherSemestres() {
     const sel = $("#montSemestre"), g = fichas?.cursos?.[conf.curso]?.grade || {};
-    const sems = Object.keys(g).map(Number).filter((s) => s >= 3).sort((a, b) => a - b);
+    const sems = Object.keys(g).map(Number).filter((s) => s >= 2).sort((a, b) => a - b);
     sel.innerHTML = sems.length ? sems.map((s) => `<option value="${s}">${s}º semestre</option>`).join("") : `<option value="">${conf.curso ? (fichas ? "Sem grade pública" : "Carregando…") : "Escolha o curso"}</option>`;
     if (mont.semestre && sems.includes(+mont.semestre)) sel.value = mont.semestre;
-    else if (sems.length) sel.value = sems.find((s) => s % 2 === semestreAgora % 2) || sems[0];
+    else if (sems.length) sel.value = sems.find((s) => s >= 3 && s % 2 === semestreAgora % 2) || sems[0];
     $("#montPuxar").disabled = !sems.length;
+    if (mont.curriculo === "ec3") listarEC3();
   }
   $("#montSemestre").addEventListener("change", (e) => { mont.semestre = e.target.value; guardarMont(); });
   $("#montPuxar").addEventListener("click", () => {
     const s = $("#montSemestre").value, g = fichas?.cursos?.[conf.curso]?.grade?.[s];
     if (!g) return;
     mont.semestre = s;
-    const obrig = g.filter((d) => d[4] === "O").map((d) => d[0]);
-    const comTurma = obrig.filter((c) => turmasDe(c).some(serveParaMim));
-    const semTurma = obrig.filter((c) => !comTurma.includes(c));
-    mont.discs = comTurma; mont.alt = {}; guardarMont(); atual = 0;
+    const obrig = g.filter((d) => d[4] === "O");
+    const comTurma = obrig.filter((d) => turmasDe(d[0]).some((x) => x.h.length && serveParaMim(x))).map((d) => d[0]);
+    const semTurma = obrig.filter((d) => !comTurma.includes(d[0]));
+    mont.discs = comTurma; mont.alt = {}; mont.fora = []; guardarMont(); atual = 0;
     const outroSemestre = (+s % 2) !== (semestreAgora % 2);
-    $("#montPuxado").textContent = [
-      comTurma.length ? `Puxamos ${comTurma.length} obrigatória${comTurma.length === 1 ? "" : "s"} do ${s}º semestre.` : `Nenhuma obrigatória do ${s}º semestre tem turma agora.`,
-      semTurma.length ? `Sem turma neste semestre: ${semTurma.join(", ")}.` : "",
-      outroSemestre ? `As matérias do ${s}º semestre costumam ser oferecidas no ${semestreAgora === 2 ? "primeiro" : "segundo"} semestre do ano.` : "",
-    ].filter(Boolean).join(" ");
+    const caixa = $("#montPuxado");
+    caixa.innerHTML = [
+      comTurma.length ? `<b>Puxamos ${comTurma.length} de ${obrig.length} obrigatórias do ${s}º semestre.</b>` : `<b>Nenhuma das ${obrig.length} obrigatórias do ${s}º semestre tem turma neste semestre letivo.</b>`,
+      semTurma.length ? ` Sem oferecimento no JupiterWeb agora: ${semTurma.map(([c, n]) => `${esc(c)} ${esc(n)}`).join("; ")}.` : "",
+      semTurma.length ? (outroSemestre
+        ? ` As disciplinas do ${s}º semestre costumam ser oferecidas no ${semestreAgora === 2 ? "primeiro" : "segundo"} semestre do ano.`
+        : " O currículo novo começou com quem entrou em 2025, e algumas disciplinas dele ainda não tiveram a primeira turma. Se você entrou antes de 2025, escolha \"Entrei até 2024\" acima.") : "",
+    ].join("");
     desenharMontador();
+  });
+  // EC-3: as obrigatórias com vaga reservada para o curso neste semestre, para tocar e acrescentar
+  function listarEC3() {
+    const caixa = $("#montEc3Lista");
+    if (!conf.curso) { caixa.innerHTML = `<p class="nota">Escolha o seu curso para ver a lista.</p>`; return; }
+    if (!J) { caixa.innerHTML = `<p class="nota">Carregando as turmas do JupiterWeb…</p>`; return; }
+    const ts = [...turmasU.values()].flatMap((m) => [...m.values()]).map((x) => ({ c: x.c, grupos: nomesGrupos(x) }));
+    const siglas = obrigatoriasEC3(ts, conf.curso);
+    caixa.innerHTML = siglas.length
+      ? `<ul class="mont-ec3">${siglas.map((c) => `<li><button type="button" class="chip" data-ec3="${esc(c)}" aria-pressed="${mont.discs.includes(c)}"><b>${esc(c)}</b> ${esc(nomeDe(c))}</button></li>`).join("")}</ul>`
+      : `<p class="nota">Nenhuma turma deste semestre reserva vaga obrigatória para o seu curso no EC-3. Acrescente as disciplinas pela busca abaixo.</p>`;
+  }
+  $("#montEc3Lista").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-ec3]"); if (!b) return;
+    const c = b.dataset.ec3;
+    mont.discs = mont.discs.includes(c) ? mont.discs.filter((x) => x !== c) : [...mont.discs, c];
+    mont.alt = {}; guardarMont(); atual = 0; listarEC3(); desenharMontador();
+  });
+  $("#montPeriodo").addEventListener("change", (e) => {
+    periodo = e.target.value; try { localStorage.setItem("gremio:periodo", periodo); } catch {}
+    indexarTurmas(); indexarBusca(); mont.alt = {}; atual = 0; depoisDaGrade(); desenharMontador(); if (mont.curriculo === "ec3") listarEC3();
   });
 
   // horários reservados: optativa de fora da lista, estágio, trabalho
@@ -592,19 +645,19 @@ export default async function guiaSalas(_alvo, { raiz }) {
   });
   $("#montSugestoes").addEventListener("click", (e) => {
     const b = e.target.closest("[data-add]"); if (!b) return;
-    mont.discs.push(b.dataset.add); guardarMont();
+    mont.discs.push(b.dataset.add); mont.alt = {}; guardarMont(); if (mont.curriculo === "ec3") listarEC3();
     $("#montBusca").value = ""; $("#montSugestoes").innerHTML = ""; $("#montBusca").focus();
     atual = 0; desenharMontador();
   });
   $("#montEscolhidas").addEventListener("click", (e) => {
     const tirar = e.target.closest("[data-tirar-disc]");
-    if (tirar) { mont.discs = mont.discs.filter((c) => c !== tirar.dataset.tirarDisc); guardarMont(); atual = 0; desenharMontador(); }
+    if (tirar) { mont.discs = mont.discs.filter((c) => c !== tirar.dataset.tirarDisc); mont.alt = {}; guardarMont(); atual = 0; if (mont.curriculo === "ec3") listarEC3(); desenharMontador(); }
   });
   $("#montEscolhidas").addEventListener("change", (e) => {
     const cx = e.target.closest("[data-turma]");
-    if (cx) { const k = cx.dataset.turma; mont.fora = cx.checked ? mont.fora.filter((x) => x !== k) : [...mont.fora, k]; guardarMont(); atual = 0; calcular(); }
-    if (e.target.id === "montLotadas") { mont.lotadas = e.target.checked; guardarMont(); atual = 0; desenharMontador(); }
-    if (e.target.id === "montSoMeu") { mont.soMeu = e.target.checked; guardarMont(); atual = 0; desenharMontador(); }
+    if (cx) { const k = cx.dataset.turma; mont.fora = cx.checked ? mont.fora.filter((x) => x !== k) : [...mont.fora, k]; mont.alt = {}; guardarMont(); atual = 0; calcular(); }
+    if (e.target.id === "montLotadas") { mont.lotadas = e.target.checked; mont.alt = {}; guardarMont(); atual = 0; desenharMontador(); }
+    if (e.target.id === "montSoMeu") { mont.soMeu = e.target.checked; mont.alt = {}; guardarMont(); atual = 0; desenharMontador(); }
   });
   $("#montResultado").addEventListener("click", (e) => {
     const o = e.target.closest("[data-ordem]");
@@ -630,7 +683,7 @@ export default async function guiaSalas(_alvo, { raiz }) {
     const fixos = $("#montFixos");
     fixos.innerHTML = mont.fixos.map((f, i) => `<li><span><b>${esc(f.nome)}</b> · ${DIAS_FORM[f.wd]} ${hora(f.a)}–${hora(f.b)}</span><button type="button" class="chip" data-tirar-fixo="${i}" aria-label="Tirar ${esc(f.nome)}">Tirar</button></li>`).join("");
     const caixa = $("#montEscolhidas");
-    if (!mont.discs.length) { caixa.innerHTML = `<p class="mont-vazio">Nenhuma disciplina ainda. Puxe as obrigatórias do seu semestre ou acrescente as disciplinas uma por vez.</p>`; $("#montResultado").innerHTML = ""; combos = []; return; }
+    if (!mont.discs.length) { caixa.innerHTML = `<p class="mont-vazio">${!mont.curriculo ? "Comece dizendo quando você entrou na Poli." : mont.curriculo === "ec3" ? "Nenhuma disciplina ainda. Toque nas obrigatórias acima ou acrescente as disciplinas pela busca." : "Nenhuma disciplina ainda. Puxe as obrigatórias do seu semestre ou acrescente as disciplinas uma por vez."}</p>`; $("#montResultado").innerHTML = ""; combos = []; return; }
     const escondidas = mont.discs.reduce((s, c) => s + turmasDe(c).filter((x) => !serveParaMim(x)).length, 0);
     caixa.innerHTML = `<div class="mont-filtros">
         <label class="mont-lotadas"><input type="checkbox" id="montSoMeu"${mont.soMeu ? " checked" : ""}> Só turmas com vaga para ${conf.curso ? "o meu curso" : "a Poli"}${mont.soMeu && escondidas ? ` <small>(${escondidas} turma${escondidas === 1 ? "" : "s"} de outras unidades ou cursos escondida${escondidas === 1 ? "" : "s"})</small>` : ""}</label>
@@ -645,29 +698,19 @@ export default async function guiaSalas(_alvo, { raiz }) {
           ${ts.length ? `<details><summary>${ts.length === 1 ? "1 turma" : `${ts.length} turmas: desmarque as que você não quer`}</summary><ul class="mont-turmas">${ts.map((x) => `<li><label>
               <input type="checkbox" data-turma="${esc(x.c)}|${esc(x.t)}"${mont.fora.includes(`${x.c}|${x.t}`) ? "" : " checked"}>
               <span><b>Turma ${esc(x.t)}</b>${textoTipo(x) ? ` · ${esc(textoTipo(x))}` : ""} · ${esc(x.h.map(([wd, a, b]) => `${SEMANA[wd]} ${hora(a)}–${hora(b)}`).join(", "))}${x.prof.length ? ` · ${esc(x.prof.join(", "))}` : ""}${textoVagas(x) ? ` · <span class="${lotada(x) ? "is-lotada" : ""}">${esc(textoVagas(x))}</span>` : ""}</span>
-            </label></li>`).join("")}</ul></details>` : `<p class="mont-disc__sem">${J ? "Nenhuma turma com vaga para você neste semestre." : "Carregando as turmas…"}</p>`}
+            </label></li>`).join("")}</ul></details>` : `<p class="mont-disc__sem">${!J ? "Carregando as turmas…" : turmasDe(c).length ? "As turmas desta disciplina reservam vaga para outros cursos ou currículos. Desmarque \"Só turmas com vaga para o meu curso\" para ver todas." : "Sem oferecimento no JupiterWeb neste semestre letivo."}</p>`}
         </li>`;
       }).join("")}</ul>`;
     calcular();
   }
 
-  // Turmas no mesmo horário (só muda o professor ou a sala) são a mesma grade: viram uma opção só, com as
-  // turmas como alternativas. Assim o número de grades é o de horários diferentes de verdade.
-  function agruparPorHorario(opcoes) {
-    const grupos = new Map();
-    for (const o of opcoes) {
-      const k = o.h.map((x) => x.join(",")).sort().join(";");
-      if (!grupos.has(k)) grupos.set(k, { h: o.h, alternativas: [] });
-      grupos.get(k).alternativas.push(o);
-    }
-    return [...grupos.values()];
-  }
   let listaAtual = [];
   function calcular() {
     const res = $("#montResultado");
+    const simples = (x) => ({ c: x.c, t: x.t, tipo: x.tipo, teorica: x.teorica, h: x.h.map(([wd, a, b]) => [wd, a, b]) });
+    // turmas desmarcadas saem antes de montar as opções: uma prática nunca fica sem a sua teórica (e vice-versa)
     const lista = mont.discs.map((c) => ({
-      c, opcoes: agruparPorHorario(opcoesDe(turmasUsaveis(c).map((x) => ({ c: x.c, t: x.t, tipo: x.tipo, teorica: x.teorica, h: x.h.map(([wd, a, b]) => [wd, a, b]) })))
-        .filter((op) => !op.chaves.some((k) => mont.fora.includes(k)))),
+      c, opcoes: agruparPorHorario(opcoesDe(turmasUsaveis(c).filter((x) => !mont.fora.includes(`${x.c}|${x.t}`)).map(simples), turmasDe(c).filter((x) => x.h.length).map(simples))),
     }));
     // os horários reservados entram como uma "disciplina" de uma opção só, que as outras não podem atravessar
     if (mont.fixos.length) lista.push({ c: "#", fixo: true, opcoes: [{ h: mont.fixos.map((f) => [f.wd, f.a, f.b]), alternativas: [{ chaves: mont.fixos.map(chaveFixo) }] }] });
@@ -677,7 +720,9 @@ export default async function guiaSalas(_alvo, { raiz }) {
     const { combinacoes, cortado } = combinar(lista, 2000);
     if (!combinacoes.length) {
       const pares = incompativeis(lista).map(([a, b]) => [a === "#" ? "os horários reservados" : a, b === "#" ? "os horários reservados" : b]);
-      res.innerHTML = `<p class="mont-aviso">Não existe grade sem choque de horário com estas turmas.${pares.length ? ` Não cabem juntas de jeito nenhum: ${pares.map(([a, b]) => `${esc(a)} e ${esc(b)}`).join("; ")}.` : " Tente liberar mais turmas ou tirar uma disciplina."}</p>`;
+      // quem é o problema: quantas grades sobram tirando cada disciplina
+      const semCada = lista.filter((d) => !d.fixo).map((d) => ({ c: d.c, n: combinar(lista.filter((x) => x !== d), 2000).combinacoes.length })).filter((x) => x.n).sort((a, b) => b.n - a.n);
+      res.innerHTML = `<p class="mont-aviso">Não existe grade sem choque de horário com todas estas disciplinas e turmas.${pares.length ? ` Não cabem juntas de jeito nenhum: ${pares.map(([a, b]) => `${esc(a)} e ${esc(b)}`).join("; ")}.` : ""}${semCada.length ? ` Tirando uma disciplina: ${semCada.slice(0, 3).map((x) => `sem ${esc(x.c)}, ${x.n}${x.n >= 2000 ? "+" : ""} grade${x.n === 1 ? "" : "s"}`).join("; ")}.` : " Tente liberar mais turmas ou tirar disciplinas."}</p>`;
       combos = []; return;
     }
     combos = combinacoes.map((esc_) => ({ ops: esc_.map((j, i) => lista[i].opcoes[j]), notas: notas(esc_.flatMap((j, i) => lista[i].opcoes[j].h)) }))
@@ -715,6 +760,7 @@ export default async function guiaSalas(_alvo, { raiz }) {
     }).join("");
   }
   preencherSemestres();
+  marcarCurriculo();
   desenharMontador();
 
   /* ---------- tudo ---------- */

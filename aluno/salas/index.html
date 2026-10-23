@@ -10,12 +10,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito:wght@400;600;700;800&display=swap">
-  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610191546">
-  <link rel="stylesheet" href="../../assets/css/base.css?v=202610191546">
-  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610191546">
-  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610191546">
-  <link rel="stylesheet" href="../../assets/css/salas.css?v=202610191546">
-  <script type="module" src="../../assets/js/site.js?v=202610191546"></script>
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202610222333">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=202610222333">
+  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202610222333">
+  <link rel="stylesheet" href="../../assets/css/portal.css?v=202610222333">
+  <link rel="stylesheet" href="../../assets/css/salas.css?v=202610222333">
+  <script type="module" src="../../assets/js/site.js?v=202610222333"></script>
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -143,15 +143,31 @@
         </div>
 
         <div class="montador__painel" id="painelDepois" role="tabpanel" aria-labelledby="abaDepois" hidden>
-          <p><b>Do terceiro semestre em diante, você escolhe as turmas.</b> Diga em que semestre ideal você está para puxar as obrigatórias dele, ou acrescente as disciplinas uma por uma. O montador mostra todas as grades sem choque de horário; escolha a que preferir e leve para a sua grade.</p>
+          <p><b>Do terceiro semestre em diante, você escolhe as turmas.</b> Diga o seu curso e quando entrou na Poli para puxar as obrigatórias, ou acrescente as disciplinas uma por uma. O montador mostra todas as grades sem choque de horário; escolha a que preferir e leve para a sua grade.</p>
           <div class="conferencia__controles">
             <label class="conferencia__curso">Curso
               <select id="montCurso"></select>
             </label>
-            <label class="conferencia__curso">Semestre ideal
-              <select id="montSemestre"></select>
+            <label class="conferencia__curso" hidden>Semestre letivo
+              <select id="montPeriodo"></select>
             </label>
-            <button type="button" class="botao botao--linha botao--pequeno" id="montPuxar">Puxar as obrigatórias</button>
+          </div>
+          <fieldset class="mont-curriculo">
+            <legend>Quando você entrou na Poli?</legend>
+            <label><input type="radio" name="montCurriculo" value="dcn"><span>Em 2025 ou depois <small>currículo novo (EC-DCN)</small></span></label>
+            <label><input type="radio" name="montCurriculo" value="ec3"><span>Até 2024 <small>currículo EC-3</small></span></label>
+          </fieldset>
+          <div id="montDcn" hidden>
+            <div class="conferencia__controles">
+              <label class="conferencia__curso">Semestre ideal
+                <select id="montSemestre"></select>
+              </label>
+              <button type="button" class="botao botao--linha botao--pequeno" id="montPuxar">Puxar as obrigatórias</button>
+            </div>
+          </div>
+          <div id="montEc3" hidden>
+            <p class="nota">O JupiterWeb não publica a grade do currículo EC-3. Estas são as disciplinas que reservam vaga obrigatória para o seu curso no EC-3 neste semestre: toque nas que você vai cursar. As outras entram pela busca abaixo.</p>
+            <div id="montEc3Lista"></div>
           </div>
           <p class="nota mont-puxado" id="montPuxado" aria-live="polite"></p>
           <div class="busca">

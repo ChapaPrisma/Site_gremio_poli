@@ -3,7 +3,7 @@
 // baixa tudo como planilha para levar à diretoria da Poli. Chamado pelo painel de contas depois do login.
 // Tabelas e regras: ferramentas/supabase/problemas.sql.
 
-import { CATEGORIAS, SITUACOES, carregarProblemas, iconeSvg } from "../dados/problemas.js?v=202610191546";
+import { CATEGORIAS, SITUACOES, carregarProblemas, iconeSvg } from "../dados/problemas.js?v=202610222333";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const dataHora = (iso) => new Date(iso).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" });

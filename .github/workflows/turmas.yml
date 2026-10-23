@@ -28,6 +28,8 @@ jobs:
         with:
           node-version: 20
       - run: node ferramentas/turmas.mjs
+      # o montador de grade é testado com as turmas novas antes de publicar (choques, práticas, força bruta)
+      - run: node ferramentas/testar-montador.mjs
       - name: Publicar se mudou
         run: |
           git add assets/dados/turmas.json

@@ -154,6 +154,10 @@ try {
     console.log(`assets/dados/salas.json: ${dados.salas.length} salas, ${dados.ocupacoes.length} ocupações, ${dados.turmas.length} turmas (${dados.janela.inicio} a ${dados.janela.fim}).`);
   }
 } catch (erro) {
-  console.error("USPolis não respondeu como esperado:", erro.message, "Arquivo anterior mantido.");
-  process.exit(1);
+  // USPolis fora do ar (sem resposta da rede): mantém o arquivo anterior e termina sem erro, para o agendamento
+  // não mandar alerta toda hora; o site mostra a data dos dados e avisa quando ficam velhos. Qualquer outro
+  // problema (resposta num formato diferente) continua sendo erro, para alguém olhar.
+  const rede = /fetch failed|ECONN|ETIMEDOUT|ENOTFOUND|EAI_AGAIN|timeout|aborted|socket/i.test(`${erro.message} ${erro.cause?.code || ""} ${erro.cause?.message || ""}`);
+  console.error(rede ? "::warning::USPolis fora do ar agora (" + erro.message + "). Arquivo anterior mantido." : "USPolis não respondeu como esperado: " + erro.message + ". Arquivo anterior mantido.");
+  process.exit(rede ? 0 : 1);
 }
