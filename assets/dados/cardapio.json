@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-26T15:01:56.408Z",
+ "atualizadoEm": "2026-10-26T16:39:51.540Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-26T15:01:56.408Z",
+   "atualizadoEm": "2026-10-26T16:39:51.540Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-26T15:01:56.408Z",
+   "atualizadoEm": "2026-10-26T16:39:51.540Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-26T15:01:56.408Z",
+   "atualizadoEm": "2026-10-26T16:39:51.540Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -177,7 +177,7 @@
       "Linguiça toscana ao vinagrete",
       "Opção: PVT com milho e salsa",
       "Virado de cenoura",
-      "Salada de acelga e almeirão",
+      "Salada de acelga",
       "Doce de leite industrializado",
       "Minipão / refresco"
      ],
@@ -186,7 +186,7 @@
       "Filé de peito de frango com molho mostarda",
       "Opção: PVT mexicano",
       "Polenta",
-      "Salada de catalonha",
+      "Salada de almeirão",
       "Maçã",
       "Minipão / refresco"
      ]
@@ -217,7 +217,7 @@
       "Sobrecoxa de frango assada",
       "Opção: PVT com brócolis",
       "Abóbora refogada",
-      "Salada de almeirão",
+      "Salada de repolho",
       "Maria mole",
       "Minipão / refresco"
      ],
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-26T15:01:56.408Z",
+   "atualizadoEm": "2026-10-26T16:39:51.540Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
