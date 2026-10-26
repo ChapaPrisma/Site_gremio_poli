@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-26T16:39:51.540Z",
+ "atualizadoEm": "2026-10-26T22:31:00.444Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-26T16:39:51.540Z",
+   "atualizadoEm": "2026-10-26T22:31:00.444Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -17,10 +17,10 @@
      ],
      "jantar": [
       "Arroz / feijão / arroz integral",
-      "Carne moída",
-      "Opção: Lentilha com cebola caramelizada",
+      "Carne moída com mandioquinha",
+      "Opção: Torta de lentilha com cebola caramelizada",
       "Macarrão ao alho e óleo",
-      "Salada de acelga",
+      "Salada de escarola",
       "Laranja",
       "Minipão / refresco"
      ]
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-26T16:39:51.540Z",
+   "atualizadoEm": "2026-10-26T22:31:00.444Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-26T16:39:51.540Z",
+   "atualizadoEm": "2026-10-26T22:31:00.444Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-26T16:39:51.540Z",
+   "atualizadoEm": "2026-10-26T22:31:00.444Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
