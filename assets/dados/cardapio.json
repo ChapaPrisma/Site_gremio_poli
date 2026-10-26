@@ -1,15 +1,15 @@
 {
- "atualizadoEm": "2026-10-26T08:40:33.203Z",
+ "atualizadoEm": "2026-10-26T15:01:56.408Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-26T08:40:33.203Z",
+   "atualizadoEm": "2026-10-26T15:01:56.408Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
       "Arroz / feijão / arroz integral",
       "Filé de tilápia empanado",
-      "Opção: Moqueca de legumes",
+      "Opção: PVT xadrez",
       "Mandioquinha sauté",
       "Salada de escarola",
       "Maçã",
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-26T08:40:33.203Z",
+   "atualizadoEm": "2026-10-26T15:01:56.408Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -169,15 +169,15 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-26T08:40:33.203Z",
+   "atualizadoEm": "2026-10-26T15:01:56.408Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
       "Arroz / feijão / arroz integral",
       "Linguiça toscana ao vinagrete",
       "Opção: PVT com milho e salsa",
-      "Virado de vagem com cebola",
-      "Salada de acelga",
+      "Virado de cenoura",
+      "Salada de acelga e almeirão",
       "Doce de leite industrializado",
       "Minipão / refresco"
      ],
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-26T08:40:33.203Z",
+   "atualizadoEm": "2026-10-26T15:01:56.408Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
