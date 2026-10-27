@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-27T13:21:25.300Z",
+ "atualizadoEm": "2026-10-27T22:33:40.311Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-27T13:21:25.300Z",
+   "atualizadoEm": "2026-10-27T22:33:40.311Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -38,9 +38,9 @@
      "jantar": [
       "Arroz / feijão preto / arroz integral",
       "Frango assado",
-      "Opção: Legumes orientais",
+      "Opção: Legumes orientais com PVT",
       "Abobrinha com tomate-cereja",
-      "Salada de almeirão",
+      "Salada de alface",
       "Cocada",
       "Minipão / refresco"
      ]
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-27T13:21:25.300Z",
+   "atualizadoEm": "2026-10-27T22:33:40.311Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-27T13:21:25.300Z",
+   "atualizadoEm": "2026-10-27T22:33:40.311Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-27T13:21:25.300Z",
+   "atualizadoEm": "2026-10-27T22:33:40.311Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -302,7 +302,7 @@
       "Arroz / feijão / arroz integral",
       "Quibe assado recheado com queijo",
       "Opção: Quibe de PVT",
-      "Purê de batata",
+      "Vagem refogada",
       "Salada de rúcula",
       "Goiabada",
       "Minipão / refresco"
@@ -311,7 +311,7 @@
     "2026-10-28": {
      "almoco": [
       "Arroz / feijão / arroz integral",
-      "Lasanha à bolonhesa",
+      "Torta madalena de carne",
       "Opção: Lasanha de PVT (extrato vegetal)",
       "Escarola refogada",
       "Salada de pepino",
