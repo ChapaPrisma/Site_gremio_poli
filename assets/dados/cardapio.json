@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-27T22:33:40.311Z",
+ "atualizadoEm": "2026-10-28T22:35:33.580Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-27T22:33:40.311Z",
+   "atualizadoEm": "2026-10-28T22:35:33.580Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -60,7 +60,7 @@
       "Lombo com molho de mostarda",
       "Opção: Creme de ervilha",
       "Repolho refogado",
-      "Salada de beterraba",
+      "Salada de escarola",
       "Laranja",
       "Minipão / refresco"
      ]
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-27T22:33:40.311Z",
+   "atualizadoEm": "2026-10-28T22:35:33.580Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-27T22:33:40.311Z",
+   "atualizadoEm": "2026-10-28T22:35:33.580Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-27T22:33:40.311Z",
+   "atualizadoEm": "2026-10-28T22:35:33.580Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
