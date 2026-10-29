@@ -2,7 +2,7 @@
  "observacao": "Usado só enquanto o banco Supabase não estiver configurado em assets/js/config.js (site.contas).",
  "parametros": {
   "divida": {
-   "total": 2100000
+   "total": 1500000
   },
   "saldo_inicial": {
    "valor": null
