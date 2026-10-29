@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-29T13:34:34.343Z",
+ "atualizadoEm": "2026-10-29T22:37:24.294Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-29T13:34:34.343Z",
+   "atualizadoEm": "2026-10-29T22:37:24.294Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -78,9 +78,9 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Bife de caçarola",
-      "Opção: Quibe de PVT",
-      "Chuchu com molho branco",
-      "Salada de escarola",
+      "Opção: Fricassê de repolho",
+      "Chuchu refogado",
+      "Salada de escarola com beterraba",
       "Maçã",
       "Minipão / refresco"
      ]
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-29T13:34:34.343Z",
+   "atualizadoEm": "2026-10-29T22:37:24.294Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-29T13:34:34.343Z",
+   "atualizadoEm": "2026-10-29T22:37:24.294Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-29T13:34:34.343Z",
+   "atualizadoEm": "2026-10-29T22:37:24.294Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
