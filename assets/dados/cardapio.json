@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-10-28T22:35:33.580Z",
+ "atualizadoEm": "2026-10-29T13:34:34.343Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-28T22:35:33.580Z",
+   "atualizadoEm": "2026-10-29T13:34:34.343Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -70,8 +70,8 @@
       "Arroz / feijão / arroz integral",
       "Hambúrguer com molho americano",
       "Opção: Grão-de-bico com vinagrete",
-      "Batata corada",
-      "Salada de alface",
+      "Batata sauté",
+      "Salada de beterraba",
       "Laranja",
       "Minipão / refresco"
      ],
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-28T22:35:33.580Z",
+   "atualizadoEm": "2026-10-29T13:34:34.343Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -146,8 +146,8 @@
      "almoco": [
       "Arroz / feijão preto / arroz integral",
       "Filé de coxa de frango assado",
-      "Opção: PVT com espinafre",
-      "Cuscuz de legumes",
+      "Opção: PVT com vagem",
+      "Batata palha",
       "Salada de rúcula",
       "Gelatina de uva",
       "Minipão / refresco"
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-28T22:35:33.580Z",
+   "atualizadoEm": "2026-10-29T13:34:34.343Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -235,10 +235,10 @@
      "almoco": [
       "Arroz / feijão preto / arroz integral",
       "Contrafilé em tiras com molho",
-      "Opção: Quibe assado com PVT",
+      "Opção: Estrogonofe de PVT com bebida vegetal",
       "Batata rústica",
       "Salada de catalonha",
-      "Banana",
+      "Laranja",
       "Minipão / refresco"
      ],
      "jantar": [
@@ -247,7 +247,7 @@
       "Opção: PVT com mandioquinha",
       "Chuchu refogado",
       "Salada de acelga",
-      "Bolinho de chocolate",
+      "Barrinha de chocolate",
       "Minipão / refresco"
      ]
     },
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-28T22:35:33.580Z",
+   "atualizadoEm": "2026-10-29T13:34:34.343Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
