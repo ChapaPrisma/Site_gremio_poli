@@ -16,6 +16,17 @@ import trilha from "./componentes/trilha.js?v=202610222333";
 import recursos from "./componentes/recursos.js?v=202610222333";
 import soSeEleita from "./componentes/so-se-eleita.js?v=202610222333";
 
+// Contador de visitas sem cookies e sem dados pessoais (GoatCounter, conta prisma-poli).
+// Conta só no endereço publicado; testes locais não entram. Cada página aparece pelo caminho,
+// então dá para ver o uso de cada ferramenta (salas, grade, bandejões...).
+if (location.hostname.endsWith("github.io") && !document.querySelector("script[data-goatcounter]")) {
+  const contador = document.createElement("script");
+  contador.async = true;
+  contador.src = "https://gc.zgo.at/count.js";
+  contador.dataset.goatcounter = "https://prisma-poli.goatcounter.com/count";
+  document.head.appendChild(contador);
+}
+
 // Raiz do site calculada a partir deste arquivo (assets/js/site.js),
 // então funciona em qualquer domínio, subpasta ou hospedagem.
 export const RAIZ = new URL("../../", import.meta.url);
