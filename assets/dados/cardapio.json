@@ -1,110 +1,106 @@
 {
- "atualizadoEm": "2026-10-29T22:37:24.294Z",
+ "atualizadoEm": "2026-11-02T08:55:52.939Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-10-29T22:37:24.294Z",
+   "atualizadoEm": "2026-11-02T08:55:52.939Z",
    "dias": {
-    "2026-10-26": {
-     "almoco": [
-      "Arroz / feijão / arroz integral",
-      "Filé de tilápia empanado",
-      "Opção: PVT xadrez",
-      "Mandioquinha sauté",
-      "Salada de escarola",
-      "Maçã",
-      "Minipão / refresco"
-     ],
-     "jantar": [
-      "Arroz / feijão / arroz integral",
-      "Carne moída com mandioquinha",
-      "Opção: Torta de lentilha com cebola caramelizada",
-      "Macarrão ao alho e óleo",
-      "Salada de escarola",
-      "Laranja",
-      "Minipão / refresco"
-     ]
-    },
-    "2026-10-27": {
-     "almoco": [
-      "Arroz / feijão preto / arroz integral",
-      "Linguiça assada",
-      "Opção: Escondidinho de shimeji",
-      "Virado de milho",
-      "Salada de alface",
-      "Abacaxi",
-      "Minipão / refresco"
-     ],
-     "jantar": [
-      "Arroz / feijão preto / arroz integral",
-      "Frango assado",
-      "Opção: Legumes orientais com PVT",
-      "Abobrinha com tomate-cereja",
-      "Salada de alface",
-      "Cocada",
-      "Minipão / refresco"
-     ]
-    },
-    "2026-10-28": {
-     "almoco": [
-      "Arroz / feijão preto / arroz integral",
-      "Filé de frango grelhado",
-      "Opção: Torta de PVT",
-      "Purê de abóbora",
-      "Salada de almeirão",
-      "Doce de leite",
-      "Minipão / refresco"
-     ],
-     "jantar": [
-      "Arroz / feijão preto / arroz integral",
-      "Lombo com molho de mostarda",
-      "Opção: Creme de ervilha",
-      "Repolho refogado",
-      "Salada de escarola",
-      "Laranja",
-      "Minipão / refresco"
-     ]
-    },
-    "2026-10-29": {
-     "almoco": [
-      "Arroz / feijão / arroz integral",
-      "Hambúrguer com molho americano",
-      "Opção: Grão-de-bico com vinagrete",
-      "Batata sauté",
-      "Salada de beterraba",
-      "Laranja",
-      "Minipão / refresco"
-     ],
-     "jantar": [
-      "Arroz / feijão / arroz integral",
-      "Bife de caçarola",
-      "Opção: Fricassê de repolho",
-      "Chuchu refogado",
-      "Salada de escarola com beterraba",
-      "Maçã",
-      "Minipão / refresco"
-     ]
-    },
-    "2026-10-30": {
-     "almoco": [
-      "Fechado / Ponto facultativo"
-     ],
-     "jantar": [
-      "Fechado / Ponto facultativo"
-     ]
-    },
-    "2026-10-31": {
+    "2026-11-02": {
      "almoco": [],
      "jantar": []
     },
-    "2026-11-01": {
+    "2026-11-03": {
+     "almoco": [
+      "Arroz / feijão / arroz integral",
+      "Bife de caçarola",
+      "Opção: Creme de ervilha",
+      "Macarrão ao alho e óleo",
+      "Salada de almeirão",
+      "Maçã",
+      "Minipão / refresco"
+     ],
+     "jantar": [
+      "Arroz / feijão / arroz integral",
+      "Tiras de frango com molho de mostarda",
+      "Opção: Quibe de lentilha",
+      "Berinjela à grega",
+      "Salada de acelga",
+      "Doce de leite",
+      "Minipão / refresco"
+     ]
+    },
+    "2026-11-04": {
+     "almoco": [
+      "Arroz / feijão / arroz integral",
+      "Frango assado",
+      "Opção: Torta de PVT",
+      "Abóbora refogada",
+      "Salada de alface",
+      "Cocada",
+      "Minipão / refresco"
+     ],
+     "jantar": [
+      "Arroz / feijão / arroz integral",
+      "Carne assada com molho roti",
+      "Opção: Fricassê de repolho",
+      "Beterraba sauté",
+      "Salada de escarola",
+      "Laranja",
+      "Minipão / refresco"
+     ]
+    },
+    "2026-11-05": {
+     "almoco": [
+      "Arroz / feijão / arroz integral",
+      "Tiras de carne com cogumelos",
+      "Opção: Feijão branco com brócolis",
+      "Repolho refogado",
+      "Salada de tabule",
+      "Laranja",
+      "Minipão / refresco"
+     ],
+     "jantar": [
+      "Arroz / feijão / arroz integral",
+      "Filé de tilápia à baiana",
+      "Opção: Bobó de abóbora",
+      "Creme de espinafre",
+      "Salada de alface",
+      "Barra de cereais",
+      "Minipão / refresco"
+     ]
+    },
+    "2026-11-06": {
+     "almoco": [
+      "Arroz / feijão preto / arroz integral",
+      "Frango em tiras com molho campana",
+      "Opção: PVT com mandioquinha",
+      "Virado de milho",
+      "Salada de escarola",
+      "Melão",
+      "Minipão / refresco"
+     ],
+     "jantar": [
+      "Arroz / feijão preto / arroz integral",
+      "Hambúrguer com molho americano",
+      "Opção: Lentilha",
+      "Jardineira de legumes",
+      "Salada de almeirão",
+      "Maçã",
+      "Minipão / refresco"
+     ]
+    },
+    "2026-11-07": {
+     "almoco": [],
+     "jantar": []
+    },
+    "2026-11-08": {
      "almoco": [],
      "jantar": []
     }
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-10-29T22:37:24.294Z",
+   "atualizadoEm": "2026-11-02T08:55:52.939Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -169,7 +165,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-10-29T22:37:24.294Z",
+   "atualizadoEm": "2026-11-02T08:55:52.939Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
@@ -266,7 +262,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-10-29T22:37:24.294Z",
+   "atualizadoEm": "2026-11-02T08:55:52.939Z",
    "dias": {
     "2026-10-26": {
      "almoco": [
