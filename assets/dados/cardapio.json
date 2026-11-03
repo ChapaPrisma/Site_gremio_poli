@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-02T08:55:52.939Z",
+ "atualizadoEm": "2026-11-03T13:37:41.114Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-02T08:55:52.939Z",
+   "atualizadoEm": "2026-11-03T13:37:41.114Z",
    "dias": {
     "2026-11-02": {
      "almoco": [],
@@ -14,7 +14,7 @@
       "Arroz / feijão / arroz integral",
       "Bife de caçarola",
       "Opção: Creme de ervilha",
-      "Macarrão ao alho e óleo",
+      "Batata sauté",
       "Salada de almeirão",
       "Maçã",
       "Minipão / refresco"
@@ -165,97 +165,101 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-02T08:55:52.939Z",
+   "atualizadoEm": "2026-11-03T13:37:41.114Z",
    "dias": {
-    "2026-10-26": {
+    "2026-11-02": {
      "almoco": [
-      "Arroz / feijão / arroz integral",
-      "Linguiça toscana ao vinagrete",
-      "Opção: PVT com milho e salsa",
-      "Virado de cenoura",
-      "Salada de acelga",
-      "Doce de leite industrializado",
-      "Minipão / refresco"
+      "Fechado / Feriado"
      ],
      "jantar": [
-      "Arroz / feijão / arroz integral",
-      "Filé de peito de frango com molho mostarda",
-      "Opção: PVT mexicano",
-      "Polenta",
-      "Salada de almeirão",
-      "Maçã",
-      "Minipão / refresco"
+      "Fechado / Feriado"
      ]
     },
-    "2026-10-27": {
-     "almoco": [
-      "Arroz / feijão / arroz integral",
-      "Lagarto com molho agridoce",
-      "Opção: Lentilha com tomate e cebola",
-      "Acelga refogada",
-      "Salada de beterraba",
-      "Mexerica",
-      "Minipão / refresco"
-     ],
-     "jantar": [
-      "Arroz / feijão / arroz integral",
-      "Hambúrguer com molho barbecue",
-      "Opção: Almôndegas de feijão branco",
-      "Abobrinha ao alho",
-      "Salada de alface",
-      "Gelatina de abacaxi",
-      "Minipão / refresco"
-     ]
-    },
-    "2026-10-28": {
+    "2026-11-03": {
      "almoco": [
       "Arroz / feijão / arroz integral",
       "Sobrecoxa de frango assada",
-      "Opção: PVT com brócolis",
-      "Abóbora refogada",
+      "Opção: Feijoada vegetariana",
+      "Legumes sauté",
       "Salada de repolho",
-      "Maria mole",
+      "Doce de abóbora",
       "Minipão / refresco"
      ],
      "jantar": [
       "Arroz / feijão / arroz integral",
-      "Copa lombo com molho de abacaxi",
-      "Opção: Ervilha seca com champignon",
-      "Couve-flor refogada",
-      "Salada de tomate",
-      "Mexerica",
+      "Bife acebolado",
+      "Opção: Grão-de-bico com molho vinagrete",
+      "Macarrão ao sugo (sem ovos)",
+      "Salada de catalônia",
+      "Melancia",
       "Minipão / refresco"
      ]
     },
-    "2026-10-29": {
+    "2026-11-04": {
      "almoco": [
       "Arroz / feijão preto / arroz integral",
-      "Contrafilé em tiras com molho",
-      "Opção: Estrogonofe de PVT com bebida vegetal",
-      "Batata rústica",
-      "Salada de catalonha",
-      "Laranja",
+      "Lagarto com molho escuro",
+      "Opção: PVT com batata-doce",
+      "Chuchu com milho",
+      "Salada de escarola",
+      "Banana",
+      "Minipão / refresco"
+     ],
+     "jantar": [
+      "Arroz / feijão preto / arroz integral",
+      "Filé de coxa de frango com molho de maracujá",
+      "Opção: PVT com tomate e cebola",
+      "Acelga refogada",
+      "Salada de cenoura",
+      "Curau",
+      "Minipão / refresco"
+     ]
+    },
+    "2026-11-05": {
+     "almoco": [
+      "Arroz / feijão / arroz integral",
+      "Frango à oriental",
+      "Opção: Bobó de PVT com leite de coco",
+      "Abobrinha refogada",
+      "Salada de alface",
+      "Barra de cereal",
       "Minipão / refresco"
      ],
      "jantar": [
       "Arroz / feijão / arroz integral",
-      "Sobrecoxa de frango assada",
-      "Opção: PVT com mandioquinha",
-      "Chuchu refogado",
-      "Salada de acelga",
-      "Barrinha de chocolate",
+      "Contrafilé em tiras com molho",
+      "Opção: Torta de lentilha",
+      "Cenoura sauté",
+      "Salada de almeirão",
+      "Mexerica",
       "Minipão / refresco"
      ]
     },
-    "2026-10-30": {
+    "2026-11-06": {
+     "almoco": [
+      "Arroz / feijão preto / arroz integral",
+      "Linguiça acebolada",
+      "Opção: PVT com mandioquinha e vagem",
+      "Virado de legumes",
+      "Salada de alface",
+      "Maçã",
+      "Minipão / refresco"
+     ],
+     "jantar": [
+      "Arroz / feijão preto / arroz integral",
+      "Filé de peito de frango grelhado com molho de ervas",
+      "Opção: PVT com couve e alho-poró",
+      "Batata-doce",
+      "Salada de rúcula",
+      "Gelatina de limão",
+      "Minipão / refresco"
+     ]
+    },
+    "2026-11-07": {
      "almoco": [],
      "jantar": []
     },
-    "2026-10-31": {
-     "almoco": [],
-     "jantar": []
-    },
-    "2026-11-01": {
+    "2026-11-08": {
      "almoco": [],
      "jantar": []
     }
