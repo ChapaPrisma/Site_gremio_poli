@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-03T22:38:45.347Z",
+ "atualizadoEm": "2026-11-04T13:40:17.484Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-03T22:38:45.347Z",
+   "atualizadoEm": "2026-11-04T13:40:17.484Z",
    "dias": {
     "2026-11-02": {
      "almoco": [],
@@ -36,7 +36,7 @@
       "Opção: Torta de PVT",
       "Abóbora refogada",
       "Salada de alface",
-      "Cocada",
+      "Doce de leite",
       "Minipão / refresco"
      ],
      "jantar": [
@@ -100,7 +100,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-03T22:38:45.347Z",
+   "atualizadoEm": "2026-11-04T13:40:17.484Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-03T22:38:45.347Z",
+   "atualizadoEm": "2026-11-04T13:40:17.484Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
@@ -270,7 +270,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-03T22:38:45.347Z",
+   "atualizadoEm": "2026-11-04T13:40:17.484Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
