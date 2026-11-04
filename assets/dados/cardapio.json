@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-04T16:47:27.819Z",
+ "atualizadoEm": "2026-11-04T22:44:15.041Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-04T16:47:27.819Z",
+   "atualizadoEm": "2026-11-04T22:44:15.041Z",
    "dias": {
     "2026-11-02": {
      "almoco": [],
@@ -42,8 +42,8 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Carne assada com molho roti",
-      "Opção: Fricassê de repolho",
-      "Beterraba sauté",
+      "Opção: Legumes ao molho branco",
+      "Macarrão ao alho e óleo",
       "Salada de escarola",
       "Laranja",
       "Minipão / refresco"
@@ -100,7 +100,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-04T16:47:27.819Z",
+   "atualizadoEm": "2026-11-04T22:44:15.041Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-04T16:47:27.819Z",
+   "atualizadoEm": "2026-11-04T22:44:15.041Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
@@ -270,7 +270,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-04T16:47:27.819Z",
+   "atualizadoEm": "2026-11-04T22:44:15.041Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
