@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-05T13:44:17.256Z",
+ "atualizadoEm": "2026-11-05T22:44:44.877Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-05T13:44:17.256Z",
+   "atualizadoEm": "2026-11-05T22:44:44.877Z",
    "dias": {
     "2026-11-02": {
      "almoco": [],
@@ -61,10 +61,10 @@
      ],
      "jantar": [
       "Arroz / feijão / arroz integral",
-      "Filé de tilápia à baiana",
-      "Opção: Bobó de abóbora",
+      "Iscas de tilápia empanada",
+      "Opção: Bobó de abóbora com PVT",
       "Creme de espinafre",
-      "Salada de alface",
+      "Salada de pepino",
       "Barra de cereais",
       "Minipão / refresco"
      ]
@@ -100,7 +100,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-05T13:44:17.256Z",
+   "atualizadoEm": "2026-11-05T22:44:44.877Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-05T13:44:17.256Z",
+   "atualizadoEm": "2026-11-05T22:44:44.877Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
@@ -270,7 +270,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-05T13:44:17.256Z",
+   "atualizadoEm": "2026-11-05T22:44:44.877Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
