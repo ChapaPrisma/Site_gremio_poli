@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-04T22:44:15.041Z",
+ "atualizadoEm": "2026-11-05T13:44:17.256Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-04T22:44:15.041Z",
+   "atualizadoEm": "2026-11-05T13:44:17.256Z",
    "dias": {
     "2026-11-02": {
      "almoco": [],
@@ -55,7 +55,7 @@
       "Tiras de carne com cogumelos",
       "Opção: Feijão branco com brócolis",
       "Repolho refogado",
-      "Salada de tabule",
+      "Salada de pepino",
       "Laranja",
       "Minipão / refresco"
      ],
@@ -100,7 +100,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-04T22:44:15.041Z",
+   "atualizadoEm": "2026-11-05T13:44:17.256Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
@@ -136,7 +136,7 @@
     },
     "2026-11-05": {
      "almoco": [
-      "Arroz / feijão / arroz integral",
+      "Arroz / feijão preto / arroz integral",
       "Bife de caçarola",
       "Opção: Panqueca de PVT com espinafre",
       "Acelga com cenoura ralada",
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-04T22:44:15.041Z",
+   "atualizadoEm": "2026-11-05T13:44:17.256Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
@@ -232,7 +232,7 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Contrafilé em tiras com molho",
-      "Opção: Torta de lentilha",
+      "Opção: Lentilha ao vinagrete",
       "Cenoura sauté",
       "Salada de almeirão",
       "Mexerica",
@@ -270,7 +270,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-04T22:44:15.041Z",
+   "atualizadoEm": "2026-11-05T13:44:17.256Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
