@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-06T16:42:31.782Z",
+ "atualizadoEm": "2026-11-06T22:37:25.957Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-06T16:42:31.782Z",
+   "atualizadoEm": "2026-11-06T22:37:25.957Z",
    "dias": {
     "2026-11-02": {
      "almoco": [],
@@ -81,8 +81,8 @@
      ],
      "jantar": [
       "Arroz / feijão / arroz integral",
-      "Hambúrguer com molho americano",
-      "Opção: Lentilha",
+      "Bife de caçarola",
+      "Opção: Kafta de PVT",
       "Jardineira de legumes",
       "Salada de almeirão",
       "Maçã",
@@ -100,7 +100,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-06T16:42:31.782Z",
+   "atualizadoEm": "2026-11-06T22:37:25.957Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-06T16:42:31.782Z",
+   "atualizadoEm": "2026-11-06T22:37:25.957Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
@@ -270,7 +270,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-06T16:42:31.782Z",
+   "atualizadoEm": "2026-11-06T22:37:25.957Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
