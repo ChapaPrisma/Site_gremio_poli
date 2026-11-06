@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-06T13:39:46.097Z",
+ "atualizadoEm": "2026-11-06T16:42:31.782Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-06T13:39:46.097Z",
+   "atualizadoEm": "2026-11-06T16:42:31.782Z",
    "dias": {
     "2026-11-02": {
      "almoco": [],
@@ -100,7 +100,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-06T13:39:46.097Z",
+   "atualizadoEm": "2026-11-06T16:42:31.782Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-06T13:39:46.097Z",
+   "atualizadoEm": "2026-11-06T16:42:31.782Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
@@ -241,7 +241,7 @@
     },
     "2026-11-06": {
      "almoco": [
-      "Arroz / feijão preto / arroz integral",
+      "Arroz / feijão / arroz integral",
       "Linguiça acebolada",
       "Opção: PVT com mandioquinha e vagem",
       "Virado de legumes",
@@ -250,7 +250,7 @@
       "Minipão / refresco"
      ],
      "jantar": [
-      "Arroz / feijão preto / arroz integral",
+      "Arroz / feijão / arroz integral",
       "Filé de peito de frango grelhado com molho de ervas",
       "Opção: PVT com couve e alho-poró",
       "Batata-doce",
@@ -270,7 +270,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-06T13:39:46.097Z",
+   "atualizadoEm": "2026-11-06T16:42:31.782Z",
    "dias": {
     "2026-11-02": {
      "almoco": [
