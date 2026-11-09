@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-09T09:02:08.502Z",
+ "atualizadoEm": "2026-11-09T13:44:51.745Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-09T09:02:08.502Z",
+   "atualizadoEm": "2026-11-09T13:44:51.745Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-09T09:02:08.502Z",
+   "atualizadoEm": "2026-11-09T13:44:51.745Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -124,7 +124,7 @@
       "Carne em tiras com molho rosé",
       "Opção: Estrogonofe de PVT",
       "Batata rústica assada",
-      "Salada de almeirão",
+      "Salada de repolho",
       "Laranja",
       "Minipão / refresco"
      ],
@@ -135,9 +135,9 @@
       "Arroz / feijão / arroz integral",
       "Filé de coxa de frango assado",
       "Opção: Lentilha com legumes",
-      "Repolho refogado",
-      "Salada de beterraba",
-      "Pudim com goiabada",
+      "Polenta",
+      "Salada de alface",
+      "Biscoito de goiabada",
       "Minipão / refresco"
      ],
      "jantar": []
@@ -148,7 +148,7 @@
       "Contrafilé em tiras aceboladas",
       "Opção: Yakisoba vegetariano com PVT",
       "Mandioca sauté",
-      "Salada de alface",
+      "Salada de almeirão",
       "Maçã",
       "Minipão / refresco"
      ],
@@ -161,7 +161,7 @@
       "Opção: Lasanha de PVT com milho",
       "Cenoura e vagem sauté",
       "Salada de escarola",
-      "Biscoito de goiabada",
+      "Pudim com calda de goiabada",
       "Minipão / refresco"
      ],
      "jantar": []
@@ -189,12 +189,12 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-09T09:02:08.502Z",
+   "atualizadoEm": "2026-11-09T13:44:51.745Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
       "Arroz / feijão / arroz integral",
-      "Bife de contrafilé com molho de azeitonas",
+      "Bife de alcatra com molho de azeitonas",
       "Opção: Soja à primavera",
       "Creme de espinafre / creme de espinafre com extratro de soja",
       "Salada de escarola",
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-09T09:02:08.502Z",
+   "atualizadoEm": "2026-11-09T13:44:51.745Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
