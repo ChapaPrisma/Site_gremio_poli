@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-09T13:44:51.745Z",
+ "atualizadoEm": "2026-11-09T16:56:36.829Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-09T13:44:51.745Z",
+   "atualizadoEm": "2026-11-09T16:56:36.829Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-09T13:44:51.745Z",
+   "atualizadoEm": "2026-11-09T16:56:36.829Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-09T13:44:51.745Z",
+   "atualizadoEm": "2026-11-09T16:56:36.829Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-09T13:44:51.745Z",
+   "atualizadoEm": "2026-11-09T16:56:36.829Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -310,7 +310,7 @@
       "Copa lombo com molho de limão",
       "Opção: PVT com alho-poró",
       "Cuscuz",
-      "Salada de almeirão",
+      "Salada de acelga, escarola e repolho branco.",
       "Maçã",
       "Minipão / refresco"
      ],
