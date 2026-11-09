@@ -22,6 +22,8 @@
 //                 [[índice do grupo, vagas, matriculados]], observações]
 //   grupos       nomes dos grupos de vagas ("Obrigatória: EP - Ciclo Básico Engenharia Elétrica"...)
 //   consultadas  { SIGLA: dia da última consulta (dias desde 1970) }
+//   entreSemestres  { desde: "AAAA-MM-DD" } quando o JupiterWeb tirou as turmas do ar e ainda não publicou as
+//                   do semestre seguinte; as turmas do arquivo são, então, as do último semestre publicado
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -105,17 +107,33 @@ try {
   const todas = [...new Set([...daPoli, ...dasGrades, ...doUspolis])].filter((s) => /^[A-Z0-9]{7}$/.test(s));
   const vencidas = todas.filter((s) => !consultadas[s] || hoje - consultadas[s] >= VALIDADE).sort((a, b) => (consultadas[a] || 0) - (consultadas[b] || 0)).slice(0, LIMITE);
 
+  // Entre um semestre e outro o JupiterWeb tira do ar as turmas do semestre que acabou antes de publicar as
+  // do próximo, e responde "Não existe oferecimento" para TODAS as disciplinas (aconteceu em 1º/11/2026 e
+  // esvaziou o montador). Por isso uma disciplina sem oferecimento só perde as turmas se, na mesma execução,
+  // alguma outra disciplina veio com turmas (o JupiterWeb está publicando). Se nenhuma veio, as turmas do
+  // último semestre publicado ficam guardadas, marcadas em `entreSemestres`, e o montador avisa.
+  const semOferta = [];
+  let comOferta = 0;
   for (const sigla of vencidas) {
     try {
       const { nome, turmas } = lerTurmas(await pagina(`obterTurma?print=true&sgldis=${sigla}`));
       consultadas[sigla] = hoje;
-      if (!turmas.length) { porSigla.delete(sigla); continue; }
+      if (!turmas.length) { semOferta.push(sigla); continue; }
+      comOferta++;
       if (nome) disciplinas[sigla] = nome;
       porSigla.set(sigla, turmas.map((t) => [sigla, t.codigo, t.tipo, t.teorica, t.horarios, t.profs, t.total, t.grupos.map(([g, v, m]) => [idGrupo(g), v, m]), t.obs]));
     } catch (erro) {
       console.warn(`${sigla}: ${erro.message}`);
       if (/HTTP 5\d\d|timeout|aborted/i.test(erro.message)) break;   // o JupiterWeb está mal: tenta amanhã
     }
+  }
+  let entreSemestres = anterior.entreSemestres || null;
+  if (comOferta) {
+    for (const s of semOferta) porSigla.delete(s);
+    entreSemestres = null;
+  } else if (semOferta.length >= 20) {
+    entreSemestres ??= { desde: new Date().toISOString().slice(0, 10) };
+    console.warn(`Nenhuma das ${semOferta.length} disciplinas consultadas tem oferecimento: o JupiterWeb está entre um semestre e outro. As turmas do último semestre publicado ficam guardadas.`);
   }
 
   // só as disciplinas ainda na lista e com turma; nomes e grupos que ninguém mais usa saem
@@ -127,6 +145,7 @@ try {
   const dados = {
     fonte: "JupiterWeb (uspdigital.usp.br/jupiterweb), páginas públicas de turmas; ideia do MatrUSP (github.com/matrusp/matrusp)",
     atualizadoEm: new Date().toISOString(),
+    ...(entreSemestres ? { entreSemestres } : {}),
     disciplinas: Object.fromEntries(Object.entries(disciplinas).filter(([s]) => comTurma.has(s)).sort()),
     grupos: [...novoIndice.keys()].map((g) => grupos[g]),
     turmas,

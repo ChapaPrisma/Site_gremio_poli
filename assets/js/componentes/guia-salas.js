@@ -8,11 +8,11 @@
 // A grade do aluno fica só no navegador dele (localStorage), sem ir a lugar nenhum; o botão "Compartilhar"
 // põe a grade no próprio link (?grade=SIGLA~TURMA.SIGLA~TURMA), sem passar por servidor.
 
-import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202610291752";
-import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202610291752";
-import { carregarIndice, textoCreditos, detalhes, ligarFichas } from "./ficha-disciplina.js?v=202610291752";
-import { opcoesDe, agruparPorHorario, combinar, incompativeis, notas, ORDENS, serveParaAluno, doCurso, obrigatoriasEC3, periodoDe, periodosDisponiveis } from "./montador-grade.js?v=202610291752";
-import { cursos as cursosDoGuia } from "../dados/cursos.js?v=202610291752";
+import { hora, agoraSP, hojeSP } from "../dados/tempo.js?v=202611082218";
+import { CORES, carregarJsPdf, desenharPdf, gerarIcs, baixar } from "./grade-exportar.js?v=202611082218";
+import { carregarIndice, textoCreditos, detalhes, ligarFichas } from "./ficha-disciplina.js?v=202611082218";
+import { opcoesDe, agruparPorHorario, combinar, incompativeis, notas, ORDENS, serveParaAluno, doCurso, obrigatoriasEC3, periodoDe, periodosDisponiveis } from "./montador-grade.js?v=202611082218";
+import { cursos as cursosDoGuia } from "../dados/cursos.js?v=202611082218";
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -379,6 +379,13 @@ export default async function guiaSalas(_alvo, { raiz }) {
   carregarIndice(url).then((d) => { fichas = d; if (d) { indexarBusca(); buscar(); desenharGrade(); montarConferencia(); preencherSemestres(); desenharMontador(); } });
   fetch(url("assets/dados/turmas.json"), { cache: "no-cache" }).then((r) => r.json()).then((d) => {
     J = d; indexarTurmas(); indexarBusca(); depoisDaGrade(); desenharMontador();
+    // entre um semestre e outro o JupiterWeb tira as turmas do ar; o robô guarda as do último semestre publicado
+    const aviso = $("#avisoTurmas");
+    if (aviso && d.entreSemestres) {
+      const ult = periodos.at(-1), desde = new Date(`${d.entreSemestres.desde}T12:00:00`).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
+      aviso.hidden = false;
+      aviso.textContent = `Desde ${desde}, o JupiterWeb não mostra mais as turmas${ult ? ` do ${ult.sem}º semestre de ${ult.ano}` : ""} e ainda não publicou as do próximo semestre. Até lá, o montador usa as turmas${ult ? ` de ${ult.ano}.${ult.sem}` : " do último semestre publicado"}, que servem de referência (horários e professores costumam mudar). Quando as novas saírem, ele se atualiza sozinho.`;
+    }
   }).catch(() => {});
   ligarFichas($("#resultados"), url);
   let espera;
