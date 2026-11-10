@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-10T04:01:43.899Z",
+ "atualizadoEm": "2026-11-10T16:17:17.498Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-10T04:01:43.899Z",
+   "atualizadoEm": "2026-11-10T16:17:17.498Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -27,16 +27,16 @@
     },
     "2026-11-10": {
      "almoco": [
-      "Arroz / feijão preto / arroz integral",
+      "Arroz / feijão / arroz integral",
       "Carne moída",
-      "Opção: Ratatouille",
+      "Opção: Quibe de PVT",
       "Purê de abóbora",
       "Salada de agrião",
       "Abacaxi",
       "Minipão / refresco"
      ],
      "jantar": [
-      "Arroz / feijão preto / arroz integral",
+      "Arroz / feijão / arroz integral",
       "Bife de alcatra acebolado",
       "Opção: PVT à parmegiana",
       "Mandioquinha sauté",
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-10T04:01:43.899Z",
+   "atualizadoEm": "2026-11-10T16:17:17.498Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-10T04:01:43.899Z",
+   "atualizadoEm": "2026-11-10T16:17:17.498Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -216,7 +216,7 @@
       "Arroz / feijão / arroz integral",
       "Fricassé de frango com batata palha",
       "Opção: Cassoulet vegetariano",
-      "Escarola refogado",
+      "Escarola refogada",
       "Salada de pepino",
       "Maçã",
       "Minipão / refresco"
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-10T04:01:43.899Z",
+   "atualizadoEm": "2026-11-10T16:17:17.498Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -331,7 +331,7 @@
       "Opção: Ovos mexidos com legumes",
       "Macarrão ao alho e óleo",
       "Salada de alface",
-      "Maria mole",
+      "Gelatina de uva",
       "Minipão / refresco"
      ],
      "jantar": [
