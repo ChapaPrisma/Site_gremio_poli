@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-10T19:54:55.276Z",
+ "atualizadoEm": "2026-11-10T21:39:25.620Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-10T19:54:55.276Z",
+   "atualizadoEm": "2026-11-10T21:39:25.620Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-10T19:54:55.276Z",
+   "atualizadoEm": "2026-11-10T21:39:25.620Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-10T19:54:55.276Z",
+   "atualizadoEm": "2026-11-10T21:39:25.620Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-10T19:54:55.276Z",
+   "atualizadoEm": "2026-11-10T21:39:25.620Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -337,7 +337,7 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Carne em tiras",
-      "Opção: Torta de queijo",
+      "Opção: Torta madalena de PVT",
       "Repolho com passas",
       "Salada de tomate",
       "Melancia",
