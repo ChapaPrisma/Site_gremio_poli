@@ -10,14 +10,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito:wght@400;600;700;800&display=swap">
-  <link rel="stylesheet" href="../assets/css/tokens.css?v=202611082218">
-  <link rel="stylesheet" href="../assets/css/base.css?v=202611082218">
-  <link rel="stylesheet" href="../assets/css/componentes.css?v=202611082218">
-  <link rel="stylesheet" href="../assets/css/portal.css?v=202611082218">
-  <link rel="stylesheet" href="../assets/css/transparencia.css?v=202611082218">
-  <link rel="stylesheet" href="../assets/css/problemas.css?v=202611082218">
-  <link rel="stylesheet" href="../assets/css/parcerias.css?v=202611082218">
-  <script type="module" src="../assets/js/site.js?v=202611082218"></script>
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=202611100009">
+  <link rel="stylesheet" href="../assets/css/base.css?v=202611100009">
+  <link rel="stylesheet" href="../assets/css/componentes.css?v=202611100009">
+  <link rel="stylesheet" href="../assets/css/portal.css?v=202611100009">
+  <link rel="stylesheet" href="../assets/css/transparencia.css?v=202611100009">
+  <link rel="stylesheet" href="../assets/css/problemas.css?v=202611100009">
+  <link rel="stylesheet" href="../assets/css/disciplinas.css?v=202611100009">
+  <link rel="stylesheet" href="../assets/css/parcerias.css?v=202611100009">
+  <script type="module" src="../assets/js/site.js?v=202611100009"></script>
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -67,6 +68,19 @@
           <h2 id="admin-problemas">Mapa de problemas</h2>
           <p class="bloco-portal__intro">Todos os problemas que os alunos registraram no mapa da página <a href="../aluno/demandas/#mapa">Demandas</a>, por extenso e com a foto. Mude a situação, responda (a resposta aparece no mapa) e baixe a planilha para levar à diretoria da Poli.</p>
           <div class="painel-contas" id="painelProblemas"><p class="nota">Carregando…</p></div>
+        </section>
+
+        <section class="bloco-portal" id="reclamacoes" aria-labelledby="admin-reclamacoes">
+          <h2 id="admin-reclamacoes">Reclamações das disciplinas</h2>
+          <p class="bloco-portal__intro">O que os alunos escreveram no <a href="../aluno/disciplinas/#comentar">Mapa das disciplinas</a>, por extenso. Só a gestão lê o texto: o público vê apenas as contagens. Marque o que já foi lido e o que foi levado ao departamento, e baixe a planilha para a reunião.</p>
+          <div class="painel-contas" id="painelReclamacoes"><p class="nota">Carregando…</p></div>
+        </section>
+
+        <section class="bloco-portal" id="ementas" aria-labelledby="admin-ementas">
+          <details class="ementas-admin">
+            <summary><h2 id="admin-ementas">Ementas</h2> <span class="nota">o histórico das ementas no JupiterWeb e a análise de cada semestre</span></summary>
+            <div id="painelEmentas"><p class="nota">Carregando…</p></div>
+          </details>
         </section>
 
       <section class="bloco-portal" aria-labelledby="admin-tela">

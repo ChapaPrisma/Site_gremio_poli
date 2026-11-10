@@ -88,6 +88,12 @@ dá acesso a recursos do celular: notificações, compartilhar e salvar arquivos
 - **Demandas, mapa de problemas:** a foto vem de `<input capture>` e a localização de `navigator.geolocation`;
   no app, trocar por `@capacitor/camera` e `@capacitor/geolocation` (pedem permissão uma vez e são mais
   precisos). O mapa lê `campus-poli.json`, que já entra no pacote.
+- **Mapa das disciplinas (`aluno/disciplinas/`):** o grafo é um `<canvas>` (toque para escolher um ponto,
+  sem gesto de zoom), leve o bastante para celular. O catálogo (`assets/dados/catalogo-disciplinas.json`,
+  ~150 KB) entra no pacote e é renovado com "rede primeiro". As contagens de reclamações vêm do Supabase
+  (`resumo_reclamacoes`), então pedem rede; sem sinal, o mapa mostra os pontos sem as contagens. O envio da
+  reclamação é anônimo (sem login): no app, nada muda. A busca de disciplina (`busca-disciplina.js`) é a mesma.
+  A animação de abertura respeita "reduzir movimento" do sistema.
 - **Meu Amor:** o envio de foto ao mural usa o FormSubmit com redirecionamento (`_next`). No app,
   trocar pelo envio por `fetch` ao endpoint `https://formsubmit.co/ajax/...`, sem sair da tela.
   Ainda melhor, a foto pode vir da câmera ou da galeria pelo `@capacitor/camera`.

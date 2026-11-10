@@ -24,6 +24,15 @@
   --vermelho: #b3263e;     /* transparência: contas e dívida */
   --vermelho-forte: #8f1d31;
   --vermelho-claro: #fbe3e7;
+  /* Escala de quantidade dos gráficos (Mapa das disciplinas): um tom só, do claro ao escuro, validada para
+     leitura (diferença de claridade entre os passos e contraste do mais claro com o branco). Ao trocar de
+     identidade, refazer com o tom da marca e validar de novo. */
+  --dado-1: #f0a27e;
+  --dado-2: #e0672f;
+  --dado-3: #b5471a;
+  --dado-4: #7f2f10;
+  --dado-vazio: #b9b3a8;   /* ponto sem registro */
+  --dado-grupo: #b292f5;   /* fundo dos grupos da Poli no mapa (usado bem transparente) */
 
   /* Duas famílias: Bricolage Grotesque nos títulos e números, Nunito no texto. */
   --fonte: "Nunito", system-ui, sans-serif;

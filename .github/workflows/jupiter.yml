@@ -1,12 +1,12 @@
-# Atualiza as fichas das disciplinas (créditos, ementa, avaliação) e o 1º semestre de cada curso, a partir
-# do JupiterWeb. É só um agendador: todo o trabalho está em ferramentas/jupiter.mjs (ver README, seção
+# Atualiza as fichas das disciplinas (créditos, ementa, avaliação), o 1º semestre de cada curso e o histórico
+# das ementas (ferramentas/ementas.mjs), a partir do JupiterWeb. É só um agendador: todo o trabalho está em ferramentas/jupiter.mjs (ver README, seção
 # "Fichas das disciplinas"). O caminho até esses dados foi mapeado pelo usp-mcp, de Caio Castro e João
 # Pedro Gunthen (github.com/CaioCastro1/mcp-usp).
 #
 # Gentileza com a USP: uma vez por dia, de madrugada, no máximo 50 fichas por vez, uma requisição por vez
 # com pausa entre elas; cada ficha vale por um semestre e as grades dos cursos são conferidas uma vez por mês.
 # Nos dias em que não há ficha faltando nem grade vencida, o script termina sem chamar o JupiterWeb.
-name: Fichas das disciplinas
+name: Fichas e ementas das disciplinas
 
 on:
   schedule:
@@ -30,15 +30,21 @@ jobs:
         with:
           node-version: 20
       - run: node ferramentas/jupiter.mjs
+      # histórico das ementas (ferramentas/ementas.mjs): o catálogo todo dia, cada ementa conferida uma vez por
+      # mês, no máximo 150 pedidos. Roda mesmo se as fichas falharem, e o que mudou é publicado do mesmo jeito.
+      - name: Histórico das ementas
+        if: ${{ !cancelled() }}
+        run: node ferramentas/ementas.mjs
       - name: Publicar se mudou
+        if: ${{ !cancelled() }}
         run: |
-          git add assets/dados/disciplinas.json assets/dados/disciplinas/
+          git add assets/dados/disciplinas.json assets/dados/disciplinas/ assets/dados/ementas.json assets/dados/ementas/ assets/dados/catalogo-disciplinas.json
           if git diff --cached --quiet; then
             echo "Sem mudanças nas fichas."
             exit 0
           fi
           git config user.name "fichas-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Atualiza fichas das disciplinas (JupiterWeb)"
+          git commit -m "Atualiza fichas e ementas das disciplinas (JupiterWeb)"
           git pull --rebase origin main
           git push

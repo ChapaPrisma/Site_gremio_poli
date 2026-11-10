@@ -193,6 +193,14 @@ export const ramificacoes = [
         chamada: "Conhecer o hub de estudos",
       },
       {
+        id: "disciplinas",
+        titulo: "Mapa das disciplinas",
+        caminho: "aluno/disciplinas/",
+        estado: "no-ar",
+        resumo: "Onde cada disciplina é dada e sobre o que mais se reclama delas. Comente uma disciplina: o Grêmio junta o que se repete e leva aos departamentos.",
+        chamada: "Ver o mapa e comentar",
+      },
+      {
         id: "minerva",
         titulo: "Minerva",
         caminho: "aluno/minerva/",

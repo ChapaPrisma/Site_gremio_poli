@@ -1,0 +1,41 @@
+# Análise semestral das ementas (ferramentas/analise-ementas.mjs): as disciplinas estão ficando mais exigentes,
+# mais leves ou mudando de ênfase? Compara cada troca de versão no JupiterWeb e monta a série histórica inteira,
+# a partir do histórico que o robô diário guarda (ferramentas/ementas.mjs). Sai na aba "Ementas" do portal
+# interno (admin/#ementas). Não chama o JupiterWeb: só lê os arquivos do repositório (e as contagens públicas
+# do Mapa das disciplinas, quando o banco responde).
+name: Análise semestral das ementas
+
+on:
+  schedule:
+    # 1º de março e 1º de agosto, 9h de São Paulo (12h em UTC): depois das versões novas de janeiro e de julho
+    - cron: "0 12 1 3,8 *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dados-do-site
+  cancel-in-progress: false
+
+jobs:
+  analisar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node ferramentas/analise-ementas.mjs
+      - name: Publicar
+        run: |
+          git add assets/dados/ementas-analises/
+          if git diff --cached --quiet; then
+            echo "Sem mudanças na análise."
+            exit 0
+          fi
+          git config user.name "ementas-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Análise semestral das ementas"
+          git pull --rebase origin main
+          git push

@@ -7,11 +7,13 @@
 // interface: quem protege os dados de verdade são as regras do banco.
 // Uso: #painelEntrada, #areaAdmin com #painelContas, e <div data-componente="contas-admin"></div>.
 
-import { supabase, configurado, carregar, extrato, reais, dataBR, CATEGORIAS, INICIO_CONTAS } from "../dados/contas.js?v=202611082218";
-import { hojeSP } from "../dados/tempo.js?v=202611082218";
-import { projetosAdmin } from "./projetos-admin.js?v=202611082218";
-import { vendasAdmin } from "./vendas-admin.js?v=202611082218";
-import { problemasAdmin } from "./problemas-admin.js?v=202611082218";
+import { supabase, configurado, carregar, extrato, reais, dataBR, CATEGORIAS, INICIO_CONTAS } from "../dados/contas.js?v=202611100009";
+import { hojeSP } from "../dados/tempo.js?v=202611100009";
+import { projetosAdmin } from "./projetos-admin.js?v=202611100009";
+import { vendasAdmin } from "./vendas-admin.js?v=202611100009";
+import { problemasAdmin } from "./problemas-admin.js?v=202611100009";
+import { reclamacoesAdmin } from "./reclamacoes-admin.js?v=202611100009";
+import { ementasAdmin } from "./ementas-admin.js?v=202611100009";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
@@ -120,6 +122,8 @@ export default async function contasAdmin(_alvo, contexto) {
     projetosAdmin(db, site);
     vendasAdmin(db);
     problemasAdmin(db, site);
+    reclamacoesAdmin(db, site, url);
+    ementasAdmin(url);
     const r = await carregar(site, raiz);
     const ex = extrato(r.lancamentos, r.parametros);
     const recentes = r.lancamentos.slice().sort((a, b) => String(b.criado_em).localeCompare(String(a.criado_em))).slice(0, 15);
