@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-09T16:56:36.829Z",
+ "atualizadoEm": "2026-11-10T04:01:43.899Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-09T16:56:36.829Z",
+   "atualizadoEm": "2026-11-10T04:01:43.899Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -18,9 +18,9 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Frango assado",
-      "Opção: Moussaka",
-      "Polenta",
-      "Salada de acelga",
+      "Opção: Berinjela com PVT",
+      "Batata palha",
+      "Salada de escarola",
       "Maçã",
       "Minipão / refresco"
      ]
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-09T16:56:36.829Z",
+   "atualizadoEm": "2026-11-10T04:01:43.899Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-09T16:56:36.829Z",
+   "atualizadoEm": "2026-11-10T04:01:43.899Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -206,8 +206,8 @@
       "Sobrecoxa de frango assada",
       "Opção: PVT com batata",
       "Abobrinha com alho",
-      "Salada de almeirão",
-      "Laranja",
+      "Salada de repolho",
+      "Barrinha de goiabinha",
       "Minipão / refresco"
      ]
     },
@@ -216,7 +216,7 @@
       "Arroz / feijão / arroz integral",
       "Fricassé de frango com batata palha",
       "Opção: Cassoulet vegetariano",
-      "Repolho refogado",
+      "Escarola refogado",
       "Salada de pepino",
       "Maçã",
       "Minipão / refresco"
@@ -226,7 +226,7 @@
       "Carne em cubos",
       "Opção: Moqueca de grão-de-bico com leite de côco",
       "Abóbora",
-      "Salada de escarola",
+      "Salada de almeirão",
       "Pudim de chocolate",
       "Minipão / refresco"
      ]
@@ -238,7 +238,7 @@
       "Opção: Lentilha com champingon",
       "Batata-doce",
       "Salada de acelga",
-      "Barrinha de goiabinha",
+      "Pudim de chocolate",
       "Minipão / refresco"
      ],
      "jantar": [
@@ -267,7 +267,7 @@
       "Opção: PVT a jardineira",
       "Batata palha",
       "Salada de acelga",
-      "Gelatina de morango",
+      "Bolinho de chocolate",
       "Minipão / refresco"
      ]
     },
@@ -278,7 +278,7 @@
       "Opção: PVT com mandioquinha",
       "Couve-flor na salsa",
       "Salada de cenoura ralada",
-      "Bolinho de chocolate",
+      "Gelatina de morango",
       "Minipão / refresco"
      ],
      "jantar": [
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-09T16:56:36.829Z",
+   "atualizadoEm": "2026-11-10T04:01:43.899Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
