@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-11T15:58:07.152Z",
+ "atualizadoEm": "2026-11-11T19:47:37.985Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-11T15:58:07.152Z",
+   "atualizadoEm": "2026-11-11T19:47:37.985Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -57,8 +57,8 @@
      ],
      "jantar": [
       "Arroz / feijão / arroz integral",
-      "Carne assada",
-      "Opção: Fricassê de PVT",
+      "Carne assada ao molho mostarda",
+      "Opção: Estrogonofe de cogumelos",
       "Batata-doce corada",
       "Salada de escarola",
       "Melão",
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-11T15:58:07.152Z",
+   "atualizadoEm": "2026-11-11T19:47:37.985Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-11T15:58:07.152Z",
+   "atualizadoEm": "2026-11-11T19:47:37.985Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-11T15:58:07.152Z",
+   "atualizadoEm": "2026-11-11T19:47:37.985Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -360,7 +360,7 @@
       "Opção: Hambúrguer de PVT",
       "Abobrinha refogada",
       "Salada de alface",
-      "Biscoito de chocolate",
+      "Bolinho de laranja",
       "Minipão / refresco"
      ]
     },
