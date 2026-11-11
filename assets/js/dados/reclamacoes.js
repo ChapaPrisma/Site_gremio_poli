@@ -1,7 +1,7 @@
-// Reclamações sobre disciplinas (Mapa das disciplinas, aluno/disciplinas/, e o painel do portal interno):
+// Reclamações sobre disciplinas (Mapa das disciplinas, aluno/demandas/disciplinas/, e o painel do portal interno):
 // naturezas, leitura das contagens públicas e envio. Tabela, regras e limites: ferramentas/supabase/reclamacoes.sql.
 
-import { supabase } from "./contas.js?v=202611100009";
+import { supabase } from "./contas.js?v=202611102102";
 
 // A natureza de cada reclamação, com exemplos que ajudam a escolher. O mapa não pinta por natureza (nove cores
 // juntas não se distinguem): a natureza escolhida no filtro muda o que o tamanho e o tom de cada ponto contam.

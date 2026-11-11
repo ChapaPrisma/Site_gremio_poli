@@ -1,4 +1,4 @@
-// Mapa das disciplinas (aluno/disciplinas/): um grafo em que cada ponto é uma disciplina, agrupada perto de onde
+// Mapa das disciplinas (aluno/demandas/disciplinas/, dentro de Demandas): um grafo em que cada ponto é uma disciplina, agrupada perto de onde
 // ela é dada (o prédio do departamento da Poli, o IME, a Física...). Os grupos ficam na direção real a partir do
 // Biênio, com a distância encolhida (dados/unidades-usp.js). Pontos laranja são disciplinas com reclamações:
 // quanto mais registros, maior e mais escuro. Ao abrir, as disciplinas saem do Biênio para os seus prédios.
@@ -7,11 +7,11 @@
 // de reclamações (dados/reclamacoes.js, Supabase) e as grades dos cursos (assets/dados/disciplinas.json).
 // O texto das reclamações nunca chega ao público: só a gestão lê, no portal interno.
 
-import { lugares, lugarDe } from "../dados/unidades-usp.js?v=202611100009";
-import { NATUREZAS, semestres, carregarResumo, enviarReclamacao } from "../dados/reclamacoes.js?v=202611100009";
-import { cursos } from "../dados/cursos.js?v=202611100009";
-import { ligarBusca } from "./busca-disciplina.js?v=202611100009";
-import { carregarIndice, linkJupiter, textoCreditos } from "./ficha-disciplina.js?v=202611100009";
+import { lugares, lugarDe } from "../dados/unidades-usp.js?v=202611102102";
+import { NATUREZAS, semestres, carregarResumo, enviarReclamacao } from "../dados/reclamacoes.js?v=202611102102";
+import { cursos } from "../dados/cursos.js?v=202611102102";
+import { ligarBusca } from "./busca-disciplina.js?v=202611102102";
+import { carregarIndice, linkJupiter, textoCreditos } from "./ficha-disciplina.js?v=202611102102";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const dataBR = (iso) => (iso ? new Date(`${iso}T12:00:00`).toLocaleDateString("pt-BR") : "");

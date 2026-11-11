@@ -4,92 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mapa das disciplinas | Prisma, chapa para o Grêmio Politécnico</title>
-  <meta name="description" content="Onde cada disciplina da Poli é dada e sobre o que mais se reclama delas. Comente uma disciplina: o Grêmio junta o que se repete e leva aos departamentos.">
-  <meta name="theme-color" content="#f8f5f0">
-  <link rel="icon" href="../../assets/img/marca/prisma.svg?v=88a4c984" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito:wght@400;600;700;800&display=swap">
-  <link rel="stylesheet" href="../../assets/css/tokens.css?v=202611100009">
-  <link rel="stylesheet" href="../../assets/css/base.css?v=202611100009">
-  <link rel="stylesheet" href="../../assets/css/componentes.css?v=202611100009">
-  <link rel="stylesheet" href="../../assets/css/portal.css?v=202611100009">
-  <link rel="stylesheet" href="../../assets/css/disciplinas.css?v=202611100009">
-  <script type="module" src="../../assets/js/site.js?v=202611100009"></script>
+  <meta name="robots" content="noindex">
+  <!-- Endereço antigo: o Mapa das disciplinas agora fica dentro de Demandas.
+       Este arquivo só redireciona, mantendo a âncora (ex.: aluno/disciplinas/#comentar vai para aluno/demandas/disciplinas/#comentar). -->
+  <meta http-equiv="refresh" content="0; url=../demandas/disciplinas/">
+  <link rel="canonical" href="../demandas/disciplinas/">
+  <script>location.replace("../demandas/disciplinas/" + location.hash);</script>
 </head>
 <body>
-  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
-  <div data-componente="cabecalho"></div>
-
-  <div class="container leiaute leiaute--pagina">
-    <div data-componente="indice" data-modo="lateral" data-raiz="aluno"></div>
-    <main id="conteudo" class="leiaute__principal portal">
-      <div data-componente="trilha" data-id="disciplinas"></div>
-
-      <section class="abertura" aria-labelledby="disc-titulo">
-        <h1 id="disc-titulo">Mapa das disciplinas</h1>
-        <p class="abertura__lead">Cada ponto é uma disciplina que um politécnico cursa, perto de onde ela é dada: no prédio do departamento, no IME, na Física. Os pontos laranja são as que receberam reclamações. Quanto mais registros, maior o ponto.</p>
-        <p class="abertura__texto">Reclamação solta se perde no corredor. Juntas, viram pauta: o Grêmio soma o que se repete e leva aos departamentos e às comissões de coordenação de curso.</p>
-        <div class="abertura__estado"><span class="pill pill--aberto">No ar</span><span>O mapa e a busca já funcionam. As reclamações passam a ser recebidas com o portal do Novo Grêmio.</span></div>
-        <nav class="pagina__atalhos" aria-label="Nesta página"><a class="chip" href="#mapa">O mapa</a><a class="chip" href="#comentar">Comentar uma disciplina</a><a class="chip" href="#o-que-acontece">O que acontece depois</a></nav>
-      </section>
-
-      <section class="bloco-portal" id="mapa" aria-labelledby="mapa-titulo">
-        <h2 id="mapa-titulo">Onde a Poli estuda</h2>
-        <p class="bloco-portal__intro">Os grupos ficam na direção real de cada prédio, olhando do Biênio. A distância foi encolhida para caber tudo: a Química e o ICB, a mais de um quilômetro, ficam perto da borda. Escolha um curso para ver por onde passam as obrigatórias dele.</p>
-        <div data-componente="mapa-disciplinas"></div>
-      </section>
-
-      <section class="bloco-portal" id="comentar" aria-labelledby="comentar-titulo">
-        <h2 id="comentar-titulo">Comente uma disciplina</h2>
-        <p class="bloco-portal__intro">Escolha a disciplina na lista, marque do que se trata e, se quiser, conte o que acontece. Só a gestão do Grêmio lê o seu texto: no mapa aparecem apenas as contagens.</p>
-        <form class="formulario rec-form" id="formReclamacao" novalidate>
-          <div class="campo campo--busca-disc">
-            <label for="recBusca">Disciplina</label>
-            <input type="text" id="recBusca" placeholder="Código ou nome: PME3100, mecânica 1, algelin" aria-describedby="recBuscaAjuda">
-            <p class="ajuda" id="recBuscaAjuda">Digite o código ou parte do nome e toque numa sugestão. Só vale disciplina da lista, para nenhuma reclamação cair na matéria errada.</p>
-          </div>
-          <fieldset class="campo">
-            <legend>Do que se trata? <small>Até três</small></legend>
-            <div class="rec-naturezas" id="recNaturezas"></div>
-          </fieldset>
-          <div class="campo">
-            <label for="recSemestre">Quando você cursou</label>
-            <select id="recSemestre"></select>
-          </div>
-          <div class="campo">
-            <label for="recTexto">Conte o que acontece <small>(opcional)</small></label>
-            <textarea id="recTexto" maxlength="500" aria-describedby="recTextoAjuda recConta"></textarea>
-            <p class="ajuda" id="recTextoAjuda">Fale da disciplina, não de pessoas: não cite nomes de professores, monitores ou colegas. Um bom exemplo: "as provas cobram assuntos que não foram dados em aula, e as notas da P1 saíram depois da P2".</p>
-            <p class="ajuda rec-conta" id="recConta" aria-live="polite">0 de 500</p>
-          </div>
-          <p class="formulario__erro" id="recErro" role="alert" hidden></p>
-          <p class="ok-msg" id="recOk" role="status" hidden>Recebido. Obrigado: a sua reclamação já conta no mapa.</p>
-          <div class="formulario__fim">
-            <button class="botao" type="submit">Enviar reclamação</button>
-            <p>Sem nome e sem e-mail. Para evitar enxurrada, cada conexão comenta uma vez cada disciplina por semestre.</p>
-          </div>
-        </form>
-      </section>
-
-      <section class="bloco-portal" id="o-que-acontece" aria-labelledby="depois-titulo">
-        <h2 id="depois-titulo">O que acontece depois</h2>
-        <div class="duas">
-          <div class="cartao cartao--forte">
-            <h3>Vira pauta</h3>
-            <p>Quando uma disciplina junta reclamações parecidas, o Grêmio leva o caso, com os números, à comissão de coordenação do curso e ao departamento que dá a disciplina. O que for resolvido aparece aqui.</p>
-          </div>
-          <div class="cartao">
-            <h3>As ementas também são acompanhadas</h3>
-            <p>O Grêmio guarda o histórico das ementas de cada disciplina no JupiterWeb, ano a ano, e registra quando uma delas muda de conteúdo, de créditos ou de forma de avaliação. Assim dá para ver se a reclamação vem de uma mudança recente.</p>
-          </div>
-        </div>
-      </section>
-
-      <p class="fonte-dados">Disciplinas, créditos e ementas do JupiterWeb, pelo caminho mapeado pelo <a href="https://github.com/CaioCastro1/mcp-usp" target="_blank" rel="noopener">usp-mcp</a>, de <span class="nome-credito">Caio Castro</span> e <span class="nome-credito">João Pedro Gunthen</span>. Posição dos prédios: OpenStreetMap.</p>
-    </main>
-  </div>
-
-  <div data-componente="rodape"></div>
+  <p>Esta página mudou de endereço: <a href="../demandas/disciplinas/">Mapa das disciplinas, em Demandas</a>.</p>
 </body>
 </html>

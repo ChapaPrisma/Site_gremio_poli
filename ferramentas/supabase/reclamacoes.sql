@@ -1,4 +1,4 @@
--- Reclamações sobre disciplinas (Mapa das disciplinas, aluno/disciplinas/). Rode no SQL Editor do Supabase
+-- Reclamações sobre disciplinas (Mapa das disciplinas, aluno/demandas/disciplinas/). Rode no SQL Editor do Supabase
 -- depois do contas.sql (usa public.eh_administrador()). Pode rodar antes ou depois do problemas.sql.
 --
 -- Quem lê o quê:

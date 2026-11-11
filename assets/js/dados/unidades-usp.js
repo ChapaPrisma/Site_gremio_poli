@@ -1,4 +1,4 @@
-// Onde cada disciplina "mora" no campus, para o Mapa das disciplinas (aluno/disciplinas/,
+// Onde cada disciplina "mora" no campus, para o Mapa das disciplinas (aluno/demandas/disciplinas/,
 // componentes/mapa-disciplinas.js). A sigla diz o departamento: PME é da Mecânica, MAT do IME, 4323 da Física...
 // Cada unidade tem a posição do prédio (latitude e longitude). Os prédios da Poli vêm de dados/predios-poli.js;
 // os das outras unidades, do OpenStreetMap (Nominatim, 08/11/2026).
@@ -7,7 +7,7 @@
 // prédios da Poli, colados uns nos outros, não se amontoem e a Química e o ICB, a mais de um quilômetro, não
 // fiquem longe demais. A direção (norte para cima) é a real.
 
-import { bienio, predios } from "./predios-poli.js?v=202611100009";
+import { bienio, predios } from "./predios-poli.js?v=202611102102";
 
 const poli = Object.fromEntries(predios.map((p) => [p.id, p]));
 

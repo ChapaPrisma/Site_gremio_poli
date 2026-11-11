@@ -1,4 +1,4 @@
-/* Mapa das disciplinas (aluno/disciplinas/, componentes/mapa-disciplinas.js), a busca de disciplina
+/* Mapa das disciplinas (aluno/demandas/disciplinas/, componentes/mapa-disciplinas.js), a busca de disciplina
    (componentes/busca-disciplina.js, também no portal interno) e os painéis do portal interno
    (componentes/reclamacoes-admin.js e componentes/ementas-admin.js). Cores só pelas variáveis de tokens.css,
    menos a escala laranja das reclamações, que fica no próprio componente (validada para leitura). */

@@ -2,7 +2,7 @@
 // Uso: <div data-componente="recursos" data-id="aluno"></div>
 // Lista numerada com estado (seções do portal): data-estilo="portal"
 
-import { cartoes } from "./pagina.js?v=202611100009";
+import { cartoes } from "./pagina.js?v=202611102102";
 
 export default function recursos(alvo, contexto) {
   const achado = contexto.encontrar(alvo.dataset.id);

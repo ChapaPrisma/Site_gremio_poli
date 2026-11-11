@@ -88,7 +88,7 @@ dá acesso a recursos do celular: notificações, compartilhar e salvar arquivos
 - **Demandas, mapa de problemas:** a foto vem de `<input capture>` e a localização de `navigator.geolocation`;
   no app, trocar por `@capacitor/camera` e `@capacitor/geolocation` (pedem permissão uma vez e são mais
   precisos). O mapa lê `campus-poli.json`, que já entra no pacote.
-- **Mapa das disciplinas (`aluno/disciplinas/`):** o grafo é um `<canvas>` (toque para escolher um ponto,
+- **Mapa das disciplinas (`aluno/demandas/disciplinas/`, dentro de Demandas):** o grafo é um `<canvas>` (toque para escolher um ponto,
   sem gesto de zoom), leve o bastante para celular. O catálogo (`assets/dados/catalogo-disciplinas.json`,
   ~150 KB) entra no pacote e é renovado com "rede primeiro". As contagens de reclamações vêm do Supabase
   (`resumo_reclamacoes`), então pedem rede; sem sinal, o mapa mostra os pontos sem as contagens. O envio da

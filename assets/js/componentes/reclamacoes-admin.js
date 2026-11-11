@@ -1,10 +1,10 @@
 // Painel "Reclamações das disciplinas" do portal interno (admin/): cada reclamação por extenso, com a disciplina,
 // as naturezas, o semestre e o texto. Só a gestão lê o texto; o público vê apenas as contagens no Mapa das
-// disciplinas (aluno/disciplinas/). A gestão marca a situação, anota e baixa tudo como planilha para levar aos
+// disciplinas (aluno/demandas/disciplinas/). A gestão marca a situação, anota e baixa tudo como planilha para levar aos
 // departamentos e às comissões de coordenação de curso. Chamado pelo painel de contas depois do login.
 // Tabela e regras: ferramentas/supabase/reclamacoes.sql.
 
-import { NATUREZAS, SITUACOES_REC } from "../dados/reclamacoes.js?v=202611100009";
+import { NATUREZAS, SITUACOES_REC } from "../dados/reclamacoes.js?v=202611102102";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const dataHora = (iso) => new Date(iso).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" });
