@@ -7,11 +7,11 @@
 // de reclamações (dados/reclamacoes.js, Supabase) e as grades dos cursos (assets/dados/disciplinas.json).
 // O texto das reclamações nunca chega ao público: só a gestão lê, no portal interno.
 
-import { lugares, lugarDe } from "../dados/unidades-usp.js?v=202611102102";
-import { NATUREZAS, semestres, carregarResumo, enviarReclamacao } from "../dados/reclamacoes.js?v=202611102102";
-import { cursos } from "../dados/cursos.js?v=202611102102";
-import { ligarBusca } from "./busca-disciplina.js?v=202611102102";
-import { carregarIndice, linkJupiter, textoCreditos } from "./ficha-disciplina.js?v=202611102102";
+import { lugares, lugarDe } from "../dados/unidades-usp.js?v=202611102110";
+import { NATUREZAS, semestres, carregarResumo, enviarReclamacao } from "../dados/reclamacoes.js?v=202611102110";
+import { cursos } from "../dados/cursos.js?v=202611102110";
+import { ligarBusca } from "./busca-disciplina.js?v=202611102110";
+import { carregarIndice, linkJupiter, textoCreditos } from "./ficha-disciplina.js?v=202611102110";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const dataBR = (iso) => (iso ? new Date(`${iso}T12:00:00`).toLocaleDateString("pt-BR") : "");

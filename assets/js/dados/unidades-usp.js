@@ -7,7 +7,7 @@
 // prédios da Poli, colados uns nos outros, não se amontoem e a Química e o ICB, a mais de um quilômetro, não
 // fiquem longe demais. A direção (norte para cima) é a real.
 
-import { bienio, predios } from "./predios-poli.js?v=202611102102";
+import { bienio, predios } from "./predios-poli.js?v=202611102110";
 
 const poli = Object.fromEntries(predios.map((p) => [p.id, p]));
 

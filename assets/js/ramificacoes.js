@@ -252,16 +252,19 @@ export const ramificacoes = [
         estado: "no-ar",
         resumo: "Leve uma proposta, demanda ou denúncia direto para a diretoria responsável do Grêmio.",
         chamada: "Enviar uma demanda",
-        filhos: [
-          {
-            id: "disciplinas",
-            titulo: "Mapa das disciplinas",
-            caminho: "aluno/demandas/disciplinas/",
-            estado: "no-ar",
-            resumo: "Onde cada disciplina é dada e sobre o que mais se reclama delas. Comente uma disciplina: o Grêmio junta o que se repete e leva aos departamentos.",
-            chamada: "Ver o mapa e comentar",
-          },
-        ],
+        // ESCONDIDO (10/11/2026, pedido do usuário: "depois a ajeitamos"). A página aluno/demandas/disciplinas/
+        // continua no repositório; para voltar, descomente este bloco e os links marcados "Mapa das disciplinas
+        // (escondido)" em aluno/demandas/ e aluno/fuja-do-nabo/.
+        // filhos: [
+        //   {
+        //     id: "disciplinas",
+        //     titulo: "Mapa das disciplinas",
+        //     caminho: "aluno/demandas/disciplinas/",
+        //     estado: "no-ar",
+        //     resumo: "Onde cada disciplina é dada e sobre o que mais se reclama delas. Comente uma disciplina: o Grêmio junta o que se repete e leva aos departamentos.",
+        //     chamada: "Ver o mapa e comentar",
+        //   },
+        // ],
       },
       {
         id: "bixo",

@@ -3,7 +3,7 @@
 // semestre (ferramentas/analise-ementas.mjs), com a série histórica inteira. Para uma disciplina: a linha do
 // tempo das versões e a comparação palavra a palavra entre duas delas. Chamada depois do login.
 
-import { ligarBusca } from "./busca-disciplina.js?v=202611102102";
+import { ligarBusca } from "./busca-disciplina.js?v=202611102110";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const dataBR = (iso) => (iso ? new Date(`${iso.slice(0, 10)}T12:00:00`).toLocaleDateString("pt-BR") : "");

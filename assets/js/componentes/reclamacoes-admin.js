@@ -4,7 +4,7 @@
 // departamentos e às comissões de coordenação de curso. Chamado pelo painel de contas depois do login.
 // Tabela e regras: ferramentas/supabase/reclamacoes.sql.
 
-import { NATUREZAS, SITUACOES_REC } from "../dados/reclamacoes.js?v=202611102102";
+import { NATUREZAS, SITUACOES_REC } from "../dados/reclamacoes.js?v=202611102110";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const dataHora = (iso) => new Date(iso).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" });
