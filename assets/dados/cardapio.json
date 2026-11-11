@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-10T21:39:25.620Z",
+ "atualizadoEm": "2026-11-11T15:58:07.152Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-10T21:39:25.620Z",
+   "atualizadoEm": "2026-11-11T15:58:07.152Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -49,7 +49,7 @@
      "almoco": [
       "Arroz / feijão / arroz integral",
       "Frango empanado",
-      "Opção: Quibe de PVT",
+      "Opção: Ratatouille",
       "Vagem ao alho e óleo",
       "Salada de alface",
       "Bananada",
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-10T21:39:25.620Z",
+   "atualizadoEm": "2026-11-11T15:58:07.152Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-10T21:39:25.620Z",
+   "atualizadoEm": "2026-11-11T15:58:07.152Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-10T21:39:25.620Z",
+   "atualizadoEm": "2026-11-11T15:58:07.152Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
