@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-12T16:42:43.254Z",
+ "atualizadoEm": "2026-11-12T20:16:24.444Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-12T16:42:43.254Z",
+   "atualizadoEm": "2026-11-12T20:16:24.444Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -78,7 +78,7 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Frango à passarinho",
-      "Opção: Grão-de-bico à aurora",
+      "Opção: Grão-de-bico com legumes",
       "Chuchu refogado",
       "Salada de alface",
       "Banana",
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-12T16:42:43.254Z",
+   "atualizadoEm": "2026-11-12T20:16:24.444Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-12T16:42:43.254Z",
+   "atualizadoEm": "2026-11-12T20:16:24.444Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-12T16:42:43.254Z",
+   "atualizadoEm": "2026-11-12T20:16:24.444Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
