@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-12T20:16:24.444Z",
+ "atualizadoEm": "2026-11-13T15:59:53.072Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-12T20:16:24.444Z",
+   "atualizadoEm": "2026-11-13T15:59:53.072Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -90,13 +90,13 @@
       "Arroz / feijão / arroz integral",
       "Tiras de carne",
       "Opção: Escondidinho de PVT",
-      "Caponata de abobrinha",
-      "Salada de acelga",
+      "Abobrinha refogada",
+      "Salada de almeirão",
       "Cocada",
       "Minipão / refresco"
      ],
      "jantar": [
-      "Arroz / feijão / arroz integral",
+      "Arroz / feijão preto / arroz integral",
       "Linguiça assada",
       "Opção: Torta marguerita",
       "Chucrute",
@@ -116,7 +116,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-12T20:16:24.444Z",
+   "atualizadoEm": "2026-11-13T15:59:53.072Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -189,7 +189,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-12T20:16:24.444Z",
+   "atualizadoEm": "2026-11-13T15:59:53.072Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
@@ -302,7 +302,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-12T20:16:24.444Z",
+   "atualizadoEm": "2026-11-13T15:59:53.072Z",
    "dias": {
     "2026-11-09": {
      "almoco": [
