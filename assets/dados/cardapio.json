@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-16T18:10:17.714Z",
+ "atualizadoEm": "2026-11-16T22:26:04.488Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-16T18:10:17.714Z",
+   "atualizadoEm": "2026-11-16T22:26:04.488Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -17,10 +17,10 @@
      ],
      "jantar": [
       "Arroz / feijão / arroz integral",
-      "Carne assada com molho ferrugem",
+      "Carne assada com molho mostarda",
       "Opção: Feijão tropeiro vegetariano",
-      "Virado de cebola",
-      "Salada de acelga",
+      "Abobrinha refogada",
+      "Salada de beterraba",
       "Laranja",
       "Minipão / refresco"
      ]
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-16T18:10:17.714Z",
+   "atualizadoEm": "2026-11-16T22:26:04.488Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-16T18:10:17.714Z",
+   "atualizadoEm": "2026-11-16T22:26:04.488Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -187,7 +187,7 @@
       "Opção: Lentilha com soja",
       "Berinjela refogada",
       "Salada de escarola",
-      "Banana",
+      "Maçã",
       "Minipão / refresco"
      ]
     },
@@ -227,7 +227,7 @@
       "Opção: Charuto de repolho com PVT",
       "Purê de batata / purê de batata estrito",
       "Salada de almeirão",
-      "Maçã",
+      "Banana",
       "Minipão / refresco"
      ]
     },
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-16T18:10:17.714Z",
+   "atualizadoEm": "2026-11-16T22:26:04.488Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
