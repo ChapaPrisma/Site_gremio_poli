@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-16T22:26:04.488Z",
+ "atualizadoEm": "2026-11-17T17:29:15.446Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-16T22:26:04.488Z",
+   "atualizadoEm": "2026-11-17T17:29:15.446Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -29,7 +29,7 @@
      "almoco": [
       "Arroz / feijão / arroz integral",
       "Frango assado",
-      "Opção: Moussaka de PVT",
+      "Opção: Escondidinho de shimeji",
       "Quiabo refogado",
       "Salada de escarola",
       "Bananada",
@@ -38,7 +38,7 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Tiras de carne com molho roti",
-      "Opção: Escondidinho de Shimeji",
+      "Opção: Moussaka de PVT",
       "Cenoura com vagem",
       "Salada de alface",
       "Manga",
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-16T22:26:04.488Z",
+   "atualizadoEm": "2026-11-17T17:29:15.446Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-16T22:26:04.488Z",
+   "atualizadoEm": "2026-11-17T17:29:15.446Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-16T22:26:04.488Z",
+   "atualizadoEm": "2026-11-17T17:29:15.446Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
