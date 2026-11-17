@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-17T17:29:15.446Z",
+ "atualizadoEm": "2026-11-17T21:13:35.211Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-17T17:29:15.446Z",
+   "atualizadoEm": "2026-11-17T21:13:35.211Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -37,11 +37,11 @@
      ],
      "jantar": [
       "Arroz / feijão / arroz integral",
-      "Tiras de carne com molho roti",
-      "Opção: Moussaka de PVT",
+      "Tiras de carne com molho de cogumelos",
+      "Opção: Batata gratinada",
       "Cenoura com vagem",
-      "Salada de alface",
-      "Manga",
+      "Salada de escarola",
+      "Melão",
       "Minipão / refresco"
      ]
     },
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-17T17:29:15.446Z",
+   "atualizadoEm": "2026-11-17T21:13:35.211Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-17T17:29:15.446Z",
+   "atualizadoEm": "2026-11-17T21:13:35.211Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-17T17:29:15.446Z",
+   "atualizadoEm": "2026-11-17T21:13:35.211Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
