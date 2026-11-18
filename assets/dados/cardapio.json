@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-18T17:04:06.526Z",
+ "atualizadoEm": "2026-11-18T20:48:03.703Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-18T17:04:06.526Z",
+   "atualizadoEm": "2026-11-18T20:48:03.703Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -58,9 +58,9 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Filé de frango grelhado",
-      "Opção: Quibe de PVT",
-      "Berinjela à grega",
-      "Salada de escarola",
+      "Opção: PVT com vagem",
+      "Berinjela à pomodoro",
+      "Salada de almeirão",
       "Doce de leite",
       "Minipão / refresco"
      ]
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-18T17:04:06.526Z",
+   "atualizadoEm": "2026-11-18T20:48:03.703Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-18T17:04:06.526Z",
+   "atualizadoEm": "2026-11-18T20:48:03.703Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-18T17:04:06.526Z",
+   "atualizadoEm": "2026-11-18T20:48:03.703Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
