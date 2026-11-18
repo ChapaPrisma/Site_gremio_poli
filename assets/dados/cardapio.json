@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-17T21:13:35.211Z",
+ "atualizadoEm": "2026-11-18T17:04:06.526Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-17T21:13:35.211Z",
+   "atualizadoEm": "2026-11-18T17:04:06.526Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-17T21:13:35.211Z",
+   "atualizadoEm": "2026-11-18T17:04:06.526Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-17T21:13:35.211Z",
+   "atualizadoEm": "2026-11-18T17:04:06.526Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -215,9 +215,9 @@
      "almoco": [
       "Arroz / feijão preto / arroz integral",
       "Bife acebolado",
-      "Opção: Moqueca de grão-de-bico",
+      "Opção: Feijão branco com vinagrete",
       "Cenoura com vagem",
-      "Salada de escarola",
+      "Salada de alface e escarola",
       "Pudim de côco",
       "Minipão / refresco"
      ],
@@ -225,7 +225,7 @@
       "Arroz / feijão preto / arroz integral",
       "Filé de peito de frango com molho rosé",
       "Opção: Charuto de repolho com PVT",
-      "Purê de batata / purê de batata estrito",
+      "Purê de batata / purê de batata (VEGETAL)",
       "Salada de almeirão",
       "Banana",
       "Minipão / refresco"
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-17T21:13:35.211Z",
+   "atualizadoEm": "2026-11-18T17:04:06.526Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -312,7 +312,7 @@
      "almoco": [
       "Arroz / feijão / arroz integral",
       "Peixe à portuguesa",
-      "Opção: Omelete de queijo",
+      "Opção: Ovos mexidos",
       "Legumes refogados",
       "Salada de alface",
       "Maria mole",
