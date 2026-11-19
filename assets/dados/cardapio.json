@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-19T17:12:09.594Z",
+ "atualizadoEm": "2026-11-19T20:53:40.222Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-19T17:12:09.594Z",
+   "atualizadoEm": "2026-11-19T20:53:40.222Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -78,8 +78,8 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Filé de tilápia com molho à escabeche",
-      "Opção: Kafta de PVT",
-      "Purê de abóbora",
+      "Opção: Estrogonofe de PVT",
+      "Abóbora refogada",
       "Salada de almeirão",
       "Maçã",
       "Minipão / refresco"
@@ -104,7 +104,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-19T17:12:09.594Z",
+   "atualizadoEm": "2026-11-19T20:53:40.222Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -169,7 +169,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-19T17:12:09.594Z",
+   "atualizadoEm": "2026-11-19T20:53:40.222Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
@@ -266,7 +266,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-19T17:12:09.594Z",
+   "atualizadoEm": "2026-11-19T20:53:40.222Z",
    "dias": {
     "2026-11-16": {
      "almoco": [
