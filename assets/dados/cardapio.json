@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-23T19:58:42.301Z",
+ "atualizadoEm": "2026-11-24T19:26:02.067Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-23T19:58:42.301Z",
+   "atualizadoEm": "2026-11-24T19:26:02.067Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
@@ -30,18 +30,19 @@
       "Arroz colorido / feijão / arroz integral",
       "Lombo assado com molho de abacaxi",
       "Opção: Falafel",
-      "Nhoque com molho ao sugo",
+      "Macarrão com molho ao sugo",
       "Salada festiva",
       "Sorvete / uva",
-      "Minipão / refresco"
+      "Minipão / refresco",
+      "* Informamos que, lamentavelmente, por problemas com o fornecimento de nhoque, esse item foi substituído por macarrão com molho ao sugo."
      ],
      "jantar": [
       "Arroz / feijão / arroz integral",
-      "Almôndegas com molho de tomate",
-      "Opção: Fricassê de repolho",
+      "Frango empanado",
+      "Opção: PVT com legumes",
       "Chuchu refogado",
-      "Salada de almeirão",
-      "Laranja",
+      "Salada de alface",
+      "Manga",
       "Minipão / refresco"
      ]
     },
@@ -116,7 +117,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-23T19:58:42.301Z",
+   "atualizadoEm": "2026-11-24T19:26:02.067Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
@@ -134,7 +135,7 @@
      "almoco": [
       "Arroz / feijão / arroz integral",
       "Frango em tiras com molho rosé",
-      "Opção: Grão-de-bico com azeitonas",
+      "Opção: Lentilha com azeitonas",
       "Caponata de abobrinha",
       "Salada de alface",
       "Melancia",
@@ -189,7 +190,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-23T19:58:42.301Z",
+   "atualizadoEm": "2026-11-24T19:26:02.067Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
@@ -302,7 +303,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-23T19:58:42.301Z",
+   "atualizadoEm": "2026-11-24T19:26:02.067Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
@@ -338,7 +339,7 @@
       "Arroz / feijão / arroz integral",
       "Filé de coxa de frango assada",
       "Opção: Tomate recheado",
-      "Cenoura sauté",
+      "Seleta de legumes",
       "Salada de escarola",
       "Melancia",
       "Minipão / refresco"
