@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-24T19:26:02.067Z",
+ "atualizadoEm": "2026-11-25T18:32:20.562Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-24T19:26:02.067Z",
+   "atualizadoEm": "2026-11-25T18:32:20.562Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
@@ -52,17 +52,17 @@
       "Filé de tilápia com molho à escabeche",
       "Opção: Moussaka de PVT",
       "Jardineira de legumes",
-      "Salada de escarola",
-      "Melão",
+      "Salada de almeirão",
+      "Laranja",
       "Minipão / refresco"
      ],
      "jantar": [
       "Arroz / feijão / arroz integral",
-      "Frango assado",
+      "Almôndegas com molho americano",
       "Opção: Torta de PVT",
       "Abóbora refogada",
       "Salada de acelga",
-      "Cocada",
+      "Barra de cereal",
       "Minipão / refresco"
      ]
     },
@@ -117,7 +117,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-24T19:26:02.067Z",
+   "atualizadoEm": "2026-11-25T18:32:20.562Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
@@ -149,7 +149,7 @@
       "Lagarto com molho madeira",
       "Opção: PVT gratinado",
       "Batata corada",
-      "Salada de agrião",
+      "Salada de rúcula",
       "Gelatina de uva",
       "Minipão / refresco"
      ],
@@ -170,7 +170,7 @@
     "2026-11-27": {
      "almoco": [
       "Arroz / feijão / arroz integral",
-      "Bife de contrafilé acebolado",
+      "Contrafilé em tiras acebolado",
       "Opção: Canelone de PVT e escarola",
       "Legumes sauté",
       "Salada de almeirão",
@@ -190,7 +190,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-24T19:26:02.067Z",
+   "atualizadoEm": "2026-11-25T18:32:20.562Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
@@ -287,7 +287,7 @@
       "Hambúrguer à pizzaiolo",
       "Opção: PVT com couve",
       "Abobrinha refogada",
-      "Salada de alface",
+      "Salada de alface e escarola",
       "Doce de banana",
       "Minipão / refresco"
      ]
@@ -303,7 +303,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-24T19:26:02.067Z",
+   "atualizadoEm": "2026-11-25T18:32:20.562Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
