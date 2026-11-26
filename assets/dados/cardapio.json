@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-25T18:32:20.562Z",
+ "atualizadoEm": "2026-11-26T18:15:46.262Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-25T18:32:20.562Z",
+   "atualizadoEm": "2026-11-26T18:15:46.262Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
@@ -117,7 +117,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-25T18:32:20.562Z",
+   "atualizadoEm": "2026-11-26T18:15:46.262Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
@@ -190,7 +190,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-25T18:32:20.562Z",
+   "atualizadoEm": "2026-11-26T18:15:46.262Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
@@ -277,7 +277,7 @@
       "Arroz / feijão / arroz integral",
       "Sobrecoxa de frango assada",
       "Opção: Lentilha com champignon",
-      "Polenta",
+      "Abobrinha refogada",
       "Salada de almeirão",
       "Maçã",
       "Minipão / refresco"
@@ -285,8 +285,8 @@
      "jantar": [
       "Arroz / feijão / arroz integral",
       "Hambúrguer à pizzaiolo",
-      "Opção: PVT com couve",
-      "Abobrinha refogada",
+      "Opção: Quibe com PVT",
+      "Polenta",
       "Salada de alface e escarola",
       "Doce de banana",
       "Minipão / refresco"
@@ -303,7 +303,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-25T18:32:20.562Z",
+   "atualizadoEm": "2026-11-26T18:15:46.262Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
@@ -392,7 +392,7 @@
       "Opção: Torta madalena de PVT",
       "Quiabo refogado",
       "Salada de alface",
-      "Goiaba",
+      "Melancia",
       "Minipão / refresco"
      ],
      "jantar": [
@@ -429,7 +429,7 @@
      "almoco": [
       "Arroz / feijão / arroz integral",
       "Fricassé de frango",
-      "Opção: Fricassé de PVT",
+      "Opção: PVT com alho poró",
       "Escarola refogada",
       "Salada de tomate",
       "Melão",
