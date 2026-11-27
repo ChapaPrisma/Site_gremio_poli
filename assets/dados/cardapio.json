@@ -1,9 +1,9 @@
 {
- "atualizadoEm": "2026-11-27T17:58:04.835Z",
+ "atualizadoEm": "2026-11-27T21:32:33.869Z",
  "fonte": "Cardápio+ USP (uspdigital.usp.br/rucard)",
  "restaurantes": {
   "central": {
-   "atualizadoEm": "2026-11-27T17:58:04.835Z",
+   "atualizadoEm": "2026-11-27T21:32:33.869Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
@@ -98,9 +98,9 @@
      ],
      "jantar": [
       "Arroz / feijão / arroz integral",
-      "Tiras de frango com molho de mostarda",
-      "Opção: Escondidinho de shimeji",
-      "Cenoura sauté",
+      "Tiras de frango grelhadas",
+      "Opção: Escondidinho de abóbora com shimeji",
+      "Polenta",
       "Salada de escarola",
       "Barra de cereais",
       "Minipão / refresco"
@@ -117,7 +117,7 @@
    }
   },
   "prefeitura": {
-   "atualizadoEm": "2026-11-27T17:58:04.835Z",
+   "atualizadoEm": "2026-11-27T21:32:33.869Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
@@ -190,7 +190,7 @@
    }
   },
   "fisica": {
-   "atualizadoEm": "2026-11-27T17:58:04.835Z",
+   "atualizadoEm": "2026-11-27T21:32:33.869Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
@@ -303,7 +303,7 @@
    }
   },
   "quimica": {
-   "atualizadoEm": "2026-11-27T17:58:04.835Z",
+   "atualizadoEm": "2026-11-27T21:32:33.869Z",
    "dias": {
     "2026-11-23": {
      "almoco": [
